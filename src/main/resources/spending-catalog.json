@@ -1,0 +1,758 @@
+{
+  "sections": [
+    {
+      "id": "relationships",
+      "groupId": "relationships",
+      "groupTitle": "Отношения",
+      "title": "Отношения",
+      "heading": "Время вместе",
+      "description": "Проведи время с близкими.",
+      "confirm": "Оплатить",
+      "minAge": 6,
+      "actionTitle": null,
+      "summary": null,
+      "icon": null,
+      "items": [
+        {
+          "id": "meet",
+          "title": "Новые знакомства",
+          "icon": "👥",
+          "price": 3942,
+          "description": "Отношения +2 · Счастье +1",
+          "minAge": 6,
+          "effects": {
+            "relationships": 2,
+            "happiness": 1
+          }
+        },
+        {
+          "id": "dinner",
+          "title": "Ужин и подарки",
+          "icon": "🍴",
+          "price": 5912,
+          "description": "Отношения +4 · Счастье +2",
+          "minAge": 6,
+          "effects": {
+            "relationships": 4,
+            "happiness": 2
+          }
+        },
+        {
+          "id": "treat",
+          "title": "Угостить друзей",
+          "icon": "🎁",
+          "price": 4927,
+          "description": "Отношения +5",
+          "minAge": 6,
+          "effects": {
+            "relationships": 5
+          }
+        }
+      ]
+    },
+    {
+      "id": "property",
+      "groupId": "property",
+      "groupTitle": "Имущество",
+      "title": "Купить имущество",
+      "heading": "Что купить?",
+      "description": "Выбери покупку для своей жизни. Содержание может требовать расходов.",
+      "confirm": "Купить",
+      "minAge": 6,
+      "actionTitle": "Купить имущество",
+      "summary": "Улучшай своё имущество и покупай новое",
+      "icon": "💸",
+      "items": [
+        {
+          "id": "bicycle",
+          "title": "Велосипед",
+          "icon": "🚲",
+          "price": 6000,
+          "yearlyCost": 600,
+          "description": "Для прогулок и поездок.",
+          "minAge": 6,
+          "effects": {
+            "health": 2
+          }
+        },
+        {
+          "id": "laptop",
+          "title": "Ноутбук",
+          "icon": "💻",
+          "price": 24000,
+          "yearlyCost": 2400,
+          "description": "Для учёбы и работы.",
+          "minAge": 6,
+          "effects": {
+            "intelligence": 2
+          }
+        },
+        {
+          "id": "motorcycle",
+          "title": "Мотоцикл",
+          "icon": "🏍️",
+          "price": 33942,
+          "yearlyCost": 6400,
+          "description": "Личный транспорт. Доступен с 18 лет.",
+          "minAge": 18
+        },
+        {
+          "id": "house",
+          "title": "Загородный дом",
+          "icon": "🏡",
+          "price": 199854,
+          "yearlyCost": 23600,
+          "description": "Собственное жильё за городом.",
+          "minAge": 18,
+          "effects": {
+            "happiness": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "health",
+      "groupId": "health",
+      "groupTitle": "Здоровье",
+      "title": "Процедуры",
+      "heading": "Позаботься о себе",
+      "description": "Выбери процедуру, чтобы улучшить своё здоровье",
+      "confirm": "Записаться",
+      "minAge": 6,
+      "actionTitle": "Процедуры",
+      "summary": "Следи за своим здоровьем",
+      "icon": "❤️",
+      "items": [
+        {
+          "id": "checkup",
+          "title": "Осмотр врача",
+          "icon": "🩺",
+          "price": 1200,
+          "description": "Диагностика. Показатель здоровья не меняется.",
+          "minAge": 6
+        },
+        {
+          "id": "massage",
+          "title": "Тайский массаж",
+          "icon": "💆",
+          "price": 2400,
+          "description": "Здоровье +2",
+          "minAge": 6,
+          "effects": {
+            "health": 2
+          }
+        },
+        {
+          "id": "dentist",
+          "title": "Приём стоматолога",
+          "icon": "🦷",
+          "price": 3000,
+          "description": "Здоровье +1",
+          "minAge": 6,
+          "effects": {
+            "health": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "hobby",
+      "groupId": "hobby",
+      "groupTitle": "Хобби",
+      "title": "Новое увлечение",
+      "heading": "Время для увлечений",
+      "description": "Выбери занятие для свободного времени.",
+      "confirm": "Начать",
+      "minAge": 6,
+      "actionTitle": "Новое увлечение",
+      "summary": "Развивай свои увлечения",
+      "icon": "🎨",
+      "items": [
+        {
+          "id": "drawing",
+          "title": "Рисование",
+          "icon": "🎨",
+          "price": 1200,
+          "description": "Счастье +2 · Интеллект +1",
+          "minAge": 6,
+          "effects": {
+            "happiness": 2,
+            "intelligence": 1
+          }
+        },
+        {
+          "id": "music",
+          "title": "Музыка",
+          "icon": "🎵",
+          "price": 2400,
+          "description": "Счастье +3",
+          "minAge": 6,
+          "effects": {
+            "happiness": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "appearance",
+      "groupId": "appearance",
+      "groupTitle": "Внешность",
+      "title": "Услуги для внешности",
+      "heading": "Время для себя",
+      "description": "Выбери услугу, чтобы обновить свой образ",
+      "confirm": "Записаться",
+      "minAge": 6,
+      "actionTitle": "Записаться на услуги",
+      "summary": "Улучшай показатели своей внешности",
+      "icon": "🎀",
+      "items": [
+        {
+          "id": "haircut",
+          "title": "Стрижка и укладка",
+          "icon": "✂️",
+          "price": 1500,
+          "description": "Внешность +2",
+          "minAge": 6,
+          "effects": {
+            "appearance": 2
+          }
+        },
+        {
+          "id": "skin",
+          "title": "Уход за кожей",
+          "icon": "✨",
+          "price": 2000,
+          "description": "Внешность +3",
+          "minAge": 6,
+          "effects": {
+            "appearance": 3
+          }
+        },
+        {
+          "id": "manicure",
+          "title": "Маникюр",
+          "icon": "💅",
+          "price": 1200,
+          "description": "Внешность +1",
+          "minAge": 6,
+          "effects": {
+            "appearance": 1
+          }
+        },
+        {
+          "id": "wardrobe",
+          "title": "Подбор гардероба",
+          "icon": "🛍️",
+          "price": 4000,
+          "description": "Внешность +4",
+          "minAge": 6,
+          "effects": {
+            "appearance": 4
+          }
+        }
+      ]
+    },
+    {
+      "id": "pets",
+      "groupId": "pets",
+      "groupTitle": "Домашние животные",
+      "title": "Завести питомца",
+      "heading": "Новый друг",
+      "description": "Выбери нового друга. Уход оплачивается каждый год.",
+      "confirm": "Купить",
+      "minAge": 6,
+      "actionTitle": "Завести питомца",
+      "summary": null,
+      "icon": "🐾",
+      "items": [
+        {
+          "id": "dog",
+          "title": "Собака",
+          "icon": "🐶",
+          "price": 3000,
+          "yearlyCost": 7200,
+          "description": "Верный друг.",
+          "minAge": 6,
+          "effects": {
+            "happiness": 3
+          }
+        },
+        {
+          "id": "cat",
+          "title": "Кошка",
+          "icon": "🐈",
+          "price": 1500,
+          "yearlyCost": 3600,
+          "description": "Домашний друг.",
+          "minAge": 6,
+          "effects": {
+            "happiness": 3
+          }
+        },
+        {
+          "id": "parrot",
+          "title": "Попугай",
+          "icon": "🦜",
+          "price": 1200,
+          "yearlyCost": 2400,
+          "description": "Любопытный собеседник.",
+          "minAge": 6,
+          "effects": {
+            "happiness": 2
+          }
+        },
+        {
+          "id": "hamster",
+          "title": "Хомяк",
+          "icon": "🐹",
+          "price": 600,
+          "yearlyCost": 1200,
+          "description": "Маленький домашний друг.",
+          "minAge": 6,
+          "effects": {
+            "happiness": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "education",
+      "groupId": "education",
+      "groupTitle": "Курсы и обучение",
+      "title": "Профессиональное обучение",
+      "heading": "Новая профессия",
+      "description": "Выбери учебную программу и получи новые навыки.",
+      "confirm": "Начать обучение",
+      "minAge": 18,
+      "actionTitle": "Профессиональное обучение",
+      "summary": null,
+      "icon": "📘",
+      "items": [
+        {
+          "id": "repair",
+          "title": "Ремонт техники",
+          "icon": "🔧",
+          "price": 15800,
+          "durationMonths": 6,
+          "description": "Научишься обслуживать и ремонтировать бытовую технику.",
+          "minAge": 18
+        },
+        {
+          "id": "computers",
+          "title": "Офис и компьютеры",
+          "icon": "💻",
+          "price": 15800,
+          "durationMonths": 4,
+          "description": "Освоишь офисные программы и работу с компьютером.",
+          "minAge": 18
+        },
+        {
+          "id": "cooking",
+          "title": "Кулинария",
+          "icon": "🍽️",
+          "price": 15800,
+          "durationMonths": 6,
+          "description": "Научишься готовить и организовывать работу на кухне.",
+          "minAge": 18
+        },
+        {
+          "id": "care",
+          "title": "Уход за людьми",
+          "icon": "📘",
+          "price": 15800,
+          "durationMonths": 3,
+          "description": "Получишь базовые навыки ухода и помощи людям.",
+          "minAge": 18
+        }
+      ]
+    },
+    {
+      "id": "city",
+      "groupId": "moving",
+      "groupTitle": "Переезд",
+      "title": "Переехать в другой город",
+      "heading": "Новый город",
+      "description": "Выбери город для новой главы своей жизни.",
+      "confirm": "Переехать",
+      "minAge": 18,
+      "actionTitle": "Переехать в другой город",
+      "summary": null,
+      "icon": "🏠",
+      "items": [
+        {
+          "id": "tbilisi",
+          "title": "Тбилиси",
+          "icon": "🇬🇪",
+          "price": 3942,
+          "description": "Столица Грузии.",
+          "minAge": 18,
+          "location": {
+            "countryCode": "GE",
+            "country": "Грузия",
+            "city": "Тбилиси"
+          }
+        },
+        {
+          "id": "batumi",
+          "title": "Батуми",
+          "icon": "🇬🇪",
+          "price": 7942,
+          "description": "Город в Грузии.",
+          "minAge": 18,
+          "location": {
+            "countryCode": "GE",
+            "country": "Грузия",
+            "city": "Батуми"
+          }
+        },
+        {
+          "id": "rustavi",
+          "title": "Рустави",
+          "icon": "🇬🇪",
+          "price": 3942,
+          "description": "Город в Грузии.",
+          "minAge": 18,
+          "location": {
+            "countryCode": "GE",
+            "country": "Грузия",
+            "city": "Рустави"
+          }
+        },
+        {
+          "id": "gori",
+          "title": "Гори",
+          "icon": "🇬🇪",
+          "price": 942,
+          "description": "Город в Грузии.",
+          "minAge": 18,
+          "location": {
+            "countryCode": "GE",
+            "country": "Грузия",
+            "city": "Гори"
+          }
+        },
+        {
+          "id": "kobe",
+          "title": "Кобе",
+          "icon": "🇯🇵",
+          "price": 3942,
+          "description": "Город в префектуре Хёго.",
+          "minAge": 18,
+          "location": {
+            "countryCode": "JP",
+            "country": "Япония",
+            "city": "Кобе"
+          }
+        },
+        {
+          "id": "tokyo",
+          "title": "Токио",
+          "icon": "🇯🇵",
+          "price": 7942,
+          "description": "Столица Японии.",
+          "minAge": 18,
+          "location": {
+            "countryCode": "JP",
+            "country": "Япония",
+            "city": "Токио"
+          }
+        },
+        {
+          "id": "osaka",
+          "title": "Осака",
+          "icon": "🇯🇵",
+          "price": 3942,
+          "description": "Крупный город региона Кансай.",
+          "minAge": 18,
+          "location": {
+            "countryCode": "JP",
+            "country": "Япония",
+            "city": "Осака"
+          }
+        },
+        {
+          "id": "yerevan",
+          "title": "Ереван",
+          "icon": "🇦🇲",
+          "price": 3942,
+          "description": "Столица Армении.",
+          "minAge": 18,
+          "location": {
+            "countryCode": "AM",
+            "country": "Армения",
+            "city": "Ереван"
+          }
+        },
+        {
+          "id": "gyumri",
+          "title": "Гюмри",
+          "icon": "🇦🇲",
+          "price": 942,
+          "description": "Город на севере Армении.",
+          "minAge": 18,
+          "location": {
+            "countryCode": "AM",
+            "country": "Армения",
+            "city": "Гюмри"
+          }
+        },
+        {
+          "id": "belgrade",
+          "title": "Белград",
+          "icon": "🇷🇸",
+          "price": 3942,
+          "description": "Столица Сербии.",
+          "minAge": 18,
+          "location": {
+            "countryCode": "RS",
+            "country": "Сербия",
+            "city": "Белград"
+          }
+        },
+        {
+          "id": "novi-sad",
+          "title": "Нови-Сад",
+          "icon": "🇷🇸",
+          "price": 942,
+          "description": "Город на Дунае.",
+          "minAge": 18,
+          "location": {
+            "countryCode": "RS",
+            "country": "Сербия",
+            "city": "Нови-Сад"
+          }
+        },
+        {
+          "id": "ottawa",
+          "title": "Оттава",
+          "icon": "🇨🇦",
+          "price": 3942,
+          "description": "Столица Канады.",
+          "minAge": 18,
+          "location": {
+            "countryCode": "CA",
+            "country": "Канада",
+            "city": "Оттава"
+          }
+        },
+        {
+          "id": "toronto",
+          "title": "Торонто",
+          "icon": "🇨🇦",
+          "price": 7942,
+          "description": "Город в провинции Онтарио.",
+          "minAge": 18,
+          "location": {
+            "countryCode": "CA",
+            "country": "Канада",
+            "city": "Торонто"
+          }
+        },
+        {
+          "id": "delhi",
+          "title": "Нью-Дели",
+          "icon": "🇮🇳",
+          "price": 3942,
+          "description": "Столица Индии.",
+          "minAge": 18,
+          "location": {
+            "countryCode": "IN",
+            "country": "Индия",
+            "city": "Нью-Дели"
+          }
+        },
+        {
+          "id": "mumbai",
+          "title": "Мумбаи",
+          "icon": "🇮🇳",
+          "price": 7942,
+          "description": "Крупный город на западе Индии.",
+          "minAge": 18,
+          "location": {
+            "countryCode": "IN",
+            "country": "Индия",
+            "city": "Мумбаи"
+          }
+        },
+        {
+          "id": "beijing",
+          "title": "Пекин",
+          "icon": "🇨🇳",
+          "price": 3942,
+          "description": "Столица Китая.",
+          "minAge": 18,
+          "location": {
+            "countryCode": "CN",
+            "country": "Китай",
+            "city": "Пекин"
+          }
+        },
+        {
+          "id": "shanghai",
+          "title": "Шанхай",
+          "icon": "🇨🇳",
+          "price": 7942,
+          "description": "Город на востоке Китая.",
+          "minAge": 18,
+          "location": {
+            "countryCode": "CN",
+            "country": "Китай",
+            "city": "Шанхай"
+          }
+        },
+        {
+          "id": "seoul",
+          "title": "Сеул",
+          "icon": "🇰🇷",
+          "price": 3942,
+          "description": "Столица Южной Кореи.",
+          "minAge": 18,
+          "location": {
+            "countryCode": "KR",
+            "country": "Южная Корея",
+            "city": "Сеул"
+          }
+        },
+        {
+          "id": "busan",
+          "title": "Пусан",
+          "icon": "🇰🇷",
+          "price": 7942,
+          "description": "Город у моря.",
+          "minAge": 18,
+          "location": {
+            "countryCode": "KR",
+            "country": "Южная Корея",
+            "city": "Пусан"
+          }
+        },
+        {
+          "id": "ankara",
+          "title": "Анкара",
+          "icon": "🇹🇷",
+          "price": 3942,
+          "description": "Столица Турции.",
+          "minAge": 18,
+          "location": {
+            "countryCode": "TR",
+            "country": "Турция",
+            "city": "Анкара"
+          }
+        },
+        {
+          "id": "istanbul",
+          "title": "Стамбул",
+          "icon": "🇹🇷",
+          "price": 7942,
+          "description": "Город на двух континентах.",
+          "minAge": 18,
+          "location": {
+            "countryCode": "TR",
+            "country": "Турция",
+            "city": "Стамбул"
+          }
+        },
+        {
+          "id": "paris",
+          "title": "Париж",
+          "icon": "🇫🇷",
+          "price": 7942,
+          "description": "Столица Франции.",
+          "minAge": 18,
+          "location": {
+            "countryCode": "FR",
+            "country": "Франция",
+            "city": "Париж"
+          }
+        },
+        {
+          "id": "lyon",
+          "title": "Лион",
+          "icon": "🇫🇷",
+          "price": 3942,
+          "description": "Город на юго-востоке Франции.",
+          "minAge": 18,
+          "location": {
+            "countryCode": "FR",
+            "country": "Франция",
+            "city": "Лион"
+          }
+        }
+      ]
+    },
+    {
+      "id": "country",
+      "groupId": "moving",
+      "groupTitle": "Переезд",
+      "title": "Переехать в другую страну",
+      "heading": "Новая страна",
+      "description": "Выбери страну для новой главы своей жизни.",
+      "confirm": "Переехать",
+      "minAge": 18,
+      "actionTitle": "Переехать в другую страну",
+      "summary": null,
+      "icon": "🌍",
+      "items": [
+        {
+          "id": "georgia",
+          "title": "Грузия",
+          "icon": "🇬🇪",
+          "price": 3942,
+          "description": "Город — Тбилиси",
+          "location": {
+            "country": "Грузия",
+            "city": "Тбилиси",
+            "countryCode": "GE"
+          },
+          "minAge": 18
+        },
+        {
+          "id": "armenia",
+          "title": "Армения",
+          "icon": "🇦🇲",
+          "price": 4927,
+          "description": "Город — Ереван",
+          "location": {
+            "country": "Армения",
+            "city": "Ереван",
+            "countryCode": "AM"
+          },
+          "minAge": 18
+        },
+        {
+          "id": "serbia",
+          "title": "Сербия",
+          "icon": "🇷🇸",
+          "price": 7883,
+          "description": "Город — Белград",
+          "location": {
+            "country": "Сербия",
+            "city": "Белград",
+            "countryCode": "RS"
+          },
+          "minAge": 18
+        },
+        {
+          "id": "canada",
+          "title": "Канада",
+          "icon": "🇨🇦",
+          "price": 19700,
+          "description": "Город — Оттава",
+          "location": {
+            "country": "Канада",
+            "city": "Оттава",
+            "countryCode": "CA"
+          },
+          "minAge": 18
+        }
+      ]
+    }
+  ],
+  "petNames": [
+    "Василёк",
+    "Мико",
+    "Луна",
+    "Снежок",
+    "Персик"
+  ]
+}

@@ -1,0 +1,732 @@
+openapi: 3.1.0
+info:
+  title: Life Backend API
+  version: 0.5.0
+  description: Локальные сохранения и жизни, сгенерированные 1in8b Engine.
+servers:
+  - url: /
+security:
+  - guestCookie: []
+paths:
+  /api/v1/health:
+    get:
+      operationId: getHealth
+      security: []
+      responses:
+        '200':
+          description: HTTP-приложение отвечает
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [status]
+                properties:
+                  status: { const: UP }
+  /api/v1/guest:
+    post:
+      operationId: ensureGuest
+      security: []
+      description: Открывает гостевой доступ при отсутствии действующей cookie.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: object, maxProperties: 0 }
+      responses:
+        '204':
+          description: Гостевой доступ готов
+          headers:
+            Set-Cookie:
+              description: При создании гостя устанавливает life_owner на год.
+              schema: { type: string }
+  /api/v1/sessions:
+    get:
+      operationId: listSessions
+      responses:
+        '200':
+          description: Сохранения гостя от недавно обновлённых к более старым
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/SessionSummary' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+    post:
+      operationId: createSession
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CreateSession' }
+      responses:
+        '201':
+          description: Начато новое сохранение локального движка
+          headers:
+            Location:
+              schema: { type: string }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Session' }
+        '200': { $ref: '#/components/responses/Session' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /api/v1/sessions/generated:
+    post:
+      operationId: generateSession
+      description: Генерирует и сохраняет новорождённого через 1in8b Engine. Новая жизнь начинается с возраста 0 и без ожидающего решения.
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { type: object, maxProperties: 0 }
+      responses:
+        '201':
+          description: Сгенерирована новая жизнь
+          headers:
+            Location:
+              schema: { type: string }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Session' }
+        '200': { $ref: '#/components/responses/Session' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '429': { $ref: '#/components/responses/EngineLimit' }
+        '502': { $ref: '#/components/responses/EngineResponse' }
+        '503': { $ref: '#/components/responses/Unavailable' }
+  /api/v1/sessions/{sessionId}:
+    parameters:
+      - $ref: '#/components/parameters/SessionId'
+    get:
+      operationId: getSession
+      responses:
+        '200': { $ref: '#/components/responses/Session' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /api/v1/sessions/{sessionId}/character:
+    parameters:
+      - $ref: '#/components/parameters/SessionId'
+    patch:
+      operationId: editCharacter
+      description: Меняет указанные поля в существующем сохранении. Для local доступны имя, здоровье, интеллект и внешность. Для 1in8b доступны отображаемое имя и внешность приложения.
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/CharacterEdit' }
+      responses:
+        '200': { $ref: '#/components/responses/Session' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /api/v1/sessions/{sessionId}/finances:
+    parameters:
+      - $ref: '#/components/parameters/SessionId'
+    get:
+      operationId: getSessionFinances
+      description: Сводка бюджета, операции, покупки и категории вкладки. Для 1in8b возвращает доступные показатели и предложения из последнего сохранённого ответа движка.
+      responses:
+        '200':
+          description: Финансовые данные с актуальной версией сессии
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Finances' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /api/v1/sessions/{sessionId}/spending/{categoryId}:
+    parameters:
+      - $ref: '#/components/parameters/SessionId'
+      - name: categoryId
+        in: path
+        required: true
+        schema: { type: string }
+    get:
+      operationId: getSpendingCategory
+      description: Возвращает данные модального окна, предложения, цены, доступность и расчёт остатка для сохранённой версии.
+      responses:
+        '200':
+          description: Состояние окна выбора
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/SpendingShop' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+  /api/v1/sessions/{sessionId}/purchases:
+    parameters:
+      - $ref: '#/components/parameters/SessionId'
+    post:
+      operationId: buySpendingItem
+      description: Выполняет локальную покупку в текущем возрасте. Сумма, последствия и допустимость проверяются сервером. Для 1in8b возвращает SPENDING_READ_ONLY.
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/BuySpendingItem' }
+      responses:
+        '200': { $ref: '#/components/responses/Session' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+  /api/v1/sessions/{sessionId}/advance:
+    parameters:
+      - $ref: '#/components/parameters/SessionId'
+    post:
+      operationId: advanceYear
+      description: Продвигает жизнь до следующей границы года или решения и сохраняет результат. При ожидающем решении возвращает конфликт.
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/VersionedAction' }
+      responses:
+        '200': { $ref: '#/components/responses/Session' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '429': { $ref: '#/components/responses/EngineLimit' }
+        '502': { $ref: '#/components/responses/EngineResponse' }
+        '503': { $ref: '#/components/responses/Unavailable' }
+  /api/v1/sessions/{sessionId}/decisions/{decisionId}/answers:
+    parameters:
+      - $ref: '#/components/parameters/SessionId'
+      - name: decisionId
+        in: path
+        required: true
+        schema: { type: string }
+    post:
+      operationId: answerDecision
+      description: Применяет ответ на ожидающее решение и сохраняет результат. 1in8b Engine может одновременно продвинуть возраст.
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/AnswerDecision' }
+      responses:
+        '200': { $ref: '#/components/responses/Session' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '429': { $ref: '#/components/responses/EngineLimit' }
+        '502': { $ref: '#/components/responses/EngineResponse' }
+        '503': { $ref: '#/components/responses/Unavailable' }
+components:
+  securitySchemes:
+    guestCookie:
+      type: apiKey
+      in: cookie
+      name: life_owner
+  parameters:
+    SessionId:
+      name: sessionId
+      in: path
+      required: true
+      schema: { type: string, format: uuid }
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: true
+      description: UUID одной операции. При повторе с теми же параметрами сервер возвращает актуальное сохранение.
+      schema: { type: string, format: uuid }
+  responses:
+    Session:
+      description: Актуальное сохранение
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Session' }
+    BadRequest:
+      description: Некорректный запрос или неизвестный вариант ответа
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+    Unauthorized:
+      description: Требуется действующая гостевая cookie
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+    NotFound:
+      description: Сохранение недоступно текущему гостю
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+    Conflict:
+      description: Запрос конфликтует с состоянием сохранения или с ранее использованным ключом
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+    EngineLimit:
+      description: Исчерпан лимит вызовов или квота 1in8b Engine
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+    EngineResponse:
+      description: Поставщик вернул ответ, который backend не смог обработать.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+    Unavailable:
+      description: Поставщик сейчас недоступен, отсутствует ключ доступа или невозможно открыть токен жизни.
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+  schemas:
+    SpendingCurrency:
+      type: string
+      enum: [RUB, PPP_USD]
+      description: Игровые рубли локальной жизни или международные доллары по ППС для 1in8b. Все суммы в основных единицах указанной валюты.
+    FinanceVersion:
+      type: object
+      required: [version, age, currency]
+      properties:
+        version: { type: integer, format: int64, minimum: 1 }
+        age: { type: integer, minimum: 0 }
+        currency: { $ref: '#/components/schemas/SpendingCurrency' }
+    Finances:
+      allOf:
+        - { $ref: '#/components/schemas/FinanceVersion' }
+        - type: object
+          required: [summary, ledger, purchases, categories, location]
+          properties:
+            summary: { $ref: '#/components/schemas/FinanceSummary' }
+            ledger:
+              type: [array, 'null']
+              description: Новые операции идут первыми. null означает, что детализация недоступна.
+              items: { $ref: '#/components/schemas/FinanceTransaction' }
+            purchases:
+              type: [array, 'null']
+              description: Новые приобретения идут первыми. null означает, что детализация недоступна.
+              items: { $ref: '#/components/schemas/PurchasedItem' }
+            categories:
+              type: array
+              items: { $ref: '#/components/schemas/SpendingCategory' }
+            location:
+              anyOf:
+                - { $ref: '#/components/schemas/SpendingLocation' }
+                - { type: 'null' }
+    FinanceSummary:
+      type: object
+      required: [income, expenses, periodMonths, savings, debt, availableBalance, netWorth, occupation, depositRateBasisPoints, asOfAge]
+      properties:
+        income: { type: [number, 'null'] }
+        expenses: { type: [number, 'null'] }
+        periodMonths:
+          type: [integer, 'null']
+          description: Для local доходы и расходы за последние 12 игровых месяцев. null означает, что период поставщика не указан.
+        savings: { type: [number, 'null'] }
+        debt: { type: [number, 'null'] }
+        availableBalance: { type: [number, 'null'] }
+        netWorth:
+          type: [number, 'null']
+          description: Чистая стоимость имущества из 1in8b. Хранится отдельно от доступного остатка.
+        occupation: { type: [string, 'null'] }
+        depositRateBasisPoints:
+          type: [integer, 'null']
+          description: 100 базисных пунктов соответствуют 1% годовых в локальном игровом бюджете.
+        asOfAge:
+          type: [integer, 'null']
+          description: Возраст, к которому относится сводка. Снимок 1in8b может быть старше текущего состояния.
+    FinanceTransaction:
+      type: object
+      required: [id, month, kind, title, income, expense]
+      properties:
+        id: { type: string }
+        month:
+          type: integer
+          minimum: 0
+          description: Игровой месяц с рождения. Для отображения возраста делите на 12.
+        kind: { type: string, enum: [BUDGET, PURCHASE, UPKEEP, INTEREST] }
+        title: { type: string }
+        income: { type: number, minimum: 0 }
+        expense: { type: number, minimum: 0 }
+    PurchasedItem:
+      type: object
+      required: [id, month, categoryId, itemId, title, icon, price, yearlyCost, durationMonths, petName, status, location]
+      properties:
+        id: { type: string, format: uuid }
+        month: { type: integer, minimum: 0 }
+        categoryId: { type: string }
+        itemId: { type: string }
+        title: { type: string }
+        icon: { type: [string, 'null'] }
+        price: { type: number, minimum: 0 }
+        yearlyCost: { type: [number, 'null'], minimum: 0 }
+        durationMonths: { type: [integer, 'null'], minimum: 1 }
+        petName: { type: [string, 'null'] }
+        status: { type: string, enum: [PURCHASED, IN_PROGRESS, COMPLETED] }
+        location:
+          anyOf:
+            - { $ref: '#/components/schemas/SpendingLocation' }
+            - { type: 'null' }
+    SpendingCategory:
+      type: object
+      required: [id, groupId, groupTitle, title, actionTitle, description, icon, minAge, priceFrom, actions]
+      properties:
+        id:
+          type: string
+          enum: [relationships, property, health, hobby, appearance, pets, education, city, country, provider]
+        groupId:
+          type: string
+          description: city и country имеют общий groupId moving.
+        groupTitle: { type: string }
+        title: { type: string }
+        actionTitle: { type: [string, 'null'] }
+        description: { type: [string, 'null'] }
+        icon: { type: [string, 'null'] }
+        minAge: { type: [integer, 'null'], minimum: 0 }
+        priceFrom: { type: [number, 'null'], minimum: 0 }
+        actions:
+          type: array
+          description: Предложения, отображаемые прямо на вкладке. Заполнено для отношений.
+          items: { $ref: '#/components/schemas/SpendingOffer' }
+    SpendingShop:
+      allOf:
+        - { $ref: '#/components/schemas/FinanceVersion' }
+        - type: object
+          required: [category, heading, description, confirmLabel, availableBalance, stats, suggestedPetNames, offers]
+          properties:
+            category: { $ref: '#/components/schemas/SpendingCategory' }
+            heading: { type: string }
+            description: { type: string }
+            confirmLabel: { type: [string, 'null'] }
+            availableBalance: { type: [number, 'null'] }
+            stats: { $ref: '#/components/schemas/Stats' }
+            suggestedPetNames:
+              type: array
+              items: { type: string }
+            offers:
+              type: array
+              items: { $ref: '#/components/schemas/SpendingOffer' }
+    SpendingOffer:
+      type: object
+      required: [id, title, description, icon, price, yearlyCost, durationMonths, minAge, effects, location, purchasable, unavailableReason, balanceAfterPurchase]
+      properties:
+        id: { type: string }
+        title: { type: string }
+        description: { type: [string, 'null'] }
+        icon: { type: [string, 'null'] }
+        price: { type: number, minimum: 0 }
+        yearlyCost: { type: [number, 'null'], minimum: 0 }
+        durationMonths: { type: [integer, 'null'], minimum: 1 }
+        minAge: { type: [integer, 'null'], minimum: 0 }
+        effects:
+          type: [object, 'null']
+          description: Изменения характеристик при покупке. Эффект завершения обучения применяется после курса.
+          properties:
+            health: { type: [integer, 'null'] }
+            happiness: { type: [integer, 'null'] }
+            intelligence: { type: [integer, 'null'] }
+            relationships: { type: [integer, 'null'] }
+            appearance: { type: [integer, 'null'] }
+        location:
+          anyOf:
+            - { $ref: '#/components/schemas/SpendingLocation' }
+            - { type: 'null' }
+        purchasable: { type: boolean }
+        unavailableReason: { type: [string, 'null'] }
+        balanceAfterPurchase:
+          type: [number, 'null']
+          minimum: 0
+          description: Остаток после вычитания цены. null при недоступном балансе или нехватке средств. Допустимость покупки проверяйте отдельно по purchasable.
+    SpendingLocation:
+      type: object
+      required: [countryCode, country, city]
+      properties:
+        countryCode: { type: string, pattern: '^[A-Z]{2}$' }
+        country: { type: string }
+        city: { type: [string, 'null'] }
+    BuySpendingItem:
+      type: object
+      additionalProperties: false
+      required: [expectedVersion, categoryId, itemId]
+      properties:
+        expectedVersion: { type: integer, format: int64, minimum: 1 }
+        categoryId: { type: string, minLength: 1, maxLength: 40 }
+        itemId: { type: string, minLength: 1, maxLength: 80 }
+        petName:
+          type: [string, 'null']
+          maxLength: 40
+          description: Непустая кличка обязательна для pets. В остальных категориях поле пропускается или передаётся null.
+    CreateSession:
+      type: object
+      required: [character, startingStats]
+      properties:
+        character: { $ref: '#/components/schemas/Character' }
+        startingStats: { $ref: '#/components/schemas/StartingStats' }
+    Character:
+      type: object
+      required: [name, gender, birthYear, birthplace]
+      properties:
+        name: { type: string, minLength: 1, maxLength: 100 }
+        gender: { type: string, minLength: 1, maxLength: 50 }
+        birthYear: { type: integer, minimum: 1, maximum: 9999 }
+        birthplace:
+          type: object
+          required: [countryCode, country]
+          properties:
+            countryCode: { type: string, pattern: '^[A-Z]{2}$' }
+            country: { type: string, minLength: 1, maxLength: 100 }
+            region: { type: [string, 'null'], maxLength: 100 }
+            city: { type: [string, 'null'], maxLength: 100 }
+        background:
+          anyOf:
+            - { $ref: '#/components/schemas/Background' }
+            - { type: 'null' }
+    SessionCharacter:
+      allOf:
+        - { $ref: '#/components/schemas/Character' }
+        - type: object
+          properties:
+            birthDetails:
+              description: Снимок при рождении из 1in8b. У старых сохранений и ручных анкет поле равно null.
+              anyOf:
+                - { $ref: '#/components/schemas/BirthDetails' }
+                - { type: 'null' }
+    BirthDetails:
+      type: object
+      description: Значения на момент рождения. Отдельные поля могут быть null, когда поставщик их не вернул.
+      properties:
+        placeType:
+          type: [string, 'null']
+          enum: [URBAN, RURAL, null]
+          description: Городская или сельская местность. Название города хранится в character.birthplace.city.
+        familyType:
+          type: [string, 'null']
+          enum: [MOTHER_AND_FATHER, TWO_MOTHERS, TWO_FATHERS, null]
+        olderSiblingCount: { $ref: '#/components/schemas/OptionalCount' }
+        familyIncomeQuintile:
+          type: [integer, 'null']
+          minimum: 1
+          maximum: 5
+          description: Доходная группа семьи в стране, от самой низкой (1) до самой высокой (5).
+        fatherPresent: { type: [boolean, 'null'] }
+        mother:
+          anyOf:
+            - { $ref: '#/components/schemas/ParentAtBirth' }
+            - { type: 'null' }
+        father:
+          anyOf:
+            - { $ref: '#/components/schemas/ParentAtBirth' }
+            - { type: 'null' }
+        siblings:
+          type: [array, 'null']
+          items:
+            type: object
+            properties:
+              age: { $ref: '#/components/schemas/OptionalCount' }
+              sex: { type: [string, 'null'], enum: [FEMALE, MALE, null] }
+              older: { type: [boolean, 'null'] }
+              livesWithChild: { type: [boolean, 'null'] }
+        household:
+          type: [object, 'null']
+          properties:
+            size: { $ref: '#/components/schemas/OptionalCount' }
+            mother: { type: [boolean, 'null'] }
+            father: { type: [boolean, 'null'] }
+            stepfather: { type: [boolean, 'null'] }
+            partner: { type: [boolean, 'null'] }
+            otherSpouse: { type: [boolean, 'null'] }
+            siblings: { $ref: '#/components/schemas/OptionalCount' }
+            children: { $ref: '#/components/schemas/OptionalCount' }
+            stepchildren: { $ref: '#/components/schemas/OptionalCount' }
+        homeOwned:
+          type: [boolean, 'null']
+          description: Признак собственного жилья. Значение false не определяет тип пользования жильём.
+        electricityAtHome: { type: [boolean, 'null'] }
+        faithCode:
+          type: [string, 'null']
+          description: Код вероисповедания. Готовая подпись доступна в character.background.religion.
+        group:
+          anyOf:
+            - { $ref: '#/components/schemas/BirthCategory' }
+            - { type: 'null' }
+        caste:
+          anyOf:
+            - { $ref: '#/components/schemas/BirthCategory' }
+            - { type: 'null' }
+        disabilityCodes:
+          type: [array, 'null']
+          items: { type: string }
+    ParentAtBirth:
+      type: object
+      properties:
+        age: { $ref: '#/components/schemas/OptionalCount' }
+        occupation:
+          type: [object, 'null']
+          required: [code, label]
+          properties:
+            code: { type: string }
+            label:
+              type: [string, 'null']
+              description: Название по-русски, если оно доступно. Код остаётся доступен при отсутствии названия.
+        alive: { type: [boolean, 'null'] }
+        livesWithChild: { type: [boolean, 'null'] }
+    BirthCategory:
+      type: object
+      required: [code, name]
+      properties:
+        code: { type: string }
+        name: { type: [string, 'null'] }
+    OptionalCount:
+      type: [integer, 'null']
+      minimum: 0
+    Background:
+      type: object
+      properties:
+        family: { $ref: '#/components/schemas/OptionalLabel' }
+        siblings: { $ref: '#/components/schemas/OptionalLabel' }
+        pets: { $ref: '#/components/schemas/OptionalLabel' }
+        housing: { $ref: '#/components/schemas/OptionalLabel' }
+        relationships: { $ref: '#/components/schemas/OptionalLabel' }
+        father: { $ref: '#/components/schemas/OptionalLabel' }
+        mother: { $ref: '#/components/schemas/OptionalLabel' }
+        wealth: { $ref: '#/components/schemas/OptionalLabel' }
+        religion: { $ref: '#/components/schemas/OptionalLabel' }
+        language: { $ref: '#/components/schemas/OptionalLabel' }
+    OptionalLabel:
+      type: [string, 'null']
+      maxLength: 120
+    Score:
+      type: integer
+      minimum: 0
+      maximum: 100
+    StartingStats:
+      type: object
+      required: [health, intelligence, appearance]
+      properties:
+        health: { $ref: '#/components/schemas/Score' }
+        intelligence: { $ref: '#/components/schemas/Score' }
+        appearance: { $ref: '#/components/schemas/Score' }
+    Stats:
+      type: object
+      required: [health, happiness, intelligence, relationships, appearance, aura]
+      properties:
+        health: { $ref: '#/components/schemas/Score' }
+        happiness: { $ref: '#/components/schemas/Score' }
+        intelligence: { $ref: '#/components/schemas/Score' }
+        relationships: { $ref: '#/components/schemas/Score' }
+        appearance:
+          type: [integer, 'null']
+          minimum: 0
+          maximum: 100
+          description: Для 1in8b равно null, пока игрок не задаст внешность в приложении.
+        aura:
+          type: [integer, 'null']
+          minimum: -100
+          maximum: 100
+          description: Отсутствует у жизни, созданной 1in8b Engine.
+    Provider:
+      type: string
+      enum: [local, 1in8b]
+    Decision:
+      type: object
+      required: [id, title, options]
+      properties:
+        id: { type: string }
+        title: { type: string }
+        options:
+          type: array
+          items:
+            type: object
+            required: [id, label]
+            properties:
+              id: { type: string, maxLength: 80 }
+              label: { type: string }
+    HistoryEvent:
+      type: object
+      required: [id, age, title, text]
+      properties:
+        id: { type: string }
+        age: { type: integer, minimum: 0 }
+        title: { type: string }
+        text: { type: string }
+    SessionSummary:
+      type: object
+      required: [id, name, age, status, savedAt, provider]
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        age: { type: integer, minimum: 0 }
+        status: { type: string, enum: [ACTIVE, COMPLETE] }
+        savedAt: { type: string, format: date-time }
+        provider: { $ref: '#/components/schemas/Provider' }
+    Session:
+      type: object
+      required: [id, character, version, savedAt, state, provider]
+      properties:
+        id: { type: string, format: uuid }
+        character: { $ref: '#/components/schemas/SessionCharacter' }
+        version: { type: integer, format: int64, minimum: 1 }
+        savedAt: { type: string, format: date-time }
+        provider: { $ref: '#/components/schemas/Provider' }
+        state:
+          type: object
+          required: [age, status, stats, pendingDecision, history]
+          properties:
+            age: { type: integer, minimum: 0 }
+            status: { type: string, enum: [ACTIVE, COMPLETE] }
+            stats: { $ref: '#/components/schemas/Stats' }
+            pendingDecision:
+              anyOf:
+                - { $ref: '#/components/schemas/Decision' }
+                - { type: 'null' }
+            history:
+              type: array
+              description: События от старых к новым.
+              items: { $ref: '#/components/schemas/HistoryEvent' }
+    VersionedAction:
+      type: object
+      required: [expectedVersion]
+      properties:
+        expectedVersion: { type: integer, format: int64, minimum: 1 }
+    CharacterEdit:
+      allOf:
+        - { $ref: '#/components/schemas/VersionedAction' }
+        - type: object
+          required: [changes]
+          properties:
+            changes:
+              type: object
+              additionalProperties: false
+              description: Передайте хотя бы одно новое значение. Пропущенные поля сохраняются.
+              properties:
+                name: { type: string, minLength: 1, maxLength: 100 }
+                stats:
+                  type: object
+                  additionalProperties: false
+                  properties:
+                    health: { $ref: '#/components/schemas/Score' }
+                    intelligence: { $ref: '#/components/schemas/Score' }
+                    appearance: { $ref: '#/components/schemas/Score' }
+    AnswerDecision:
+      allOf:
+        - { $ref: '#/components/schemas/VersionedAction' }
+        - type: object
+          required: [optionId]
+          properties:
+            optionId: { type: string, minLength: 1, maxLength: 80 }
+    Error:
+      type: object
+      required: [code, message]
+      properties:
+        code: { type: string }
+        message: { type: string }
