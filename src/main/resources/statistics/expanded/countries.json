@@ -1,0 +1,747 @@
+[
+  {
+    "iso3": "JPN",
+    "iso2": "JP",
+    "name": "Japan",
+    "births": 745943,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 85.1467,
+    "underFiveProbability": 0.0021989,
+    "gdpPerCapitaUsd": 35215.003535366,
+    "currency": "JPY",
+    "languages": [
+      {
+        "code": "ja",
+        "percent": 95,
+        "status": "official"
+      },
+      {
+        "code": "ko",
+        "percent": 0.52,
+        "status": null
+      },
+      {
+        "code": "ryu",
+        "percent": 0.77,
+        "status": null
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 2.24963
+      },
+      {
+        "code": "Muslims",
+        "percent": 0.16997
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 57.45617
+      },
+      {
+        "code": "Buddhists",
+        "percent": 37.20561
+      },
+      {
+        "code": "Hindus",
+        "percent": 0.03174
+      },
+      {
+        "code": "Jews",
+        "percent": 0.00138
+      },
+      {
+        "code": "Other religions",
+        "percent": 2.88551
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023
+  },
+  {
+    "iso3": "IND",
+    "iso2": "IN",
+    "name": "India",
+    "births": 22988461,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 72.7164,
+    "underFiveProbability": 0.026064900000000002,
+    "gdpPerCapitaUsd": 2434.44826340989,
+    "currency": "INR",
+    "languages": [
+      {
+        "code": "as",
+        "percent": 1.3,
+        "status": "official_regional"
+      },
+      {
+        "code": "awa",
+        "percent": 1.9,
+        "status": null
+      },
+      {
+        "code": "bfq",
+        "percent": 0.023,
+        "status": null
+      },
+      {
+        "code": "bft",
+        "percent": 0.0062,
+        "status": null
+      },
+      {
+        "code": "bfy",
+        "percent": 0.037,
+        "status": null
+      },
+      {
+        "code": "bgc",
+        "percent": 1.2,
+        "status": null
+      },
+      {
+        "code": "bhb",
+        "percent": 0.12,
+        "status": null
+      },
+      {
+        "code": "bhi",
+        "percent": 0.092,
+        "status": null
+      },
+      {
+        "code": "bho",
+        "percent": 2.3,
+        "status": null
+      },
+      {
+        "code": "bjj",
+        "percent": 0.56,
+        "status": null
+      },
+      {
+        "code": "bn",
+        "percent": 8.1,
+        "status": "official_regional"
+      },
+      {
+        "code": "bo",
+        "percent": 0.011,
+        "status": null
+      },
+      {
+        "code": "bpy",
+        "percent": 0.0068,
+        "status": null
+      },
+      {
+        "code": "bra",
+        "percent": 0.0041,
+        "status": null
+      },
+      {
+        "code": "brx",
+        "percent": 0.14,
+        "status": null
+      },
+      {
+        "code": "btv",
+        "percent": 0.0026,
+        "status": null
+      },
+      {
+        "code": "ccp",
+        "percent": 0.028,
+        "status": null
+      },
+      {
+        "code": "dcc",
+        "percent": 0.99,
+        "status": null
+      },
+      {
+        "code": "doi",
+        "percent": 0.2,
+        "status": null
+      },
+      {
+        "code": "dv",
+        "percent": 0.0003,
+        "status": null
+      },
+      {
+        "code": "dz",
+        "percent": 0.0002,
+        "status": null
+      },
+      {
+        "code": "en",
+        "percent": 19,
+        "status": "official"
+      },
+      {
+        "code": "gbm",
+        "percent": 0.27,
+        "status": null
+      },
+      {
+        "code": "gon",
+        "percent": 0.24,
+        "status": null
+      },
+      {
+        "code": "grt",
+        "percent": 0.053,
+        "status": null
+      },
+      {
+        "code": "gu",
+        "percent": 4.5,
+        "status": "official_regional"
+      },
+      {
+        "code": "hi",
+        "percent": 41,
+        "status": "official"
+      },
+      {
+        "code": "hi_Latn",
+        "percent": 0.1,
+        "status": null
+      },
+      {
+        "code": "hne",
+        "percent": 1.1,
+        "status": null
+      },
+      {
+        "code": "hoc",
+        "percent": 0.099,
+        "status": null
+      },
+      {
+        "code": "hoj",
+        "percent": 0.082,
+        "status": null
+      },
+      {
+        "code": "kfr",
+        "percent": 0.075,
+        "status": null
+      },
+      {
+        "code": "kfy",
+        "percent": 0.22,
+        "status": null
+      },
+      {
+        "code": "kha",
+        "percent": 0.08,
+        "status": "official_regional"
+      },
+      {
+        "code": "khn",
+        "percent": 0.15,
+        "status": null
+      },
+      {
+        "code": "kht",
+        "percent": 0.0006,
+        "status": null
+      },
+      {
+        "code": "kn",
+        "percent": 3.7,
+        "status": "official_regional"
+      },
+      {
+        "code": "knn",
+        "percent": 0.37,
+        "status": null
+      },
+      {
+        "code": "kok",
+        "percent": 0.32,
+        "status": "official_regional"
+      },
+      {
+        "code": "kru",
+        "percent": 0.19,
+        "status": null
+      },
+      {
+        "code": "ks",
+        "percent": 0.41,
+        "status": "official_regional"
+      },
+      {
+        "code": "kxv",
+        "percent": 0.0029,
+        "status": null
+      },
+      {
+        "code": "lah",
+        "percent": 0.0025,
+        "status": null
+      },
+      {
+        "code": "lep",
+        "percent": 0.0035,
+        "status": null
+      },
+      {
+        "code": "lif",
+        "percent": 0.0026,
+        "status": null
+      },
+      {
+        "code": "lmn",
+        "percent": 0.27,
+        "status": null
+      },
+      {
+        "code": "mag",
+        "percent": 1.2,
+        "status": null
+      },
+      {
+        "code": "mai",
+        "percent": 1.2,
+        "status": "official_regional"
+      },
+      {
+        "code": "ml",
+        "percent": 3.2,
+        "status": "official_regional"
+      },
+      {
+        "code": "mni",
+        "percent": 0.11,
+        "status": null
+      },
+      {
+        "code": "mr",
+        "percent": 7,
+        "status": "official_regional"
+      },
+      {
+        "code": "mtr",
+        "percent": 0.097,
+        "status": null
+      },
+      {
+        "code": "mwr",
+        "percent": 1.2,
+        "status": null
+      },
+      {
+        "code": "ne",
+        "percent": 0.56,
+        "status": "official_regional"
+      },
+      {
+        "code": "njo",
+        "percent": 0.023,
+        "status": null
+      },
+      {
+        "code": "noe",
+        "percent": 0.13,
+        "status": null
+      },
+      {
+        "code": "or",
+        "percent": 3.2,
+        "status": "official_regional"
+      },
+      {
+        "code": "pa",
+        "percent": 2.8,
+        "status": "official_regional"
+      },
+      {
+        "code": "pi_Deva",
+        "percent": 0,
+        "status": null
+      },
+      {
+        "code": "raj",
+        "percent": 0.1,
+        "status": null
+      },
+      {
+        "code": "ria",
+        "percent": 0.013,
+        "status": null
+      },
+      {
+        "code": "rkt",
+        "percent": 0.43,
+        "status": null
+      },
+      {
+        "code": "sa",
+        "percent": 0.0012,
+        "status": "official_regional"
+      },
+      {
+        "code": "sat",
+        "percent": 0.55,
+        "status": "official_regional"
+      },
+      {
+        "code": "saz",
+        "percent": 0.029,
+        "status": null
+      },
+      {
+        "code": "sck",
+        "percent": 0.18,
+        "status": null
+      },
+      {
+        "code": "sd",
+        "percent": 0.26,
+        "status": "official_regional"
+      },
+      {
+        "code": "sd_Deva",
+        "percent": 0.14,
+        "status": "official_regional"
+      },
+      {
+        "code": "srx",
+        "percent": 0.035,
+        "status": null
+      },
+      {
+        "code": "swv",
+        "percent": 0.28,
+        "status": null
+      },
+      {
+        "code": "ta",
+        "percent": 5.9,
+        "status": "official_regional"
+      },
+      {
+        "code": "tcy",
+        "percent": 0.15,
+        "status": null
+      },
+      {
+        "code": "te",
+        "percent": 7.2,
+        "status": "official_regional"
+      },
+      {
+        "code": "unr",
+        "percent": 0.094,
+        "status": null
+      },
+      {
+        "code": "unx",
+        "percent": 0.048,
+        "status": null
+      },
+      {
+        "code": "ur",
+        "percent": 5,
+        "status": "official_regional"
+      },
+      {
+        "code": "wbq",
+        "percent": 0.18,
+        "status": null
+      },
+      {
+        "code": "wbr",
+        "percent": 0.15,
+        "status": null
+      },
+      {
+        "code": "wtm",
+        "percent": 0.46,
+        "status": null
+      },
+      {
+        "code": "xnr",
+        "percent": 0.16,
+        "status": null
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 2.21462
+      },
+      {
+        "code": "Muslims",
+        "percent": 15.19002
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 0.00326
+      },
+      {
+        "code": "Buddhists",
+        "percent": 0.68066
+      },
+      {
+        "code": "Hindus",
+        "percent": 79.36619
+      },
+      {
+        "code": "Jews",
+        "percent": 0.0003
+      },
+      {
+        "code": "Other religions",
+        "percent": 2.54495
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023
+  },
+  {
+    "iso3": "RUS",
+    "iso2": "RU",
+    "name": "Russian Federation",
+    "births": 1213374,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 73.7023,
+    "underFiveProbability": 0.0048595,
+    "gdpPerCapitaUsd": 13986.9951171875,
+    "currency": "RUB",
+    "languages": [
+      {
+        "code": "abq",
+        "percent": 0.021,
+        "status": null
+      },
+      {
+        "code": "ady",
+        "percent": 0.088,
+        "status": "official_regional"
+      },
+      {
+        "code": "alt",
+        "percent": 0.014,
+        "status": null
+      },
+      {
+        "code": "av",
+        "percent": 0.39,
+        "status": "official_regional"
+      },
+      {
+        "code": "az_Cyrl",
+        "percent": 0.093,
+        "status": "official_regional"
+      },
+      {
+        "code": "ba",
+        "percent": 1.3,
+        "status": "official_regional"
+      },
+      {
+        "code": "bua",
+        "percent": 0.22,
+        "status": "official_regional"
+      },
+      {
+        "code": "ce",
+        "percent": 0.66,
+        "status": "official_regional"
+      },
+      {
+        "code": "chm",
+        "percent": 0.37,
+        "status": null
+      },
+      {
+        "code": "cu",
+        "percent": 0,
+        "status": null
+      },
+      {
+        "code": "cv",
+        "percent": 1.3,
+        "status": null
+      },
+      {
+        "code": "dar",
+        "percent": 0.26,
+        "status": null
+      },
+      {
+        "code": "fi",
+        "percent": 0.012,
+        "status": null
+      },
+      {
+        "code": "hy",
+        "percent": 0.84,
+        "status": null
+      },
+      {
+        "code": "inh",
+        "percent": 0.16,
+        "status": "official_regional"
+      },
+      {
+        "code": "izh",
+        "percent": 0.0001,
+        "status": null
+      },
+      {
+        "code": "kaa",
+        "percent": 0.0006,
+        "status": null
+      },
+      {
+        "code": "kbd",
+        "percent": 0.31,
+        "status": "official_regional"
+      },
+      {
+        "code": "koi",
+        "percent": 0.045,
+        "status": "official_regional"
+      },
+      {
+        "code": "krc",
+        "percent": 0.17,
+        "status": "official_regional"
+      },
+      {
+        "code": "krl",
+        "percent": 0.082,
+        "status": null
+      },
+      {
+        "code": "kum",
+        "percent": 0.2,
+        "status": "official_regional"
+      },
+      {
+        "code": "kv",
+        "percent": 0.18,
+        "status": "official_regional"
+      },
+      {
+        "code": "lbe",
+        "percent": 0.078,
+        "status": "official_regional"
+      },
+      {
+        "code": "lez",
+        "percent": 0.18,
+        "status": "official_regional"
+      },
+      {
+        "code": "mdf",
+        "percent": 0.21,
+        "status": "official_regional"
+      },
+      {
+        "code": "mn",
+        "percent": 0.0015,
+        "status": null
+      },
+      {
+        "code": "mrj",
+        "percent": 0.021,
+        "status": null
+      },
+      {
+        "code": "myv",
+        "percent": 0.31,
+        "status": "official_regional"
+      },
+      {
+        "code": "os",
+        "percent": 0.32,
+        "status": null
+      },
+      {
+        "code": "pnt_Cyrl",
+        "percent": 0.04,
+        "status": null
+      },
+      {
+        "code": "ru",
+        "percent": 94,
+        "status": "official"
+      },
+      {
+        "code": "sah",
+        "percent": 0.32,
+        "status": "official_regional"
+      },
+      {
+        "code": "sr",
+        "percent": 0.0041,
+        "status": null
+      },
+      {
+        "code": "tt",
+        "percent": 1.4,
+        "status": "official_regional"
+      },
+      {
+        "code": "tyv",
+        "percent": 0.13,
+        "status": "official_regional"
+      },
+      {
+        "code": "udm",
+        "percent": 0.38,
+        "status": "official_regional"
+      },
+      {
+        "code": "vep",
+        "percent": 0.0026,
+        "status": null
+      },
+      {
+        "code": "vot",
+        "percent": 0,
+        "status": null
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 69.92578
+      },
+      {
+        "code": "Muslims",
+        "percent": 8.19301
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 20.19824
+      },
+      {
+        "code": "Buddhists",
+        "percent": 0.35244
+      },
+      {
+        "code": "Hindus",
+        "percent": 0.07124
+      },
+      {
+        "code": "Jews",
+        "percent": 0.08405
+      },
+      {
+        "code": "Other religions",
+        "percent": 1.17523
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023
+  }
+]

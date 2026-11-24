@@ -1,0 +1,1942 @@
+[
+  {
+    "id": "comfort",
+    "minMonth": 2,
+    "maxMonth": 35,
+    "cooldownMonths": 24,
+    "weight": 4,
+    "participantRole": "mother",
+    "title": "Рядом с мамой",
+    "text": "{person} замечает твоё беспокойство и остаётся рядом. Ты постепенно успокаиваешься.",
+    "effect": {
+      "happiness": 2,
+      "closeness": 2
+    }
+  },
+  {
+    "id": "sounds",
+    "minMonth": 2,
+    "maxMonth": 18,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": "father",
+    "title": "Знакомый голос",
+    "text": "{person} повторяет знакомые звуки. Ты начинаешь отвечать и прислушиваться.",
+    "effect": {
+      "intelligence": 1,
+      "closeness": 1,
+      "skill": "speech",
+      "skillDelta": 1
+    }
+  },
+  {
+    "id": "movement",
+    "minMonth": 6,
+    "maxMonth": 24,
+    "cooldownMonths": 24,
+    "weight": 4,
+    "title": "Новые движения",
+    "text": "Ты пробуешь дотянуться до игрушки самостоятельно. После нескольких попыток движение получается увереннее.",
+    "effect": {
+      "health": 1,
+      "skill": "coordination",
+      "skillDelta": 2
+    }
+  },
+  {
+    "id": "words",
+    "minMonth": 12,
+    "maxMonth": 35,
+    "cooldownMonths": 24,
+    "weight": 4,
+    "participantRole": "mother",
+    "title": "Учимся понимать друг друга",
+    "text": "{person} называет предметы вокруг. Ты связываешь знакомые слова с вещами.",
+    "effect": {
+      "intelligence": 1,
+      "skill": "speech",
+      "skillDelta": 2,
+      "closeness": 1
+    }
+  },
+  {
+    "id": "first_walk",
+    "minMonth": 14,
+    "maxMonth": 24,
+    "once": true,
+    "weight": 10,
+    "title": "Самостоятельные шаги",
+    "text": "Ты проходишь несколько шагов без поддержки. Семья радуется твоей настойчивости.",
+    "effect": {
+      "happiness": 2,
+      "skill": "coordination",
+      "skillDelta": 3,
+      "addFlag": "walking"
+    }
+  },
+  {
+    "id": "outdoor",
+    "minMonth": 14,
+    "maxMonth": 2147483647,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "title": "Прогулка",
+    "text": "Выйдя на свежий воздух, ты наблюдаешь за тем, что происходит вокруг. После прогулки становится спокойнее.",
+    "effect": {
+      "health": 1,
+      "happiness": 1
+    }
+  },
+  {
+    "id": "urban_sounds",
+    "minMonth": 8,
+    "maxMonth": 83,
+    "cooldownMonths": 24,
+    "weight": 2,
+    "requiredFlag": "urban",
+    "title": "Город вокруг",
+    "text": "На прогулке ты замечаешь звуки транспорта и движение людей. Знакомый маршрут становится понятнее.",
+    "effect": {
+      "skill": "observation",
+      "skillDelta": 1
+    }
+  },
+  {
+    "id": "rural_nature",
+    "minMonth": 8,
+    "maxMonth": 83,
+    "cooldownMonths": 24,
+    "weight": 2,
+    "requiredFlag": "rural",
+    "title": "Перемены в природе",
+    "text": "Ты замечаешь, как меняются растения возле дома, и начинаешь узнавать знакомые места.",
+    "effect": {
+      "skill": "observation",
+      "skillDelta": 1
+    }
+  },
+  {
+    "id": "story",
+    "minMonth": 18,
+    "maxMonth": 83,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": "father",
+    "title": "Общая история",
+    "text": "{person} рассказывает историю и отвечает на твои вопросы. Разговор помогает вам лучше понимать друг друга.",
+    "effect": {
+      "intelligence": 1,
+      "closeness": 2,
+      "skill": "speech",
+      "skillDelta": 1
+    }
+  },
+  {
+    "id": "puzzle",
+    "minMonth": 24,
+    "maxMonth": 83,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "title": "Задача с деталями",
+    "text": "Сначала детали не подходят друг к другу. Ты меняешь порядок и находишь решение.",
+    "effect": {
+      "intelligence": 2,
+      "skill": "reasoning",
+      "skillDelta": 2
+    }
+  },
+  {
+    "id": "drawing_choice",
+    "minMonth": 38,
+    "maxMonth": 72,
+    "once": true,
+    "weight": 40,
+    "participantRole": "mother",
+    "title": "Попробовать рисование?",
+    "text": "{person} предлагает вместе порисовать. Ты можешь попробовать или выбрать другую игру.",
+    "options": [
+      {
+        "id": "draw",
+        "label": "Попробовать рисовать",
+        "text": "Ты выбираешь краски. Мама помогает подготовить место, и вы договариваетесь вернуться к рисунку.",
+        "effect": {
+          "skill": "drawing",
+          "skillDelta": 3,
+          "closeness": 2,
+          "addFlag": "drawing_interest",
+          "followUp": "drawing_return",
+          "delayMonths": 2
+        }
+      },
+      {
+        "id": "blocks",
+        "label": "Поиграть с конструктором",
+        "text": "Ты выбираешь конструктор и пробуешь сделать устойчивую башню.",
+        "effect": {
+          "skill": "reasoning",
+          "skillDelta": 3,
+          "addFlag": "construction_interest",
+          "followUp": "construction_return",
+          "delayMonths": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "drawing_return",
+    "minMonth": 38,
+    "maxMonth": 2147483647,
+    "once": true,
+    "weight": 1,
+    "followUpOnly": true,
+    "requiredFlag": "drawing_interest",
+    "participantRole": "mother",
+    "title": "Возвращение к рисунку",
+    "text": "{person} сохраняет твой прошлый рисунок. Вы возвращаетесь к начатому занятию, и новая попытка даётся легче.",
+    "effect": {
+      "happiness": 3,
+      "skill": "drawing",
+      "skillDelta": 2,
+      "closeness": 2
+    }
+  },
+  {
+    "id": "construction_return",
+    "minMonth": 38,
+    "maxMonth": 2147483647,
+    "once": true,
+    "weight": 1,
+    "followUpOnly": true,
+    "requiredFlag": "construction_interest",
+    "title": "Устойчивая конструкция",
+    "text": "Вспомнив прежнюю башню, ты делаешь основание шире. Опыт предыдущей попытки помогает довести работу до конца.",
+    "effect": {
+      "intelligence": 2,
+      "skill": "reasoning",
+      "skillDelta": 2
+    }
+  },
+  {
+    "id": "drawing_practice",
+    "minMonth": 40,
+    "maxMonth": 2147483647,
+    "cooldownMonths": 24,
+    "weight": 5,
+    "requiredFlag": "drawing_interest",
+    "title": "Рисование становится привычкой",
+    "text": "Ты находишь время для рисунка. Знакомые движения получаются увереннее.",
+    "effect": {
+      "skill": "drawing",
+      "skillDelta": 2,
+      "happiness": 1
+    }
+  },
+  {
+    "id": "construction_practice",
+    "minMonth": 40,
+    "maxMonth": 2147483647,
+    "cooldownMonths": 24,
+    "weight": 5,
+    "requiredFlag": "construction_interest",
+    "title": "От идеи к конструкции",
+    "text": "Ты пробуешь собрать задуманную вещь и используешь опыт прежних занятий.",
+    "effect": {
+      "skill": "reasoning",
+      "skillDelta": 2,
+      "intelligence": 1
+    }
+  },
+  {
+    "id": "help_choice",
+    "minMonth": 50,
+    "maxMonth": 83,
+    "once": true,
+    "weight": 15,
+    "participantRole": "father",
+    "title": "Помочь с домашним делом?",
+    "text": "{person} предлагает выполнить небольшое домашнее дело вместе.",
+    "options": [
+      {
+        "id": "help",
+        "label": "Помочь",
+        "text": "Вы делите работу на простые части и заканчиваете её вместе. Папа благодарит тебя за помощь.",
+        "effect": {
+          "closeness": 4,
+          "skill": "responsibility",
+          "skillDelta": 2,
+          "addFlag": "family_helper",
+          "followUp": "trusted_task",
+          "delayMonths": 4,
+          "aura": 2
+        }
+      },
+      {
+        "id": "rest",
+        "label": "Сказать, что хочется отдохнуть",
+        "text": "Ты объясняешь, что сейчас хочется отдохнуть. Вы договариваетесь вернуться к общим делам позже.",
+        "effect": {
+          "happiness": 2
+        }
+      },
+      {
+        "id": "promise_without_help",
+        "label": "Пообещать и уйти играть",
+        "text": "Ты обещаешь помочь, но уходишь играть. {person} заканчивает дело в одиночку и меньше доверяет твоим обещаниям.",
+        "effect": {
+          "closeness": -4,
+          "aura": -2
+        }
+      }
+    ]
+  },
+  {
+    "id": "trusted_task",
+    "minMonth": 50,
+    "maxMonth": 2147483647,
+    "once": true,
+    "weight": 1,
+    "followUpOnly": true,
+    "requiredFlag": "family_helper",
+    "participantRole": "father",
+    "title": "Тебе доверяют",
+    "text": "{person} помнит твою помощь и доверяет тебе небольшую самостоятельную часть общего дела.",
+    "effect": {
+      "closeness": 2,
+      "skill": "responsibility",
+      "skillDelta": 3
+    }
+  },
+  {
+    "id": "letters",
+    "minMonth": 60,
+    "maxMonth": 95,
+    "cooldownMonths": 24,
+    "weight": 4,
+    "title": "Знакомые буквы",
+    "text": "Ты узнаёшь буквы в знакомых словах и пытаешься прочитать короткую надпись.",
+    "effect": {
+      "skill": "reading",
+      "skillDelta": 2,
+      "intelligence": 1
+    }
+  },
+  {
+    "id": "quiet_day",
+    "minMonth": 14,
+    "maxMonth": 2147483647,
+    "cooldownMonths": 24,
+    "weight": 1,
+    "title": "Спокойный день",
+    "text": "Привычные дела проходят без спешки. У тебя появляется время отдохнуть.",
+    "effect": {
+      "happiness": 1
+    }
+  },
+  {
+    "id": "learning",
+    "minMonth": 84,
+    "maxMonth": 2147483647,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "title": "Разобраться в новом",
+    "text": "Ты возвращаешься к тому, что раньше было непонятно, и разбираешь задачу по частям.",
+    "effect": {
+      "intelligence": 1,
+      "skill": "reasoning",
+      "skillDelta": 1
+    }
+  },
+  {
+    "id": "share_drawing",
+    "minMonth": 42,
+    "maxMonth": 2147483647,
+    "once": true,
+    "weight": 8,
+    "requiredSkill": "drawing",
+    "minSkill": 7,
+    "participantRole": "mother",
+    "minCloseness": 70,
+    "title": "Показать свою работу",
+    "text": "После прежних занятий тебе хочется показать новый рисунок. {person} внимательно слушает твой рассказ и радуется твоим успехам.",
+    "effect": {
+      "happiness": 3,
+      "closeness": 2,
+      "addFlag": "shared_first_drawing"
+    }
+  },
+  {
+    "id": "baby_light",
+    "minMonth": 2,
+    "maxMonth": 12,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Свет у окна",
+    "text": "Ты следишь за пятном света на стене. Постепенно взгляд задерживается на нём дольше.",
+    "effect": {
+      "skill": "observation",
+      "skillDelta": 1
+    },
+    "variants": []
+  },
+  {
+    "id": "baby_grasp",
+    "minMonth": 2,
+    "maxMonth": 12,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Пальцы и ладонь",
+    "text": "В ладонь попадает мягкая игрушка. Ты удерживаешь её чуть дольше, чем раньше.",
+    "effect": {
+      "skill": "coordination",
+      "skillDelta": 1
+    },
+    "variants": []
+  },
+  {
+    "id": "baby_music",
+    "minMonth": 2,
+    "maxMonth": 12,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Тихая мелодия",
+    "text": "В комнате звучит спокойная мелодия. Ты прислушиваешься и постепенно успокаиваешься.",
+    "effect": {
+      "happiness": 2
+    },
+    "variants": []
+  },
+  {
+    "id": "baby_faces",
+    "minMonth": 2,
+    "maxMonth": 12,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Узнавание лиц",
+    "text": "Знакомое лицо вызывает улыбку. Тебе становится легче отличать близких от незнакомых.",
+    "effect": {
+      "skill": "observation",
+      "skillDelta": 1
+    },
+    "variants": []
+  },
+  {
+    "id": "baby_sleep",
+    "minMonth": 2,
+    "maxMonth": 12,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Ритм сна",
+    "text": "После беспокойного дня сон оказывается спокойнее. Утром у тебя больше сил.",
+    "effect": {
+      "health": 1
+    },
+    "variants": []
+  },
+  {
+    "id": "baby_touch",
+    "minMonth": 2,
+    "maxMonth": 12,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Мягкое и гладкое",
+    "text": "Пальцы касаются разных поверхностей. Ты задерживаешь ладонь на мягкой ткани.",
+    "effect": {
+      "skill": "observation",
+      "skillDelta": 1
+    },
+    "variants": []
+  },
+  {
+    "id": "baby_rattle",
+    "minMonth": 2,
+    "maxMonth": 12,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Откуда звук?",
+    "text": "Погремушка звенит сбоку. Ты поворачиваешь голову и ищешь источник звука.",
+    "effect": {
+      "skill": "coordination",
+      "skillDelta": 1
+    },
+    "variants": []
+  },
+  {
+    "id": "baby_air",
+    "minMonth": 2,
+    "maxMonth": 12,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Первый ветер",
+    "text": "Во время прогулки лёгкий ветер касается лица. Ты замираешь, прислушиваясь к новому ощущению.",
+    "effect": {
+      "happiness": 1
+    },
+    "variants": []
+  },
+  {
+    "id": "baby_routine",
+    "minMonth": 2,
+    "maxMonth": 12,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Знакомый порядок",
+    "text": "После кормления приходит время отдыха. Повторяющийся порядок помогает успокоиться.",
+    "effect": {
+      "happiness": 1
+    },
+    "variants": []
+  },
+  {
+    "id": "baby_smile",
+    "minMonth": 2,
+    "maxMonth": 12,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Ответная улыбка",
+    "text": "На твою улыбку отвечают улыбкой. Общение становится понятнее без слов.",
+    "effect": {
+      "happiness": 1
+    },
+    "variants": []
+  },
+  {
+    "id": "toddler_stack",
+    "minMonth": 14,
+    "maxMonth": 35,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Башня из кубиков",
+    "text": "Ты ставишь один кубик на другой. После падения пробуешь более широкое основание.",
+    "effect": {
+      "skill": "coordination",
+      "skillDelta": 2
+    },
+    "variants": []
+  },
+  {
+    "id": "toddler_spoon",
+    "minMonth": 14,
+    "maxMonth": 35,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Ложка в руке",
+    "text": "Часть еды оказывается мимо, но ты пробуешь пользоваться ложкой самостоятельно.",
+    "effect": {
+      "skill": "coordination",
+      "skillDelta": 2
+    },
+    "variants": []
+  },
+  {
+    "id": "toddler_hide",
+    "minMonth": 14,
+    "maxMonth": 35,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Игрушка под платком",
+    "text": "Ты находишь спрятанную игрушку и начинаешь понимать, что она не исчезла.",
+    "effect": {
+      "skill": "reasoning",
+      "skillDelta": 2
+    },
+    "variants": []
+  },
+  {
+    "id": "toddler_colors",
+    "minMonth": 14,
+    "maxMonth": 35,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Разные цвета",
+    "text": "Ты раскладываешь яркие предметы и замечаешь сходство их цветов.",
+    "effect": {
+      "skill": "observation",
+      "skillDelta": 2
+    },
+    "variants": []
+  },
+  {
+    "id": "toddler_water",
+    "minMonth": 14,
+    "maxMonth": 35,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Капли воды",
+    "text": "Вода переливается из маленькой чашки. Ты наблюдаешь за движением капель.",
+    "effect": {
+      "skill": "observation",
+      "skillDelta": 2
+    },
+    "variants": []
+  },
+  {
+    "id": "toddler_shoes",
+    "minMonth": 14,
+    "maxMonth": 35,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Обувь для прогулки",
+    "text": "Ты приносишь обувь, когда собираетесь гулять. Знакомые слова связываются с действиями.",
+    "effect": {
+      "skill": "speech",
+      "skillDelta": 2
+    },
+    "variants": []
+  },
+  {
+    "id": "toddler_song",
+    "minMonth": 14,
+    "maxMonth": 35,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Повторить припев",
+    "text": "Ты подхватываешь отдельные звуки знакомой песни. С каждым разом их становится больше.",
+    "effect": {
+      "skill": "speech",
+      "skillDelta": 2
+    },
+    "variants": []
+  },
+  {
+    "id": "toddler_steps",
+    "minMonth": 14,
+    "maxMonth": 35,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Ступенька",
+    "text": "Держась за опору, ты преодолеваешь невысокую ступеньку. Движения становятся увереннее.",
+    "effect": {
+      "skill": "coordination",
+      "skillDelta": 2
+    },
+    "variants": []
+  },
+  {
+    "id": "toddler_names",
+    "minMonth": 14,
+    "maxMonth": 35,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Название вещи",
+    "text": "Ты показываешь на предмет и пытаешься назвать его. Тебя понимают с первой попытки.",
+    "effect": {
+      "skill": "speech",
+      "skillDelta": 2
+    },
+    "variants": []
+  },
+  {
+    "id": "toddler_sort",
+    "minMonth": 14,
+    "maxMonth": 35,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Большое и маленькое",
+    "text": "Ты замечаешь, что крупный предмет не помещается в маленькую коробку.",
+    "effect": {
+      "skill": "reasoning",
+      "skillDelta": 2
+    },
+    "variants": []
+  },
+  {
+    "id": "toddler_book",
+    "minMonth": 14,
+    "maxMonth": 35,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Картинки на странице",
+    "text": "Ты узнаёшь знакомый предмет на картинке и задерживаешься на этой странице.",
+    "effect": {
+      "skill": "observation",
+      "skillDelta": 2
+    },
+    "variants": []
+  },
+  {
+    "id": "toddler_greeting",
+    "minMonth": 14,
+    "maxMonth": 35,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Помахать на прощание",
+    "text": "Ты повторяешь знакомый жест и замечаешь ответную улыбку.",
+    "effect": {
+      "skill": "speech",
+      "skillDelta": 2
+    },
+    "variants": []
+  },
+  {
+    "id": "toddler_balance",
+    "minMonth": 14,
+    "maxMonth": 35,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Удержать равновесие",
+    "text": "На неровной дорожке ты замедляешь шаг и находишь устойчивое положение.",
+    "effect": {
+      "skill": "coordination",
+      "skillDelta": 2
+    },
+    "variants": []
+  },
+  {
+    "id": "toddler_request",
+    "minMonth": 14,
+    "maxMonth": 35,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Попросить о помощи",
+    "text": "Ты находишь способ объяснить, что нужна помощь. Тебе становится спокойнее.",
+    "effect": {
+      "skill": "speech",
+      "skillDelta": 2
+    },
+    "variants": []
+  },
+  {
+    "id": "child_shapes",
+    "minMonth": 36,
+    "maxMonth": 83,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Фигуры из бумаги",
+    "text": "Ты сравниваешь формы и подбираешь подходящий кусочек для общей картинки.",
+    "effect": {
+      "skill": "reasoning",
+      "skillDelta": 2,
+      "intelligence": 1
+    },
+    "variants": []
+  },
+  {
+    "id": "child_rhythm",
+    "minMonth": 36,
+    "maxMonth": 83,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Повторить ритм",
+    "text": "Ты отбиваешь короткий ритм и замечаешь, где сбиваешься. Следующая попытка получается точнее.",
+    "effect": {
+      "skill": "coordination",
+      "skillDelta": 2,
+      "intelligence": 1
+    },
+    "variants": []
+  },
+  {
+    "id": "child_weather",
+    "minMonth": 36,
+    "maxMonth": 83,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Следы дождя",
+    "text": "После дождя на знакомой дорожке появляются лужи. Ты замечаешь, какие высыхают быстрее.",
+    "effect": {
+      "skill": "observation",
+      "skillDelta": 2,
+      "intelligence": 1
+    },
+    "variants": []
+  },
+  {
+    "id": "child_count",
+    "minMonth": 36,
+    "maxMonth": 83,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Хватит ли всем?",
+    "text": "Раскладывая предметы, ты проверяешь, достанется ли каждому по одному.",
+    "effect": {
+      "skill": "reasoning",
+      "skillDelta": 2,
+      "intelligence": 1
+    },
+    "variants": []
+  },
+  {
+    "id": "child_story",
+    "minMonth": 36,
+    "maxMonth": 83,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Придуманное окончание",
+    "text": "Ты придумываешь окончание знакомой сказки и объясняешь, почему выбрал именно его.",
+    "effect": {
+      "skill": "speech",
+      "skillDelta": 2,
+      "intelligence": 1
+    },
+    "variants": []
+  },
+  {
+    "id": "child_knot",
+    "minMonth": 36,
+    "maxMonth": 83,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Сложная застёжка",
+    "text": "Ты несколько раз пробуешь справиться с застёжкой. Постепенно движения становятся точнее.",
+    "effect": {
+      "skill": "coordination",
+      "skillDelta": 2,
+      "intelligence": 1
+    },
+    "variants": []
+  },
+  {
+    "id": "child_map",
+    "minMonth": 36,
+    "maxMonth": 83,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Знакомый маршрут",
+    "text": "Ты вспоминаешь последовательность поворотов на привычной дороге.",
+    "effect": {
+      "skill": "observation",
+      "skillDelta": 2,
+      "intelligence": 1
+    },
+    "variants": []
+  },
+  {
+    "id": "child_rules",
+    "minMonth": 36,
+    "maxMonth": 83,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Правила игры",
+    "text": "Ты осваиваешь новую игру и замечаешь, как правила помогают играть вместе.",
+    "effect": {
+      "skill": "reasoning",
+      "skillDelta": 2,
+      "intelligence": 1
+    },
+    "variants": []
+  },
+  {
+    "id": "child_clay",
+    "minMonth": 36,
+    "maxMonth": 83,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Фигура из мягкого материала",
+    "text": "Задуманная форма сначала распадается. Ты укрепляешь основание и пробуешь снова.",
+    "effect": {
+      "skill": "coordination",
+      "skillDelta": 2,
+      "intelligence": 1
+    },
+    "variants": []
+  },
+  {
+    "id": "child_shadow",
+    "minMonth": 36,
+    "maxMonth": 83,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Тень на стене",
+    "text": "Меняя положение руки, ты наблюдаешь, как меняется тень.",
+    "effect": {
+      "skill": "observation",
+      "skillDelta": 2,
+      "intelligence": 1
+    },
+    "variants": []
+  },
+  {
+    "id": "child_memory",
+    "minMonth": 36,
+    "maxMonth": 83,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Что изменилось?",
+    "text": "Ты замечаешь переставленный предмет и вспоминаешь, где он стоял раньше.",
+    "effect": {
+      "skill": "observation",
+      "skillDelta": 2,
+      "intelligence": 1
+    },
+    "variants": []
+  },
+  {
+    "id": "child_question",
+    "minMonth": 36,
+    "maxMonth": 83,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Длинный вопрос",
+    "text": "Ты пытаешься объяснить, что именно тебя удивило. Подбирая слова, находишь более точный вопрос.",
+    "effect": {
+      "skill": "speech",
+      "skillDelta": 2,
+      "intelligence": 1
+    },
+    "variants": []
+  },
+  {
+    "id": "child_sequence",
+    "minMonth": 36,
+    "maxMonth": 83,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Сначала и потом",
+    "text": "Ты расставляешь картинки в последовательность и пересказываешь получившуюся историю.",
+    "effect": {
+      "skill": "reasoning",
+      "skillDelta": 2,
+      "intelligence": 1
+    },
+    "variants": []
+  },
+  {
+    "id": "child_patience",
+    "minMonth": 36,
+    "maxMonth": 83,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Дождаться результата",
+    "text": "Начатое дело требует нескольких попыток. Ты возвращаешься к нему после короткого отдыха.",
+    "effect": {
+      "skill": "responsibility",
+      "skillDelta": 2,
+      "intelligence": 1
+    },
+    "variants": []
+  },
+  {
+    "id": "truth_choice",
+    "minMonth": 38,
+    "maxMonth": 155,
+    "cooldownMonths": 24,
+    "weight": 5,
+    "participantRole": "mother",
+    "title": "Признаться в ошибке?",
+    "text": "{person} замечает сломанную вещь. Ты знаешь, как это произошло.",
+    "options": [
+      {
+        "id": "admit",
+        "label": "Рассказать правду",
+        "text": "Ты объясняешь, что произошло. {person} огорчается из-за вещи, но ценит твою честность.",
+        "effect": {
+          "aura": 3,
+          "closeness": 3,
+          "skill": "responsibility",
+          "skillDelta": 2
+        }
+      },
+      {
+        "id": "repair",
+        "label": "Признаться и помочь исправить",
+        "text": "Ты признаёшь ошибку и предлагаешь помощь. Вы вместе разбираетесь, что можно исправить.",
+        "effect": {
+          "aura": 4,
+          "closeness": 4,
+          "skill": "reasoning",
+          "skillDelta": 2
+        }
+      },
+      {
+        "id": "hide",
+        "label": "Скрыть свой поступок",
+        "text": "Ты скрываешь случившееся. Позже {person} замечает несоответствие в рассказе и меньше доверяет тебе.",
+        "effect": {
+          "aura": -3,
+          "closeness": -4
+        }
+      }
+    ]
+  },
+  {
+    "id": "listen_choice",
+    "minMonth": 38,
+    "maxMonth": 155,
+    "cooldownMonths": 24,
+    "weight": 5,
+    "participantRole": "father",
+    "title": "Выслушать близкого?",
+    "text": "{person} хочет поговорить с тобой, но тебе хочется продолжить игру.",
+    "options": [
+      {
+        "id": "listen",
+        "label": "Выслушать",
+        "text": "Ты откладываешь игру и слушаешь. {person} чувствует твоё внимание.",
+        "effect": {
+          "aura": 2,
+          "closeness": 3
+        }
+      },
+      {
+        "id": "later",
+        "label": "Договориться поговорить позже",
+        "text": "Ты просишь немного времени и затем возвращаешься к разговору.",
+        "effect": {
+          "closeness": 1,
+          "skill": "responsibility",
+          "skillDelta": 1
+        }
+      },
+      {
+        "id": "rude",
+        "label": "Грубо прервать",
+        "text": "Ты резко обрываешь разговор. {person} замыкается, и общаться становится труднее.",
+        "effect": {
+          "aura": -2,
+          "closeness": -3
+        }
+      }
+    ]
+  },
+  {
+    "id": "shared_game",
+    "minMonth": 38,
+    "maxMonth": 155,
+    "cooldownMonths": 24,
+    "weight": 5,
+    "participantRole": null,
+    "title": "Как поступить в общей игре?",
+    "text": "Другой ребёнок хочет присоединиться к игре. Нужно решить, как распределить игрушки.",
+    "options": [
+      {
+        "id": "share",
+        "label": "Поделиться игрушками",
+        "text": "Ты находишь игрушку для нового участника. Игра продолжается вместе.",
+        "effect": {
+          "aura": 2,
+          "happiness": 2
+        }
+      },
+      {
+        "id": "turns",
+        "label": "Предложить играть по очереди",
+        "text": "Вы договариваетесь об очереди. Это помогает избежать спора.",
+        "effect": {
+          "aura": 1,
+          "skill": "reasoning",
+          "skillDelta": 2
+        }
+      },
+      {
+        "id": "push",
+        "label": "Оттолкнуть участника",
+        "text": "Ты отталкиваешь другого ребёнка. Игра заканчивается ссорой.",
+        "effect": {
+          "aura": -3,
+          "happiness": -2
+        }
+      }
+    ]
+  },
+  {
+    "id": "care_choice",
+    "minMonth": 38,
+    "maxMonth": 155,
+    "cooldownMonths": 24,
+    "weight": 5,
+    "participantRole": "mother",
+    "title": "Помочь уставшему родителю?",
+    "text": "{person} устал после повседневных дел. Рядом осталось небольшое дело, с которым ты можешь справиться.",
+    "options": [
+      {
+        "id": "help",
+        "label": "Помочь по силам",
+        "text": "Ты берёшь посильную часть дела. {person} благодарит тебя за заботу.",
+        "effect": {
+          "aura": 2,
+          "closeness": 4,
+          "skill": "responsibility",
+          "skillDelta": 2
+        }
+      },
+      {
+        "id": "ask",
+        "label": "Спросить, что нужно",
+        "text": "Ты спрашиваешь, какая помощь будет полезна. Вы договариваетесь.",
+        "effect": {
+          "aura": 1,
+          "closeness": 2
+        }
+      },
+      {
+        "id": "ignore",
+        "label": "Потребовать внимания только к себе",
+        "text": "Ты настаиваешь на своём и не замечаешь усталости. Общение становится напряжённее.",
+        "effect": {
+          "aura": -2,
+          "closeness": -3
+        }
+      }
+    ]
+  },
+  {
+    "id": "brother_share",
+    "minMonth": 38,
+    "maxMonth": 155,
+    "cooldownMonths": 24,
+    "weight": 5,
+    "participantRole": "brother",
+    "title": "Разделить занятие с братом?",
+    "text": "{person} просит присоединиться к твоему занятию.",
+    "options": [
+      {
+        "id": "together",
+        "label": "Попробовать вместе",
+        "text": "Ты показываешь, что уже умеешь. Совместное дело сближает вас.",
+        "effect": {
+          "aura": 2,
+          "closeness": 4
+        }
+      },
+      {
+        "id": "later",
+        "label": "Договориться о времени",
+        "text": "Ты объясняешь, что хочешь закончить свою часть, и договариваешься о времени.",
+        "effect": {
+          "closeness": 1
+        }
+      },
+      {
+        "id": "mock",
+        "label": "Высмеять его попытку",
+        "text": "Ты высмеиваешь попытку. {person} обижается и отходит.",
+        "effect": {
+          "aura": -3,
+          "closeness": -5
+        }
+      }
+    ]
+  },
+  {
+    "id": "sister_share",
+    "minMonth": 38,
+    "maxMonth": 155,
+    "cooldownMonths": 24,
+    "weight": 5,
+    "participantRole": "sister",
+    "title": "Разделить занятие с сестрой?",
+    "text": "{person} просит присоединиться к твоему занятию.",
+    "options": [
+      {
+        "id": "together",
+        "label": "Попробовать вместе",
+        "text": "Ты показываешь, что уже умеешь. Совместное дело сближает вас.",
+        "effect": {
+          "aura": 2,
+          "closeness": 4
+        }
+      },
+      {
+        "id": "later",
+        "label": "Договориться о времени",
+        "text": "Ты объясняешь, что хочешь закончить свою часть, и договариваешься о времени.",
+        "effect": {
+          "closeness": 1
+        }
+      },
+      {
+        "id": "mock",
+        "label": "Высмеять её попытку",
+        "text": "Ты высмеиваешь попытку. {person} обижается и отходит.",
+        "effect": {
+          "aura": -3,
+          "closeness": -5
+        }
+      }
+    ]
+  },
+  {
+    "id": "found_item",
+    "minMonth": 38,
+    "maxMonth": 2147483647,
+    "cooldownMonths": 24,
+    "weight": 5,
+    "participantRole": null,
+    "title": "Найденная вещь",
+    "text": "Ты находишь вещь, которую кто-то потерял. Рядом есть люди, у которых можно спросить о владельце.",
+    "options": [
+      {
+        "id": "return",
+        "label": "Попробовать вернуть",
+        "text": "Ты помогаешь передать находку владельцу.",
+        "effect": {
+          "aura": 3,
+          "happiness": 1
+        }
+      },
+      {
+        "id": "leave",
+        "label": "Оставить на заметном месте",
+        "text": "Ты оставляешь вещь так, чтобы её было легче найти.",
+        "effect": {
+          "aura": 1
+        }
+      },
+      {
+        "id": "take",
+        "label": "Забрать себе",
+        "text": "Ты забираешь чужую вещь, хотя мог попытаться вернуть её.",
+        "effect": {
+          "aura": -3
+        }
+      }
+    ]
+  },
+  {
+    "id": "apology",
+    "minMonth": 38,
+    "maxMonth": 2147483647,
+    "cooldownMonths": 24,
+    "weight": 5,
+    "participantRole": null,
+    "title": "Исправить обидные слова?",
+    "text": "После разговора ты понимаешь, что твои слова обидели другого человека.",
+    "options": [
+      {
+        "id": "apologize",
+        "label": "Признать ошибку",
+        "text": "Ты признаёшь, что был неправ, и выслушиваешь ответ.",
+        "effect": {
+          "aura": 2,
+          "skill": "responsibility",
+          "skillDelta": 1
+        }
+      },
+      {
+        "id": "clarify",
+        "label": "Спокойно объясниться",
+        "text": "Ты стараешься понять собеседника и объяснить свою мысль без обиды.",
+        "effect": {
+          "aura": 1,
+          "skill": "speech",
+          "skillDelta": 1
+        }
+      },
+      {
+        "id": "insult",
+        "label": "Продолжить насмешки",
+        "text": "Ты продолжаешь насмешки. Разговор заканчивается отчуждением.",
+        "effect": {
+          "aura": -3,
+          "happiness": -1
+        }
+      }
+    ]
+  },
+  {
+    "id": "school_read",
+    "minMonth": 84,
+    "maxMonth": 155,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Самостоятельное чтение",
+    "text": "Ты возвращаешься к трудному отрывку и разбираешь смысл незнакомых слов.",
+    "effect": {
+      "skill": "reading",
+      "skillDelta": 2
+    },
+    "variants": []
+  },
+  {
+    "id": "school_task",
+    "minMonth": 84,
+    "maxMonth": 155,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Задача с условием",
+    "text": "Ты отделяешь известное от неизвестного и проверяешь найденный ответ.",
+    "effect": {
+      "skill": "reasoning",
+      "skillDelta": 2
+    },
+    "variants": []
+  },
+  {
+    "id": "school_note",
+    "minMonth": 84,
+    "maxMonth": 155,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Записанная мысль",
+    "text": "Ты записываешь мысль, которую не хочешь забыть. Перечитывая, уточняешь формулировку.",
+    "effect": {
+      "skill": "speech",
+      "skillDelta": 2
+    },
+    "variants": []
+  },
+  {
+    "id": "school_project",
+    "minMonth": 84,
+    "maxMonth": 155,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Работа по этапам",
+    "text": "Ты делишь большое задание на небольшие части. Продвигаться становится легче.",
+    "effect": {
+      "skill": "responsibility",
+      "skillDelta": 2
+    },
+    "variants": []
+  },
+  {
+    "id": "school_search",
+    "minMonth": 84,
+    "maxMonth": 155,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Проверить объяснение",
+    "text": "Два объяснения расходятся. Ты ищешь пример, который поможет проверить каждое.",
+    "effect": {
+      "skill": "reasoning",
+      "skillDelta": 2
+    },
+    "variants": []
+  },
+  {
+    "id": "school_practice",
+    "minMonth": 84,
+    "maxMonth": 155,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Трудное упражнение",
+    "text": "Ты замечаешь повторяющуюся ошибку и отдельно тренируешь сложное место.",
+    "effect": {
+      "skill": "coordination",
+      "skillDelta": 2
+    },
+    "variants": []
+  },
+  {
+    "id": "school_attention",
+    "minMonth": 84,
+    "maxMonth": 155,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Деталь в тексте",
+    "text": "Небольшая деталь меняет смысл прочитанного. Ты возвращаешься к началу.",
+    "effect": {
+      "skill": "reading",
+      "skillDelta": 2
+    },
+    "variants": []
+  },
+  {
+    "id": "school_plan",
+    "minMonth": 84,
+    "maxMonth": 155,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "План на день",
+    "text": "Ты записываешь важные дела и оставляешь время для отдыха.",
+    "effect": {
+      "skill": "responsibility",
+      "skillDelta": 2
+    },
+    "variants": []
+  },
+  {
+    "id": "school_explain",
+    "minMonth": 84,
+    "maxMonth": 155,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Объяснить своими словами",
+    "text": "Ты пересказываешь сложную тему простыми словами и замечаешь пробел в понимании.",
+    "effect": {
+      "skill": "speech",
+      "skillDelta": 2
+    },
+    "variants": []
+  },
+  {
+    "id": "school_compare",
+    "minMonth": 84,
+    "maxMonth": 155,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Сравнить способы",
+    "text": "Одна задача допускает два способа решения. Ты сравниваешь их и выбираешь более понятный.",
+    "effect": {
+      "skill": "reasoning",
+      "skillDelta": 2
+    },
+    "variants": []
+  },
+  {
+    "id": "life_plan",
+    "minMonth": 156,
+    "maxMonth": 2147483647,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Пересмотреть планы",
+    "text": "Ты сопоставляешь свои планы с тем, что успеваешь, и меняешь порядок дел.",
+    "effect": {
+      "skill": "responsibility",
+      "skillDelta": 1,
+      "happiness": 1
+    },
+    "variants": [
+      "Ты замечаешь, что прежний план перегружен, и оставляешь время на главное."
+    ]
+  },
+  {
+    "id": "life_skill",
+    "minMonth": 156,
+    "maxMonth": 2147483647,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Практика навыка",
+    "text": "Ты выбираешь трудное место в знакомом занятии и посвящаешь ему время.",
+    "effect": {
+      "skill": "coordination",
+      "skillDelta": 1,
+      "happiness": 1
+    },
+    "variants": [
+      "Небольшое упражнение помогает увидеть прогресс в знакомом занятии."
+    ]
+  },
+  {
+    "id": "life_read",
+    "minMonth": 156,
+    "maxMonth": 2147483647,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Новый взгляд",
+    "text": "Прочитанная история заставляет тебя посмотреть на знакомую ситуацию иначе.",
+    "effect": {
+      "skill": "reading",
+      "skillDelta": 1,
+      "happiness": 1
+    },
+    "variants": [
+      "Ты находишь в чтении мысль, которая помогает понять прежний опыт."
+    ]
+  },
+  {
+    "id": "life_order",
+    "minMonth": 156,
+    "maxMonth": 2147483647,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Навести порядок",
+    "text": "Ты разбираешь накопившиеся вещи. Нужное становится легче найти.",
+    "effect": {
+      "skill": "responsibility",
+      "skillDelta": 1,
+      "happiness": 1
+    },
+    "variants": [
+      "Ты меняешь расположение вещей, чтобы повседневные дела занимали меньше сил."
+    ]
+  },
+  {
+    "id": "life_memory",
+    "minMonth": 156,
+    "maxMonth": 2147483647,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Вернуться к воспоминанию",
+    "text": "Знакомая вещь напоминает о прежнем этапе жизни. Ты замечаешь, что теперь воспринимаешь его иначе.",
+    "effect": {
+      "skill": "observation",
+      "skillDelta": 1,
+      "happiness": 1
+    },
+    "variants": [
+      "Ты вспоминаешь давний эпизод и замечаешь связь с нынешними привычками."
+    ]
+  },
+  {
+    "id": "life_detail",
+    "minMonth": 156,
+    "maxMonth": 2147483647,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Неожиданная деталь",
+    "text": "В знакомом месте ты замечаешь деталь, на которую раньше не обращал внимания.",
+    "effect": {
+      "skill": "observation",
+      "skillDelta": 1,
+      "happiness": 1
+    },
+    "variants": [
+      "Привычная дорога выглядит иначе, когда ты замедляешь шаг."
+    ]
+  },
+  {
+    "id": "life_compare",
+    "minMonth": 156,
+    "maxMonth": 2147483647,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Обдумать варианты",
+    "text": "Ты сравниваешь несколько способов справиться с повседневной задачей.",
+    "effect": {
+      "skill": "reasoning",
+      "skillDelta": 1,
+      "happiness": 1
+    },
+    "variants": [
+      "Прежде чем действовать, ты проверяешь, какой из вариантов требует меньше усилий."
+    ]
+  },
+  {
+    "id": "life_note",
+    "minMonth": 156,
+    "maxMonth": 2147483647,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Записать наблюдение",
+    "text": "Ты записываешь наблюдение, чтобы позже к нему вернуться.",
+    "effect": {
+      "skill": "speech",
+      "skillDelta": 1,
+      "happiness": 1
+    },
+    "variants": [
+      "Перечитывая свои заметки, ты находишь незавершённую мысль и уточняешь её."
+    ]
+  },
+  {
+    "id": "life_time",
+    "minMonth": 156,
+    "maxMonth": 2147483647,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Освободить время",
+    "text": "Ты отказываешься от необязательного дела и находишь время спокойно закончить начатое.",
+    "effect": {
+      "skill": "responsibility",
+      "skillDelta": 1,
+      "happiness": 1
+    },
+    "variants": [
+      "Ты замечаешь, что дела спорят за одно время, и меняешь расписание."
+    ]
+  },
+  {
+    "id": "life_method",
+    "minMonth": 156,
+    "maxMonth": 2147483647,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Другой способ",
+    "text": "Привычный способ не помогает. Ты меняешь порядок действий и проверяешь результат.",
+    "effect": {
+      "skill": "reasoning",
+      "skillDelta": 1,
+      "happiness": 1
+    },
+    "variants": [
+      "Ты пробуешь новый подход к небольшой задаче и сравниваешь его с прежним."
+    ]
+  },
+  {
+    "id": "life_listen",
+    "minMonth": 156,
+    "maxMonth": 2147483647,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Внимательный разговор",
+    "text": "Ты выслушиваешь чужое объяснение и задаёшь уточняющий вопрос.",
+    "effect": {
+      "skill": "speech",
+      "skillDelta": 1,
+      "happiness": 1
+    },
+    "variants": [
+      "В разговоре ты замечаешь, что поспешил с выводом, и уточняешь смысл."
+    ]
+  },
+  {
+    "id": "life_finish",
+    "minMonth": 156,
+    "maxMonth": 2147483647,
+    "cooldownMonths": 24,
+    "weight": 3,
+    "participantRole": null,
+    "title": "Завершить начатое",
+    "text": "Ты возвращаешься к отложенному делу и заканчиваешь оставшуюся часть.",
+    "effect": {
+      "skill": "responsibility",
+      "skillDelta": 1,
+      "happiness": 1
+    },
+    "variants": [
+      "Небольшой шаг помогает закрыть давно отложенную задачу."
+    ]
+  },
+  {
+    "id": "queue_choice",
+    "minMonth": 156,
+    "maxMonth": 2147483647,
+    "cooldownMonths": 24,
+    "weight": 5,
+    "participantRole": null,
+    "title": "Чужая очередь",
+    "text": "Ты можешь пройти вперёд людей, которые ждут дольше.",
+    "options": [
+      {
+        "id": "fair",
+        "label": "Поступить с уважением к другим",
+        "text": "Ты учитываешь интересы других людей и объясняешь своё решение.",
+        "effect": {
+          "aura": 2,
+          "happiness": 1
+        }
+      },
+      {
+        "id": "discuss",
+        "label": "Обсудить ситуацию",
+        "text": "Ты предлагаешь договориться и выслушиваешь другие стороны.",
+        "effect": {
+          "aura": 1,
+          "skill": "speech",
+          "skillDelta": 1
+        }
+      },
+      {
+        "id": "selfish",
+        "label": "Использовать ситуацию в свою пользу",
+        "text": "Ты выбираешь удобство за чужой счёт. Ситуация оставляет неприятный след.",
+        "effect": {
+          "aura": -3,
+          "happiness": -1
+        }
+      }
+    ]
+  },
+  {
+    "id": "credit_choice",
+    "minMonth": 156,
+    "maxMonth": 2147483647,
+    "cooldownMonths": 24,
+    "weight": 5,
+    "participantRole": null,
+    "title": "Признать чужой вклад",
+    "text": "Общее дело получилось хорошо. Есть возможность приписать весь результат себе.",
+    "options": [
+      {
+        "id": "fair",
+        "label": "Поступить с уважением к другим",
+        "text": "Ты учитываешь интересы других людей и объясняешь своё решение.",
+        "effect": {
+          "aura": 2,
+          "happiness": 1
+        }
+      },
+      {
+        "id": "discuss",
+        "label": "Обсудить ситуацию",
+        "text": "Ты предлагаешь договориться и выслушиваешь другие стороны.",
+        "effect": {
+          "aura": 1,
+          "skill": "speech",
+          "skillDelta": 1
+        }
+      },
+      {
+        "id": "selfish",
+        "label": "Использовать ситуацию в свою пользу",
+        "text": "Ты выбираешь удобство за чужой счёт. Ситуация оставляет неприятный след.",
+        "effect": {
+          "aura": -3,
+          "happiness": -1
+        }
+      }
+    ]
+  },
+  {
+    "id": "promise_choice",
+    "minMonth": 156,
+    "maxMonth": 2147483647,
+    "cooldownMonths": 24,
+    "weight": 5,
+    "participantRole": null,
+    "title": "Сдержать обещание",
+    "text": "Ты вспоминаешь о данном обещании. Его выполнение требует отказаться от удобного плана.",
+    "options": [
+      {
+        "id": "fair",
+        "label": "Поступить с уважением к другим",
+        "text": "Ты учитываешь интересы других людей и объясняешь своё решение.",
+        "effect": {
+          "aura": 2,
+          "happiness": 1
+        }
+      },
+      {
+        "id": "discuss",
+        "label": "Обсудить ситуацию",
+        "text": "Ты предлагаешь договориться и выслушиваешь другие стороны.",
+        "effect": {
+          "aura": 1,
+          "skill": "speech",
+          "skillDelta": 1
+        }
+      },
+      {
+        "id": "selfish",
+        "label": "Использовать ситуацию в свою пользу",
+        "text": "Ты выбираешь удобство за чужой счёт. Ситуация оставляет неприятный след.",
+        "effect": {
+          "aura": -3,
+          "happiness": -1
+        }
+      }
+    ]
+  },
+  {
+    "id": "mistake_choice",
+    "minMonth": 156,
+    "maxMonth": 2147483647,
+    "cooldownMonths": 24,
+    "weight": 5,
+    "participantRole": null,
+    "title": "Указать на ошибку",
+    "text": "Ты замечаешь чужую ошибку, которую ещё можно спокойно исправить.",
+    "options": [
+      {
+        "id": "fair",
+        "label": "Поступить с уважением к другим",
+        "text": "Ты учитываешь интересы других людей и объясняешь своё решение.",
+        "effect": {
+          "aura": 2,
+          "happiness": 1
+        }
+      },
+      {
+        "id": "discuss",
+        "label": "Обсудить ситуацию",
+        "text": "Ты предлагаешь договориться и выслушиваешь другие стороны.",
+        "effect": {
+          "aura": 1,
+          "skill": "speech",
+          "skillDelta": 1
+        }
+      },
+      {
+        "id": "selfish",
+        "label": "Использовать ситуацию в свою пользу",
+        "text": "Ты выбираешь удобство за чужой счёт. Ситуация оставляет неприятный след.",
+        "effect": {
+          "aura": -3,
+          "happiness": -1
+        }
+      }
+    ]
+  },
+  {
+    "id": "family_contact_mother",
+    "minMonth": 156,
+    "maxMonth": 2147483647,
+    "cooldownMonths": 24,
+    "weight": 5,
+    "participantRole": "mother",
+    "title": "Найти время для близкого?",
+    "text": "{person} хочет поделиться тем, что сейчас происходит в жизни.",
+    "options": [
+      {
+        "id": "listen",
+        "label": "Уделить время разговору",
+        "text": "Ты находишь время выслушать. {person} чувствует поддержку.",
+        "effect": {
+          "closeness": 3,
+          "aura": 1
+        }
+      },
+      {
+        "id": "arrange",
+        "label": "Договориться о другом времени",
+        "text": "Ты объясняешь, что сейчас занят, и возвращаешься к разговору в оговорённое время.",
+        "effect": {
+          "closeness": 1
+        }
+      },
+      {
+        "id": "dismiss",
+        "label": "Обесценить переживания",
+        "text": "Ты отмахиваешься от рассказа. {person} становится менее откровенным с тобой.",
+        "effect": {
+          "closeness": -4,
+          "aura": -2
+        }
+      }
+    ]
+  },
+  {
+    "id": "family_contact_father",
+    "minMonth": 156,
+    "maxMonth": 2147483647,
+    "cooldownMonths": 24,
+    "weight": 5,
+    "participantRole": "father",
+    "title": "Найти время для близкого?",
+    "text": "{person} хочет поделиться тем, что сейчас происходит в жизни.",
+    "options": [
+      {
+        "id": "listen",
+        "label": "Уделить время разговору",
+        "text": "Ты находишь время выслушать. {person} чувствует поддержку.",
+        "effect": {
+          "closeness": 3,
+          "aura": 1
+        }
+      },
+      {
+        "id": "arrange",
+        "label": "Договориться о другом времени",
+        "text": "Ты объясняешь, что сейчас занят, и возвращаешься к разговору в оговорённое время.",
+        "effect": {
+          "closeness": 1
+        }
+      },
+      {
+        "id": "dismiss",
+        "label": "Обесценить переживания",
+        "text": "Ты отмахиваешься от рассказа. {person} становится менее откровенным с тобой.",
+        "effect": {
+          "closeness": -4,
+          "aura": -2
+        }
+      }
+    ]
+  },
+  {
+    "id": "family_contact_brother",
+    "minMonth": 156,
+    "maxMonth": 2147483647,
+    "cooldownMonths": 24,
+    "weight": 5,
+    "participantRole": "brother",
+    "title": "Найти время для близкого?",
+    "text": "{person} хочет поделиться тем, что сейчас происходит в жизни.",
+    "options": [
+      {
+        "id": "listen",
+        "label": "Уделить время разговору",
+        "text": "Ты находишь время выслушать. {person} чувствует поддержку.",
+        "effect": {
+          "closeness": 3,
+          "aura": 1
+        }
+      },
+      {
+        "id": "arrange",
+        "label": "Договориться о другом времени",
+        "text": "Ты объясняешь, что сейчас занят, и возвращаешься к разговору в оговорённое время.",
+        "effect": {
+          "closeness": 1
+        }
+      },
+      {
+        "id": "dismiss",
+        "label": "Обесценить переживания",
+        "text": "Ты отмахиваешься от рассказа. {person} становится менее откровенным с тобой.",
+        "effect": {
+          "closeness": -4,
+          "aura": -2
+        }
+      }
+    ]
+  },
+  {
+    "id": "family_contact_sister",
+    "minMonth": 156,
+    "maxMonth": 2147483647,
+    "cooldownMonths": 24,
+    "weight": 5,
+    "participantRole": "sister",
+    "title": "Найти время для близкого?",
+    "text": "{person} хочет поделиться тем, что сейчас происходит в жизни.",
+    "options": [
+      {
+        "id": "listen",
+        "label": "Уделить время разговору",
+        "text": "Ты находишь время выслушать. {person} чувствует поддержку.",
+        "effect": {
+          "closeness": 3,
+          "aura": 1
+        }
+      },
+      {
+        "id": "arrange",
+        "label": "Договориться о другом времени",
+        "text": "Ты объясняешь, что сейчас занят, и возвращаешься к разговору в оговорённое время.",
+        "effect": {
+          "closeness": 1
+        }
+      },
+      {
+        "id": "dismiss",
+        "label": "Обесценить переживания",
+        "text": "Ты отмахиваешься от рассказа. {person} становится менее откровенным с тобой.",
+        "effect": {
+          "closeness": -4,
+          "aura": -2
+        }
+      }
+    ]
+  }
+]

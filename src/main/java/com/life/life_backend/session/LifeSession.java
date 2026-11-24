@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import com.life.life_backend.engine.local.LocalSimulation;
+import com.life.life_backend.engine.local.LocalSimulationEngine;
 
 @Entity
 @Table(name = "life_session")
@@ -70,6 +72,26 @@ class LifeSession {
 	@Column(columnDefinition = "jsonb")
 	private ProviderEconomy providerEconomy;
 
+	@JdbcTypeCode(SqlTypes.JSON)
+	@Column(columnDefinition = "jsonb")
+	private LocalSimulation simulation;
+
+	LocalSimulation simulation() { return simulation; }
+
+	void initializeSimulation(LocalSimulation value) { simulation = value; }
+	void enrichBirthContext(com.life.life_backend.engine.local.BirthContextFactory factory) {
+		simulation = factory.enrichLegacy(simulation, setup.character().birthplace().countryCode(), setup.character().gender());
+	}
+
+	void applySimulation(LocalSimulationEngine.Transition transition) {
+		int previousMonth = simulation.month();
+		simulation = transition.simulation();
+		state = transition.state();
+		localBudget = LocalBudget.atMonth(localBudget, simulation.month());
+		completeTraining(previousMonth);
+		markSaved();
+	}
+
 	protected LifeSession() {
 	}
 
@@ -100,6 +122,10 @@ class LifeSession {
 	void settleBudget(int previousAge) {
 		int previousMonth = previousAge * 12;
 		localBudget = LocalBudget.atAge(localBudget, state.age());
+		completeTraining(previousMonth);
+	}
+
+	private void completeTraining(int previousMonth) {
 		for (var purchase : localBudget.purchases()) {
 			Integer completion = purchase.completionMonth();
 			if (completion != null && completion > previousMonth && completion <= localBudget.month()) {
@@ -111,7 +137,8 @@ class LifeSession {
 	}
 
 	SpendingService.LocalContext localEconomy() {
-		var budget = LocalBudget.atAge(localBudget, state.age());
+		var budget = simulation == null ? LocalBudget.atAge(localBudget, state.age())
+				: LocalBudget.atMonth(localBudget, simulation.month());
 		var birthplace = setup.character().birthplace();
 		var location = budget.purchases().reversed().stream().map(LocalBudget.Purchase::location)
 				.filter(Objects::nonNull).findFirst()
@@ -197,8 +224,9 @@ class LifeSession {
 	SessionView view() {
 		var original = setup.character();
 		var character = new SessionView.Character(displayName == null ? original.name() : displayName, original.gender(),
-				original.birthYear(), original.birthplace(), original.background(), setup.birthDetails());
-		return new SessionView(id, character, revision, savedAt, visibleState(), engineId);
+				original.birthYear(), original.birthplace(), original.background(), setup.birthDetails(),simulation==null?null:simulation.birthFacts());
+		return new SessionView(id, character, revision, savedAt, visibleState(), engineId,
+				simulation == null ? null : simulation.view());
 	}
 
 	private LifeState withStats(LifeState.Stats stats) {

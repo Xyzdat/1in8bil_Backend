@@ -15,6 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
+import com.life.life_backend.engine.local.CharacterGenerator;
+import com.life.life_backend.engine.local.LocalSimulation;
+import com.life.life_backend.engine.local.LocalSimulationEngine;
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 
 @Service
 class SessionService {
@@ -24,15 +29,41 @@ class SessionService {
 	private final LocalLifeEngine localEngine;
 	private final OneInEightBillionEngine externalEngine;
 	private final SpendingService spending;
+	private final CharacterGenerator generator;
+	private final LocalSimulationEngine simulationEngine;
+	private final com.life.life_backend.engine.local.BirthContextFactory birthContext;
 
 	SessionService(LifeSessionRepository sessions, SessionActionRepository actions, GuestIdentity identity,
-			LocalLifeEngine localEngine, OneInEightBillionEngine externalEngine, SpendingService spending) {
+			LocalLifeEngine localEngine, OneInEightBillionEngine externalEngine, SpendingService spending,
+			CharacterGenerator generator, LocalSimulationEngine simulationEngine,
+			com.life.life_backend.engine.local.BirthContextFactory birthContext) {
 		this.sessions = sessions;
 		this.actions = actions;
 		this.identity = identity;
 		this.localEngine = localEngine;
 		this.externalEngine = externalEngine;
 		this.spending = spending;
+		this.generator = generator;
+		this.simulationEngine = simulationEngine;
+		this.birthContext = birthContext;
+	}
+
+	@Transactional
+	Creation generateLocal(UUID ownerId, UUID requestKey, LocalSimulation.BirthRequest request) {
+		identity.lockOwner(ownerId);
+		var existing = sessions.findByOwnerIdAndCreationKey(ownerId, requestKey);
+		if (existing.isPresent()) {
+			var session = existing.get();
+			if (session.simulation() == null || !session.simulation().request().equals(request)) throw idempotencyConflict();
+			return new Creation(session.view(), false);
+		}
+		long seed = UUID.nameUUIDFromBytes((ownerId + ":" + requestKey).getBytes(StandardCharsets.UTF_8)).getMostSignificantBits();
+		var birth = generator.generate(seed, request);
+		var session = new LifeSession(ownerId, requestKey, new LifeSession.Setup(birth.character(), null, birth.details()),
+				"local", new LifeEngine.Checkpoint(birth.state(), null));
+		session.initializeSimulation(birth.simulation());
+		sessions.save(session);
+		return new Creation(session.view(), true);
 	}
 
 	@Transactional
@@ -150,6 +181,18 @@ class SessionService {
 		if (checkpoint.state().status() == LifeState.Status.COMPLETE) {
 			throw conflict("SESSION_COMPLETE", "This session is complete.");
 		}
+		if (session.simulation() != null) {
+			session.enrichBirthContext(birthContext);
+			if (Boolean.TRUE.equals(command.step())) {
+				session.applySimulation(simulationEngine.step(checkpoint.state(), session.simulation()));
+			} else if (command.decisionId() != null) {
+				session.applySimulation(simulationEngine.answer(checkpoint.state(), session.simulation(), command.decisionId(), command.optionId()));
+			} else {
+				throw conflict("STEP_REQUIRED", "This life uses /step instead of /advance.");
+			}
+			return;
+		}
+		if (Boolean.TRUE.equals(command.step())) throw conflict("STEP_UNSUPPORTED", "Use /advance for this life.");
 		if (checkpoint.cursor() != null && !checkpoint.cursor().expiresAt().isAfter(Instant.now())) {
 			throw conflict("ENGINE_TOKEN_EXPIRED", "The engine token for this session has expired.");
 		}

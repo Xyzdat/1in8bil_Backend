@@ -1,13 +1,61 @@
 openapi: 3.1.0
 info:
   title: Life Backend API
-  version: 0.5.0
+  version: 0.7.1
   description: Локальные сохранения и жизни, сгенерированные 1in8b Engine.
 servers:
   - url: /
 security:
   - guestCookie: []
 paths:
+  /api/v1/sessions/generated/local:
+    post:
+      operationId: generateLocalSession
+      description: Собственный движок childhood-2. Статистика предварительно импортируется в PostgreSQL. Без внешних HTTP-вызовов. Пустой объект выбирает страну взвешенно среди 36 стран SupportedCountry и год 2026. Новые жизни используют релиз birth-context-2026-v2; сохранённые жизни сохраняют свой релиз.
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                countryIso3: { $ref: '#/components/schemas/SupportedCountry' }
+                birthYear: { type: integer, minimum: 2023, maximum: 2026, default: 2026 }
+      responses:
+        '201':
+          description: Новая локальная жизнь, возраст 0. Семья и игровые допущения в simulation.
+          headers:
+            Location:
+              schema: { type: string }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Session' }
+        '200': { $ref: '#/components/responses/Session' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '409': { $ref: '#/components/responses/Conflict' }
+        '503': { $ref: '#/components/responses/Unavailable' }
+  /api/v1/sessions/{sessionId}/step:
+    parameters:
+      - $ref: '#/components/parameters/SessionId'
+    post:
+      operationId: stepLocalSimulation
+      description: Продвигает новую локальную жизнь на два игровых месяца. Шесть шагов на год, ответы могут добавлять записи. STEP_UNSUPPORTED для старых сессий и 1in8b; DECISION_REQUIRED при ожидающем решении. Ответ на решение не продвигает время. STEP_REQUIRED при /advance для новой жизни.
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/VersionedAction' }
+      responses:
+        '200': { $ref: '#/components/responses/Session' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
   /api/v1/health:
     get:
       operationId: getHealth
@@ -290,6 +338,114 @@ components:
         application/json:
           schema: { $ref: '#/components/schemas/Error' }
   schemas:
+    SupportedCountry:
+      type: string
+      description: ISO3 страны собственного движка. Отсутствующее поле при генерации означает взвешенный случайный выбор; неизвестный код возвращает 400 INVALID_COUNTRY.
+      enum: [ARG, AUS, BGD, BRA, CAN, CHL, CHN, COD, COL, EGY, ETH, GHA, IDN, IND, IRN, JPN, KAZ, KEN, KOR, MAR, MEX, MYS, NGA, NZL, PAK, PER, PHL, RUS, SAU, THA, TZA, UGA, USA, UZB, VNM, ZAF]
+    LocalSimulation:
+      type: object
+      required: [engineVersion, statisticsRelease, statisticsYear, elapsedMonths, monthOfYear, stepMonths, family, skills, assumptions]
+      properties:
+        engineVersion: { type: string, example: childhood-2 }
+        statisticsRelease: { type: string, example: birth-context-2026-v2 }
+        statisticsYear: { type: integer, example: 2026 }
+        death:
+          description: При смерти state.status=COMPLETE; прекратить таймер и любые действия. Конкретная причина не моделируется.
+          anyOf:
+            - { $ref: '#/components/schemas/Death' }
+            - { type: 'null' }
+        elapsedMonths: { type: integer, minimum: 0 }
+        monthOfYear: { type: integer, minimum: 0, maximum: 11 }
+        stepMonths: { type: integer, const: 2 }
+        assumptions:
+          type: array
+          description: Явные ограничения источников и игровые допущения. Это сведения о модели, не события жизни.
+          items: { type: string }
+        skills:
+          type: object
+          additionalProperties: { type: integer, minimum: 0, maximum: 100 }
+        family:
+          type: array
+          items:
+            type: object
+            required: [id, role, name, age, alive, closeness, trust]
+            properties:
+              id: { type: string, description: Устойчивый идентификатор внутри сохранения }
+              role: { type: string }
+              name: { type: string }
+              age: { type: integer, minimum: 0 }
+              alive: { type: boolean }
+              closeness: { type: integer, minimum: 0, maximum: 100 }
+              trust: { type: integer, minimum: 0, maximum: 100 }
+              sex: { type: [string, 'null'], enum: [MALE, FEMALE, null] }
+              occupation: { type: [string, 'null'], description: Профессия при рождении персонажа; карьерная модель родственников пока отсутствует. }
+    Death:
+      type: object
+      required: [elapsedMonths, age, cause, model, note]
+      properties:
+        elapsedMonths: { type: integer, minimum: 0 }
+        age: { type: integer, minimum: 0 }
+        cause: { type: string, const: UNSPECIFIED }
+        model: { type: string, const: UN_WPP_2024_QX }
+        note: { type: string }
+    BirthMeasure:
+      type: object
+      required: [value, unit, year, source, basis, note]
+      properties:
+        value: { type: number }
+        unit: { type: string, enum: [probability, USD_CURRENT, years] }
+        year: { type: integer }
+        source: { type: string }
+        basis: { type: string, enum: [STATISTIC, PROJECTION, GAME_SELECTION] }
+        note: { type: string }
+    BirthDescription:
+      type: object
+      required: [value, basis, source, note]
+      properties:
+        value: { type: [string, 'null'] }
+        basis: { type: string, enum: [GAME_ASSUMPTION, SAMPLED_PROXY] }
+        source: { type: string }
+        note: { type: string }
+    BirthFacts:
+      type: object
+      description: Снимок рождения собственного движка. Источники, годы, единицы и игровые допущения обязательны для корректного отображения. ВВП не является доходом семьи; валюта страны не меняет валюту кошелька.
+      required: [countryIso3, sex, worldBirthProbability, selectionProbability, gdpPerCapita, lifeExpectancy, underFiveMortality, currency, countryReligions, countryLanguages, wealth, housing, familyRelationships, familyFaith, familyLanguage, sources]
+      properties:
+        countryIso3: { $ref: '#/components/schemas/SupportedCountry' }
+        sex: { type: string, enum: [MALE, FEMALE] }
+        worldBirthProbability: { $ref: '#/components/schemas/BirthMeasure' }
+        selectionProbability: { $ref: '#/components/schemas/BirthMeasure' }
+        gdpPerCapita: { $ref: '#/components/schemas/BirthMeasure' }
+        lifeExpectancy: { $ref: '#/components/schemas/BirthMeasure' }
+        underFiveMortality: { $ref: '#/components/schemas/BirthMeasure' }
+        currency: { type: string, pattern: '^[A-Z]{3}$', description: Код валюты страны ISO 4217, не баланс и не конверсия. Игровой кошелёк использует finances.currency. }
+        wealth: { $ref: '#/components/schemas/BirthDescription' }
+        housing: { $ref: '#/components/schemas/BirthDescription' }
+        familyRelationships: { $ref: '#/components/schemas/BirthDescription' }
+        familyFaith: { $ref: '#/components/schemas/BirthDescription' }
+        familyLanguage: { $ref: '#/components/schemas/BirthDescription' }
+        countryReligions:
+          type: array
+          description: Pew, оценки населения 2020. Семь взаимоисключающих групп; погрешность округления возможна.
+          items:
+            type: object
+            required: [code, percent]
+            properties:
+              code: { type: string }
+              percent: { type: number, minimum: 0, maximum: 100 }
+        countryLanguages:
+          type: array
+          description: CLDR 48, доли владения языками (включая вторые); могут пересекаться и не обязаны суммироваться до 100%.
+          items:
+            type: object
+            required: [code, percent, status]
+            properties:
+              code: { type: string }
+              percent: { type: number, minimum: 0, maximum: 100 }
+              status: { type: [string, 'null'] }
+        sources:
+          type: object
+          additionalProperties: { type: string, format: uri }
     SpendingCurrency:
       type: string
       enum: [RUB, PPP_USD]
@@ -497,9 +653,14 @@ components:
         - type: object
           properties:
             birthDetails:
-              description: Снимок при рождении из 1in8b. У старых сохранений и ручных анкет поле равно null.
+              description: Снимок при рождении из 1in8b или собственного движка. Игровые допущения local раскрываются в birthFacts. У старых сохранений и ручных анкет поле может быть null.
               anyOf:
                 - { $ref: '#/components/schemas/BirthDetails' }
+                - { type: 'null' }
+            birthFacts:
+              description: Дополнительные сведения local. У 1in8b, ручных анкет и ещё не продолженных старых local поле может быть null.
+              anyOf:
+                - { $ref: '#/components/schemas/BirthFacts' }
                 - { type: 'null' }
     BirthDetails:
       type: object
@@ -659,6 +820,18 @@ components:
         age: { type: integer, minimum: 0 }
         title: { type: string }
         text: { type: string }
+        consequences:
+          description: Уже применённые изменения. Использовать для подписей в летописи; не прибавлять повторно к снимку характеристик.
+          anyOf:
+            - type: object
+              required: [aura, closeness]
+              properties:
+                aura: { type: integer, minimum: -200, maximum: 200 }
+                closeness:
+                  type: object
+                  description: Ключ — simulation.family[].id, значение — фактическое изменение близости.
+                  additionalProperties: { type: integer, minimum: -100, maximum: 100 }
+            - { type: 'null' }
     SessionSummary:
       type: object
       required: [id, name, age, status, savedAt, provider]
@@ -678,6 +851,11 @@ components:
         version: { type: integer, format: int64, minimum: 1 }
         savedAt: { type: string, format: date-time }
         provider: { $ref: '#/components/schemas/Provider' }
+        simulation:
+          description: Новая пошаговая локальная жизнь. null у старых local и 1in8b. Клиент выбирает /step по наличию этого блока, не только по provider.
+          anyOf:
+            - { $ref: '#/components/schemas/LocalSimulation' }
+            - { type: 'null' }
         state:
           type: object
           required: [age, status, stats, pendingDecision, history]

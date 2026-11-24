@@ -23,6 +23,8 @@ public record LifeState(int age, Status status, Stats stats, Decision pendingDec
 	public record Option(String id, String label) {
 	}
 
-	public record HistoryEvent(String id, int age, String title, String text) {
+	public record HistoryEvent(String id, int age, String title, String text, Consequences consequences) {
+		public HistoryEvent(String id, int age, String title, String text) { this(id, age, title, text, null); }
 	}
+	public record Consequences(int aura, java.util.Map<String, Integer> closeness) { }
 }

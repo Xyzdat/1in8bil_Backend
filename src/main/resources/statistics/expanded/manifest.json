@@ -1,0 +1,23 @@
+{
+  "id": "birth-context-2026-v1",
+  "retrievedAt": "2026-11-24T11:30:33.142Z",
+  "hashes": {
+    "mortality.json": "792597b869936dce90667a2c895a41bfa007d38e58b60f2a5051e67a3a550b79",
+    "countries.json": "4b3d36ce06dfa75e3f61d6103f4a408dcf7741aae6865694a6c81f6d76d511db"
+  },
+  "inputs": {
+    "male.csv.gz": "0a7e3eceaef592a599ec2808dd43e5081b0b834e2a579a6fd886fcf6ede77a1b",
+    "female.csv.gz": "8ebd82988839c514556290364794daf7e8d29a39987f7c15c2cb04b4bf8845d1",
+    "demographic.csv.gz": "286ac36bb1415e2e1ade03acfef0a29f0e4c087e2f78e38c48f50c5df89082bc",
+    "gdp.zip": "01337e340a83701c57798ca371bf6d889005689d90431314aa4913c5d87476e3",
+    "territoryInfo.json": "b50369a0e1f5434c942dfe45064b39f488604ca0cedac5117e993248c19f2c0a",
+    "currencyData.json": "ab007c5bb654a11601d6328f73a9b5b504334c556f3edb760020d6e2cc408472",
+    "religions.html": "e6e2c4feecbcff115b004b0f2713b7e7c840f3735af4d5d8fe41f8d585de306f"
+  },
+  "licenses": [
+    "UN WPP 2024: CC BY 3.0 IGO",
+    "World Bank WDI: CC BY 4.0",
+    "Unicode CLDR 48: Unicode License V3",
+    "Pew Research Center public table: Terms of Use, attribution required"
+  ]
+}

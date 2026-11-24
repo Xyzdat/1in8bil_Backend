@@ -1,0 +1,4591 @@
+[
+  {
+    "iso3": "ARG",
+    "iso2": "AR",
+    "name": "Аргентина",
+    "births": 510178,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 77.8291,
+    "underFiveProbability": 0.0097856,
+    "gdpPerCapitaUsd": 14261.8465667948,
+    "currency": "ARS",
+    "languages": [
+      {
+        "code": "cy",
+        "percent": 0.066,
+        "status": null
+      },
+      {
+        "code": "en",
+        "percent": 7,
+        "status": null
+      },
+      {
+        "code": "es",
+        "percent": 100,
+        "status": "official"
+      },
+      {
+        "code": "gn",
+        "percent": 0.047,
+        "status": null
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 88.45394
+      },
+      {
+        "code": "Muslims",
+        "percent": 0.9292
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 9.23291
+      },
+      {
+        "code": "Buddhists",
+        "percent": 0.03106
+      },
+      {
+        "code": "Hindus",
+        "percent": 0.00257
+      },
+      {
+        "code": "Jews",
+        "percent": 0.38498
+      },
+      {
+        "code": "Other religions",
+        "percent": 0.96534
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.05,
+    "urbanShare": 0.921945132257907,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "AUS",
+    "iso2": "AU",
+    "name": "Австралия",
+    "births": 303345,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 84.3414,
+    "underFiveProbability": 0.0030177,
+    "gdpPerCapitaUsd": 65058.3773146674,
+    "currency": "AUD",
+    "languages": [
+      {
+        "code": "en",
+        "percent": 96,
+        "status": "de_facto_official"
+      },
+      {
+        "code": "hnj",
+        "percent": 0.0082,
+        "status": null
+      },
+      {
+        "code": "it",
+        "percent": 1.9,
+        "status": null
+      },
+      {
+        "code": "wbp",
+        "percent": 0.0093,
+        "status": null
+      },
+      {
+        "code": "zh_Hant",
+        "percent": 2.1,
+        "status": null
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 46.75042
+      },
+      {
+        "code": "Muslims",
+        "percent": 3.50315
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 42.34402
+      },
+      {
+        "code": "Buddhists",
+        "percent": 2.61155
+      },
+      {
+        "code": "Hindus",
+        "percent": 2.96342
+      },
+      {
+        "code": "Jews",
+        "percent": 0.42041
+      },
+      {
+        "code": "Other religions",
+        "percent": 1.40702
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.055,
+    "urbanShare": 0.8748669556537649,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "BGD",
+    "iso2": "BD",
+    "name": "Бангладеш",
+    "births": 3407860,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 75.4677,
+    "underFiveProbability": 0.0190622,
+    "gdpPerCapitaUsd": 2551.01773827307,
+    "currency": "BDT",
+    "languages": [
+      {
+        "code": "bn",
+        "percent": 98,
+        "status": "official"
+      },
+      {
+        "code": "ccp",
+        "percent": 0.22,
+        "status": null
+      },
+      {
+        "code": "en",
+        "percent": 18,
+        "status": null
+      },
+      {
+        "code": "grt",
+        "percent": 0.073,
+        "status": null
+      },
+      {
+        "code": "mni",
+        "percent": 0.011,
+        "status": null
+      },
+      {
+        "code": "mro",
+        "percent": 0.018,
+        "status": null
+      },
+      {
+        "code": "my",
+        "percent": 0.21,
+        "status": null
+      },
+      {
+        "code": "rhg",
+        "percent": 0.53,
+        "status": null
+      },
+      {
+        "code": "rkt",
+        "percent": 6.5,
+        "status": null
+      },
+      {
+        "code": "syl",
+        "percent": 5,
+        "status": null
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 0.30009
+      },
+      {
+        "code": "Muslims",
+        "percent": 91.06733
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 0
+      },
+      {
+        "code": "Buddhists",
+        "percent": 0.61018
+      },
+      {
+        "code": "Hindus",
+        "percent": 7.90237
+      },
+      {
+        "code": "Jews",
+        "percent": 0
+      },
+      {
+        "code": "Other religions",
+        "percent": 0.12004
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.0490000000000002,
+    "urbanShare": 0.321578465036834,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "BRA",
+    "iso2": "BR",
+    "name": "Бразилия",
+    "births": 2492914,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 76.3738,
+    "underFiveProbability": 0.0128677,
+    "gdpPerCapitaUsd": 10377.5892792557,
+    "currency": "BRL",
+    "languages": [
+      {
+        "code": "de",
+        "percent": 0.84,
+        "status": null
+      },
+      {
+        "code": "en",
+        "percent": 8,
+        "status": null
+      },
+      {
+        "code": "es",
+        "percent": 0.036,
+        "status": null
+      },
+      {
+        "code": "gub",
+        "percent": 0.0084,
+        "status": null
+      },
+      {
+        "code": "it",
+        "percent": 0.28,
+        "status": null
+      },
+      {
+        "code": "ja",
+        "percent": 0.21,
+        "status": null
+      },
+      {
+        "code": "kgp",
+        "percent": 0.024,
+        "status": null
+      },
+      {
+        "code": "ko",
+        "percent": 0.021,
+        "status": null
+      },
+      {
+        "code": "pt",
+        "percent": 91,
+        "status": "official"
+      },
+      {
+        "code": "vec",
+        "percent": 0.24,
+        "status": "official_regional"
+      },
+      {
+        "code": "xav",
+        "percent": 0.0045,
+        "status": null
+      },
+      {
+        "code": "yrl",
+        "percent": 0.01,
+        "status": null
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 80.65508
+      },
+      {
+        "code": "Muslims",
+        "percent": 0.0177
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 13.47329
+      },
+      {
+        "code": "Buddhists",
+        "percent": 0.10314
+      },
+      {
+        "code": "Hindus",
+        "percent": 0.00077
+      },
+      {
+        "code": "Jews",
+        "percent": 0.04416
+      },
+      {
+        "code": "Other religions",
+        "percent": 5.70588
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.045,
+    "urbanShare": 0.8761597102357629,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "CAN",
+    "iso2": "CA",
+    "name": "Канада",
+    "births": 361315,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 83.0533,
+    "underFiveProbability": 0.0044134000000000005,
+    "gdpPerCapitaUsd": 54847.5370112652,
+    "currency": "CAD",
+    "languages": [
+      {
+        "code": "ar",
+        "percent": 2.3,
+        "status": null
+      },
+      {
+        "code": "atj",
+        "percent": 0.018,
+        "status": null
+      },
+      {
+        "code": "bla",
+        "percent": 0.017,
+        "status": null
+      },
+      {
+        "code": "bn",
+        "percent": 0.33,
+        "status": null
+      },
+      {
+        "code": "chp",
+        "percent": 0.032,
+        "status": "official_regional"
+      },
+      {
+        "code": "clc",
+        "percent": 0.0022,
+        "status": null
+      },
+      {
+        "code": "cr",
+        "percent": 0.013,
+        "status": null
+      },
+      {
+        "code": "crg",
+        "percent": 0.0049,
+        "status": null
+      },
+      {
+        "code": "crk",
+        "percent": 0.033,
+        "status": "official_regional"
+      },
+      {
+        "code": "crl",
+        "percent": 0.013,
+        "status": null
+      },
+      {
+        "code": "csw",
+        "percent": 0.012,
+        "status": null
+      },
+      {
+        "code": "dak",
+        "percent": 0.0039,
+        "status": null
+      },
+      {
+        "code": "de",
+        "percent": 1.2,
+        "status": null
+      },
+      {
+        "code": "den",
+        "percent": 0.006,
+        "status": "official_regional"
+      },
+      {
+        "code": "dgr",
+        "percent": 0.0055,
+        "status": "official_regional"
+      },
+      {
+        "code": "el",
+        "percent": 0.4,
+        "status": null
+      },
+      {
+        "code": "en",
+        "percent": 87,
+        "status": "official"
+      },
+      {
+        "code": "es",
+        "percent": 3.2,
+        "status": null
+      },
+      {
+        "code": "fa",
+        "percent": 0.61,
+        "status": null
+      },
+      {
+        "code": "fil",
+        "percent": 2,
+        "status": null
+      },
+      {
+        "code": "fr",
+        "percent": 29,
+        "status": "official"
+      },
+      {
+        "code": "gu",
+        "percent": 0.58,
+        "status": null
+      },
+      {
+        "code": "gwi",
+        "percent": 0.0008,
+        "status": "official_regional"
+      },
+      {
+        "code": "hi",
+        "percent": 2.1,
+        "status": null
+      },
+      {
+        "code": "hr",
+        "percent": 0.2,
+        "status": null
+      },
+      {
+        "code": "hu",
+        "percent": 0.18,
+        "status": null
+      },
+      {
+        "code": "hur",
+        "percent": 0.0036,
+        "status": null
+      },
+      {
+        "code": "it",
+        "percent": 1.5,
+        "status": null
+      },
+      {
+        "code": "iu",
+        "percent": 0.11,
+        "status": "official_regional"
+      },
+      {
+        "code": "iu_Latn",
+        "percent": 0.11,
+        "status": "official_regional"
+      },
+      {
+        "code": "ja",
+        "percent": 0.27,
+        "status": null
+      },
+      {
+        "code": "ko",
+        "percent": 0.56,
+        "status": null
+      },
+      {
+        "code": "kwk",
+        "percent": 0.0021,
+        "status": null
+      },
+      {
+        "code": "lil",
+        "percent": 0.0015,
+        "status": null
+      },
+      {
+        "code": "mic",
+        "percent": 0.024,
+        "status": null
+      },
+      {
+        "code": "moe",
+        "percent": 0.03,
+        "status": null
+      },
+      {
+        "code": "moh",
+        "percent": 0.0041,
+        "status": null
+      },
+      {
+        "code": "nl",
+        "percent": 0.3,
+        "status": null
+      },
+      {
+        "code": "nsk",
+        "percent": 0.0027,
+        "status": null
+      },
+      {
+        "code": "oj",
+        "percent": 0.072,
+        "status": null
+      },
+      {
+        "code": "ojs",
+        "percent": 0.042,
+        "status": null
+      },
+      {
+        "code": "ojw",
+        "percent": 0.0094,
+        "status": null
+      },
+      {
+        "code": "oka",
+        "percent": 0.0018,
+        "status": null
+      },
+      {
+        "code": "pa",
+        "percent": 2.6,
+        "status": null
+      },
+      {
+        "code": "pdt",
+        "percent": 0.11,
+        "status": null
+      },
+      {
+        "code": "pl",
+        "percent": 0.56,
+        "status": null
+      },
+      {
+        "code": "pqm",
+        "percent": 0.0021,
+        "status": null
+      },
+      {
+        "code": "pt",
+        "percent": 0.93,
+        "status": null
+      },
+      {
+        "code": "ro",
+        "percent": 0.32,
+        "status": null
+      },
+      {
+        "code": "ru",
+        "percent": 0.85,
+        "status": null
+      },
+      {
+        "code": "so",
+        "percent": 0.16,
+        "status": null
+      },
+      {
+        "code": "sr",
+        "percent": 0.23,
+        "status": null
+      },
+      {
+        "code": "ta",
+        "percent": 0.65,
+        "status": null
+      },
+      {
+        "code": "tr",
+        "percent": 0.22,
+        "status": null
+      },
+      {
+        "code": "uk",
+        "percent": 0.36,
+        "status": null
+      },
+      {
+        "code": "ur",
+        "percent": 1.1,
+        "status": null
+      },
+      {
+        "code": "vi",
+        "percent": 0.64,
+        "status": null
+      },
+      {
+        "code": "war",
+        "percent": 0.012,
+        "status": null
+      },
+      {
+        "code": "yue",
+        "percent": 2,
+        "status": null
+      },
+      {
+        "code": "zh",
+        "percent": 2.7,
+        "status": null
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 53.32112
+      },
+      {
+        "code": "Muslims",
+        "percent": 4.88786
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 34.62943
+      },
+      {
+        "code": "Buddhists",
+        "percent": 1.73735
+      },
+      {
+        "code": "Hindus",
+        "percent": 1.52476
+      },
+      {
+        "code": "Jews",
+        "percent": 0.92305
+      },
+      {
+        "code": "Other religions",
+        "percent": 2.97643
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.055,
+    "urbanShare": 0.825250564408346,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "CHL",
+    "iso2": "CL",
+    "name": "Чили",
+    "births": 169096,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 81.7146,
+    "underFiveProbability": 0.0060263999999999995,
+    "gdpPerCapitaUsd": 17081.5180740049,
+    "currency": "CLP",
+    "languages": [
+      {
+        "code": "arn",
+        "percent": 1.5,
+        "status": null
+      },
+      {
+        "code": "en",
+        "percent": 9.5,
+        "status": null
+      },
+      {
+        "code": "es",
+        "percent": 98,
+        "status": "official"
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 68.32601
+      },
+      {
+        "code": "Muslims",
+        "percent": 0.06699
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 30.26606
+      },
+      {
+        "code": "Buddhists",
+        "percent": 0.03832
+      },
+      {
+        "code": "Hindus",
+        "percent": 0.00534
+      },
+      {
+        "code": "Jews",
+        "percent": 0.08157
+      },
+      {
+        "code": "Other religions",
+        "percent": 1.21569
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.044,
+    "urbanShare": 0.8881586172179721,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "CHN",
+    "iso2": "CN",
+    "name": "Китай",
+    "births": 8625232,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 79.022,
+    "underFiveProbability": 0.0067572,
+    "gdpPerCapitaUsd": 12951.1782397043,
+    "currency": "CNY",
+    "languages": [
+      {
+        "code": "bo",
+        "percent": 0.2,
+        "status": "official_regional"
+      },
+      {
+        "code": "en",
+        "percent": 0.0045,
+        "status": null
+      },
+      {
+        "code": "gan",
+        "percent": 1.7,
+        "status": null
+      },
+      {
+        "code": "hak",
+        "percent": 2.3,
+        "status": null
+      },
+      {
+        "code": "hnj",
+        "percent": 0.004,
+        "status": null
+      },
+      {
+        "code": "hsn",
+        "percent": 2.9,
+        "status": null
+      },
+      {
+        "code": "ii",
+        "percent": 0.6,
+        "status": null
+      },
+      {
+        "code": "khb",
+        "percent": 0.019,
+        "status": null
+      },
+      {
+        "code": "kk_Arab",
+        "percent": 0.085,
+        "status": null
+      },
+      {
+        "code": "ko",
+        "percent": 0.15,
+        "status": "official_regional"
+      },
+      {
+        "code": "ky_Arab",
+        "percent": 0.034,
+        "status": null
+      },
+      {
+        "code": "lcp",
+        "percent": 0.0058,
+        "status": null
+      },
+      {
+        "code": "lis",
+        "percent": 0.045,
+        "status": null
+      },
+      {
+        "code": "lzh",
+        "percent": 0,
+        "status": null
+      },
+      {
+        "code": "mn_Mong",
+        "percent": 0.26,
+        "status": "official_regional"
+      },
+      {
+        "code": "mww",
+        "percent": 0.017,
+        "status": null
+      },
+      {
+        "code": "nan",
+        "percent": 1.9,
+        "status": null
+      },
+      {
+        "code": "nxq",
+        "percent": 0.024,
+        "status": null
+      },
+      {
+        "code": "ru",
+        "percent": 0.001,
+        "status": null
+      },
+      {
+        "code": "stu_Tale",
+        "percent": 0,
+        "status": null
+      },
+      {
+        "code": "tdd",
+        "percent": 0.019,
+        "status": null
+      },
+      {
+        "code": "ug",
+        "percent": 0.55,
+        "status": "official_regional"
+      },
+      {
+        "code": "uz_Cyrl",
+        "percent": 0.0004,
+        "status": null
+      },
+      {
+        "code": "vi",
+        "percent": 0.0005,
+        "status": null
+      },
+      {
+        "code": "wuu",
+        "percent": 6,
+        "status": null
+      },
+      {
+        "code": "yue",
+        "percent": 5.2,
+        "status": null
+      },
+      {
+        "code": "yue_Hans",
+        "percent": 5.2,
+        "status": null
+      },
+      {
+        "code": "za",
+        "percent": 0.31,
+        "status": "official_regional"
+      },
+      {
+        "code": "zh",
+        "percent": 90,
+        "status": "official"
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 1.78476
+      },
+      {
+        "code": "Muslims",
+        "percent": 1.8218
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 89.62312
+      },
+      {
+        "code": "Buddhists",
+        "percent": 3.74298
+      },
+      {
+        "code": "Hindus",
+        "percent": 0.00204
+      },
+      {
+        "code": "Jews",
+        "percent": 0.00021
+      },
+      {
+        "code": "Other religions",
+        "percent": 3.02508
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.093,
+    "urbanShare": 0.655301448035523,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "COD",
+    "iso2": "CD",
+    "name": "Демократическая Республика Конго",
+    "births": 4634979,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 62.3878,
+    "underFiveProbability": 0.07059449999999999,
+    "gdpPerCapitaUsd": 660.21205238997,
+    "currency": "CDF",
+    "languages": [
+      {
+        "code": "fr",
+        "percent": 51,
+        "status": "official"
+      },
+      {
+        "code": "kg",
+        "percent": 1.5,
+        "status": "official_regional"
+      },
+      {
+        "code": "ln",
+        "percent": 3.1,
+        "status": "official_regional"
+      },
+      {
+        "code": "lol",
+        "percent": 0.61,
+        "status": null
+      },
+      {
+        "code": "lu",
+        "percent": 2.3,
+        "status": null
+      },
+      {
+        "code": "lua",
+        "percent": 9.6,
+        "status": "official_regional"
+      },
+      {
+        "code": "rw",
+        "percent": 0.38,
+        "status": null
+      },
+      {
+        "code": "sw",
+        "percent": 50,
+        "status": "official_regional"
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 96.26151
+      },
+      {
+        "code": "Muslims",
+        "percent": 1.27055
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 1.17556
+      },
+      {
+        "code": "Buddhists",
+        "percent": 0.00015
+      },
+      {
+        "code": "Hindus",
+        "percent": 0.0012
+      },
+      {
+        "code": "Jews",
+        "percent": 0.00011
+      },
+      {
+        "code": "Other religions",
+        "percent": 1.29092
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.023,
+    "urbanShare": 0.443754734892194,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "COL",
+    "iso2": "CO",
+    "name": "Колумбия",
+    "births": 684798,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 78.2719,
+    "underFiveProbability": 0.0110253,
+    "gdpPerCapitaUsd": 7012.49169137756,
+    "currency": "COP",
+    "languages": [
+      {
+        "code": "es",
+        "percent": 93,
+        "status": "official"
+      },
+      {
+        "code": "guc",
+        "percent": 0.27,
+        "status": null
+      },
+      {
+        "code": "yrl",
+        "percent": 0.006,
+        "status": null
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 86.24697
+      },
+      {
+        "code": "Muslims",
+        "percent": 0.00393
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 9.9436
+      },
+      {
+        "code": "Buddhists",
+        "percent": 0.00922
+      },
+      {
+        "code": "Hindus",
+        "percent": 0.00102
+      },
+      {
+        "code": "Jews",
+        "percent": 0.00413
+      },
+      {
+        "code": "Other religions",
+        "percent": 3.79113
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.045,
+    "urbanShare": 0.7827557157954401,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "EGY",
+    "iso2": "EG",
+    "name": "Египет",
+    "births": 2459317,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 72.1627,
+    "underFiveProbability": 0.0147534,
+    "gdpPerCapitaUsd": 3456.78965212363,
+    "currency": "EGP",
+    "languages": [
+      {
+        "code": "ar",
+        "percent": 94,
+        "status": "official"
+      },
+      {
+        "code": "arz",
+        "percent": 64,
+        "status": null
+      },
+      {
+        "code": "cop",
+        "percent": 6,
+        "status": null
+      },
+      {
+        "code": "el",
+        "percent": 0.061,
+        "status": null
+      },
+      {
+        "code": "en",
+        "percent": 35,
+        "status": null
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 4.82142
+      },
+      {
+        "code": "Muslims",
+        "percent": 95.17257
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 0.00465
+      },
+      {
+        "code": "Buddhists",
+        "percent": 0.00005
+      },
+      {
+        "code": "Hindus",
+        "percent": 0.00017
+      },
+      {
+        "code": "Jews",
+        "percent": 0.00021
+      },
+      {
+        "code": "Other religions",
+        "percent": 0.00092
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.056,
+    "urbanShare": 0.42709811504191897,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "ETH",
+    "iso2": "ET",
+    "name": "Эфиопия",
+    "births": 4213081,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 68.1487,
+    "underFiveProbability": 0.0405345,
+    "gdpPerCapitaUsd": 1055.81091593061,
+    "currency": "ETB",
+    "languages": [
+      {
+        "code": "aa",
+        "percent": 1.4,
+        "status": null
+      },
+      {
+        "code": "am",
+        "percent": 33,
+        "status": "official"
+      },
+      {
+        "code": "en",
+        "percent": 43,
+        "status": null
+      },
+      {
+        "code": "gez",
+        "percent": 0,
+        "status": null
+      },
+      {
+        "code": "om",
+        "percent": 32,
+        "status": null
+      },
+      {
+        "code": "sid",
+        "percent": 3.5,
+        "status": null
+      },
+      {
+        "code": "so",
+        "percent": 6,
+        "status": null
+      },
+      {
+        "code": "ti",
+        "percent": 6,
+        "status": null
+      },
+      {
+        "code": "wal",
+        "percent": 1.8,
+        "status": null
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 61.57827
+      },
+      {
+        "code": "Muslims",
+        "percent": 36.24018
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 0.06233
+      },
+      {
+        "code": "Buddhists",
+        "percent": 0.00116
+      },
+      {
+        "code": "Hindus",
+        "percent": 0.00242
+      },
+      {
+        "code": "Jews",
+        "percent": 0.00478
+      },
+      {
+        "code": "Other religions",
+        "percent": 2.11086
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.055,
+    "urbanShare": 0.23058647155761702,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "GHA",
+    "iso2": "GH",
+    "name": "Гана",
+    "births": 903735,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 66.0769,
+    "underFiveProbability": 0.0387541,
+    "gdpPerCapitaUsd": 2383.90410476221,
+    "currency": "GHS",
+    "languages": [
+      {
+        "code": "abr",
+        "percent": 5,
+        "status": null
+      },
+      {
+        "code": "ada",
+        "percent": 3,
+        "status": null
+      },
+      {
+        "code": "ak",
+        "percent": 39,
+        "status": "official_regional"
+      },
+      {
+        "code": "ee",
+        "percent": 11,
+        "status": "official_regional"
+      },
+      {
+        "code": "en",
+        "percent": 21,
+        "status": "official"
+      },
+      {
+        "code": "ff",
+        "percent": 0,
+        "status": null
+      },
+      {
+        "code": "ff_Adlm",
+        "percent": 0,
+        "status": null
+      },
+      {
+        "code": "gaa",
+        "percent": 2.8,
+        "status": "official_regional"
+      },
+      {
+        "code": "gur",
+        "percent": 3.5,
+        "status": null
+      },
+      {
+        "code": "ha",
+        "percent": 0.86,
+        "status": null
+      },
+      {
+        "code": "nzi",
+        "percent": 1,
+        "status": null
+      },
+      {
+        "code": "saf",
+        "percent": 0.012,
+        "status": null
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 71.2879
+      },
+      {
+        "code": "Muslims",
+        "percent": 19.8706
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 1.06835
+      },
+      {
+        "code": "Buddhists",
+        "percent": 0
+      },
+      {
+        "code": "Hindus",
+        "percent": 0
+      },
+      {
+        "code": "Jews",
+        "percent": 0
+      },
+      {
+        "code": "Other religions",
+        "percent": 7.77314
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.038,
+    "urbanShare": 0.578074737774654,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "IDN",
+    "iso2": "ID",
+    "name": "Индонезия",
+    "births": 4419970,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 71.5812,
+    "underFiveProbability": 0.018826899999999997,
+    "gdpPerCapitaUsd": 4876.2992959843,
+    "currency": "IDR",
+    "languages": [
+      {
+        "code": "ace",
+        "percent": 1.4,
+        "status": null
+      },
+      {
+        "code": "aoz",
+        "percent": 0.27,
+        "status": null
+      },
+      {
+        "code": "ban",
+        "percent": 1.8,
+        "status": null
+      },
+      {
+        "code": "ban_Bali",
+        "percent": 0,
+        "status": null
+      },
+      {
+        "code": "bbc",
+        "percent": 0.92,
+        "status": null
+      },
+      {
+        "code": "bew",
+        "percent": 2.1,
+        "status": null
+      },
+      {
+        "code": "bjn",
+        "percent": 1.5,
+        "status": null
+      },
+      {
+        "code": "bug",
+        "percent": 1.6,
+        "status": null
+      },
+      {
+        "code": "gay",
+        "percent": 0.12,
+        "status": null
+      },
+      {
+        "code": "gor",
+        "percent": 0.41,
+        "status": null
+      },
+      {
+        "code": "id",
+        "percent": 64,
+        "status": "official"
+      },
+      {
+        "code": "jv",
+        "percent": 34,
+        "status": null
+      },
+      {
+        "code": "kaw",
+        "percent": 0,
+        "status": null
+      },
+      {
+        "code": "kge",
+        "percent": 0.32,
+        "status": null
+      },
+      {
+        "code": "kvr",
+        "percent": 0.14,
+        "status": null
+      },
+      {
+        "code": "lbw",
+        "percent": 0.13,
+        "status": null
+      },
+      {
+        "code": "ljp",
+        "percent": 0.69,
+        "status": null
+      },
+      {
+        "code": "mad",
+        "percent": 6.3,
+        "status": null
+      },
+      {
+        "code": "mak",
+        "percent": 0.73,
+        "status": null
+      },
+      {
+        "code": "mdr",
+        "percent": 0.092,
+        "status": null
+      },
+      {
+        "code": "min",
+        "percent": 3,
+        "status": null
+      },
+      {
+        "code": "ms",
+        "percent": 3.4,
+        "status": null
+      },
+      {
+        "code": "ms_Arab",
+        "percent": 1.2,
+        "status": null
+      },
+      {
+        "code": "mwv",
+        "percent": 0.024,
+        "status": null
+      },
+      {
+        "code": "nij",
+        "percent": 0.37,
+        "status": null
+      },
+      {
+        "code": "rej",
+        "percent": 0.46,
+        "status": null
+      },
+      {
+        "code": "rob",
+        "percent": 0.11,
+        "status": null
+      },
+      {
+        "code": "sas",
+        "percent": 0.97,
+        "status": null
+      },
+      {
+        "code": "sly",
+        "percent": 0.054,
+        "status": null
+      },
+      {
+        "code": "su",
+        "percent": 12,
+        "status": null
+      },
+      {
+        "code": "sxn",
+        "percent": 0.092,
+        "status": null
+      },
+      {
+        "code": "zh_Hant",
+        "percent": 0.92,
+        "status": null
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 10.26231
+      },
+      {
+        "code": "Muslims",
+        "percent": 86.96418
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 0.09201
+      },
+      {
+        "code": "Buddhists",
+        "percent": 0.67753
+      },
+      {
+        "code": "Hindus",
+        "percent": 1.5843
+      },
+      {
+        "code": "Jews",
+        "percent": 0.00106
+      },
+      {
+        "code": "Other religions",
+        "percent": 0.41863
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.061,
+    "urbanShare": 0.581179353397878,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "IND",
+    "iso2": "IN",
+    "name": "Индия",
+    "births": 22988461,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 72.7164,
+    "underFiveProbability": 0.026064900000000002,
+    "gdpPerCapitaUsd": 2434.44826340989,
+    "currency": "INR",
+    "languages": [
+      {
+        "code": "as",
+        "percent": 1.3,
+        "status": "official_regional"
+      },
+      {
+        "code": "awa",
+        "percent": 1.9,
+        "status": null
+      },
+      {
+        "code": "bfq",
+        "percent": 0.023,
+        "status": null
+      },
+      {
+        "code": "bft",
+        "percent": 0.0062,
+        "status": null
+      },
+      {
+        "code": "bfy",
+        "percent": 0.037,
+        "status": null
+      },
+      {
+        "code": "bgc",
+        "percent": 1.2,
+        "status": null
+      },
+      {
+        "code": "bhb",
+        "percent": 0.12,
+        "status": null
+      },
+      {
+        "code": "bhi",
+        "percent": 0.092,
+        "status": null
+      },
+      {
+        "code": "bho",
+        "percent": 2.3,
+        "status": null
+      },
+      {
+        "code": "bjj",
+        "percent": 0.56,
+        "status": null
+      },
+      {
+        "code": "bn",
+        "percent": 8.1,
+        "status": "official_regional"
+      },
+      {
+        "code": "bo",
+        "percent": 0.011,
+        "status": null
+      },
+      {
+        "code": "bpy",
+        "percent": 0.0068,
+        "status": null
+      },
+      {
+        "code": "bra",
+        "percent": 0.0041,
+        "status": null
+      },
+      {
+        "code": "brx",
+        "percent": 0.14,
+        "status": null
+      },
+      {
+        "code": "btv",
+        "percent": 0.0026,
+        "status": null
+      },
+      {
+        "code": "ccp",
+        "percent": 0.028,
+        "status": null
+      },
+      {
+        "code": "dcc",
+        "percent": 0.99,
+        "status": null
+      },
+      {
+        "code": "doi",
+        "percent": 0.2,
+        "status": null
+      },
+      {
+        "code": "dv",
+        "percent": 0.0003,
+        "status": null
+      },
+      {
+        "code": "dz",
+        "percent": 0.0002,
+        "status": null
+      },
+      {
+        "code": "en",
+        "percent": 19,
+        "status": "official"
+      },
+      {
+        "code": "gbm",
+        "percent": 0.27,
+        "status": null
+      },
+      {
+        "code": "gon",
+        "percent": 0.24,
+        "status": null
+      },
+      {
+        "code": "grt",
+        "percent": 0.053,
+        "status": null
+      },
+      {
+        "code": "gu",
+        "percent": 4.5,
+        "status": "official_regional"
+      },
+      {
+        "code": "hi",
+        "percent": 41,
+        "status": "official"
+      },
+      {
+        "code": "hi_Latn",
+        "percent": 0.1,
+        "status": null
+      },
+      {
+        "code": "hne",
+        "percent": 1.1,
+        "status": null
+      },
+      {
+        "code": "hoc",
+        "percent": 0.099,
+        "status": null
+      },
+      {
+        "code": "hoj",
+        "percent": 0.082,
+        "status": null
+      },
+      {
+        "code": "kfr",
+        "percent": 0.075,
+        "status": null
+      },
+      {
+        "code": "kfy",
+        "percent": 0.22,
+        "status": null
+      },
+      {
+        "code": "kha",
+        "percent": 0.08,
+        "status": "official_regional"
+      },
+      {
+        "code": "khn",
+        "percent": 0.15,
+        "status": null
+      },
+      {
+        "code": "kht",
+        "percent": 0.0006,
+        "status": null
+      },
+      {
+        "code": "kn",
+        "percent": 3.7,
+        "status": "official_regional"
+      },
+      {
+        "code": "knn",
+        "percent": 0.37,
+        "status": null
+      },
+      {
+        "code": "kok",
+        "percent": 0.32,
+        "status": "official_regional"
+      },
+      {
+        "code": "kru",
+        "percent": 0.19,
+        "status": null
+      },
+      {
+        "code": "ks",
+        "percent": 0.41,
+        "status": "official_regional"
+      },
+      {
+        "code": "kxv",
+        "percent": 0.0029,
+        "status": null
+      },
+      {
+        "code": "lah",
+        "percent": 0.0025,
+        "status": null
+      },
+      {
+        "code": "lep",
+        "percent": 0.0035,
+        "status": null
+      },
+      {
+        "code": "lif",
+        "percent": 0.0026,
+        "status": null
+      },
+      {
+        "code": "lmn",
+        "percent": 0.27,
+        "status": null
+      },
+      {
+        "code": "mag",
+        "percent": 1.2,
+        "status": null
+      },
+      {
+        "code": "mai",
+        "percent": 1.2,
+        "status": "official_regional"
+      },
+      {
+        "code": "ml",
+        "percent": 3.2,
+        "status": "official_regional"
+      },
+      {
+        "code": "mni",
+        "percent": 0.11,
+        "status": null
+      },
+      {
+        "code": "mr",
+        "percent": 7,
+        "status": "official_regional"
+      },
+      {
+        "code": "mtr",
+        "percent": 0.097,
+        "status": null
+      },
+      {
+        "code": "mwr",
+        "percent": 1.2,
+        "status": null
+      },
+      {
+        "code": "ne",
+        "percent": 0.56,
+        "status": "official_regional"
+      },
+      {
+        "code": "njo",
+        "percent": 0.023,
+        "status": null
+      },
+      {
+        "code": "noe",
+        "percent": 0.13,
+        "status": null
+      },
+      {
+        "code": "or",
+        "percent": 3.2,
+        "status": "official_regional"
+      },
+      {
+        "code": "pa",
+        "percent": 2.8,
+        "status": "official_regional"
+      },
+      {
+        "code": "pi_Deva",
+        "percent": 0,
+        "status": null
+      },
+      {
+        "code": "raj",
+        "percent": 0.1,
+        "status": null
+      },
+      {
+        "code": "ria",
+        "percent": 0.013,
+        "status": null
+      },
+      {
+        "code": "rkt",
+        "percent": 0.43,
+        "status": null
+      },
+      {
+        "code": "sa",
+        "percent": 0.0012,
+        "status": "official_regional"
+      },
+      {
+        "code": "sat",
+        "percent": 0.55,
+        "status": "official_regional"
+      },
+      {
+        "code": "saz",
+        "percent": 0.029,
+        "status": null
+      },
+      {
+        "code": "sck",
+        "percent": 0.18,
+        "status": null
+      },
+      {
+        "code": "sd",
+        "percent": 0.26,
+        "status": "official_regional"
+      },
+      {
+        "code": "sd_Deva",
+        "percent": 0.14,
+        "status": "official_regional"
+      },
+      {
+        "code": "srx",
+        "percent": 0.035,
+        "status": null
+      },
+      {
+        "code": "swv",
+        "percent": 0.28,
+        "status": null
+      },
+      {
+        "code": "ta",
+        "percent": 5.9,
+        "status": "official_regional"
+      },
+      {
+        "code": "tcy",
+        "percent": 0.15,
+        "status": null
+      },
+      {
+        "code": "te",
+        "percent": 7.2,
+        "status": "official_regional"
+      },
+      {
+        "code": "unr",
+        "percent": 0.094,
+        "status": null
+      },
+      {
+        "code": "unx",
+        "percent": 0.048,
+        "status": null
+      },
+      {
+        "code": "ur",
+        "percent": 5,
+        "status": "official_regional"
+      },
+      {
+        "code": "wbq",
+        "percent": 0.18,
+        "status": null
+      },
+      {
+        "code": "wbr",
+        "percent": 0.15,
+        "status": null
+      },
+      {
+        "code": "wtm",
+        "percent": 0.46,
+        "status": null
+      },
+      {
+        "code": "xnr",
+        "percent": 0.16,
+        "status": null
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 2.21462
+      },
+      {
+        "code": "Muslims",
+        "percent": 15.19002
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 0.00326
+      },
+      {
+        "code": "Buddhists",
+        "percent": 0.68066
+      },
+      {
+        "code": "Hindus",
+        "percent": 79.36619
+      },
+      {
+        "code": "Jews",
+        "percent": 0.0003
+      },
+      {
+        "code": "Other religions",
+        "percent": 2.54495
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.067,
+    "urbanShare": 0.35067691842418597,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "IRN",
+    "iso2": "IR",
+    "name": "Иран",
+    "births": 1101751,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 78.2485,
+    "underFiveProbability": 0.0101233,
+    "gdpPerCapitaUsd": 5049.29931642754,
+    "currency": "IRR",
+    "languages": [
+      {
+        "code": "ar",
+        "percent": 2,
+        "status": null
+      },
+      {
+        "code": "az_Arab",
+        "percent": 24,
+        "status": null
+      },
+      {
+        "code": "bal",
+        "percent": 2,
+        "status": null
+      },
+      {
+        "code": "bgn",
+        "percent": 0.56,
+        "status": null
+      },
+      {
+        "code": "bqi",
+        "percent": 1.4,
+        "status": null
+      },
+      {
+        "code": "ckb",
+        "percent": 0.63,
+        "status": null
+      },
+      {
+        "code": "fa",
+        "percent": 75,
+        "status": "official"
+      },
+      {
+        "code": "gbz",
+        "percent": 0.0091,
+        "status": null
+      },
+      {
+        "code": "glk",
+        "percent": 4.6,
+        "status": null
+      },
+      {
+        "code": "hy",
+        "percent": 0.24,
+        "status": null
+      },
+      {
+        "code": "ka",
+        "percent": 0.071,
+        "status": null
+      },
+      {
+        "code": "kaa",
+        "percent": 0.67,
+        "status": null
+      },
+      {
+        "code": "kk_Arab",
+        "percent": 0.0034,
+        "status": null
+      },
+      {
+        "code": "ku_Arab",
+        "percent": 0.56,
+        "status": null
+      },
+      {
+        "code": "lki",
+        "percent": 0.76,
+        "status": null
+      },
+      {
+        "code": "lrc",
+        "percent": 2.1,
+        "status": null
+      },
+      {
+        "code": "luz",
+        "percent": 1.2,
+        "status": null
+      },
+      {
+        "code": "mzn",
+        "percent": 5,
+        "status": null
+      },
+      {
+        "code": "prd",
+        "percent": 0.5,
+        "status": null
+      },
+      {
+        "code": "ps",
+        "percent": 0.16,
+        "status": null
+      },
+      {
+        "code": "rmt",
+        "percent": 1.9,
+        "status": null
+      },
+      {
+        "code": "sdh",
+        "percent": 4.5,
+        "status": null
+      },
+      {
+        "code": "tk",
+        "percent": 2.8,
+        "status": null
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 0.14261
+      },
+      {
+        "code": "Muslims",
+        "percent": 99.7731
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 0.00005
+      },
+      {
+        "code": "Buddhists",
+        "percent": 0.00002
+      },
+      {
+        "code": "Hindus",
+        "percent": 0.00022
+      },
+      {
+        "code": "Jews",
+        "percent": 0.00924
+      },
+      {
+        "code": "Other religions",
+        "percent": 0.07475
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.051,
+    "urbanShare": 0.766759567260742,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "JPN",
+    "iso2": "JP",
+    "name": "Япония",
+    "births": 745943,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 85.1467,
+    "underFiveProbability": 0.0021989,
+    "gdpPerCapitaUsd": 35215.003535366,
+    "currency": "JPY",
+    "languages": [
+      {
+        "code": "ja",
+        "percent": 95,
+        "status": "official"
+      },
+      {
+        "code": "ko",
+        "percent": 0.52,
+        "status": null
+      },
+      {
+        "code": "ryu",
+        "percent": 0.77,
+        "status": null
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 2.24963
+      },
+      {
+        "code": "Muslims",
+        "percent": 0.16997
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 57.45617
+      },
+      {
+        "code": "Buddhists",
+        "percent": 37.20561
+      },
+      {
+        "code": "Hindus",
+        "percent": 0.03174
+      },
+      {
+        "code": "Jews",
+        "percent": 0.00138
+      },
+      {
+        "code": "Other religions",
+        "percent": 2.88551
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.05,
+    "urbanShare": 0.920826903891473,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "KAZ",
+    "iso2": "KZ",
+    "name": "Казахстан",
+    "births": 390247,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 74.8069,
+    "underFiveProbability": 0.0075144,
+    "gdpPerCapitaUsd": 12879.4275257974,
+    "currency": "KZT",
+    "languages": [
+      {
+        "code": "de",
+        "percent": 6.4,
+        "status": null
+      },
+      {
+        "code": "en",
+        "percent": 15,
+        "status": null
+      },
+      {
+        "code": "kaa",
+        "percent": 0.018,
+        "status": null
+      },
+      {
+        "code": "kk",
+        "percent": 64,
+        "status": "official"
+      },
+      {
+        "code": "ru",
+        "percent": 72,
+        "status": "official"
+      },
+      {
+        "code": "ug_Cyrl",
+        "percent": 2,
+        "status": null
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 19.29186
+      },
+      {
+        "code": "Muslims",
+        "percent": 77.90453
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 2.53445
+      },
+      {
+        "code": "Buddhists",
+        "percent": 0.09109
+      },
+      {
+        "code": "Hindus",
+        "percent": 0
+      },
+      {
+        "code": "Jews",
+        "percent": 0.04206
+      },
+      {
+        "code": "Other religions",
+        "percent": 0.13602
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.063,
+    "urbanShare": 0.617560919499181,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "KEN",
+    "iso2": "KE",
+    "name": "Кения",
+    "births": 1558303,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 64.1886,
+    "underFiveProbability": 0.0390233,
+    "gdpPerCapitaUsd": 1942.58802756191,
+    "currency": "KES",
+    "languages": [
+      {
+        "code": "ar",
+        "percent": 0.046,
+        "status": null
+      },
+      {
+        "code": "dav",
+        "percent": 0.82,
+        "status": null
+      },
+      {
+        "code": "ebu",
+        "percent": 1.5,
+        "status": null
+      },
+      {
+        "code": "en",
+        "percent": 19,
+        "status": "official"
+      },
+      {
+        "code": "gu",
+        "percent": 0.0086,
+        "status": null
+      },
+      {
+        "code": "guz",
+        "percent": 4.9,
+        "status": null
+      },
+      {
+        "code": "kam",
+        "percent": 7.6,
+        "status": null
+      },
+      {
+        "code": "ki",
+        "percent": 17,
+        "status": null
+      },
+      {
+        "code": "kln",
+        "percent": 7.6,
+        "status": null
+      },
+      {
+        "code": "luo",
+        "percent": 9.8,
+        "status": null
+      },
+      {
+        "code": "luy",
+        "percent": 11,
+        "status": null
+      },
+      {
+        "code": "mas",
+        "percent": 1.6,
+        "status": null
+      },
+      {
+        "code": "mer",
+        "percent": 4,
+        "status": null
+      },
+      {
+        "code": "om",
+        "percent": 0.47,
+        "status": null
+      },
+      {
+        "code": "pa",
+        "percent": 0.017,
+        "status": null
+      },
+      {
+        "code": "pko",
+        "percent": 0.69,
+        "status": null
+      },
+      {
+        "code": "saq",
+        "percent": 0.46,
+        "status": null
+      },
+      {
+        "code": "so",
+        "percent": 1.3,
+        "status": null
+      },
+      {
+        "code": "sw",
+        "percent": 66,
+        "status": "official"
+      },
+      {
+        "code": "teo",
+        "percent": 0.74,
+        "status": null
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 85.67028
+      },
+      {
+        "code": "Muslims",
+        "percent": 10.93115
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 1.60344
+      },
+      {
+        "code": "Buddhists",
+        "percent": 0.00096
+      },
+      {
+        "code": "Hindus",
+        "percent": 0.12791
+      },
+      {
+        "code": "Jews",
+        "percent": 0.00058
+      },
+      {
+        "code": "Other religions",
+        "percent": 1.66568
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.021,
+    "urbanShare": 0.316330340816429,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "KOR",
+    "iso2": "KR",
+    "name": "Южная Корея",
+    "births": 249556,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 84.6368,
+    "underFiveProbability": 0.0024584000000000003,
+    "gdpPerCapitaUsd": 35674.095995632,
+    "currency": "KRW",
+    "languages": [
+      {
+        "code": "ko",
+        "percent": 100,
+        "status": "official"
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 31.98554
+      },
+      {
+        "code": "Muslims",
+        "percent": 0.31
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 48.26362
+      },
+      {
+        "code": "Buddhists",
+        "percent": 19.00057
+      },
+      {
+        "code": "Hindus",
+        "percent": 0.09181
+      },
+      {
+        "code": "Jews",
+        "percent": 0.00019
+      },
+      {
+        "code": "Other religions",
+        "percent": 0.34826
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.06,
+    "urbanShare": 0.811645551720421,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "MAR",
+    "iso2": "MA",
+    "name": "Марокко",
+    "births": 613838,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 75.8591,
+    "underFiveProbability": 0.0152003,
+    "gdpPerCapitaUsd": 3813.72607421875,
+    "currency": "MAD",
+    "languages": [
+      {
+        "code": "ar",
+        "percent": 62,
+        "status": "official"
+      },
+      {
+        "code": "ary",
+        "percent": 87,
+        "status": null
+      },
+      {
+        "code": "en",
+        "percent": 14,
+        "status": null
+      },
+      {
+        "code": "es",
+        "percent": 0.065,
+        "status": null
+      },
+      {
+        "code": "fr",
+        "percent": 36,
+        "status": "de_facto_official"
+      },
+      {
+        "code": "mey",
+        "percent": 0.82,
+        "status": null
+      },
+      {
+        "code": "rif",
+        "percent": 4.9,
+        "status": null
+      },
+      {
+        "code": "rif_Tfng",
+        "percent": 4.9,
+        "status": null
+      },
+      {
+        "code": "shi",
+        "percent": 8.7,
+        "status": null
+      },
+      {
+        "code": "shi_Latn",
+        "percent": 8.7,
+        "status": null
+      },
+      {
+        "code": "tzm",
+        "percent": 9.8,
+        "status": "official"
+      },
+      {
+        "code": "zgh",
+        "percent": 22,
+        "status": null
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 0.08548
+      },
+      {
+        "code": "Muslims",
+        "percent": 99.67553
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 0.13079
+      },
+      {
+        "code": "Buddhists",
+        "percent": 0
+      },
+      {
+        "code": "Hindus",
+        "percent": 0
+      },
+      {
+        "code": "Jews",
+        "percent": 0.00618
+      },
+      {
+        "code": "Other religions",
+        "percent": 0.10204
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.047,
+    "urbanShare": 0.62673750838878,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "MEX",
+    "iso2": "MX",
+    "name": "Мексика",
+    "births": 1989217,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 75.6291,
+    "underFiveProbability": 0.011713800000000002,
+    "gdpPerCapitaUsd": 13830.843848864,
+    "currency": "MXN",
+    "languages": [
+      {
+        "code": "en",
+        "percent": 13,
+        "status": null
+      },
+      {
+        "code": "es",
+        "percent": 83,
+        "status": "de_facto_official"
+      },
+      {
+        "code": "maz",
+        "percent": 0.34,
+        "status": null
+      },
+      {
+        "code": "nch",
+        "percent": 0.19,
+        "status": null
+      },
+      {
+        "code": "nhe",
+        "percent": 0.39,
+        "status": null
+      },
+      {
+        "code": "nhw",
+        "percent": 0.39,
+        "status": null
+      },
+      {
+        "code": "sei",
+        "percent": 0.0007,
+        "status": null
+      },
+      {
+        "code": "vec",
+        "percent": 0.0019,
+        "status": null
+      },
+      {
+        "code": "yua",
+        "percent": 0.67,
+        "status": null
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 89.17308
+      },
+      {
+        "code": "Muslims",
+        "percent": 0.00629
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 10.63435
+      },
+      {
+        "code": "Buddhists",
+        "percent": 0.01826
+      },
+      {
+        "code": "Hindus",
+        "percent": 0.00392
+      },
+      {
+        "code": "Jews",
+        "percent": 0.0468
+      },
+      {
+        "code": "Other religions",
+        "percent": 0.1173
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.038,
+    "urbanShare": 0.7947349357480461,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "MYS",
+    "iso2": "MY",
+    "name": "Малайзия",
+    "births": 440401,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 77.1581,
+    "underFiveProbability": 0.005864,
+    "gdpPerCapitaUsd": 11386.0395636528,
+    "currency": "MYR",
+    "languages": [
+      {
+        "code": "bjn",
+        "percent": 0.014,
+        "status": null
+      },
+      {
+        "code": "bug",
+        "percent": 0.079,
+        "status": null
+      },
+      {
+        "code": "dtp",
+        "percent": 0.56,
+        "status": null
+      },
+      {
+        "code": "en",
+        "percent": 21,
+        "status": null
+      },
+      {
+        "code": "iba",
+        "percent": 2.5,
+        "status": null
+      },
+      {
+        "code": "jv",
+        "percent": 1.2,
+        "status": null
+      },
+      {
+        "code": "ml",
+        "percent": 0.15,
+        "status": null
+      },
+      {
+        "code": "ms",
+        "percent": 75,
+        "status": "official"
+      },
+      {
+        "code": "ta",
+        "percent": 4.2,
+        "status": null
+      },
+      {
+        "code": "zh",
+        "percent": 17,
+        "status": null
+      },
+      {
+        "code": "zmi",
+        "percent": 1.2,
+        "status": null
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 9.15319
+      },
+      {
+        "code": "Muslims",
+        "percent": 64.1172
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 0.84468
+      },
+      {
+        "code": "Buddhists",
+        "percent": 18.87561
+      },
+      {
+        "code": "Hindus",
+        "percent": 6.12218
+      },
+      {
+        "code": "Jews",
+        "percent": 0
+      },
+      {
+        "code": "Other religions",
+        "percent": 0.88715
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.064,
+    "urbanShare": 0.764434752105739,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "NGA",
+    "iso2": "NG",
+    "name": "Нигерия",
+    "births": 7711752,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 54.9528,
+    "underFiveProbability": 0.1007444,
+    "gdpPerCapitaUsd": 2138.76383718757,
+    "currency": "NGN",
+    "languages": [
+      {
+        "code": "amo",
+        "percent": 0.0087,
+        "status": null
+      },
+      {
+        "code": "ann",
+        "percent": 0,
+        "status": null
+      },
+      {
+        "code": "ar",
+        "percent": 0.071,
+        "status": null
+      },
+      {
+        "code": "bin",
+        "percent": 0.71,
+        "status": null
+      },
+      {
+        "code": "cch",
+        "percent": 0.021,
+        "status": null
+      },
+      {
+        "code": "efi",
+        "percent": 1.4,
+        "status": null
+      },
+      {
+        "code": "en",
+        "percent": 53,
+        "status": "official"
+      },
+      {
+        "code": "ff",
+        "percent": 0,
+        "status": null
+      },
+      {
+        "code": "ff_Adlm",
+        "percent": 0,
+        "status": null
+      },
+      {
+        "code": "fuv",
+        "percent": 6.7,
+        "status": null
+      },
+      {
+        "code": "ha",
+        "percent": 13,
+        "status": null
+      },
+      {
+        "code": "ha_Arab",
+        "percent": 1,
+        "status": null
+      },
+      {
+        "code": "ibb",
+        "percent": 1.4,
+        "status": null
+      },
+      {
+        "code": "ig",
+        "percent": 13,
+        "status": null
+      },
+      {
+        "code": "kaj",
+        "percent": 0.21,
+        "status": null
+      },
+      {
+        "code": "kcg",
+        "percent": 0.093,
+        "status": null
+      },
+      {
+        "code": "pcm",
+        "percent": 21,
+        "status": null
+      },
+      {
+        "code": "tiv",
+        "percent": 1.6,
+        "status": null
+      },
+      {
+        "code": "yo",
+        "percent": 13,
+        "status": "official"
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 43.35138
+      },
+      {
+        "code": "Muslims",
+        "percent": 56.06651
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 0.37931
+      },
+      {
+        "code": "Buddhists",
+        "percent": 0.00048
+      },
+      {
+        "code": "Hindus",
+        "percent": 0.00014
+      },
+      {
+        "code": "Jews",
+        "percent": 0.00005
+      },
+      {
+        "code": "Other religions",
+        "percent": 0.20213
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.038,
+    "urbanShare": 0.6217467631553429,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "NZL",
+    "iso2": "NZ",
+    "name": "Новая Зеландия",
+    "births": 57999,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 82.5234,
+    "underFiveProbability": 0.0044493,
+    "gdpPerCapitaUsd": 49302.341876493,
+    "currency": "NZD",
+    "languages": [
+      {
+        "code": "en",
+        "percent": 98,
+        "status": "de_facto_official"
+      },
+      {
+        "code": "mi",
+        "percent": 2.8,
+        "status": "official"
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 40.32331
+      },
+      {
+        "code": "Muslims",
+        "percent": 1.35943
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 51.35481
+      },
+      {
+        "code": "Buddhists",
+        "percent": 1.19251
+      },
+      {
+        "code": "Hindus",
+        "percent": 2.78868
+      },
+      {
+        "code": "Jews",
+        "percent": 0.11079
+      },
+      {
+        "code": "Other religions",
+        "percent": 2.87047
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.054,
+    "urbanShare": 0.838898991461229,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "PAK",
+    "iso2": "PK",
+    "name": "Пакистан",
+    "births": 6935665,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 68.0653,
+    "underFiveProbability": 0.0558756,
+    "gdpPerCapitaUsd": 1360.32417758419,
+    "currency": "PKR",
+    "languages": [
+      {
+        "code": "bal",
+        "percent": 2.6,
+        "status": null
+      },
+      {
+        "code": "bft",
+        "percent": 0.18,
+        "status": null
+      },
+      {
+        "code": "bgn",
+        "percent": 0.57,
+        "status": null
+      },
+      {
+        "code": "brh",
+        "percent": 1.3,
+        "status": null
+      },
+      {
+        "code": "btv",
+        "percent": 0.019,
+        "status": null
+      },
+      {
+        "code": "en",
+        "percent": 50,
+        "status": "official"
+      },
+      {
+        "code": "fa",
+        "percent": 0.66,
+        "status": null
+      },
+      {
+        "code": "gjk",
+        "percent": 0.11,
+        "status": null
+      },
+      {
+        "code": "gju",
+        "percent": 0.2,
+        "status": null
+      },
+      {
+        "code": "hnd",
+        "percent": 0.41,
+        "status": null
+      },
+      {
+        "code": "hno",
+        "percent": 1.7,
+        "status": null
+      },
+      {
+        "code": "khw",
+        "percent": 0.15,
+        "status": null
+      },
+      {
+        "code": "ks",
+        "percent": 0.069,
+        "status": null
+      },
+      {
+        "code": "kvx",
+        "percent": 0.16,
+        "status": null
+      },
+      {
+        "code": "kxp",
+        "percent": 0.11,
+        "status": null
+      },
+      {
+        "code": "lah",
+        "percent": 40,
+        "status": null
+      },
+      {
+        "code": "mvy",
+        "percent": 0.14,
+        "status": null
+      },
+      {
+        "code": "pa_Arab",
+        "percent": 70,
+        "status": null
+      },
+      {
+        "code": "ps",
+        "percent": 16,
+        "status": null
+      },
+      {
+        "code": "sd",
+        "percent": 15,
+        "status": null
+      },
+      {
+        "code": "skr",
+        "percent": 12,
+        "status": null
+      },
+      {
+        "code": "tg_Arab",
+        "percent": 0.33,
+        "status": null
+      },
+      {
+        "code": "trw",
+        "percent": 0.053,
+        "status": null
+      },
+      {
+        "code": "ur",
+        "percent": 95,
+        "status": "official"
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 1.27185
+      },
+      {
+        "code": "Muslims",
+        "percent": 96.54431
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 0.01273
+      },
+      {
+        "code": "Buddhists",
+        "percent": 0.0105
+      },
+      {
+        "code": "Hindus",
+        "percent": 2.1397
+      },
+      {
+        "code": "Jews",
+        "percent": 0.00009
+      },
+      {
+        "code": "Other religions",
+        "percent": 0.02082
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.055,
+    "urbanShare": 0.38819186187279103,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "PER",
+    "iso2": "PE",
+    "name": "Перу",
+    "births": 532846,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 78.2969,
+    "underFiveProbability": 0.0121382,
+    "gdpPerCapitaUsd": 7919.04634828547,
+    "currency": "PEN",
+    "languages": [
+      {
+        "code": "ay",
+        "percent": 1.6,
+        "status": null
+      },
+      {
+        "code": "es",
+        "percent": 73,
+        "status": "official"
+      },
+      {
+        "code": "qu",
+        "percent": 15,
+        "status": "official"
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 94.492
+      },
+      {
+        "code": "Muslims",
+        "percent": 0.02159
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 5.1067
+      },
+      {
+        "code": "Buddhists",
+        "percent": 0.03195
+      },
+      {
+        "code": "Hindus",
+        "percent": 0.00949
+      },
+      {
+        "code": "Jews",
+        "percent": 0.0057
+      },
+      {
+        "code": "Other religions",
+        "percent": 0.33257
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.041,
+    "urbanShare": 0.847810255849745,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "PHL",
+    "iso2": "PH",
+    "name": "Филиппины",
+    "births": 1853794,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 70.1744,
+    "underFiveProbability": 0.0254911,
+    "gdpPerCapitaUsd": 3804.08274131718,
+    "currency": "PHP",
+    "languages": [
+      {
+        "code": "bik",
+        "percent": 3,
+        "status": null
+      },
+      {
+        "code": "bku",
+        "percent": 0.0068,
+        "status": null
+      },
+      {
+        "code": "bto",
+        "percent": 0.28,
+        "status": null
+      },
+      {
+        "code": "ceb",
+        "percent": 24,
+        "status": "official_regional"
+      },
+      {
+        "code": "cps",
+        "percent": 0.66,
+        "status": null
+      },
+      {
+        "code": "en",
+        "percent": 64,
+        "status": "official"
+      },
+      {
+        "code": "es",
+        "percent": 31,
+        "status": null
+      },
+      {
+        "code": "fbl",
+        "percent": 2.3,
+        "status": null
+      },
+      {
+        "code": "fil",
+        "percent": 60,
+        "status": "official"
+      },
+      {
+        "code": "hil",
+        "percent": 8.4,
+        "status": "official_regional"
+      },
+      {
+        "code": "hnn",
+        "percent": 0.016,
+        "status": null
+      },
+      {
+        "code": "ilo",
+        "percent": 9.6,
+        "status": "official_regional"
+      },
+      {
+        "code": "krj",
+        "percent": 0.39,
+        "status": null
+      },
+      {
+        "code": "mdh",
+        "percent": 1.2,
+        "status": "official_regional"
+      },
+      {
+        "code": "pag",
+        "percent": 1.4,
+        "status": "official_regional"
+      },
+      {
+        "code": "pam",
+        "percent": 2.3,
+        "status": null
+      },
+      {
+        "code": "tbw",
+        "percent": 0.0085,
+        "status": null
+      },
+      {
+        "code": "tsg",
+        "percent": 1.1,
+        "status": "official_regional"
+      },
+      {
+        "code": "war",
+        "percent": 2.9,
+        "status": "official_regional"
+      },
+      {
+        "code": "zh_Hant",
+        "percent": 0.73,
+        "status": null
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 91.46121
+      },
+      {
+        "code": "Muslims",
+        "percent": 6.46235
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 0.04114
+      },
+      {
+        "code": "Buddhists",
+        "percent": 0.03636
+      },
+      {
+        "code": "Hindus",
+        "percent": 0.00133
+      },
+      {
+        "code": "Jews",
+        "percent": 0.00045
+      },
+      {
+        "code": "Other religions",
+        "percent": 1.99717
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.077,
+    "urbanShare": 0.551242716168851,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "RUS",
+    "iso2": "RU",
+    "name": "Россия",
+    "births": 1213374,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 73.7023,
+    "underFiveProbability": 0.0048595,
+    "gdpPerCapitaUsd": 13986.9951171875,
+    "currency": "RUB",
+    "languages": [
+      {
+        "code": "abq",
+        "percent": 0.021,
+        "status": null
+      },
+      {
+        "code": "ady",
+        "percent": 0.088,
+        "status": "official_regional"
+      },
+      {
+        "code": "alt",
+        "percent": 0.014,
+        "status": null
+      },
+      {
+        "code": "av",
+        "percent": 0.39,
+        "status": "official_regional"
+      },
+      {
+        "code": "az_Cyrl",
+        "percent": 0.093,
+        "status": "official_regional"
+      },
+      {
+        "code": "ba",
+        "percent": 1.3,
+        "status": "official_regional"
+      },
+      {
+        "code": "bua",
+        "percent": 0.22,
+        "status": "official_regional"
+      },
+      {
+        "code": "ce",
+        "percent": 0.66,
+        "status": "official_regional"
+      },
+      {
+        "code": "chm",
+        "percent": 0.37,
+        "status": null
+      },
+      {
+        "code": "cu",
+        "percent": 0,
+        "status": null
+      },
+      {
+        "code": "cv",
+        "percent": 1.3,
+        "status": null
+      },
+      {
+        "code": "dar",
+        "percent": 0.26,
+        "status": null
+      },
+      {
+        "code": "fi",
+        "percent": 0.012,
+        "status": null
+      },
+      {
+        "code": "hy",
+        "percent": 0.84,
+        "status": null
+      },
+      {
+        "code": "inh",
+        "percent": 0.16,
+        "status": "official_regional"
+      },
+      {
+        "code": "izh",
+        "percent": 0.0001,
+        "status": null
+      },
+      {
+        "code": "kaa",
+        "percent": 0.0006,
+        "status": null
+      },
+      {
+        "code": "kbd",
+        "percent": 0.31,
+        "status": "official_regional"
+      },
+      {
+        "code": "koi",
+        "percent": 0.045,
+        "status": "official_regional"
+      },
+      {
+        "code": "krc",
+        "percent": 0.17,
+        "status": "official_regional"
+      },
+      {
+        "code": "krl",
+        "percent": 0.082,
+        "status": null
+      },
+      {
+        "code": "kum",
+        "percent": 0.2,
+        "status": "official_regional"
+      },
+      {
+        "code": "kv",
+        "percent": 0.18,
+        "status": "official_regional"
+      },
+      {
+        "code": "lbe",
+        "percent": 0.078,
+        "status": "official_regional"
+      },
+      {
+        "code": "lez",
+        "percent": 0.18,
+        "status": "official_regional"
+      },
+      {
+        "code": "mdf",
+        "percent": 0.21,
+        "status": "official_regional"
+      },
+      {
+        "code": "mn",
+        "percent": 0.0015,
+        "status": null
+      },
+      {
+        "code": "mrj",
+        "percent": 0.021,
+        "status": null
+      },
+      {
+        "code": "myv",
+        "percent": 0.31,
+        "status": "official_regional"
+      },
+      {
+        "code": "os",
+        "percent": 0.32,
+        "status": null
+      },
+      {
+        "code": "pnt_Cyrl",
+        "percent": 0.04,
+        "status": null
+      },
+      {
+        "code": "ru",
+        "percent": 94,
+        "status": "official"
+      },
+      {
+        "code": "sah",
+        "percent": 0.32,
+        "status": "official_regional"
+      },
+      {
+        "code": "sr",
+        "percent": 0.0041,
+        "status": null
+      },
+      {
+        "code": "tt",
+        "percent": 1.4,
+        "status": "official_regional"
+      },
+      {
+        "code": "tyv",
+        "percent": 0.13,
+        "status": "official_regional"
+      },
+      {
+        "code": "udm",
+        "percent": 0.38,
+        "status": "official_regional"
+      },
+      {
+        "code": "vep",
+        "percent": 0.0026,
+        "status": null
+      },
+      {
+        "code": "vot",
+        "percent": 0,
+        "status": null
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 69.92578
+      },
+      {
+        "code": "Muslims",
+        "percent": 8.19301
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 20.19824
+      },
+      {
+        "code": "Buddhists",
+        "percent": 0.35244
+      },
+      {
+        "code": "Hindus",
+        "percent": 0.07124
+      },
+      {
+        "code": "Jews",
+        "percent": 0.08405
+      },
+      {
+        "code": "Other religions",
+        "percent": 1.17523
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.056,
+    "urbanShare": 0.7498050478732791,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "SAU",
+    "iso2": "SA",
+    "name": "Саудовская Аравия",
+    "births": 567889,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 79.3996,
+    "underFiveProbability": 0.0068798,
+    "gdpPerCapitaUsd": 36156.8562500172,
+    "currency": "SAR",
+    "languages": [
+      {
+        "code": "ar",
+        "percent": 100,
+        "status": "official"
+      },
+      {
+        "code": "ars",
+        "percent": 3,
+        "status": null
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 4.37771
+      },
+      {
+        "code": "Muslims",
+        "percent": 92.6938
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 0.1121
+      },
+      {
+        "code": "Buddhists",
+        "percent": 0.07349
+      },
+      {
+        "code": "Hindus",
+        "percent": 2.62212
+      },
+      {
+        "code": "Jews",
+        "percent": 0.00275
+      },
+      {
+        "code": "Other religions",
+        "percent": 0.11804
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.051,
+    "urbanShare": 0.842962388315415,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "THA",
+    "iso2": "TH",
+    "name": "Таиланд",
+    "births": 566113,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 77.0606,
+    "underFiveProbability": 0.0096263,
+    "gdpPerCapitaUsd": 7210.54130832685,
+    "currency": "THB",
+    "languages": [
+      {
+        "code": "en",
+        "percent": 27,
+        "status": null
+      },
+      {
+        "code": "hnj",
+        "percent": 0.098,
+        "status": null
+      },
+      {
+        "code": "kdt",
+        "percent": 0.48,
+        "status": null
+      },
+      {
+        "code": "kxm",
+        "percent": 1.7,
+        "status": null
+      },
+      {
+        "code": "lcp",
+        "percent": 0.01,
+        "status": null
+      },
+      {
+        "code": "lwl",
+        "percent": 0.01,
+        "status": null
+      },
+      {
+        "code": "mfa",
+        "percent": 5,
+        "status": null
+      },
+      {
+        "code": "mnw",
+        "percent": 0.17,
+        "status": null
+      },
+      {
+        "code": "mww",
+        "percent": 0.047,
+        "status": null
+      },
+      {
+        "code": "nod",
+        "percent": 9.6,
+        "status": null
+      },
+      {
+        "code": "pi_Thai",
+        "percent": 0,
+        "status": null
+      },
+      {
+        "code": "shn",
+        "percent": 0.096,
+        "status": null
+      },
+      {
+        "code": "sou",
+        "percent": 8,
+        "status": null
+      },
+      {
+        "code": "th",
+        "percent": 80,
+        "status": "official"
+      },
+      {
+        "code": "tts",
+        "percent": 24,
+        "status": null
+      },
+      {
+        "code": "zh_Hant",
+        "percent": 1.8,
+        "status": null
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 1.03361
+      },
+      {
+        "code": "Muslims",
+        "percent": 4.51459
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 0.01263
+      },
+      {
+        "code": "Buddhists",
+        "percent": 94.39245
+      },
+      {
+        "code": "Hindus",
+        "percent": 0.04037
+      },
+      {
+        "code": "Jews",
+        "percent": 0.00028
+      },
+      {
+        "code": "Other religions",
+        "percent": 0.00606
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.064,
+    "urbanShare": 0.609341926574707,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "TZA",
+    "iso2": "TZ",
+    "name": "Танзания",
+    "births": 2459538,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 67.6344,
+    "underFiveProbability": 0.0362771,
+    "gdpPerCapitaUsd": 1224.00219726563,
+    "currency": "TZS",
+    "languages": [
+      {
+        "code": "asa",
+        "percent": 1.2,
+        "status": null
+      },
+      {
+        "code": "bez",
+        "percent": 1.7,
+        "status": null
+      },
+      {
+        "code": "en",
+        "percent": 69,
+        "status": "official"
+      },
+      {
+        "code": "jmc",
+        "percent": 0.74,
+        "status": null
+      },
+      {
+        "code": "kde",
+        "percent": 2.5,
+        "status": null
+      },
+      {
+        "code": "ksb",
+        "percent": 1.7,
+        "status": null
+      },
+      {
+        "code": "lag",
+        "percent": 0.87,
+        "status": null
+      },
+      {
+        "code": "mas",
+        "percent": 1.5,
+        "status": null
+      },
+      {
+        "code": "mgy",
+        "percent": 1.4,
+        "status": null
+      },
+      {
+        "code": "nym",
+        "percent": 3.3,
+        "status": null
+      },
+      {
+        "code": "rof",
+        "percent": 0.74,
+        "status": null
+      },
+      {
+        "code": "rwk",
+        "percent": 0.22,
+        "status": null
+      },
+      {
+        "code": "sbp",
+        "percent": 0.2,
+        "status": null
+      },
+      {
+        "code": "suk",
+        "percent": 8.7,
+        "status": null
+      },
+      {
+        "code": "sw",
+        "percent": 90,
+        "status": "official"
+      },
+      {
+        "code": "vun",
+        "percent": 0.74,
+        "status": null
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 64.69165
+      },
+      {
+        "code": "Muslims",
+        "percent": 29.86782
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 3.47816
+      },
+      {
+        "code": "Buddhists",
+        "percent": 0.00018
+      },
+      {
+        "code": "Hindus",
+        "percent": 0.00648
+      },
+      {
+        "code": "Jews",
+        "percent": 0.00018
+      },
+      {
+        "code": "Other religions",
+        "percent": 1.95553
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.031,
+    "urbanShare": 0.354748019434954,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "UGA",
+    "iso2": "UG",
+    "name": "Уганда",
+    "births": 1746979,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 68.9207,
+    "underFiveProbability": 0.035336,
+    "gdpPerCapitaUsd": 1002.30913917142,
+    "currency": "UGX",
+    "languages": [
+      {
+        "code": "ach",
+        "percent": 3.7,
+        "status": null
+      },
+      {
+        "code": "cgg",
+        "percent": 5.4,
+        "status": null
+      },
+      {
+        "code": "en",
+        "percent": 3.9,
+        "status": "official"
+      },
+      {
+        "code": "hi",
+        "percent": 0.0045,
+        "status": null
+      },
+      {
+        "code": "laj",
+        "percent": 3.8,
+        "status": null
+      },
+      {
+        "code": "lg",
+        "percent": 13,
+        "status": null
+      },
+      {
+        "code": "myx",
+        "percent": 2.9,
+        "status": null
+      },
+      {
+        "code": "nyn",
+        "percent": 6.3,
+        "status": null
+      },
+      {
+        "code": "rw",
+        "percent": 2.1,
+        "status": null
+      },
+      {
+        "code": "sw",
+        "percent": 75,
+        "status": "official"
+      },
+      {
+        "code": "teo",
+        "percent": 3.9,
+        "status": null
+      },
+      {
+        "code": "ttj",
+        "percent": 1.9,
+        "status": null
+      },
+      {
+        "code": "xog",
+        "percent": 5.3,
+        "status": null
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 87.74429
+      },
+      {
+        "code": "Muslims",
+        "percent": 11.41293
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 0.09488
+      },
+      {
+        "code": "Buddhists",
+        "percent": 0.0008
+      },
+      {
+        "code": "Hindus",
+        "percent": 0.00534
+      },
+      {
+        "code": "Jews",
+        "percent": 0.00104
+      },
+      {
+        "code": "Other religions",
+        "percent": 0.74071
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.03,
+    "urbanShare": 0.306059359395495,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "USA",
+    "iso2": "US",
+    "name": "США",
+    "births": 3673260,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 79.7579,
+    "underFiveProbability": 0.005567,
+    "gdpPerCapitaUsd": 82586.7847707894,
+    "currency": "USD",
+    "languages": [
+      {
+        "code": "cad",
+        "percent": 0,
+        "status": null
+      },
+      {
+        "code": "cho",
+        "percent": 0.0033,
+        "status": null
+      },
+      {
+        "code": "chr",
+        "percent": 0.0077,
+        "status": null
+      },
+      {
+        "code": "cic",
+        "percent": 0,
+        "status": null
+      },
+      {
+        "code": "dak",
+        "percent": 0.0059,
+        "status": null
+      },
+      {
+        "code": "de",
+        "percent": 0.47,
+        "status": null
+      },
+      {
+        "code": "en",
+        "percent": 96,
+        "status": "de_facto_official"
+      },
+      {
+        "code": "es",
+        "percent": 9.6,
+        "status": "official_regional"
+      },
+      {
+        "code": "esu",
+        "percent": 0.0063,
+        "status": null
+      },
+      {
+        "code": "fil",
+        "percent": 0.42,
+        "status": null
+      },
+      {
+        "code": "fr",
+        "percent": 0.56,
+        "status": null
+      },
+      {
+        "code": "frc",
+        "percent": 0.0084,
+        "status": null
+      },
+      {
+        "code": "haw",
+        "percent": 0.0089,
+        "status": "official_regional"
+      },
+      {
+        "code": "hnj",
+        "percent": 0.035,
+        "status": null
+      },
+      {
+        "code": "ik",
+        "percent": 0.0023,
+        "status": null
+      },
+      {
+        "code": "io",
+        "percent": 0,
+        "status": null
+      },
+      {
+        "code": "it",
+        "percent": 0.34,
+        "status": null
+      },
+      {
+        "code": "jbo",
+        "percent": 0,
+        "status": null
+      },
+      {
+        "code": "ko",
+        "percent": 0.3,
+        "status": null
+      },
+      {
+        "code": "lkt",
+        "percent": 0.0024,
+        "status": null
+      },
+      {
+        "code": "mus",
+        "percent": 0.0012,
+        "status": null
+      },
+      {
+        "code": "mww",
+        "percent": 0.068,
+        "status": null
+      },
+      {
+        "code": "nv",
+        "percent": 0.05,
+        "status": null
+      },
+      {
+        "code": "oka",
+        "percent": 0.0001,
+        "status": null
+      },
+      {
+        "code": "osa",
+        "percent": 0,
+        "status": null
+      },
+      {
+        "code": "pdc",
+        "percent": 0.039,
+        "status": null
+      },
+      {
+        "code": "ru",
+        "percent": 0.24,
+        "status": null
+      },
+      {
+        "code": "vi",
+        "percent": 0.34,
+        "status": null
+      },
+      {
+        "code": "yi",
+        "percent": 0.049,
+        "status": null
+      },
+      {
+        "code": "zh_Hant",
+        "percent": 0.69,
+        "status": null
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 64.01
+      },
+      {
+        "code": "Muslims",
+        "percent": 1.19238
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 29.73
+      },
+      {
+        "code": "Buddhists",
+        "percent": 1.29175
+      },
+      {
+        "code": "Hindus",
+        "percent": 0.89429
+      },
+      {
+        "code": "Jews",
+        "percent": 1.68921
+      },
+      {
+        "code": "Other religions",
+        "percent": 1.19238
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.05,
+    "urbanShare": 0.80071561119178,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "UZB",
+    "iso2": "UZ",
+    "name": "Узбекистан",
+    "births": 894379,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 72.7818,
+    "underFiveProbability": 0.013997899999999999,
+    "gdpPerCapitaUsd": 3015.97705069457,
+    "currency": "UZS",
+    "languages": [
+      {
+        "code": "kaa",
+        "percent": 2.1,
+        "status": null
+      },
+      {
+        "code": "ru",
+        "percent": 14,
+        "status": null
+      },
+      {
+        "code": "tr",
+        "percent": 0.62,
+        "status": null
+      },
+      {
+        "code": "uz",
+        "percent": 85,
+        "status": "official"
+      },
+      {
+        "code": "uz_Cyrl",
+        "percent": 15,
+        "status": "official"
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 2.77531
+      },
+      {
+        "code": "Muslims",
+        "percent": 95.62224
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 0.55198
+      },
+      {
+        "code": "Buddhists",
+        "percent": 0.01476
+      },
+      {
+        "code": "Hindus",
+        "percent": 0.0275
+      },
+      {
+        "code": "Jews",
+        "percent": 0.00835
+      },
+      {
+        "code": "Other religions",
+        "percent": 0.99986
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.077,
+    "urbanShare": 0.509964841114568,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "VNM",
+    "iso2": "VN",
+    "name": "Вьетнам",
+    "births": 1307471,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 75.0486,
+    "underFiveProbability": 0.0187865,
+    "gdpPerCapitaUsd": 4322.82572261566,
+    "currency": "VND",
+    "languages": [
+      {
+        "code": "blt",
+        "percent": 0.69,
+        "status": null
+      },
+      {
+        "code": "cjm",
+        "percent": 0.089,
+        "status": null
+      },
+      {
+        "code": "hnj",
+        "percent": 0.17,
+        "status": null
+      },
+      {
+        "code": "mww",
+        "percent": 1.4,
+        "status": null
+      },
+      {
+        "code": "vi",
+        "percent": 86,
+        "status": "official"
+      },
+      {
+        "code": "zh_Hant",
+        "percent": 1.1,
+        "status": null
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 8.33002
+      },
+      {
+        "code": "Muslims",
+        "percent": 0.07208
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 67.67365
+      },
+      {
+        "code": "Buddhists",
+        "percent": 23.02082
+      },
+      {
+        "code": "Hindus",
+        "percent": 0.04129
+      },
+      {
+        "code": "Jews",
+        "percent": 0.00013
+      },
+      {
+        "code": "Other religions",
+        "percent": 0.86202
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.101,
+    "urbanShare": 0.38129890441894504,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  },
+  {
+    "iso3": "ZAF",
+    "iso2": "ZA",
+    "name": "ЮАР",
+    "births": 1167803,
+    "worldBirths": 132503469.00000001,
+    "lifeExpectancy": 66.6561,
+    "underFiveProbability": 0.0299076,
+    "gdpPerCapitaUsd": 6034.27208964673,
+    "currency": "ZAR",
+    "languages": [
+      {
+        "code": "af",
+        "percent": 13,
+        "status": "official_regional"
+      },
+      {
+        "code": "en",
+        "percent": 31,
+        "status": "official"
+      },
+      {
+        "code": "hi",
+        "percent": 2,
+        "status": null
+      },
+      {
+        "code": "nr",
+        "percent": 1.6,
+        "status": "official_regional"
+      },
+      {
+        "code": "nso",
+        "percent": 9.4,
+        "status": "official_regional"
+      },
+      {
+        "code": "ss",
+        "percent": 2.7,
+        "status": "official_regional"
+      },
+      {
+        "code": "st",
+        "percent": 7.9,
+        "status": "official_regional"
+      },
+      {
+        "code": "sw",
+        "percent": 0.0017,
+        "status": null
+      },
+      {
+        "code": "tn",
+        "percent": 8.2,
+        "status": "official_regional"
+      },
+      {
+        "code": "ts",
+        "percent": 4.4,
+        "status": "official_regional"
+      },
+      {
+        "code": "ve",
+        "percent": 2.3,
+        "status": "official_regional"
+      },
+      {
+        "code": "xh",
+        "percent": 18,
+        "status": "official_regional"
+      },
+      {
+        "code": "zu",
+        "percent": 24,
+        "status": "official_regional"
+      }
+    ],
+    "religions": [
+      {
+        "code": "Christians",
+        "percent": 85.25712
+      },
+      {
+        "code": "Muslims",
+        "percent": 1.60488
+      },
+      {
+        "code": "Unaffiliated",
+        "percent": 3.12211
+      },
+      {
+        "code": "Buddhists",
+        "percent": 0.03553
+      },
+      {
+        "code": "Hindus",
+        "percent": 1.06501
+      },
+      {
+        "code": "Jews",
+        "percent": 0.06518
+      },
+      {
+        "code": "Other religions",
+        "percent": 8.85017
+      }
+    ],
+    "year": 2026,
+    "gdpYear": 2023,
+    "maleFemaleRatio": 1.04,
+    "urbanShare": 0.635823705163545,
+    "sexRatioYear": 2026,
+    "urbanYear": 2023
+  }
+]

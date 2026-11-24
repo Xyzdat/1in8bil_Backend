@@ -16,6 +16,36 @@ public record LocalBudget(int month, long balance, List<Entry> entries, List<Pur
 			new Rate(16, 60000, 42000, "Подработка и личные расходы"),
 			new Rate(18, 96000, 84000, "Поиск своего пути"));
 
+	/** Interval settlement for new local lives; the legacy annual formula stays unchanged. */
+	public static LocalBudget atMonth(LocalBudget current, int target) {
+		var budget = current == null ? new LocalBudget(0, 0, List.of(), List.of()) : current;
+		if (target < budget.month) throw new IllegalArgumentException("Budget cannot move backwards");
+		var ledger = new ArrayList<>(budget.entries);
+		long balance = budget.balance;
+		for (int month = budget.month + 1; month <= target; month++) {
+			long interest = Math.max(0, balance) * RATE_BASIS_POINTS / 120000;
+			var rate = rateAt((month - 1) / 12);
+			if (rate.income() != 0 || rate.expense() != 0) {
+				var entry = new Entry("budget-" + month, month, "BUDGET", rate.title(),
+						installment(rate.income(), month), installment(rate.expense(), month));
+				ledger.add(entry);
+				balance += entry.income() - entry.expense();
+			}
+			for (var purchase : budget.purchases) {
+				if (purchase.yearlyCost() > 0 && month > purchase.month()) {
+					long expense = installment(purchase.yearlyCost(), month - purchase.month());
+					ledger.add(new Entry("upkeep-" + purchase.id() + "-" + month, month, "UPKEEP", purchase.title(), 0, expense));
+					balance -= expense;
+				}
+			}
+			if (interest > 0) {
+				ledger.add(new Entry("interest-" + month, month, "INTEREST", "Проценты на накопления", interest, 0));
+				balance += interest;
+			}
+		}
+		return new LocalBudget(target, balance, List.copyOf(ledger), budget.purchases);
+	}
+
 	public static LocalBudget atAge(LocalBudget current, int age) {
 		var budget = current == null ? new LocalBudget(0, 0, List.of(), List.of()) : current;
 		int target = age * 12;

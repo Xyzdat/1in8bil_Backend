@@ -1,0 +1,8 @@
+{
+  "license": "CC-BY-4.0",
+  "id": "wdi-2023-20261111",
+  "retrievedAt": "2026-11-24T09:29:47.8791634Z",
+  "sourceUpdated": "2026-11-11",
+  "sha256": "c560eee55cf76ec6f8786034985952dab4e24af63d4e9fa36bac029c2e53bc53",
+  "sourceUrl": "https://api.worldbank.org/v2/country/RUS;JPN;IND/indicator/SP.POP.TOTL;SP.DYN.CBRT.IN;SP.POP.BRTH.MF;SP.URB.TOTL.IN.ZS?source=2&date=2023&format=json&per_page=100"
+}

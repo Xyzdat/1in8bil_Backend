@@ -1,5 +1,6 @@
 HELP.md
 target/
+/data/statistics/expanded/
 /.env
 /.env.*
 !/.env.example
