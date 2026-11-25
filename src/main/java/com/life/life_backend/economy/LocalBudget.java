@@ -82,7 +82,7 @@ public record LocalBudget(int month, long balance, List<Entry> entries, List<Pur
 		return new LocalBudget(target, balance, List.copyOf(ledger), budget.purchases);
 	}
 
-	LocalBudget book(Purchase purchase) {
+	public LocalBudget book(Purchase purchase) {
 		var updatedPurchases = new ArrayList<>(purchases);
 		updatedPurchases.add(purchase);
 		var ledger = new ArrayList<>(entries);
@@ -90,19 +90,21 @@ public record LocalBudget(int month, long balance, List<Entry> entries, List<Pur
 		return new LocalBudget(month, balance - purchase.price(), List.copyOf(ledger), List.copyOf(updatedPurchases));
 	}
 
-	long available() {
+	public long available() {
 		return Math.max(0, balance);
 	}
 
-	FinanceView.Summary summary() {
+	public FinanceView.Summary summary() {
 		long income = 0;
 		long expense = 0;
 		for (var entry : entries.reversed()) {
 			if (entry.month() <= month - 12) {
 				break;
 			}
-			income += entry.income();
-			expense += entry.expense();
+			if (!"FINANCING".equals(entry.flow())) {
+				income += entry.income();
+				expense += entry.expense();
+			}
 		}
 		return new FinanceView.Summary(money(income), money(expense), 12, money(available()), money(Math.max(0, -balance)),
 				money(available()), null, rateAt(month / 12).title(), RATE_BASIS_POINTS, month / 12);
@@ -118,13 +120,39 @@ public record LocalBudget(int month, long balance, List<Entry> entries, List<Pur
 		return cents * part / 12 - cents * (part - 1) / 12;
 	}
 
-	static BigDecimal money(long cents) {
+	public static BigDecimal money(long cents) {
 		return BigDecimal.valueOf(cents, 2);
 	}
 
-	public record Entry(String id, int month, String kind, String title, long income, long expense) {
+	/** Only the adult economy calls this; principal transfers are excluded from income/expense summaries. */
+	public LocalBudget post(String id, String title, long income, long expense, boolean financing) {
+		return post(id,"BUDGET",title,income,expense,financing);
+	}
+	private LocalBudget post(String id,String kind,String title,long income,long expense,boolean financing) {
+		if (income < 0 || expense < 0) throw new IllegalArgumentException("Negative cash flow");
+		if (entries.stream().anyMatch(e -> e.id().equals(id))) return this;
+		var ledger = new ArrayList<>(entries);
+		ledger.add(new Entry(id, month, kind, title, income, expense, financing ? "FINANCING" : "OPERATING"));
+		return new LocalBudget(month, Math.addExact(balance, Math.subtractExact(income, expense)), List.copyOf(ledger), purchases);
+	}
+
+	/** Existing interest and purchased-item upkeep, without the legacy age-based allowance. */
+	public LocalBudget adultMonth(int target) {
+		if (target != month + 1) throw new IllegalArgumentException("Settle exactly one month");
+		var next = new LocalBudget(target, balance, entries, purchases);
+		for (var p : purchases) if (p.yearlyCost() > 0 && target > p.month())
+			next = next.post("upkeep-" + p.id() + "-" + target, "UPKEEP", "Содержание: " + p.title(), 0, installment(p.yearlyCost(), target - p.month()), false);
+		long interest = Math.max(0, balance) * RATE_BASIS_POINTS / 120000;
+		if (interest > 0) next = next.post("interest-" + target, "INTEREST", "Проценты на накопления", interest, 0, false);
+		return next;
+	}
+
+	public record Entry(String id, int month, String kind, String title, long income, long expense, String flow) {
+		public Entry(String id, int month, String kind, String title, long income, long expense) {
+			this(id, month, kind, title, income, expense, null);
+		}
 		FinanceView.Transaction view() {
-			return new FinanceView.Transaction(id, month, kind, title, money(income), money(expense));
+			return new FinanceView.Transaction(id, month, kind, title, money(income), money(expense),flow);
 		}
 	}
 

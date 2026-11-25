@@ -6,6 +6,9 @@ import java.util.*;
 final class EffectApplier {
     private EffectApplier() { }
     static Result apply(LifeState.Stats stats, LocalSimulation simulation, EventCatalog.Effect effect, String role) {
+        return apply(stats, simulation, effect, role, null);
+    }
+    static Result apply(LifeState.Stats stats, LocalSimulation simulation, EventCatalog.Effect effect, String role, String sourceDecisionId) {
         if (effect == null) return new Result(stats, simulation);
         var participant = simulation.participant(role);
         String target = participant == null ? null : participant.id();
@@ -17,7 +20,7 @@ final class EffectApplier {
         var flags = new HashSet<>(simulation.flags());
         if (effect.addFlag() != null) flags.add(effect.addFlag());
         var queue = new ArrayList<>(simulation.scheduled());
-        if (effect.followUp() != null) queue.add(new LocalSimulation.Scheduled(effect.followUp(), simulation.month() + effect.delayMonths()));
+        if (effect.followUp() != null) queue.add(new LocalSimulation.Scheduled(effect.followUp(), simulation.month() + effect.delayMonths(), sourceDecisionId));
         var updated = simulation.evolve(simulation.month(),family,skills,flags,simulation.lastEvents(),queue,simulation.pendingTemplate(),simulation.death());
         // Apply the family delta, preserving relationship bonuses already granted by purchases.
         int before = (int) simulation.family().stream().filter(LocalSimulation.Person::alive)

@@ -76,9 +76,34 @@ class LifeSession {
 	@Column(columnDefinition = "jsonb")
 	private LocalSimulation simulation;
 
+	@JdbcTypeCode(SqlTypes.JSON)
+	@Column(columnDefinition = "jsonb")
+	private com.life.life_backend.engine.adult.AdultState adultState;
+
+	@JdbcTypeCode(SqlTypes.JSON)
+	@Column(columnDefinition = "jsonb")
+	private com.life.life_backend.highlights.LifeHighlights lifeHighlights;
+
+	com.life.life_backend.highlights.HighlightFrame highlightFrame() {
+		return simulation==null?null:new com.life.life_backend.highlights.HighlightFrame(state,simulation,adultState,localBudget);
+	}
+	void updateHighlights(com.life.life_backend.highlights.HighlightTracker tracker,com.life.life_backend.highlights.HighlightFrame before) {
+		if(before!=null)lifeHighlights=tracker.update(lifeHighlights,before,highlightFrame());
+	}
+
+	com.life.life_backend.engine.adult.AdultState adultState() { return adultState; }
+	void applyAdult(com.life.life_backend.engine.adult.AdultLifeEngine.Transition transition) {
+		int previousMonth=simulation.month();
+		state=transition.state();simulation=transition.simulation();adultState=transition.adult();localBudget=transition.budget();
+		completeTraining(previousMonth);markSaved();
+	}
+
 	LocalSimulation simulation() { return simulation; }
 
-	void initializeSimulation(LocalSimulation value) { simulation = value; }
+	void initializeSimulation(LocalSimulation value) {
+		simulation = value;
+		lifeHighlights=com.life.life_backend.highlights.LifeHighlights.start(value.month(),state.history().size());
+	}
 	void enrichBirthContext(com.life.life_backend.engine.local.BirthContextFactory factory) {
 		simulation = factory.enrichLegacy(simulation, setup.character().birthplace().countryCode(), setup.character().gender());
 	}
@@ -131,7 +156,7 @@ class LifeSession {
 			if (completion != null && completion > previousMonth && completion <= localBudget.month()) {
 				var effects = new FinanceView.Effects(null, null, 4, null, null);
 				addSpendingEvent(purchase.id() + "-completed", "Обучение завершено",
-						"Завершён курс «" + purchase.title() + "».", effects);
+						"Завершён курс «" + purchase.title() + "».", effects, purchaseLink(purchase,"OUTCOME","training_completed",completion));
 			}
 		}
 	}
@@ -143,7 +168,7 @@ class LifeSession {
 		var location = budget.purchases().reversed().stream().map(LocalBudget.Purchase::location)
 				.filter(Objects::nonNull).findFirst()
 				.orElseGet(() -> new FinanceView.Location(birthplace.countryCode(), birthplace.country(), birthplace.city()));
-		return new SpendingService.LocalContext(revision, state, budget, location);
+		return new SpendingService.LocalContext(revision, state, budget, location,adultState);
 	}
 
 	ProviderEconomy providerEconomy() {
@@ -160,18 +185,25 @@ class LifeSession {
 	void applyPurchase(SpendingService.Receipt receipt) {
 		localBudget = receipt.budget();
 		var purchase = receipt.purchase();
+		if(adultState!=null)adultState=adultState.withPurchase(purchase);
 		String text = purchase.petName() == null ? "Оплачено: " + purchase.title() + "."
 				: "В доме появился питомец — " + purchase.petName() + ".";
 		if (purchase.location() != null) {
 			text = "Новое место жительства: " + purchase.location().country() + ", " + purchase.location().city() + ".";
 		}
-		addSpendingEvent("purchase-" + purchase.id(), purchase.title(), text, receipt.effects());
+		addSpendingEvent("purchase-" + purchase.id(), purchase.title(), text, receipt.effects(),purchaseLink(purchase,"DECISION","purchase",purchase.month()));
 		markSaved();
 	}
 
-	private void addSpendingEvent(String id, String title, String text, FinanceView.Effects effects) {
+	private com.life.life_backend.highlights.EventLink purchaseLink(LocalBudget.Purchase purchase,String phase,String action,int month) {
+		String source="purchase-"+purchase.id();
+		String domain=purchase.location()!=null?"RESIDENCE":purchase.completionMonth()!=null?"EDUCATION":"FINANCES";
+		return new com.life.life_backend.highlights.EventLink(source,"purchase:"+purchase.categoryId()+":"+purchase.itemId(),domain,phase,month,
+				phase.equals("DECISION")?source:null,phase.equals("DECISION")?purchase.itemId():null,purchase.title(),action,List.of(),List.of(),List.of());
+	}
+	private void addSpendingEvent(String id, String title, String text, FinanceView.Effects effects,com.life.life_backend.highlights.EventLink link) {
 		var history = new ArrayList<>(state.history());
-		history.add(new LifeState.HistoryEvent(id, state.age(), title, text));
+		history.add(new LifeState.HistoryEvent(id, state.age(), title, text,null,simulation==null?null:link));
 		var stats = effects == null ? state.stats() : effects.apply(state.stats());
 		state = new LifeState(state.age(), state.status(), stats, state.pendingDecision(), history);
 	}
@@ -226,7 +258,7 @@ class LifeSession {
 		var character = new SessionView.Character(displayName == null ? original.name() : displayName, original.gender(),
 				original.birthYear(), original.birthplace(), original.background(), setup.birthDetails(),simulation==null?null:simulation.birthFacts());
 		return new SessionView(id, character, revision, savedAt, visibleState(), engineId,
-				simulation == null ? null : simulation.view());
+				simulation == null ? null : simulation.view(adultState),lifeHighlights==null?null:lifeHighlights.view());
 	}
 
 	private LifeState withStats(LifeState.Stats stats) {

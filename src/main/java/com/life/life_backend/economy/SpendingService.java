@@ -23,7 +23,8 @@ public class SpendingService {
 	public FinanceView finances(LocalContext context) {
 		var budget = context.budget();
 		var categories = catalog.sections().stream().map(section -> category(section, context)).toList();
-		return new FinanceView(context.version(), context.state().age(), FinanceView.Currency.RUB, budget.summary(),
+        return new FinanceView(context.version(), context.state().age(), FinanceView.Currency.RUB,
+                com.life.life_backend.engine.adult.AdultView.finances(context.adult(),budget),
 				budget.entries().reversed().stream().map(LocalBudget.Entry::view).toList(),
 				budget.purchases().reversed().stream().map(purchase -> purchase.view(budget.month())).toList(),
 				categories, context.location());
@@ -135,7 +136,9 @@ public class SpendingService {
 	private record Restriction(String code, String message) {
 	}
 
-	public record LocalContext(long version, LifeState state, LocalBudget budget, FinanceView.Location location) {
+	public record LocalContext(long version, LifeState state, LocalBudget budget, FinanceView.Location location,
+            com.life.life_backend.engine.adult.AdultState adult) {
+        public LocalContext(long version,LifeState state,LocalBudget budget,FinanceView.Location location) {this(version,state,budget,location,null);}
 	}
 
 	public record Receipt(LocalBudget budget, LocalBudget.Purchase purchase, FinanceView.Effects effects) {

@@ -32,6 +32,8 @@ class ConsequencesAndDeathTest {
         assertThat(bad.simulation().family().get(1).closeness()).isEqualTo(56);
         assertThat(good.state().stats().relationships()).isEqualTo(82);
         assertThat(good.state().history().getLast().consequences().closeness()).containsEntry("father", 4);
+        assertThat(good.state().history().getLast().link().sourceId()).isEqualTo("old-decision");
+        assertThat(good.simulation().scheduled()).anyMatch(s->"old-decision".equals(s.sourceDecisionId()));
         assertThat(json.readValue(json.writeValueAsString(good.simulation()), LocalSimulation.class)).isEqualTo(good.simulation());
         assertThat(good.simulation().engineVersion()).isEqualTo(LocalSimulation.VERSION);
     }
@@ -43,10 +45,13 @@ class ConsequencesAndDeathTest {
         assertThat(ended.state().status()).isEqualTo(LifeState.Status.COMPLETE);
         assertThat(ended.simulation().month()).isEqualTo(51);
         assertThat(ended.simulation().death().cause()).isEqualTo("UNSPECIFIED");
+        assertThat(ended.simulation().death().causeDetails()).isNotNull();
+        assertThat(ended.state().history().getLast().text()).contains(ended.simulation().death().causeDetails().label());
+        assertThat(engine.step(state(null), simulation())).isEqualTo(ended);
         assertThat(ended.state().history()).hasSize(1);
         assertThatThrownBy(() -> engine.step(ended.state(), ended.simulation())).hasMessageContaining("ended");
         assertThatThrownBy(() -> engine.answer(ended.state(), ended.simulation(), "x", "x")).hasMessageContaining("ended");
-        verify(mortality, times(1)).dies(any(), any(), any(), anyInt(), anyInt(), anyString());
+        verify(mortality, times(2)).dies(any(), any(), any(), anyInt(), anyInt(), anyString());
     }
     @Test void parentDeathPreventsFurtherInteractionsAndFreezesAge() throws Exception {
         var mortality = mock(MortalityModel.class);
@@ -56,10 +61,15 @@ class ConsequencesAndDeathTest {
         assertThat(next.simulation().family().get(1).alive()).isFalse();
         assertThat(next.state().history()).anyMatch(e -> e.id().equals("death-father"));
         var father = next.simulation().view().family().get(1);
+        assertThat(father.death().causeDetails()).isNotNull();
+        assertThat(father.death().age()).isEqualTo(father.age());
+        assertThat(father.death().elapsedMonths()).isEqualTo(51);
+        assertThat(next.state().history()).anyMatch(e -> e.id().equals("death-father") && e.text().contains(father.death().causeDetails().label()));
         if (next.state().pendingDecision() != null)
             next = engine.answer(next.state(), next.simulation(), next.state().pendingDecision().id(), next.state().pendingDecision().options().getFirst().id());
         next = engine.step(next.state(), next.simulation());
         assertThat(next.simulation().view().family().get(1).age()).isEqualTo(father.age());
+        assertThat(next.simulation().view().family().get(1).death()).isEqualTo(father.death());
         assertThat(next.state().history().stream().filter(e -> e.id().equals("death-father")).count()).isEqualTo(1);
     }
 }

@@ -10,7 +10,7 @@ import com.life.life_backend.engine.local.LocalSimulation;
 import com.life.life_backend.engine.local.BirthFacts;
 
 record SessionView(UUID id, Character character, long version, Instant savedAt, LifeState state, String provider,
-                   LocalSimulation.View simulation) {
+                   LocalSimulation.View simulation,com.life.life_backend.highlights.LifeHighlights.View highlights) {
 	record Character(String name, String gender, Integer birthYear, CharacterProfile.Birthplace birthplace,
 			CharacterProfile.Background background, BirthDetails birthDetails,BirthFacts birthFacts) {
 	}

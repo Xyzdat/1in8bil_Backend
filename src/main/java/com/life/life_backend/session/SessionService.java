@@ -32,11 +32,14 @@ class SessionService {
 	private final CharacterGenerator generator;
 	private final LocalSimulationEngine simulationEngine;
 	private final com.life.life_backend.engine.local.BirthContextFactory birthContext;
+	private final com.life.life_backend.engine.adult.AdultLifeEngine adultEngine;
+	private final com.life.life_backend.highlights.HighlightTracker highlights;
 
 	SessionService(LifeSessionRepository sessions, SessionActionRepository actions, GuestIdentity identity,
 			LocalLifeEngine localEngine, OneInEightBillionEngine externalEngine, SpendingService spending,
 			CharacterGenerator generator, LocalSimulationEngine simulationEngine,
-			com.life.life_backend.engine.local.BirthContextFactory birthContext) {
+			com.life.life_backend.engine.local.BirthContextFactory birthContext,
+            com.life.life_backend.engine.adult.AdultLifeEngine adultEngine,com.life.life_backend.highlights.HighlightTracker highlights) {
 		this.sessions = sessions;
 		this.actions = actions;
 		this.identity = identity;
@@ -46,6 +49,8 @@ class SessionService {
 		this.generator = generator;
 		this.simulationEngine = simulationEngine;
 		this.birthContext = birthContext;
+		this.adultEngine = adultEngine;
+		this.highlights = highlights;
 	}
 
 	@Transactional
@@ -142,6 +147,7 @@ class SessionService {
 		if (command.expectedVersion() != session.revision()) {
 			throw conflict("VERSION_CONFLICT", "Refresh the session before sending another action.");
 		}
+		var beforeHighlights=session.highlightFrame();
 		if (command.changes() != null) {
 			editCharacter(session, command.changes());
 		} else if (command.purchase() != null) {
@@ -149,6 +155,7 @@ class SessionService {
 		} else {
 			advanceLife(session, command);
 		}
+		session.updateHighlights(highlights,beforeHighlights);
 		actions.save(new SessionAction(sessionId, requestKey, command));
 		return session.view();
 	}
@@ -183,6 +190,14 @@ class SessionService {
 		}
 		if (session.simulation() != null) {
 			session.enrichBirthContext(birthContext);
+			boolean adult=session.simulation().month()>=216 && (checkpoint.state().pendingDecision()==null || session.adultState()!=null);
+			if(adult) {
+				var context=session.localEconomy();
+				if(Boolean.TRUE.equals(command.step()))session.applyAdult(adultEngine.step(checkpoint.state(),session.simulation(),session.adultState(),context.budget(),context.location()));
+				else if(command.decisionId()!=null)session.applyAdult(adultEngine.answer(checkpoint.state(),session.simulation(),session.adultState(),context.budget(),context.location(),command.decisionId(),command.optionId()));
+				else throw conflict("STEP_REQUIRED","This life uses /step instead of /advance.");
+				return;
+			}
 			if (Boolean.TRUE.equals(command.step())) {
 				session.applySimulation(simulationEngine.step(checkpoint.state(), session.simulation()));
 			} else if (command.decisionId() != null) {

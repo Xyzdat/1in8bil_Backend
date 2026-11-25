@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: Life Backend API
-  version: 0.7.1
+  version: 0.8.3
   description: Локальные сохранения и жизни, сгенерированные 1in8b Engine.
 servers:
   - url: /
@@ -42,7 +42,7 @@ paths:
       - $ref: '#/components/parameters/SessionId'
     post:
       operationId: stepLocalSimulation
-      description: Продвигает новую локальную жизнь на два игровых месяца. Шесть шагов на год, ответы могут добавлять записи. STEP_UNSUPPORTED для старых сессий и 1in8b; DECISION_REQUIRED при ожидающем решении. Ответ на решение не продвигает время. STEP_REQUIRED при /advance для новой жизни.
+      description: Продвигает локальную жизнь на два игровых месяца, до смерти. С 18 лет подключается adult-1. Шесть основных шагов на год; ответы и семейные вехи могут добавлять записи. STEP_UNSUPPORTED для старых сессий и 1in8b; DECISION_REQUIRED при ожидающем решении. Ответ на решение не продвигает время. STEP_REQUIRED при /advance для новой жизни. Выбор с оплатой может вернуть 409 SPENDING_INSUFFICIENT_FUNDS, если после появления решения деньги потрачены в магазине.
       parameters:
         - $ref: '#/components/parameters/IdempotencyKey'
       requestBody:
@@ -347,10 +347,15 @@ components:
       required: [engineVersion, statisticsRelease, statisticsYear, elapsedMonths, monthOfYear, stepMonths, family, skills, assumptions]
       properties:
         engineVersion: { type: string, example: childhood-2 }
+        adult:
+          description: Взрослое состояние. null до первого взрослого шага; старое сохранение инициализируется при следующем действии без выдуманной прошлой карьеры. engineVersion остаётся childhood-2 для совместимости; версия взрослой модели хранится здесь.
+          anyOf:
+            - { $ref: '#/components/schemas/AdultLife' }
+            - { type: 'null' }
         statisticsRelease: { type: string, example: birth-context-2026-v2 }
         statisticsYear: { type: integer, example: 2026 }
         death:
-          description: При смерти state.status=COMPLETE; прекратить таймер и любые действия. Конкретная причина не моделируется.
+          description: При смерти state.status=COMPLETE; прекратить таймер и любые действия. Конкретная игровая причина в causeDetails; в старых сохранениях она может отсутствовать.
           anyOf:
             - { $ref: '#/components/schemas/Death' }
             - { type: 'null' }
@@ -378,16 +383,230 @@ components:
               closeness: { type: integer, minimum: 0, maximum: 100 }
               trust: { type: integer, minimum: 0, maximum: 100 }
               sex: { type: [string, 'null'], enum: [MALE, FEMALE, null] }
-              occupation: { type: [string, 'null'], description: Профессия при рождении персонажа; карьерная модель родственников пока отсутствует. }
+              occupation: { type: [string, 'null'], description: Известная профессия родственника. Дополнительные текущие данные взрослой модели в adult.npcs по тому же id. }
+              death:
+                description: Смерть близкого. age — возраст этого человека; elapsedMonths — время от рождения героя. null у живых и в старых сохранениях без подробностей.
+                anyOf:
+                  - { $ref: '#/components/schemas/Death' }
+                  - { type: 'null' }
+              contact:
+                description: Связь с героем, независимо от родства, романтического статуса и близости. null до включения взрослой модели/наблюдения и для умерших; null не означает прекращение связи.
+                anyOf:
+                  - { $ref: '#/components/schemas/ContactState' }
+                  - { type: 'null' }
+    ContactState:
+      type: object
+      required: [status, trackedSinceMonth, lastContactMonth, statusSinceMonth, reason]
+      properties:
+        status:
+          type: string
+          enum: [IN_TOUCH, RARE_CONTACT, NO_CONTACT]
+          description: Общаемся / Редко общаемся / Связь прервана. Вычисляет backend; низкая близость и развод сами по себе не определяют это поле.
+        trackedSinceMonth:
+          type: integer
+          minimum: 0
+          description: Игровой месяц начала наблюдения. Для старого сохранения — месяц первого действия после обновления, без восстановления неизвестного прошлого.
+        lastContactMonth:
+          type: [integer, 'null']
+          minimum: 0
+          description: Последний учтённый контакт в игровых месяцах с рождения героя; null если дата неизвестна. Не дата UTC.
+        statusSinceMonth: { type: integer, minimum: 0 }
+        reason:
+          type: string
+          enum: [INITIALIZED, INTERACTION, HOUSEHOLD, TIME_APART, PLAYER_CHOICE, RECONNECTED]
+          description: INITIALIZED — начальное игровое предположение; HOUSEHOLD — поддерживаемое общение в семье/текущей паре; PLAYER_CHOICE — явное прекращение; RECONNECTED — успешное возобновление.
+    AdultMoney:
+      type: number
+      description: Игровые рубли RUB с двумя десятичными знаками. Не PPP и не национальные зарплаты из статистики.
+    AdultTraits:
+      type: object
+      required: [diligence, sociability, openness, resilience]
+      properties:
+        diligence: { type: integer, minimum: 0, maximum: 100 }
+        sociability: { type: integer, minimum: 0, maximum: 100 }
+        openness: { type: integer, minimum: 0, maximum: 100 }
+        resilience: { type: integer, minimum: 0, maximum: 100 }
+    AdultLife:
+      type: object
+      required: [modelVersion, ageStage, currency, traits, education, career, partnership, npcs, healthConditions, debts, assets, stories, memories, housing, assumptions]
+      properties:
+        modelVersion: { type: string, const: adult-1 }
+        ageStage: { type: string, enum: [EARLY_ADULT, MIDDLE_ADULT, LATE_CAREER, LATER_LIFE], description: Мягкие этапы 18–29 / 30–49 / 50–64 / 65+. Не запреты на учёбу или отношения. }
+        currency: { type: string, const: RUB }
+        traits: { $ref: '#/components/schemas/AdultTraits' }
+        education:
+          type: object
+          required: [level, field, startedMonth, completesMonth, status]
+          properties:
+            level: { type: string }
+            field: { type: [string, 'null'] }
+            startedMonth: { type: [integer, 'null'] }
+            completesMonth: { type: [integer, 'null'] }
+            status: { type: string }
+        career: { $ref: '#/components/schemas/AdultCareer' }
+        partnership:
+          anyOf:
+            - { $ref: '#/components/schemas/AdultPartnership' }
+            - { type: 'null' }
+        npcs:
+          type: object
+          description: Ключ совпадает с simulation.family[].id. Персонажа игрока в этой карте нет; parentIds/partnerId могут ссылаться на character. Отсутствие партнёра и детей допустимо.
+          additionalProperties: { $ref: '#/components/schemas/AdultNpc' }
+        healthConditions:
+          type: array
+          items: { $ref: '#/components/schemas/AdultCondition' }
+        debts:
+          type: array
+          items: { $ref: '#/components/schemas/AdultDebt' }
+        assets:
+          type: array
+          items: { $ref: '#/components/schemas/AdultAsset' }
+        stories:
+          type: array
+          description: Известные сюжеты, без будущих исходов и скрытой очереди.
+          items:
+            type: object
+            required: [id, template, stage, status, beganMonth, endedMonth, participants]
+            properties:
+              id: { type: string }
+              template: { type: string }
+              stage: { type: string }
+              status: { type: string, enum: [ACTIVE, COMPLETED, CANCELLED] }
+              beganMonth: { type: integer }
+              endedMonth: { type: [integer, 'null'] }
+              participants: { type: array, items: { type: string } }
+        memories:
+          type: array
+          items:
+            type: object
+            required: [id, month, kind, personId, text]
+            properties:
+              id: { type: string }
+              month: { type: integer }
+              kind: { type: string }
+              personId: { type: [string, 'null'] }
+              text: { type: string }
+        housing: { type: string }
+        assumptions: { type: array, items: { type: string } }
+    AdultCareer:
+      type: object
+      required: [status, occupation, industry, employer, position, monthlyPay, beganMonth, experienceMonths, qualification, satisfaction, stability, risk, monthlyPension, history]
+      properties:
+        status: { type: string, enum: [UNEMPLOYED, PROBATION, EMPLOYED, BUSINESS, RETIRED] }
+        occupation: { type: [string, 'null'] }
+        industry: { type: [string, 'null'] }
+        employer: { type: [string, 'null'] }
+        position: { type: [string, 'null'] }
+        monthlyPay: { $ref: '#/components/schemas/AdultMoney', description: Базовая месячная оплата до поправки на работоспособность. Начисления смотреть в finances.ledger. }
+        beganMonth: { type: integer }
+        experienceMonths: { type: integer, minimum: 0 }
+        qualification: { type: integer, minimum: 0 }
+        satisfaction: { type: integer, minimum: 0, maximum: 100 }
+        stability: { type: integer, minimum: 0, maximum: 100 }
+        risk: { type: integer, minimum: 0, maximum: 100 }
+        monthlyPension: { $ref: '#/components/schemas/AdultMoney' }
+        history:
+          type: array
+          items:
+            type: object
+            required: [id, occupation, employer, beganMonth, endedMonth, endReason]
+            properties:
+              id: { type: string }
+              occupation: { type: string }
+              employer: { type: string }
+              beganMonth: { type: integer }
+              endedMonth: { type: [integer, 'null'] }
+              endReason: { type: [string, 'null'] }
+    AdultPartnership:
+      type: object
+      required: [partnerId, status, beganMonth, cohabiting, satisfaction, conflict, milestones]
+      properties:
+        partnerId: { type: string }
+        status: { type: string, enum: [DATING, COHABITING, MARRIED, SEPARATED, DIVORCED, WIDOWED] }
+        beganMonth: { type: integer }
+        cohabiting: { type: boolean }
+        satisfaction: { type: integer, minimum: 0, maximum: 100 }
+        conflict: { type: integer, minimum: 0, maximum: 100 }
+        milestones: { type: array, items: { type: string } }
+    AdultNpc:
+      type: object
+      required: [id, traits, education, occupation, monthlyIncome, health, maritalStatus, partnerId, countryIso2, parentIds]
+      properties:
+        id: { type: string }
+        traits: { $ref: '#/components/schemas/AdultTraits' }
+        education: { type: string }
+        occupation: { type: [string, 'null'] }
+        monthlyIncome: { $ref: '#/components/schemas/AdultMoney' }
+        health: { type: integer, minimum: 0, maximum: 100 }
+        maritalStatus: { type: string }
+        partnerId: { type: [string, 'null'] }
+        countryIso2: { type: string }
+        parentIds: { type: array, items: { type: string }, description: Устойчивые родительские связи; character означает персонажа игрока. }
+    AdultCondition:
+      type: object
+      required: [id, kind, onsetMonth, severity, stage, treatment, reviewMonth, endedMonth, chronic, workCapacity]
+      properties:
+        id: { type: string }
+        kind: { type: string, enum: [INJURY, HEALTH_CONDITION] }
+        onsetMonth: { type: integer }
+        severity: { type: integer, minimum: 0, maximum: 100 }
+        stage: { type: string, enum: [ACTIVE, CHRONIC, RECOVERED] }
+        treatment: { type: string, enum: [REST, SUPERVISED] }
+        reviewMonth: { type: integer }
+        endedMonth: { type: [integer, 'null'] }
+        chronic: { type: boolean }
+        workCapacity: { type: integer, minimum: 0, maximum: 100 }
+    AdultDebt:
+      type: object
+      required: [id, kind, principal, annualBasisPoints, monthlyPayment, missedPayments]
+      properties:
+        id: { type: string }
+        kind: { type: string, enum: [PERSONAL, MORTGAGE] }
+        principal: { $ref: '#/components/schemas/AdultMoney' }
+        annualBasisPoints: { type: integer, description: Игровая годовая ставка; 100 базисных пунктов = 1%. }
+        monthlyPayment: { $ref: '#/components/schemas/AdultMoney', description: Плановое погашение основной суммы; проценты учитываются отдельно. }
+        missedPayments: { type: integer, minimum: 0 }
+    AdultAsset:
+      type: object
+      required: [id, kind, title, value, ownershipPercent, purchaseId]
+      properties:
+        id: { type: string }
+        kind: { type: string, enum: [PROPERTY, INVESTMENT] }
+        title: { type: string }
+        value: { $ref: '#/components/schemas/AdultMoney' }
+        ownershipPercent: { type: integer, minimum: 0, maximum: 100 }
+        purchaseId: { type: [string, 'null'] }
     Death:
       type: object
       required: [elapsedMonths, age, cause, model, note]
       properties:
         elapsedMonths: { type: integer, minimum: 0 }
         age: { type: integer, minimum: 0 }
-        cause: { type: string, const: UNSPECIFIED }
+        cause:
+          type: string
+          const: UNSPECIFIED
+          deprecated: true
+          description: Прежний маркер общей смертности, сохранён для совместимости строгих декодеров. Конкретную причину читать из causeDetails, не из этого поля.
         model: { type: string, const: UN_WPP_2024_QX }
         note: { type: string }
+        causeDetails:
+          description: Игровая атрибуция причины после единственного расчёта общей смертности. Не является статистикой причин по стране. optional/nullable для старых жизней; не пересчитывается при GET или повторе запроса.
+          anyOf:
+            - { $ref: '#/components/schemas/DeathCauseDetails' }
+            - { type: 'null' }
+    DeathCauseDetails:
+      type: object
+      required: [code, label, model, basis, conditionId]
+      properties:
+        code:
+          type: string
+          enum: [PERINATAL_COMPLICATIONS, CONGENITAL_CONDITION, RESPIRATORY_INFECTION, SEVERE_INFECTION, ACCIDENT, HEART_ATTACK, STROKE, CANCER, ACUTE_DISEASE_COMPLICATIONS, CHRONIC_DISEASE_COMPLICATIONS, INJURY_COMPLICATIONS]
+        label: { type: string, example: Инфаркт миокарда }
+        model: { type: string, const: death-causes-1 }
+        basis: { type: string, const: GAME_ASSUMPTION }
+        conditionId:
+          type: [string, 'null']
+          description: ID существующего активного эпизода adult.diseases, если причиной выбраны его осложнения. null для прочих причин и близких без медицинской истории. Не означает новый диагноз у существующего эпизода.
     BirthMeasure:
       type: object
       required: [value, unit, year, source, basis, note]
@@ -511,6 +730,7 @@ components:
           minimum: 0
           description: Игровой месяц с рождения. Для отображения возраста делите на 12.
         kind: { type: string, enum: [BUDGET, PURCHASE, UPKEEP, INTEREST] }
+        flow: { type: [string, 'null'], enum: [OPERATING, FINANCING, null], description: FINANCING означает перемещение капитала или основной суммы займа. Такие суммы не входят в summary.income/expenses. Для итогов использовать summary; null соответствует старым операциям. }
         title: { type: string }
         income: { type: number, minimum: 0 }
         expense: { type: number, minimum: 0 }
@@ -820,6 +1040,11 @@ components:
         age: { type: integer, minimum: 0 }
         title: { type: string }
         text: { type: string }
+        link:
+          description: Явная связь с выбором/сюжетом. null для старых и несвязанных событий; близость тем или времени не означает причинную связь.
+          anyOf:
+            - { $ref: '#/components/schemas/EventLink' }
+            - { type: 'null' }
         consequences:
           description: Уже применённые изменения. Использовать для подписей в летописи; не прибавлять повторно к снимку характеристик.
           anyOf:
@@ -842,6 +1067,118 @@ components:
         status: { type: string, enum: [ACTIVE, COMPLETE] }
         savedAt: { type: string, format: date-time }
         provider: { $ref: '#/components/schemas/Provider' }
+    EventLink:
+      type: object
+      required: [sourceId, templateId, domain, phase, month, decisionId, optionId, optionLabel, action, offeredOptions, participantIds, relatedSourceIds]
+      properties:
+        sourceId: { type: string }
+        templateId: { type: string }
+        domain: { type: string }
+        phase: { type: string, enum: [OFFER, DECISION, OUTCOME, CANCELLED] }
+        month: { type: integer, minimum: 0 }
+        decisionId: { type: [string, 'null'] }
+        optionId: { type: [string, 'null'] }
+        optionLabel: { type: [string, 'null'] }
+        action: { type: [string, 'null'] }
+        offeredOptions:
+          type: array
+          items: { $ref: '#/components/schemas/HighlightOption' }
+        participantIds: { type: array, items: { type: string } }
+        relatedSourceIds: { type: array, items: { type: string } }
+    HighlightOption:
+      type: object
+      required: [id, label]
+      properties:
+        id: { type: string }
+        label: { type: string }
+    LifeHighlights:
+      type: object
+      description: Серверная подборка личных решений и подтверждённых последствий. До 12 слайдов в хронологии; не дополняется случайными событиями ради количества.
+      required: [modelVersion, status, currency, trackedFromMonth, partialHistory, evaluatedThroughMonth, finalizedAtMonth, decisionCount, candidateCount, slides]
+      properties:
+        modelVersion: { type: string, const: life-highlights-1 }
+        status: { type: string, enum: [LIVE, FINAL], description: LIVE — изменяемая предварительная подборка; FINAL — зафиксирована после завершения жизни. }
+        currency: { type: string, const: RUB }
+        trackedFromMonth: { type: integer, minimum: 0 }
+        partialHistory: { type: boolean, description: true при включении наблюдения в уже начатой жизни. Старые недоказуемые связи не восстанавливаются. }
+        evaluatedThroughMonth: { type: integer, minimum: 0 }
+        finalizedAtMonth: { type: [integer, 'null'], minimum: 0 }
+        decisionCount: { type: integer, minimum: 0, description: Число записанных ответов и покупок, включая не вошедшие в слайды. }
+        candidateCount: { type: integer, minimum: 0, description: Число цепочек решений, рассмотренных для подборки. }
+        slides:
+          type: array
+          maxItems: 12
+          items: { $ref: '#/components/schemas/HighlightSlide' }
+    HighlightSlide:
+      type: object
+      required: [id, templateId, domain, month, age, title, importance, reasons, decisions, evidence, revisions]
+      properties:
+        id: { type: string, description: Устойчивый ID цепочки внутри сессии. }
+        templateId: { type: string }
+        domain: { type: string }
+        month: { type: integer, minimum: 0, description: Месяц первого личного выбора в этой цепочке. }
+        age: { type: integer, minimum: 0 }
+        title: { type: string }
+        importance: { type: integer, minimum: 0, maximum: 100, description: Версионированная игровая оценка значимости; не моральная оценка и не вероятность. }
+        reasons:
+          type: array
+          items: { $ref: '#/components/schemas/HighlightReason' }
+        decisions:
+          type: array
+          minItems: 1
+          items: { $ref: '#/components/schemas/HighlightDecision' }
+        evidence:
+          type: array
+          items: { $ref: '#/components/schemas/HighlightEvidence' }
+        revisions:
+          type: array
+          items: { $ref: '#/components/schemas/HighlightRevision' }
+    HighlightDecision:
+      type: object
+      required: [id, month, age, title, prompt, optionId, optionLabel, offeredOptions, participantIds, historyEventId, result, statChanges, closenessChanges, balanceChange]
+      properties:
+        id: { type: string }
+        month: { type: integer, minimum: 0 }
+        age: { type: integer, minimum: 0 }
+        title: { type: string }
+        prompt: { type: [string, 'null'], description: Сохранённый текст вопроса, если доступен. null для покупки или старого вопроса без связи. }
+        optionId: { type: string }
+        optionLabel: { type: string, description: Подпись реально предложенного выбранного варианта, включая показанную цену. }
+        participantIds: { type: array, items: { type: string }, description: ID известных участников выбора из simulation.family. }
+        offeredOptions:
+          type: array
+          description: Снимок доступных ответов. Для покупки пустой массив — ассортимент магазина не выдаётся за варианты сюжетного решения.
+          items: { $ref: '#/components/schemas/HighlightOption' }
+        historyEventId: { type: string }
+        result: { type: string, description: Реальный текст результата выбора из летописи. }
+        statChanges: { type: object, additionalProperties: { type: integer } }
+        closenessChanges: { type: object, additionalProperties: { type: integer } }
+        balanceChange: { type: [number, 'null'], description: Изменение доступного денежного баланса при действии, RUB; null если сравнимого снимка бюджета нет. Это не итог всей сюжетной цепочки. }
+    HighlightEvidence:
+      type: object
+      required: [id, month, kind, relation, text, historyEventId]
+      properties:
+        id: { type: string }
+        month: { type: integer, minimum: 0 }
+        kind: { type: string, description: Код подтверждённого события или этапа; использовать text для подписи. }
+        relation: { type: string, enum: [DIRECT, SAME_STORY, EXPLICIT_DEPENDENCY, TRACKED_ENTITY] }
+        text: { type: string }
+        historyEventId: { type: [string, 'null'], description: Ссылка на летопись. null для факта, подтверждённого состоянием связанной работы, семьи, обучения и т.п. }
+    HighlightReason:
+      type: object
+      required: [code, points, text]
+      properties:
+        code: { type: string }
+        points: { type: integer, minimum: 0 }
+        text: { type: string }
+    HighlightRevision:
+      type: object
+      required: [month, previousScore, score, reasonCodes]
+      properties:
+        month: { type: integer, minimum: 0 }
+        previousScore: { type: integer, minimum: 0, maximum: 100 }
+        score: { type: integer, minimum: 0, maximum: 100 }
+        reasonCodes: { type: array, items: { type: string } }
     Session:
       type: object
       required: [id, character, version, savedAt, state, provider]
@@ -851,6 +1188,11 @@ components:
         version: { type: integer, format: int64, minimum: 1 }
         savedAt: { type: string, format: date-time }
         provider: { $ref: '#/components/schemas/Provider' }
+        highlights:
+          description: Подборка главных принятых решений. Optional/nullable для прежних завершённых сессий, 1in8b и старого демонстрационного провайдера. Чтение не создаёт подборку.
+          anyOf:
+            - { $ref: '#/components/schemas/LifeHighlights' }
+            - { type: 'null' }
         simulation:
           description: Новая пошаговая локальная жизнь. null у старых local и 1in8b. Клиент выбирает /step по наличию этого блока, не только по provider.
           anyOf:

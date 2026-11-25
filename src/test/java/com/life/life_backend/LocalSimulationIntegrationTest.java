@@ -70,6 +70,8 @@ class LocalSimulationIntegrationTest {
                     + ",\"categoryId\":\"pets\",\"itemId\":\"hamster\",\"petName\":\"Пушок\"}";
             key = UUID.randomUUID().toString();
             snapshot = send(guest, path + "/purchases", key, purchase, 200);
+            assertThat(snapshot.path("highlights").path("slides").toString()).contains("Пушок");
+            assertThat(snapshot.path("highlights").path("status").asString()).isEqualTo("LIVE");
             assertThat(send(guest, path + "/purchases", key, purchase, 200)).isEqualTo(snapshot);
             send(guest, path + "/advance", UUID.randomUUID().toString(), "{\"expectedVersion\":" + snapshot.path("version").asLong() + "}", 409);
         }

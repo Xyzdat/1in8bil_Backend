@@ -25,10 +25,17 @@ public record LocalSimulation(long seed, String engineVersion, String statistics
     public LocalSimulation withBirthFacts(BirthFacts facts){
         return new LocalSimulation(seed,engineVersion,statisticsRelease,request,month,family,skills,flags,lastEvents,scheduled,pendingTemplate,facts,death);
     }
-    public record Death(int elapsedMonths,int age,String cause,String model,String note){}
+    public record Death(int elapsedMonths,int age,String cause,String model,String note,DeathCauseModel.Details causeDetails){
+        public Death(int elapsedMonths,int age,String cause,String model,String note){
+            this(elapsedMonths,age,cause,model,note,null);
+        }
+    }
     public record BirthRequest(String countryIso3, int birthYear) { }
     public record Person(String id, String role, String name, int birthMonth, boolean alive,
-                         int closeness, int trust, String sex, String occupation, Integer diedMonth) {
+                         int closeness, int trust, String sex, String occupation, Integer diedMonth, Death death) {
+        public Person(String id,String role,String name,int birthMonth,boolean alive,int closeness,int trust,String sex,String occupation,Integer diedMonth){
+            this(id,role,name,birthMonth,alive,closeness,trust,sex,occupation,diedMonth,null);
+        }
         public Person(String id,String role,String name,int birthMonth,boolean alive,int closeness,int trust,String sex,String occupation){
             this(id,role,name,birthMonth,alive,closeness,trust,sex,occupation,null);
         }
@@ -36,25 +43,35 @@ public record LocalSimulation(long seed, String engineVersion, String statistics
             this(id,role,name,birthMonth,alive,closeness,trust,role.equals("father")?"MALE":"FEMALE",null);
         }
     }
-    public record Scheduled(String templateId, int dueMonth) { }
+    public record Scheduled(String templateId, int dueMonth, String sourceDecisionId) {
+        public Scheduled(String templateId,int dueMonth){this(templateId,dueMonth,null);}
+    }
     public Person participant(String role) {
         var candidates = family.stream().filter(p -> p.alive() && p.role().equals(role)).toList();
         if (candidates.isEmpty()) return null;
         return candidates.get(new SplittableRandom(seed ^ (0x9E3779B97F4A7C15L * month)).nextInt(candidates.size()));
     }
     public View view() {
+        return view(null);
+    }
+    public View view(com.life.life_backend.engine.adult.AdultState adult) {
         return new View(engineVersion, statisticsRelease, birthFacts == null ? 2023 : 2026, month, month % 12, 2,
                 family.stream().map(p -> new Relative(p.id(), p.role(), p.name(),
-                        ((p.diedMonth()==null?month:p.diedMonth()) - p.birthMonth()) / 12, p.alive(), p.closeness(), p.trust(),p.sex(),p.occupation())).toList(), skills,
+                        ((p.diedMonth()==null?month:p.diedMonth()) - p.birthMonth()) / 12, p.alive(), p.closeness(), p.trust(),p.sex(),p.occupation(),
+                        adult == null || !p.alive() ? null : adult.contacts().get(p.id()),p.death())).toList(), skills,
                 List.of("Country weights are conditional on the supported countries of the saved statistics release; see birthFacts.selectionProbability.",
                         "New v2 births use UN WPP 2024 projections for 2026 (including sex ratio), WDI 2023 GDP and urban share. Requested birth years 2023–2026 use the same reference year.",
                         "Urban population share approximates urban births.",
                         "Family composition, parent ages, occupations, wealth and housing are game assumptions; see character.birthFacts.",
                         "Religion sampling uses 2020 population shares; language sampling uses CLDR fluency estimates, not household language statistics.",
-                        "Mortality uses UN WPP 2024 projections; beyond 2100 the 2100 schedule is held constant. Health modifiers are game assumptions."), death);
+                        "Mortality uses UN WPP 2024 projections; beyond 2100 the 2100 schedule is held constant. Health modifiers are game assumptions.",
+                        "Specific death causes use death-causes-1 game rules, not country cause-of-death statistics. They do not add another mortality draw."), death,
+                        com.life.life_backend.engine.adult.AdultView.from(adult,month));
     }
-    public record Relative(String id, String role, String name, int age, boolean alive, int closeness, int trust,String sex,String occupation) { }
+    public record Relative(String id, String role, String name, int age, boolean alive, int closeness, int trust,String sex,String occupation,
+                           com.life.life_backend.engine.adult.ContactState contact,Death death) { }
     public record View(String engineVersion, String statisticsRelease, int statisticsYear,
                        int elapsedMonths, int monthOfYear, int stepMonths,
-                       List<Relative> family, Map<String, Integer> skills, List<String> assumptions,Death death) { }
+                       List<Relative> family, Map<String, Integer> skills, List<String> assumptions,Death death,
+                       com.life.life_backend.engine.adult.AdultView adult) { }
 }

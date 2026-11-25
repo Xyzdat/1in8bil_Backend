@@ -1,0 +1,1029 @@
+[
+  {
+    "id": "university",
+    "domain": "EDUCATION",
+    "weight": 6,
+    "cooldownMonths": 60,
+    "condition": "study",
+    "participant": null,
+    "trigger": null,
+    "title": "Вернуться к учёбе?",
+    "text": "Ты рассматриваешь программу прикладных наук. Учёба займёт четыре года; возраст сам по себе не закрывает этот путь.",
+    "choices": [
+      {
+        "id": "study",
+        "label": "Оплатить программу",
+        "action": "study",
+        "costUnits": 12
+      },
+      {
+        "id": "scholarship",
+        "label": "Пройти конкурс на стипендию",
+        "action": "scholarship",
+        "costUnits": 0
+      },
+      {
+        "id": "decline",
+        "label": "Сейчас не готов",
+        "action": "pass",
+        "costUnits": 0
+      }
+    ],
+    "reviewMonths": 24,
+    "reviewTitle": "Промежуточные экзамены",
+    "reviewAction": "study_review",
+    "laterMonths": 24,
+    "laterTitle": "Защита выпускной работы",
+    "laterAction": "graduate"
+  },
+  {
+    "id": "employment",
+    "domain": "CAREER",
+    "weight": 20,
+    "cooldownMonths": 6,
+    "condition": "job",
+    "participant": null,
+    "trigger": null,
+    "title": "Поиск работы",
+    "text": "Ты находишь вакансию, подходящую текущей квалификации. Собеседование ещё не означает трудоустройство.",
+    "choices": [
+      {
+        "id": "apply",
+        "label": "Отправить резюме и пройти собеседование",
+        "action": "apply_job",
+        "costUnits": 0
+      },
+      {
+        "id": "prepare",
+        "label": "Сначала подготовиться к новой специальности",
+        "action": "retrain",
+        "costUnits": 0
+      },
+      {
+        "id": "decline",
+        "label": "Сейчас не готов",
+        "action": "pass",
+        "costUnits": 0
+      }
+    ],
+    "reviewMonths": 4,
+    "reviewTitle": "Испытательный срок",
+    "reviewAction": "probation",
+    "laterMonths": 12,
+    "laterTitle": "Год в новой команде",
+    "laterAction": "work_review"
+  },
+  {
+    "id": "promotion",
+    "domain": "CAREER",
+    "weight": 6,
+    "cooldownMonths": 24,
+    "condition": "promotion",
+    "participant": null,
+    "trigger": null,
+    "title": "Поговорить о повышении?",
+    "text": "Ты накопил опыт на текущем месте. Можно обсудить новую ответственность и оплату.",
+    "choices": [
+      {
+        "id": "request",
+        "label": "Обсудить результаты с руководителем",
+        "action": "promotion",
+        "costUnits": 0
+      },
+      {
+        "id": "learn",
+        "label": "Сначала укрепить квалификацию",
+        "action": "retrain",
+        "costUnits": 0
+      },
+      {
+        "id": "decline",
+        "label": "Сейчас не готов",
+        "action": "pass",
+        "costUnits": 0
+      }
+    ],
+    "reviewMonths": 4,
+    "reviewTitle": "Ответ руководителя",
+    "reviewAction": "promotion_review",
+    "laterMonths": 0,
+    "laterTitle": null,
+    "laterAction": null
+  },
+  {
+    "id": "work-conflict",
+    "domain": "CAREER",
+    "weight": 6,
+    "cooldownMonths": 36,
+    "condition": "work",
+    "participant": null,
+    "trigger": null,
+    "title": "Спор о работе",
+    "text": "В команде расходятся ожидания о твоих обязанностях. Конфликт можно обсудить или завершить работу здесь.",
+    "choices": [
+      {
+        "id": "talk",
+        "label": "Предложить разделить обязанности",
+        "action": "work_talk",
+        "costUnits": 0
+      },
+      {
+        "id": "leave",
+        "label": "Уволиться",
+        "action": "quit",
+        "costUnits": 0
+      },
+      {
+        "id": "decline",
+        "label": "Сейчас не готов",
+        "action": "pass",
+        "costUnits": 0
+      }
+    ],
+    "reviewMonths": 4,
+    "reviewTitle": "Договорённости в команде",
+    "reviewAction": "work_review",
+    "laterMonths": 0,
+    "laterTitle": null,
+    "laterAction": null
+  },
+  {
+    "id": "redundancy",
+    "domain": "CAREER",
+    "weight": 2,
+    "cooldownMonths": 60,
+    "condition": "layoff",
+    "participant": null,
+    "trigger": "layoff",
+    "title": "После сокращения",
+    "text": "Твоя должность сокращена. Теперь нужно выбрать следующий шаг с учётом накоплений и опыта.",
+    "choices": [
+      {
+        "id": "search",
+        "label": "Сразу искать новое место",
+        "action": "apply_job",
+        "costUnits": 0
+      },
+      {
+        "id": "training",
+        "label": "Освоить другую специальность",
+        "action": "retrain",
+        "costUnits": 0
+      },
+      {
+        "id": "decline",
+        "label": "Сейчас не готов",
+        "action": "pass",
+        "costUnits": 0
+      }
+    ],
+    "reviewMonths": 4,
+    "reviewTitle": "Новая попытка",
+    "reviewAction": "probation",
+    "laterMonths": 0,
+    "laterTitle": null,
+    "laterAction": null
+  },
+  {
+    "id": "retraining",
+    "domain": "EDUCATION",
+    "weight": 6,
+    "cooldownMonths": 36,
+    "condition": "training",
+    "participant": null,
+    "trigger": null,
+    "title": "Новая специальность",
+    "text": "Ты замечаешь, что прежних навыков не хватает для интересующих вакансий. Можно пройти практический курс или учиться самостоятельно.",
+    "choices": [
+      {
+        "id": "course",
+        "label": "Практический курс",
+        "action": "retrain",
+        "costUnits": 8
+      },
+      {
+        "id": "self",
+        "label": "Самостоятельная подготовка",
+        "action": "retrain",
+        "costUnits": 0
+      },
+      {
+        "id": "decline",
+        "label": "Сейчас не готов",
+        "action": "pass",
+        "costUnits": 0
+      }
+    ],
+    "reviewMonths": 6,
+    "reviewTitle": "Практическая работа",
+    "reviewAction": "qualify",
+    "laterMonths": 0,
+    "laterTitle": null,
+    "laterAction": null
+  },
+  {
+    "id": "business-start",
+    "domain": "BUSINESS",
+    "weight": 5,
+    "cooldownMonths": 60,
+    "condition": "business",
+    "participant": null,
+    "trigger": null,
+    "title": "Собственное дело",
+    "text": "Ты обдумываешь небольшую мастерскую. Начальные расходы придётся оплатить из накоплений, а доход ещё не гарантирован.",
+    "choices": [
+      {
+        "id": "start",
+        "label": "Открыть мастерскую",
+        "action": "business",
+        "costUnits": 20
+      },
+      {
+        "id": "prepare",
+        "label": "Сначала набраться навыков",
+        "action": "retrain",
+        "costUnits": 0
+      },
+      {
+        "id": "decline",
+        "label": "Сейчас не готов",
+        "action": "pass",
+        "costUnits": 0
+      }
+    ],
+    "reviewMonths": 6,
+    "reviewTitle": "Первые клиенты",
+    "reviewAction": "business_review",
+    "laterMonths": 12,
+    "laterTitle": "Дело через год",
+    "laterAction": "business_growth"
+  },
+  {
+    "id": "business-crisis",
+    "domain": "BUSINESS",
+    "weight": 10,
+    "cooldownMonths": 24,
+    "condition": "business_crisis",
+    "participant": null,
+    "trigger": null,
+    "title": "Дело под давлением",
+    "text": "Доходы и устойчивость бизнеса снизились. Продолжать в прежнем объёме стало рискованно.",
+    "choices": [
+      {
+        "id": "reduce",
+        "label": "Сократить объём и расходы",
+        "action": "restructure",
+        "costUnits": 0
+      },
+      {
+        "id": "close",
+        "label": "Закрыть дело",
+        "action": "bankrupt",
+        "costUnits": 0
+      },
+      {
+        "id": "decline",
+        "label": "Сейчас не готов",
+        "action": "pass",
+        "costUnits": 0
+      }
+    ],
+    "reviewMonths": 6,
+    "reviewTitle": "Результат антикризисного плана",
+    "reviewAction": "business_recovery",
+    "laterMonths": 0,
+    "laterTitle": null,
+    "laterAction": null
+  },
+  {
+    "id": "burnout",
+    "domain": "HEALTH",
+    "weight": 6,
+    "cooldownMonths": 24,
+    "condition": "burnout",
+    "participant": null,
+    "trigger": null,
+    "title": "Слишком много нагрузки",
+    "text": "Ты замечаешь усталость и потерю интереса к работе. Выбранный ритм влияет и на здоровье, и на доход.",
+    "choices": [
+      {
+        "id": "rest",
+        "label": "Снизить нагрузку и доход",
+        "action": "rest",
+        "costUnits": 0
+      },
+      {
+        "id": "push",
+        "label": "Взять ещё задачи",
+        "action": "work_harder",
+        "costUnits": 0
+      },
+      {
+        "id": "decline",
+        "label": "Сейчас не готов",
+        "action": "pass",
+        "costUnits": 0
+      }
+    ],
+    "reviewMonths": 4,
+    "reviewTitle": "После напряжённого периода",
+    "reviewAction": "burnout_review",
+    "laterMonths": 0,
+    "laterTitle": null,
+    "laterAction": null
+  },
+  {
+    "id": "romance",
+    "domain": "RELATIONSHIPS",
+    "weight": 10,
+    "cooldownMonths": 18,
+    "condition": "romance",
+    "participant": "new-partner",
+    "trigger": null,
+    "title": "Новое знакомство",
+    "text": "{person} предлагает провести время вместе. Вы ещё не знаете, станете ли парой.",
+    "choices": [
+      {
+        "id": "date",
+        "label": "Попробовать отношения",
+        "action": "date",
+        "costUnits": 0
+      },
+      {
+        "id": "friend",
+        "label": "Остаться знакомыми",
+        "action": "pass",
+        "costUnits": 0
+      },
+      {
+        "id": "decline",
+        "label": "Сейчас не готов",
+        "action": "pass",
+        "costUnits": 0
+      }
+    ],
+    "reviewMonths": 6,
+    "reviewTitle": "Узнать друг друга",
+    "reviewAction": "date_review",
+    "laterMonths": 12,
+    "laterTitle": "Общий быт",
+    "laterAction": "cohabit"
+  },
+  {
+    "id": "marriage",
+    "domain": "RELATIONSHIPS",
+    "weight": 6,
+    "cooldownMonths": 48,
+    "condition": "marriage",
+    "participant": "partner",
+    "trigger": null,
+    "title": "Общее будущее",
+    "text": "Вы с {person} обсуждаете, каким видите следующий этап отношений. Брак — один из вариантов, но не обязанность.",
+    "choices": [
+      {
+        "id": "marry",
+        "label": "Предложить брак",
+        "action": "marry",
+        "costUnits": 0
+      },
+      {
+        "id": "stay",
+        "label": "Сохранить нынешний формат",
+        "action": "pass",
+        "costUnits": 0
+      },
+      {
+        "id": "decline",
+        "label": "Сейчас не готов",
+        "action": "pass",
+        "costUnits": 0
+      }
+    ],
+    "reviewMonths": 12,
+    "reviewTitle": "Привыкнуть к семейной жизни",
+    "reviewAction": "marriage_review",
+    "laterMonths": 0,
+    "laterTitle": null,
+    "laterAction": null
+  },
+  {
+    "id": "couple-conflict",
+    "domain": "RELATIONSHIPS",
+    "weight": 7,
+    "cooldownMonths": 30,
+    "condition": "couple",
+    "participant": "partner",
+    "trigger": null,
+    "title": "Трудный разговор",
+    "text": "Между вами с {person} накопились разногласия. Финансовое напряжение и повседневные привычки мешают слышать друг друга.",
+    "choices": [
+      {
+        "id": "talk",
+        "label": "Выслушать и искать компромисс",
+        "action": "reconcile",
+        "costUnits": 0
+      },
+      {
+        "id": "leave",
+        "label": "Расстаться",
+        "action": "separate",
+        "costUnits": 0
+      },
+      {
+        "id": "cut_contact",
+        "label": "Расстаться и прекратить общение",
+        "action": "end_contact",
+        "costUnits": 0
+      },
+      {
+        "id": "decline",
+        "label": "Сейчас не готов",
+        "action": "pass",
+        "costUnits": 0
+      }
+    ],
+    "reviewMonths": 4,
+    "reviewTitle": "Вернуться к договорённостям",
+    "reviewAction": "conflict_review",
+    "laterMonths": 0,
+    "laterTitle": null,
+    "laterAction": null
+  },
+  {
+    "id": "family-planning",
+    "domain": "FAMILY",
+    "weight": 10,
+    "cooldownMonths": 24,
+    "condition": "family",
+    "participant": "partner",
+    "trigger": null,
+    "title": "Планировать ребёнка?",
+    "text": "Вы с {person} обсуждаете готовность к родительству. Здоровье, время и бюджет важны, а беременность не гарантирована.",
+    "choices": [
+      {
+        "id": "try",
+        "label": "Попробовать стать родителями",
+        "action": "conceive",
+        "costUnits": 0
+      },
+      {
+        "id": "later",
+        "label": "Отложить решение",
+        "action": "pass",
+        "costUnits": 0
+      },
+      {
+        "id": "decline",
+        "label": "Сейчас не готов",
+        "action": "pass",
+        "costUnits": 0
+      }
+    ],
+    "reviewMonths": 10,
+    "reviewTitle": "Месяцы ожидания",
+    "reviewAction": "birth",
+    "laterMonths": 4,
+    "laterTitle": "Новый распорядок семьи",
+    "laterAction": "postpartum"
+  },
+  {
+    "id": "adoption",
+    "domain": "FAMILY",
+    "weight": 2,
+    "cooldownMonths": 72,
+    "condition": "adoption",
+    "participant": null,
+    "trigger": null,
+    "title": "Принять ребёнка в семью?",
+    "text": "Ты рассматриваешь усыновление. В игровой модели оцениваются ресурсы и готовность заботиться; это не описание юридической процедуры страны.",
+    "choices": [
+      {
+        "id": "apply",
+        "label": "Начать подготовку",
+        "action": "adopt",
+        "costUnits": 5
+      },
+      {
+        "id": "wait",
+        "label": "Сначала укрепить положение семьи",
+        "action": "pass",
+        "costUnits": 0
+      },
+      {
+        "id": "decline",
+        "label": "Сейчас не готов",
+        "action": "pass",
+        "costUnits": 0
+      }
+    ],
+    "reviewMonths": 6,
+    "reviewTitle": "Итог подготовки",
+    "reviewAction": "adoption_review",
+    "laterMonths": 0,
+    "laterTitle": null,
+    "laterAction": null
+  },
+  {
+    "id": "child-education",
+    "domain": "FAMILY",
+    "weight": 14,
+    "cooldownMonths": 24,
+    "condition": "child_education",
+    "participant": "student",
+    "trigger": null,
+    "title": "Учебный путь ребёнка",
+    "text": "{person} выбирает, чему учиться дальше. Ты можешь помочь оплатой или поддержать самостоятельную заявку.",
+    "choices": [
+      {
+        "id": "pay",
+        "label": "Поддержать оплату обучения",
+        "action": "child_support",
+        "costUnits": 15
+      },
+      {
+        "id": "grant",
+        "label": "Помочь с заявкой на учебную помощь",
+        "action": "child_grant",
+        "costUnits": 0
+      },
+      {
+        "id": "decline",
+        "label": "Сейчас не готов",
+        "action": "pass",
+        "costUnits": 0
+      }
+    ],
+    "reviewMonths": 36,
+    "reviewTitle": "Завершение программы",
+    "reviewAction": "child_education",
+    "laterMonths": 0,
+    "laterTitle": null,
+    "laterAction": null
+  },
+  {
+    "id": "teen-conflict",
+    "domain": "FAMILY",
+    "weight": 9,
+    "cooldownMonths": 30,
+    "condition": "teen",
+    "participant": "teen",
+    "trigger": null,
+    "title": "Право на самостоятельность",
+    "text": "{person} спорит с твоими правилами. За резкими словами могут стоять желания, которые трудно высказать.",
+    "choices": [
+      {
+        "id": "listen",
+        "label": "Спокойно выслушать",
+        "action": "listen_child",
+        "costUnits": 0
+      },
+      {
+        "id": "restrict",
+        "label": "Усилить ограничения",
+        "action": "restrict_child",
+        "costUnits": 0
+      },
+      {
+        "id": "decline",
+        "label": "Сейчас не готов",
+        "action": "pass",
+        "costUnits": 0
+      }
+    ],
+    "reviewMonths": 4,
+    "reviewTitle": "Следующий разговор",
+    "reviewAction": "teen_review",
+    "laterMonths": 0,
+    "laterTitle": null,
+    "laterAction": null
+  },
+  {
+    "id": "condition",
+    "domain": "HEALTH",
+    "weight": 4,
+    "cooldownMonths": 60,
+    "condition": "health",
+    "participant": null,
+    "trigger": "symptoms",
+    "title": "Самочувствие меняется",
+    "text": "Привычная нагрузка стала даваться труднее. Нужно решить, как реагировать на новое состояние.",
+    "choices": [
+      {
+        "id": "care",
+        "label": "Обратиться за помощью",
+        "action": "diagnose",
+        "costUnits": 3
+      },
+      {
+        "id": "rest",
+        "label": "Начать с отдыха и наблюдения",
+        "action": "self_care",
+        "costUnits": 0
+      },
+      {
+        "id": "decline",
+        "label": "Сейчас не готов",
+        "action": "pass",
+        "costUnits": 0
+      }
+    ],
+    "reviewMonths": 6,
+    "reviewTitle": "Проверить самочувствие",
+    "reviewAction": "health_review",
+    "laterMonths": 12,
+    "laterTitle": "Жизнь с ограничениями",
+    "laterAction": "chronic_review"
+  },
+  {
+    "id": "injury",
+    "domain": "HEALTH",
+    "weight": 2,
+    "cooldownMonths": 72,
+    "condition": "injury",
+    "participant": null,
+    "trigger": "accident",
+    "title": "Восстановиться после травмы",
+    "text": "Неосторожное движение привело к травме. На время восстановления работоспособность снизилась.",
+    "choices": [
+      {
+        "id": "care",
+        "label": "Пройти восстановление с помощью",
+        "action": "injury_care",
+        "costUnits": 4
+      },
+      {
+        "id": "rest",
+        "label": "Отдыхать и снизить нагрузку",
+        "action": "injury_rest",
+        "costUnits": 0
+      },
+      {
+        "id": "decline",
+        "label": "Сейчас не готов",
+        "action": "pass",
+        "costUnits": 0
+      }
+    ],
+    "reviewMonths": 4,
+    "reviewTitle": "Результаты восстановления",
+    "reviewAction": "rehabilitation",
+    "laterMonths": 0,
+    "laterTitle": null,
+    "laterAction": null
+  },
+  {
+    "id": "debt",
+    "domain": "FINANCE",
+    "weight": 10,
+    "cooldownMonths": 24,
+    "condition": "debt",
+    "participant": null,
+    "trigger": null,
+    "title": "Бюджет не сходится",
+    "text": "Обязательные расходы или просрочки превышают текущие возможности. Новый заём не заменяет устойчивого дохода.",
+    "choices": [
+      {
+        "id": "cut",
+        "label": "Сократить повседневные траты",
+        "action": "cut_costs",
+        "costUnits": 0
+      },
+      {
+        "id": "borrow",
+        "label": "Запросить заём для текущих обязательств",
+        "action": "loan",
+        "costUnits": 0
+      },
+      {
+        "id": "decline",
+        "label": "Сейчас не готов",
+        "action": "pass",
+        "costUnits": 0
+      }
+    ],
+    "reviewMonths": 6,
+    "reviewTitle": "Проверка бюджета",
+    "reviewAction": "debt_review",
+    "laterMonths": 0,
+    "laterTitle": null,
+    "laterAction": null
+  },
+  {
+    "id": "housing",
+    "domain": "FINANCE",
+    "weight": 7,
+    "cooldownMonths": 36,
+    "condition": "home",
+    "participant": null,
+    "trigger": null,
+    "title": "Свой дом",
+    "text": "Накопления позволяют рассмотреть жильё из каталога. Можно оплатить его целиком или проверить условия игрового кредита.",
+    "choices": [
+      {
+        "id": "buy",
+        "label": "Купить на накопления",
+        "action": "buy_home",
+        "costUnits": 0
+      },
+      {
+        "id": "mortgage",
+        "label": "Внести 20% и запросить ипотеку",
+        "action": "mortgage",
+        "costUnits": 0
+      },
+      {
+        "id": "decline",
+        "label": "Сейчас не готов",
+        "action": "pass",
+        "costUnits": 0
+      }
+    ],
+    "reviewMonths": 6,
+    "reviewTitle": "Обжиться в доме",
+    "reviewAction": "home_review",
+    "laterMonths": 0,
+    "laterTitle": null,
+    "laterAction": null
+  },
+  {
+    "id": "vehicle",
+    "domain": "FINANCE",
+    "weight": 5,
+    "cooldownMonths": 36,
+    "condition": "vehicle",
+    "participant": null,
+    "trigger": null,
+    "title": "Личный транспорт",
+    "text": "Ты рассматриваешь мотоцикл из каталога. Кроме покупки, придётся оплачивать содержание.",
+    "choices": [
+      {
+        "id": "buy",
+        "label": "Купить мотоцикл",
+        "action": "buy_vehicle",
+        "costUnits": 0
+      },
+      {
+        "id": "save",
+        "label": "Сохранить накопления",
+        "action": "pass",
+        "costUnits": 0
+      },
+      {
+        "id": "decline",
+        "label": "Сейчас не готов",
+        "action": "pass",
+        "costUnits": 0
+      }
+    ],
+    "reviewMonths": 6,
+    "reviewTitle": "Первый сезон с транспортом",
+    "reviewAction": "vehicle_review",
+    "laterMonths": 0,
+    "laterTitle": null,
+    "laterAction": null
+  },
+  {
+    "id": "investment",
+    "domain": "FINANCE",
+    "weight": 4,
+    "cooldownMonths": 48,
+    "condition": "investment",
+    "participant": null,
+    "trigger": null,
+    "title": "Распорядиться накоплениями",
+    "text": "Часть свободных денег можно вложить в рискованный актив. До продажи эти деньги будут недоступны для обычных покупок.",
+    "choices": [
+      {
+        "id": "invest",
+        "label": "Вложить часть накоплений",
+        "action": "invest",
+        "costUnits": 0
+      },
+      {
+        "id": "keep",
+        "label": "Оставить деньги на счёте",
+        "action": "pass",
+        "costUnits": 0
+      },
+      {
+        "id": "decline",
+        "label": "Сейчас не готов",
+        "action": "pass",
+        "costUnits": 0
+      }
+    ],
+    "reviewMonths": 12,
+    "reviewTitle": "Изменение оценки",
+    "reviewAction": "investment_review",
+    "laterMonths": 12,
+    "laterTitle": "Зафиксировать результат",
+    "laterAction": "investment_sell"
+  },
+  {
+    "id": "friendship",
+    "domain": "SOCIAL",
+    "weight": 8,
+    "cooldownMonths": 24,
+    "condition": "friend",
+    "participant": "friend",
+    "trigger": null,
+    "title": "Поддержать знакомого",
+    "text": "{person} переживает трудный период и обращается к тебе. Не всякая поддержка требует денег.",
+    "choices": [
+      {
+        "id": "help",
+        "label": "Помочь деньгами и участием",
+        "action": "friend_help",
+        "costUnits": 2
+      },
+      {
+        "id": "talk",
+        "label": "Выслушать и быть на связи",
+        "action": "friend_talk",
+        "costUnits": 0
+      },
+      {
+        "id": "decline",
+        "label": "Сейчас не готов",
+        "action": "pass",
+        "costUnits": 0
+      }
+    ],
+    "reviewMonths": 6,
+    "reviewTitle": "После трудного периода",
+    "reviewAction": "friend_review",
+    "laterMonths": 36,
+    "laterTitle": "Встреча спустя годы",
+    "laterAction": "friend_reunion"
+  },
+  {
+    "id": "parent-care",
+    "domain": "FAMILY",
+    "weight": 10,
+    "cooldownMonths": 24,
+    "condition": "parent",
+    "participant": "parent",
+    "trigger": null,
+    "title": "Забота о родителе",
+    "text": "{person} нуждается в большей поддержке. Нужно найти подходящее сочетание времени и помощи.",
+    "choices": [
+      {
+        "id": "care",
+        "label": "Организовать помощь",
+        "action": "care_parent",
+        "costUnits": 3
+      },
+      {
+        "id": "visit",
+        "label": "Помогать лично",
+        "action": "visit_parent",
+        "costUnits": 0
+      },
+      {
+        "id": "decline",
+        "label": "Сейчас не готов",
+        "action": "pass",
+        "costUnits": 0
+      }
+    ],
+    "reviewMonths": 6,
+    "reviewTitle": "Понять, что помогает",
+    "reviewAction": "care_review",
+    "laterMonths": 0,
+    "laterTitle": null,
+    "laterAction": null
+  },
+  {
+    "id": "retirement",
+    "domain": "LATER_LIFE",
+    "weight": 12,
+    "cooldownMonths": 36,
+    "condition": "retirement",
+    "participant": null,
+    "trigger": null,
+    "title": "Изменить рабочий ритм?",
+    "text": "За плечами накопленный опыт. Можно перейти на игровую пенсионную выплату или продолжить карьеру.",
+    "choices": [
+      {
+        "id": "retire",
+        "label": "Завершить текущую работу",
+        "action": "retire",
+        "costUnits": 0
+      },
+      {
+        "id": "continue",
+        "label": "Пока продолжать",
+        "action": "pass",
+        "costUnits": 0
+      },
+      {
+        "id": "decline",
+        "label": "Сейчас не готов",
+        "action": "pass",
+        "costUnits": 0
+      }
+    ],
+    "reviewMonths": 12,
+    "reviewTitle": "Жизнь вне работы",
+    "reviewAction": "retirement_review",
+    "laterMonths": 0,
+    "laterTitle": null,
+    "laterAction": null
+  },
+  {
+    "id": "inheritance",
+    "domain": "FINANCE",
+    "weight": 12,
+    "cooldownMonths": 24,
+    "condition": "inheritance",
+    "participant": "inheritance",
+    "trigger": null,
+    "title": "Семейные финансовые дела",
+    "text": "После смерти {person} осталось имущество. Игровая доля наследства может перейти тебе после оформления.",
+    "choices": [
+      {
+        "id": "inherit",
+        "label": "Принять долю наследства",
+        "action": "inherit",
+        "costUnits": 0
+      },
+      {
+        "id": "refuse",
+        "label": "Отказаться",
+        "action": "pass",
+        "costUnits": 0
+      },
+      {
+        "id": "decline",
+        "label": "Сейчас не готов",
+        "action": "pass",
+        "costUnits": 0
+      }
+    ],
+    "reviewMonths": 4,
+    "reviewTitle": "Завершить семейные дела",
+    "reviewAction": "inherit_review",
+    "laterMonths": 0,
+    "laterTitle": null,
+    "laterAction": null
+  },
+  {
+    "id": "bereavement",
+    "domain": "SOCIAL",
+    "weight": 8,
+    "cooldownMonths": 18,
+    "condition": "bereavement",
+    "participant": "deceased",
+    "trigger": null,
+    "title": "Память о близком",
+    "text": "{person} больше нет рядом. В общей истории остались встречи и события, к которым можно возвращаться.",
+    "choices": [
+      {
+        "id": "remember",
+        "label": "Дать себе время и вспомнить",
+        "action": "grieve",
+        "costUnits": 0
+      },
+      {
+        "id": "private",
+        "label": "Пережить это по-своему",
+        "action": "pass",
+        "costUnits": 0
+      },
+      {
+        "id": "decline",
+        "label": "Сейчас не готов",
+        "action": "pass",
+        "costUnits": 0
+      }
+    ],
+    "reviewMonths": 12,
+    "reviewTitle": "Память со временем",
+    "reviewAction": "bereavement_review",
+    "laterMonths": 0,
+    "laterTitle": null,
+    "laterAction": null
+  },
+  {
+    "id": "restore-contact",
+    "domain": "SOCIAL",
+    "weight": 8,
+    "cooldownMonths": 18,
+    "condition": "contact",
+    "participant": "distant",
+    "trigger": null,
+    "title": "Вернуться к общению?",
+    "text": "Вы с {person} давно не разговаривали. Можно попробовать восстановить связь, сохранить дистанцию или решить больше не общаться.",
+    "choices": [
+      { "id": "write", "label": "Написать и дождаться ответа", "action": "reach_out", "costUnits": 0 },
+      { "id": "end", "label": "Прекратить общение", "action": "end_contact", "costUnits": 0 },
+      { "id": "later", "label": "Пока оставить всё как есть", "action": "pass", "costUnits": 0 }
+    ],
+    "reviewMonths": 2,
+    "reviewTitle": "Ответ на сообщение",
+    "reviewAction": "contact_response",
+    "laterMonths": 4,
+    "laterTitle": "Снова на связи",
+    "laterAction": "contact_followup"
+  }
+]
