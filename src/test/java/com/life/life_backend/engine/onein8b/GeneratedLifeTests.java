@@ -18,6 +18,7 @@ import tools.jackson.databind.ObjectMapper;
 import java.time.Instant;
 import java.util.Map;
 import java.util.UUID;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.nullValue;
@@ -47,7 +48,7 @@ class GeneratedLifeTests {
 	private static final String START = """
 			{
 			  "state": {"age": 0, "year": 2026, "born_year": 2026, "born_in": "CHN", "country": "CHN",
-			            "place": "town", "city": "Пекин", "name": "Тест", "sex": "F",
+			            "place": "town", "city": "Пекин", "name": "Линь Мэй", "sex": "F",
 			            "health": 81, "happiness": 76, "knowledge": 5, "bonds": 90,
 			            "mother": {"age": 31, "job": "homemaker", "alive": true, "at_home": true},
 			            "father": {"age": 34, "job": "clerk", "alive": true, "at_home": false},
@@ -109,6 +110,7 @@ class GeneratedLifeTests {
 		var startKey = UUID.randomUUID();
 		var initial = command(GENERATED, owner, startKey, "{}").andExpect(status().isCreated())
 				.andExpect(jsonPath("$.provider").value("1in8b"))
+				.andExpect(jsonPath("$.character.name").value("Линь Мэй"))
 				.andExpect(jsonPath("$.character.birthplace.countryCode").value("CN"))
 				.andExpect(jsonPath("$.character.birthplace.city").value("Пекин"))
 				.andExpect(jsonPath("$.character.background.family").value("Мать, отец отсутствует"))
@@ -146,6 +148,7 @@ class GeneratedLifeTests {
 		command(GENERATED, owner, startKey, "{}").andExpect(status().isOk())
 				.andExpect(jsonPath("$.id").value(id.toString()));
 		mvc.perform(get(session).cookie(owner)).andExpect(status().isOk())
+				.andExpect(jsonPath("$.character.name").value("Линь Мэй"))
 				.andExpect(jsonPath("$.character.birthDetails.father.occupation.label").value("офисный работник"))
 				.andExpect(jsonPath("$.state.age").value(0));
 		verify(upstream).newborn(anyLong());
@@ -159,7 +162,12 @@ class GeneratedLifeTests {
 		command(advancePath, owner, UUID.randomUUID(), """
 				{"expectedVersion":2}
 				""").andExpect(status().isOk()).andExpect(jsonPath("$.state.age").value(2))
-				.andExpect(jsonPath("$.state.pendingDecision.options[0].id").value("read"));
+				.andExpect(jsonPath("$.state.pendingDecision.options[0].id").value("read"))
+				.andExpect(jsonPath("$.state.pendingDecision.options[0].effects").value(nullValue()));
+		mvc.perform(get(session).cookie(owner)).andExpect(status().isOk())
+				.andExpect(jsonPath("$.state.pendingDecision.options[0].effects").value(nullValue()))
+				.andExpect(jsonPath("$.state.history[0].importance").value(nullValue()));
+		verify(upstream, times(2)).live(anyMap());
 		command(advancePath, owner, UUID.randomUUID(), """
 				{"expectedVersion":3}
 				""").andExpect(status().isConflict()).andExpect(jsonPath("$.code").value("DECISION_REQUIRED"));
@@ -229,6 +237,9 @@ class GeneratedLifeTests {
 				.andReturn().getResponse().getHeader(HttpHeaders.LOCATION);
 		var id = UUID.fromString(session.substring(session.lastIndexOf('/') + 1));
 		String cursor = jdbc.queryForObject("select engine_token from life_session where id = ?", String.class, id);
+        for(String changes:List.of("{\"birthplace\":{\"countryCode\":\"JP\"}}", "{\"family\":{\"members\":[]}}", "{\"sex\":\"FEMALE\"}", "{\"stats\":{\"aura\":10}}", "{\"stats\":{\"happiness\":80}}"))
+            editCharacter(owner,session,UUID.randomUUID(),"{\"expectedVersion\":1,\"changes\":"+changes+"}")
+                    .andExpect(status().isConflict()).andExpect(jsonPath("$.code").value("CHARACTER_FIELDS_READ_ONLY"));
 		editCharacter(owner, session, UUID.randomUUID(), """
 				{"expectedVersion":1,"changes":{"name":"Лина","stats":{"health":20}}}
 				""").andExpect(status().isConflict()).andExpect(jsonPath("$.code").value("CHARACTER_FIELDS_READ_ONLY"));

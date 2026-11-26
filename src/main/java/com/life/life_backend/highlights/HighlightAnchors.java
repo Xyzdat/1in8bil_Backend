@@ -18,7 +18,7 @@ final class HighlightAnchors {
         if("training_completed".equals(link.action()))fact(c,"TRAINING_COMPLETED",link.sourceId(),month,"Купленный курс завершён",eventId);
         var next=after.adult();if(next==null)return;var old=before.adult();
         String action=link.action()==null?"":link.action();
-        if(Set.of("apply_job","job_referral","business").contains(action))for(var job:next.career().history())
+        if(Set.of("apply_job","apply_part_time","job_referral","business").contains(action))for(var job:next.career().history())
             if(job.beganMonth()==month&&(old==null||old.career().history().stream().noneMatch(j->j.id().equals(job.id())))) {
                 c.anchor("JOB",job.id(),month);fact(c,"JOB_STARTED",job.id(),month,"Началась работа: "+job.occupation(),eventId);
             }

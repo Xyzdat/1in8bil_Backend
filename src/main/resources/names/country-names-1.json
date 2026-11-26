@@ -1,0 +1,1422 @@
+[
+  {
+    "iso3": "RUS",
+    "order": "GIVEN_FIRST",
+    "rule": "SHARED",
+    "families": [
+      {
+        "male": "Иванов",
+        "female": "Иванова"
+      },
+      {
+        "male": "Петров",
+        "female": "Петрова"
+      },
+      {
+        "male": "Смирнов",
+        "female": "Смирнова"
+      },
+      {
+        "male": "Кузнецов",
+        "female": "Кузнецова"
+      },
+      {
+        "male": "Соколов",
+        "female": "Соколова"
+      },
+      {
+        "male": "Попов",
+        "female": "Попова"
+      },
+      {
+        "male": "Лебедев",
+        "female": "Лебедева"
+      },
+      {
+        "male": "Морозов",
+        "female": "Морозова"
+      },
+      {
+        "male": "Волков",
+        "female": "Волкова"
+      },
+      {
+        "male": "Орлов",
+        "female": "Орлова"
+      },
+      {
+        "male": "Фёдоров",
+        "female": "Фёдорова"
+      },
+      {
+        "male": "Васильев",
+        "female": "Васильева"
+      }
+    ]
+  },
+  {
+    "iso3": "JPN",
+    "order": "FAMILY_FIRST",
+    "rule": "SHARED",
+    "families": [
+      {
+        "male": "Сато",
+        "female": "Сато"
+      },
+      {
+        "male": "Судзуки",
+        "female": "Судзуки"
+      },
+      {
+        "male": "Танака",
+        "female": "Танака"
+      },
+      {
+        "male": "Такахаси",
+        "female": "Такахаси"
+      },
+      {
+        "male": "Ватанабэ",
+        "female": "Ватанабэ"
+      },
+      {
+        "male": "Ито",
+        "female": "Ито"
+      },
+      {
+        "male": "Ямамото",
+        "female": "Ямамото"
+      },
+      {
+        "male": "Накамура",
+        "female": "Накамура"
+      }
+    ]
+  },
+  {
+    "iso3": "CHN",
+    "order": "FAMILY_FIRST",
+    "rule": "SEPARATE",
+    "families": [
+      {
+        "male": "Ван",
+        "female": "Ван"
+      },
+      {
+        "male": "Ли",
+        "female": "Ли"
+      },
+      {
+        "male": "Чжан",
+        "female": "Чжан"
+      },
+      {
+        "male": "Лю",
+        "female": "Лю"
+      },
+      {
+        "male": "Чэнь",
+        "female": "Чэнь"
+      },
+      {
+        "male": "Ян",
+        "female": "Ян"
+      },
+      {
+        "male": "Хуан",
+        "female": "Хуан"
+      },
+      {
+        "male": "Чжао",
+        "female": "Чжао"
+      }
+    ]
+  },
+  {
+    "iso3": "IND",
+    "order": "GIVEN_FIRST",
+    "rule": "SHARED",
+    "families": [
+      {
+        "male": "Шарма",
+        "female": "Шарма"
+      },
+      {
+        "male": "Патель",
+        "female": "Патель"
+      },
+      {
+        "male": "Гупта",
+        "female": "Гупта"
+      },
+      {
+        "male": "Сингх",
+        "female": "Сингх"
+      },
+      {
+        "male": "Дас",
+        "female": "Дас"
+      },
+      {
+        "male": "Рао",
+        "female": "Рао"
+      },
+      {
+        "male": "Наир",
+        "female": "Наир"
+      },
+      {
+        "male": "Мехта",
+        "female": "Мехта"
+      }
+    ]
+  },
+  {
+    "iso3": "IDN",
+    "order": "GIVEN_FIRST",
+    "rule": "SEPARATE",
+    "families": [
+      {
+        "male": "Сирегар",
+        "female": "Сирегар"
+      },
+      {
+        "male": "Насутион",
+        "female": "Насутион"
+      },
+      {
+        "male": "Хутабарат",
+        "female": "Хутабарат"
+      },
+      {
+        "male": "Симанджунтак",
+        "female": "Симанджунтак"
+      },
+      {
+        "male": "Ситумейанг",
+        "female": "Ситумейанг"
+      },
+      {
+        "male": "Сиагиан",
+        "female": "Сиагиан"
+      },
+      {
+        "male": "Лубис",
+        "female": "Лубис"
+      },
+      {
+        "male": "Панджайтан",
+        "female": "Панджайтан"
+      }
+    ]
+  },
+  {
+    "iso3": "PAK",
+    "order": "GIVEN_FIRST",
+    "rule": "SEPARATE",
+    "families": [
+      {
+        "male": "Хан",
+        "female": "Хан"
+      },
+      {
+        "male": "Ахмед",
+        "female": "Ахмед"
+      },
+      {
+        "male": "Малик",
+        "female": "Малик"
+      },
+      {
+        "male": "Куреши",
+        "female": "Куреши"
+      },
+      {
+        "male": "Шейх",
+        "female": "Шейх"
+      },
+      {
+        "male": "Рана",
+        "female": "Рана"
+      },
+      {
+        "male": "Аббас",
+        "female": "Аббас"
+      },
+      {
+        "male": "Сиддики",
+        "female": "Сиддики"
+      }
+    ]
+  },
+  {
+    "iso3": "BGD",
+    "order": "GIVEN_FIRST",
+    "rule": "SEPARATE",
+    "families": [
+      {
+        "male": "Рахман",
+        "female": "Рахман"
+      },
+      {
+        "male": "Хоссейн",
+        "female": "Хоссейн"
+      },
+      {
+        "male": "Ислам",
+        "female": "Ислам"
+      },
+      {
+        "male": "Ахмед",
+        "female": "Ахмед"
+      },
+      {
+        "male": "Чоудхури",
+        "female": "Чоудхури"
+      },
+      {
+        "male": "Хан",
+        "female": "Хан"
+      },
+      {
+        "male": "Мондал",
+        "female": "Мондал"
+      },
+      {
+        "male": "Саркар",
+        "female": "Саркар"
+      }
+    ]
+  },
+  {
+    "iso3": "VNM",
+    "order": "FAMILY_FIRST",
+    "rule": "SEPARATE",
+    "families": [
+      {
+        "male": "Нгуен",
+        "female": "Нгуен"
+      },
+      {
+        "male": "Чан",
+        "female": "Чан"
+      },
+      {
+        "male": "Ле",
+        "female": "Ле"
+      },
+      {
+        "male": "Фам",
+        "female": "Фам"
+      },
+      {
+        "male": "Хоанг",
+        "female": "Хоанг"
+      },
+      {
+        "male": "Фан",
+        "female": "Фан"
+      },
+      {
+        "male": "Ву",
+        "female": "Ву"
+      },
+      {
+        "male": "Данг",
+        "female": "Данг"
+      }
+    ]
+  },
+  {
+    "iso3": "PHL",
+    "order": "GIVEN_FIRST",
+    "rule": "SHARED",
+    "families": [
+      {
+        "male": "Дела Крус",
+        "female": "Дела Крус"
+      },
+      {
+        "male": "Гарсия",
+        "female": "Гарсия"
+      },
+      {
+        "male": "Рейес",
+        "female": "Рейес"
+      },
+      {
+        "male": "Рамос",
+        "female": "Рамос"
+      },
+      {
+        "male": "Мендоса",
+        "female": "Мендоса"
+      },
+      {
+        "male": "Сантос",
+        "female": "Сантос"
+      },
+      {
+        "male": "Флорес",
+        "female": "Флорес"
+      },
+      {
+        "male": "Гонсалес",
+        "female": "Гонсалес"
+      }
+    ]
+  },
+  {
+    "iso3": "THA",
+    "order": "GIVEN_FIRST",
+    "rule": "SHARED",
+    "families": [
+      {
+        "male": "Саэтанг",
+        "female": "Саэтанг"
+      },
+      {
+        "male": "Саэли",
+        "female": "Саэли"
+      },
+      {
+        "male": "Саэнгчан",
+        "female": "Саэнгчан"
+      },
+      {
+        "male": "Саэнгтонг",
+        "female": "Саэнгтонг"
+      },
+      {
+        "male": "Бунми",
+        "female": "Бунми"
+      },
+      {
+        "male": "Вонгсават",
+        "female": "Вонгсават"
+      },
+      {
+        "male": "Суксай",
+        "female": "Суксай"
+      },
+      {
+        "male": "Суван",
+        "female": "Суван"
+      }
+    ]
+  },
+  {
+    "iso3": "KOR",
+    "order": "FAMILY_FIRST",
+    "rule": "SEPARATE",
+    "families": [
+      {
+        "male": "Ким",
+        "female": "Ким"
+      },
+      {
+        "male": "Ли",
+        "female": "Ли"
+      },
+      {
+        "male": "Пак",
+        "female": "Пак"
+      },
+      {
+        "male": "Чхве",
+        "female": "Чхве"
+      },
+      {
+        "male": "Чон",
+        "female": "Чон"
+      },
+      {
+        "male": "Кан",
+        "female": "Кан"
+      },
+      {
+        "male": "Чо",
+        "female": "Чо"
+      },
+      {
+        "male": "Юн",
+        "female": "Юн"
+      }
+    ]
+  },
+  {
+    "iso3": "MYS",
+    "order": "GIVEN_FIRST",
+    "rule": "PATRONYMIC",
+    "families": [
+      {
+        "male": "Абдулла",
+        "female": "Абдулла"
+      },
+      {
+        "male": "Ибрагим",
+        "female": "Ибрагим"
+      },
+      {
+        "male": "Исмаил",
+        "female": "Исмаил"
+      },
+      {
+        "male": "Хасан",
+        "female": "Хасан"
+      },
+      {
+        "male": "Юсуф",
+        "female": "Юсуф"
+      },
+      {
+        "male": "Осман",
+        "female": "Осман"
+      },
+      {
+        "male": "Ахмад",
+        "female": "Ахмад"
+      },
+      {
+        "male": "Али",
+        "female": "Али"
+      }
+    ]
+  },
+  {
+    "iso3": "SAU",
+    "order": "GIVEN_FIRST",
+    "rule": "SEPARATE",
+    "families": [
+      {
+        "male": "Аль-Харби",
+        "female": "Аль-Харби"
+      },
+      {
+        "male": "Аль-Отайби",
+        "female": "Аль-Отайби"
+      },
+      {
+        "male": "Аль-Кахтани",
+        "female": "Аль-Кахтани"
+      },
+      {
+        "male": "Аль-Шаммари",
+        "female": "Аль-Шаммари"
+      },
+      {
+        "male": "Аль-Гамди",
+        "female": "Аль-Гамди"
+      },
+      {
+        "male": "Аль-Досари",
+        "female": "Аль-Досари"
+      },
+      {
+        "male": "Аль-Захрани",
+        "female": "Аль-Захрани"
+      },
+      {
+        "male": "Аль-Мутаири",
+        "female": "Аль-Мутаири"
+      }
+    ]
+  },
+  {
+    "iso3": "IRN",
+    "order": "GIVEN_FIRST",
+    "rule": "SEPARATE",
+    "families": [
+      {
+        "male": "Мохаммади",
+        "female": "Мохаммади"
+      },
+      {
+        "male": "Хоссейни",
+        "female": "Хоссейни"
+      },
+      {
+        "male": "Резаи",
+        "female": "Резаи"
+      },
+      {
+        "male": "Ахмади",
+        "female": "Ахмади"
+      },
+      {
+        "male": "Карими",
+        "female": "Карими"
+      },
+      {
+        "male": "Мусави",
+        "female": "Мусави"
+      },
+      {
+        "male": "Джафари",
+        "female": "Джафари"
+      },
+      {
+        "male": "Рахими",
+        "female": "Рахими"
+      }
+    ]
+  },
+  {
+    "iso3": "KAZ",
+    "order": "GIVEN_FIRST",
+    "rule": "SHARED",
+    "families": [
+      {
+        "male": "Ахметов",
+        "female": "Ахметова"
+      },
+      {
+        "male": "Омаров",
+        "female": "Омарова"
+      },
+      {
+        "male": "Сулейменов",
+        "female": "Сулейменова"
+      },
+      {
+        "male": "Ибраев",
+        "female": "Ибраева"
+      },
+      {
+        "male": "Сериков",
+        "female": "Серикова"
+      },
+      {
+        "male": "Жумабаев",
+        "female": "Жумабаева"
+      },
+      {
+        "male": "Оспанов",
+        "female": "Оспанова"
+      },
+      {
+        "male": "Искаков",
+        "female": "Искакова"
+      }
+    ]
+  },
+  {
+    "iso3": "UZB",
+    "order": "GIVEN_FIRST",
+    "rule": "SHARED",
+    "families": [
+      {
+        "male": "Каримов",
+        "female": "Каримова"
+      },
+      {
+        "male": "Юсупов",
+        "female": "Юсупова"
+      },
+      {
+        "male": "Абдуллаев",
+        "female": "Абдуллаева"
+      },
+      {
+        "male": "Рахимов",
+        "female": "Рахимова"
+      },
+      {
+        "male": "Исмоилов",
+        "female": "Исмоилова"
+      },
+      {
+        "male": "Ахмедов",
+        "female": "Ахмедова"
+      },
+      {
+        "male": "Турсунов",
+        "female": "Турсунова"
+      },
+      {
+        "male": "Усманов",
+        "female": "Усманова"
+      }
+    ]
+  },
+  {
+    "iso3": "NGA",
+    "order": "GIVEN_FIRST",
+    "rule": "SEPARATE",
+    "families": [
+      {
+        "male": "Адебайо",
+        "female": "Адебайо"
+      },
+      {
+        "male": "Аденийи",
+        "female": "Аденийи"
+      },
+      {
+        "male": "Оконкво",
+        "female": "Оконкво"
+      },
+      {
+        "male": "Окафор",
+        "female": "Окафор"
+      },
+      {
+        "male": "Балогун",
+        "female": "Балогун"
+      },
+      {
+        "male": "Ибрагим",
+        "female": "Ибрагим"
+      },
+      {
+        "male": "Юсуф",
+        "female": "Юсуф"
+      },
+      {
+        "male": "Белло",
+        "female": "Белло"
+      }
+    ]
+  },
+  {
+    "iso3": "ETH",
+    "order": "GIVEN_FIRST",
+    "rule": "PATRONYMIC",
+    "families": [
+      {
+        "male": "Абебе",
+        "female": "Абебе"
+      },
+      {
+        "male": "Давит",
+        "female": "Давит"
+      },
+      {
+        "male": "Тесфайе",
+        "female": "Тесфайе"
+      },
+      {
+        "male": "Бекеле",
+        "female": "Бекеле"
+      },
+      {
+        "male": "Гетачеу",
+        "female": "Гетачеу"
+      },
+      {
+        "male": "Гирма",
+        "female": "Гирма"
+      },
+      {
+        "male": "Соломон",
+        "female": "Соломон"
+      },
+      {
+        "male": "Тадессе",
+        "female": "Тадессе"
+      }
+    ]
+  },
+  {
+    "iso3": "EGY",
+    "order": "GIVEN_FIRST",
+    "rule": "SEPARATE",
+    "families": [
+      {
+        "male": "Хасан",
+        "female": "Хасан"
+      },
+      {
+        "male": "Хусейн",
+        "female": "Хусейн"
+      },
+      {
+        "male": "Махмуд",
+        "female": "Махмуд"
+      },
+      {
+        "male": "Ибрагим",
+        "female": "Ибрагим"
+      },
+      {
+        "male": "Мансур",
+        "female": "Мансур"
+      },
+      {
+        "male": "Фахми",
+        "female": "Фахми"
+      },
+      {
+        "male": "Фарид",
+        "female": "Фарид"
+      },
+      {
+        "male": "Шариф",
+        "female": "Шариф"
+      }
+    ]
+  },
+  {
+    "iso3": "ZAF",
+    "order": "GIVEN_FIRST",
+    "rule": "SEPARATE",
+    "families": [
+      {
+        "male": "Дламини",
+        "female": "Дламини"
+      },
+      {
+        "male": "Ндлову",
+        "female": "Ндлову"
+      },
+      {
+        "male": "Нкоси",
+        "female": "Нкоси"
+      },
+      {
+        "male": "Мокоэна",
+        "female": "Мокоэна"
+      },
+      {
+        "male": "Хумало",
+        "female": "Хумало"
+      },
+      {
+        "male": "Махлангу",
+        "female": "Махлангу"
+      },
+      {
+        "male": "Смит",
+        "female": "Смит"
+      },
+      {
+        "male": "Джуберт",
+        "female": "Джуберт"
+      }
+    ]
+  },
+  {
+    "iso3": "KEN",
+    "order": "GIVEN_FIRST",
+    "rule": "SEPARATE",
+    "families": [
+      {
+        "male": "Мванги",
+        "female": "Мванги"
+      },
+      {
+        "male": "Камау",
+        "female": "Камау"
+      },
+      {
+        "male": "Отиено",
+        "female": "Отиено"
+      },
+      {
+        "male": "Одиамбо",
+        "female": "Одиамбо"
+      },
+      {
+        "male": "Киплагат",
+        "female": "Киплагат"
+      },
+      {
+        "male": "Кипротич",
+        "female": "Кипротич"
+      },
+      {
+        "male": "Ньороге",
+        "female": "Ньороге"
+      },
+      {
+        "male": "Кимани",
+        "female": "Кимани"
+      }
+    ]
+  },
+  {
+    "iso3": "TZA",
+    "order": "GIVEN_FIRST",
+    "rule": "SEPARATE",
+    "families": [
+      {
+        "male": "Мвакилема",
+        "female": "Мвакилема"
+      },
+      {
+        "male": "Муши",
+        "female": "Муши"
+      },
+      {
+        "male": "Моллель",
+        "female": "Моллель"
+      },
+      {
+        "male": "Мсами",
+        "female": "Мсами"
+      },
+      {
+        "male": "Мбвана",
+        "female": "Мбвана"
+      },
+      {
+        "male": "Кимаро",
+        "female": "Кимаро"
+      },
+      {
+        "male": "Масауд",
+        "female": "Масауд"
+      },
+      {
+        "male": "Мвакасикиле",
+        "female": "Мвакасикиле"
+      }
+    ]
+  },
+  {
+    "iso3": "GHA",
+    "order": "GIVEN_FIRST",
+    "rule": "SEPARATE",
+    "families": [
+      {
+        "male": "Менса",
+        "female": "Менса"
+      },
+      {
+        "male": "Овусу",
+        "female": "Овусу"
+      },
+      {
+        "male": "Офори",
+        "female": "Офори"
+      },
+      {
+        "male": "Боатенг",
+        "female": "Боатенг"
+      },
+      {
+        "male": "Асаре",
+        "female": "Асаре"
+      },
+      {
+        "male": "Адджей",
+        "female": "Адджей"
+      },
+      {
+        "male": "Аппиа",
+        "female": "Аппиа"
+      },
+      {
+        "male": "Дансо",
+        "female": "Дансо"
+      }
+    ]
+  },
+  {
+    "iso3": "MAR",
+    "order": "GIVEN_FIRST",
+    "rule": "SEPARATE",
+    "families": [
+      {
+        "male": "Алауи",
+        "female": "Алауи"
+      },
+      {
+        "male": "Беннани",
+        "female": "Беннани"
+      },
+      {
+        "male": "Идрисси",
+        "female": "Идрисси"
+      },
+      {
+        "male": "Амрани",
+        "female": "Амрани"
+      },
+      {
+        "male": "Тази",
+        "female": "Тази"
+      },
+      {
+        "male": "Бенджеллун",
+        "female": "Бенджеллун"
+      },
+      {
+        "male": "Саиди",
+        "female": "Саиди"
+      },
+      {
+        "male": "Мансури",
+        "female": "Мансури"
+      }
+    ]
+  },
+  {
+    "iso3": "COD",
+    "order": "GIVEN_FIRST",
+    "rule": "SEPARATE",
+    "families": [
+      {
+        "male": "Кабея",
+        "female": "Кабея"
+      },
+      {
+        "male": "Кабамба",
+        "female": "Кабамба"
+      },
+      {
+        "male": "Касонго",
+        "female": "Касонго"
+      },
+      {
+        "male": "Лубаки",
+        "female": "Лубаки"
+      },
+      {
+        "male": "Мукенди",
+        "female": "Мукенди"
+      },
+      {
+        "male": "Мулумба",
+        "female": "Мулумба"
+      },
+      {
+        "male": "Нсимба",
+        "female": "Нсимба"
+      },
+      {
+        "male": "Мбемба",
+        "female": "Мбемба"
+      }
+    ]
+  },
+  {
+    "iso3": "UGA",
+    "order": "GIVEN_FIRST",
+    "rule": "SEPARATE",
+    "families": [
+      {
+        "male": "Като",
+        "female": "Като"
+      },
+      {
+        "male": "Мусоке",
+        "female": "Мусоке"
+      },
+      {
+        "male": "Ссемакула",
+        "female": "Ссемакула"
+      },
+      {
+        "male": "Касуле",
+        "female": "Касуле"
+      },
+      {
+        "male": "Мугиша",
+        "female": "Мугиша"
+      },
+      {
+        "male": "Окелло",
+        "female": "Окелло"
+      },
+      {
+        "male": "Одонго",
+        "female": "Одонго"
+      },
+      {
+        "male": "Вассва",
+        "female": "Вассва"
+      }
+    ]
+  },
+  {
+    "iso3": "USA",
+    "order": "GIVEN_FIRST",
+    "rule": "SHARED",
+    "families": [
+      {
+        "male": "Смит",
+        "female": "Смит"
+      },
+      {
+        "male": "Джонсон",
+        "female": "Джонсон"
+      },
+      {
+        "male": "Уильямс",
+        "female": "Уильямс"
+      },
+      {
+        "male": "Браун",
+        "female": "Браун"
+      },
+      {
+        "male": "Джонс",
+        "female": "Джонс"
+      },
+      {
+        "male": "Миллер",
+        "female": "Миллер"
+      },
+      {
+        "male": "Дэвис",
+        "female": "Дэвис"
+      },
+      {
+        "male": "Гарсия",
+        "female": "Гарсия"
+      }
+    ]
+  },
+  {
+    "iso3": "CAN",
+    "order": "GIVEN_FIRST",
+    "rule": "SHARED",
+    "families": [
+      {
+        "male": "Смит",
+        "female": "Смит"
+      },
+      {
+        "male": "Браун",
+        "female": "Браун"
+      },
+      {
+        "male": "Мартен",
+        "female": "Мартен"
+      },
+      {
+        "male": "Трамбле",
+        "female": "Трамбле"
+      },
+      {
+        "male": "Руа",
+        "female": "Руа"
+      },
+      {
+        "male": "Уилсон",
+        "female": "Уилсон"
+      },
+      {
+        "male": "Макдональд",
+        "female": "Макдональд"
+      },
+      {
+        "male": "Ганьон",
+        "female": "Ганьон"
+      }
+    ]
+  },
+  {
+    "iso3": "MEX",
+    "order": "GIVEN_FIRST",
+    "rule": "DOUBLE_PATERNAL",
+    "families": [
+      {
+        "male": "Гарсия",
+        "female": "Гарсия"
+      },
+      {
+        "male": "Эрнандес",
+        "female": "Эрнандес"
+      },
+      {
+        "male": "Мартинес",
+        "female": "Мартинес"
+      },
+      {
+        "male": "Лопес",
+        "female": "Лопес"
+      },
+      {
+        "male": "Гонсалес",
+        "female": "Гонсалес"
+      },
+      {
+        "male": "Перес",
+        "female": "Перес"
+      },
+      {
+        "male": "Родригес",
+        "female": "Родригес"
+      },
+      {
+        "male": "Санчес",
+        "female": "Санчес"
+      }
+    ]
+  },
+  {
+    "iso3": "BRA",
+    "order": "GIVEN_FIRST",
+    "rule": "DOUBLE_MATERNAL",
+    "families": [
+      {
+        "male": "Силва",
+        "female": "Силва"
+      },
+      {
+        "male": "Сантос",
+        "female": "Сантос"
+      },
+      {
+        "male": "Оливейра",
+        "female": "Оливейра"
+      },
+      {
+        "male": "Соуза",
+        "female": "Соуза"
+      },
+      {
+        "male": "Перейра",
+        "female": "Перейра"
+      },
+      {
+        "male": "Лима",
+        "female": "Лима"
+      },
+      {
+        "male": "Коста",
+        "female": "Коста"
+      },
+      {
+        "male": "Феррейра",
+        "female": "Феррейра"
+      }
+    ]
+  },
+  {
+    "iso3": "ARG",
+    "order": "GIVEN_FIRST",
+    "rule": "DOUBLE_PATERNAL",
+    "families": [
+      {
+        "male": "Гонсалес",
+        "female": "Гонсалес"
+      },
+      {
+        "male": "Родригес",
+        "female": "Родригес"
+      },
+      {
+        "male": "Гомес",
+        "female": "Гомес"
+      },
+      {
+        "male": "Фернандес",
+        "female": "Фернандес"
+      },
+      {
+        "male": "Лопес",
+        "female": "Лопес"
+      },
+      {
+        "male": "Мартинес",
+        "female": "Мартинес"
+      },
+      {
+        "male": "Росси",
+        "female": "Росси"
+      },
+      {
+        "male": "Ромеро",
+        "female": "Ромеро"
+      }
+    ]
+  },
+  {
+    "iso3": "COL",
+    "order": "GIVEN_FIRST",
+    "rule": "DOUBLE_PATERNAL",
+    "families": [
+      {
+        "male": "Родригес",
+        "female": "Родригес"
+      },
+      {
+        "male": "Гомес",
+        "female": "Гомес"
+      },
+      {
+        "male": "Гонсалес",
+        "female": "Гонсалес"
+      },
+      {
+        "male": "Мартинес",
+        "female": "Мартинес"
+      },
+      {
+        "male": "Гарсия",
+        "female": "Гарсия"
+      },
+      {
+        "male": "Лопес",
+        "female": "Лопес"
+      },
+      {
+        "male": "Эрнандес",
+        "female": "Эрнандес"
+      },
+      {
+        "male": "Рамирес",
+        "female": "Рамирес"
+      }
+    ]
+  },
+  {
+    "iso3": "PER",
+    "order": "GIVEN_FIRST",
+    "rule": "DOUBLE_PATERNAL",
+    "families": [
+      {
+        "male": "Киспе",
+        "female": "Киспе"
+      },
+      {
+        "male": "Флорес",
+        "female": "Флорес"
+      },
+      {
+        "male": "Санчес",
+        "female": "Санчес"
+      },
+      {
+        "male": "Гарсия",
+        "female": "Гарсия"
+      },
+      {
+        "male": "Родригес",
+        "female": "Родригес"
+      },
+      {
+        "male": "Уаман",
+        "female": "Уаман"
+      },
+      {
+        "male": "Рохас",
+        "female": "Рохас"
+      },
+      {
+        "male": "Мамани",
+        "female": "Мамани"
+      }
+    ]
+  },
+  {
+    "iso3": "CHL",
+    "order": "GIVEN_FIRST",
+    "rule": "DOUBLE_PATERNAL",
+    "families": [
+      {
+        "male": "Гонсалес",
+        "female": "Гонсалес"
+      },
+      {
+        "male": "Муньос",
+        "female": "Муньос"
+      },
+      {
+        "male": "Рохас",
+        "female": "Рохас"
+      },
+      {
+        "male": "Диас",
+        "female": "Диас"
+      },
+      {
+        "male": "Перес",
+        "female": "Перес"
+      },
+      {
+        "male": "Сото",
+        "female": "Сото"
+      },
+      {
+        "male": "Контрерас",
+        "female": "Контрерас"
+      },
+      {
+        "male": "Сильва",
+        "female": "Сильва"
+      }
+    ]
+  },
+  {
+    "iso3": "AUS",
+    "order": "GIVEN_FIRST",
+    "rule": "SHARED",
+    "families": [
+      {
+        "male": "Смит",
+        "female": "Смит"
+      },
+      {
+        "male": "Джонс",
+        "female": "Джонс"
+      },
+      {
+        "male": "Уильямс",
+        "female": "Уильямс"
+      },
+      {
+        "male": "Браун",
+        "female": "Браун"
+      },
+      {
+        "male": "Уилсон",
+        "female": "Уилсон"
+      },
+      {
+        "male": "Тейлор",
+        "female": "Тейлор"
+      },
+      {
+        "male": "Джонсон",
+        "female": "Джонсон"
+      },
+      {
+        "male": "Уайт",
+        "female": "Уайт"
+      }
+    ]
+  },
+  {
+    "iso3": "NZL",
+    "order": "GIVEN_FIRST",
+    "rule": "SHARED",
+    "families": [
+      {
+        "male": "Смит",
+        "female": "Смит"
+      },
+      {
+        "male": "Уильямс",
+        "female": "Уильямс"
+      },
+      {
+        "male": "Браун",
+        "female": "Браун"
+      },
+      {
+        "male": "Тейлор",
+        "female": "Тейлор"
+      },
+      {
+        "male": "Уилсон",
+        "female": "Уилсон"
+      },
+      {
+        "male": "Джонс",
+        "female": "Джонс"
+      },
+      {
+        "male": "Кинг",
+        "female": "Кинг"
+      },
+      {
+        "male": "Томпсон",
+        "female": "Томпсон"
+      }
+    ]
+  }
+]

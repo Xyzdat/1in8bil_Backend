@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "id": "china-occupations-iloest-2025-v1",
+  "stage": "work-income",
+  "retrievedOn": "2026-11-26",
+  "minYear": 2000,
+  "maxYear": 2025,
+  "countries": [
+    "CHN"
+  ],
+  "sources": {
+    "iloest-china": {
+      "url": "https://rplumber.ilo.org/data/indicator?format=.csv.gz&id=EMP_2EMP_SEX_OCU_NB_A",
+      "license": "CC-BY-4.0",
+      "licenseEvidence": "https://www.ilo.org/rights-and-permissions",
+      "sourceUpdated": "04/03/2026 06:48:58",
+      "modelEdition": "Nov. 2025",
+      "attribution": "International Labour Organization, ILOSTAT, ILO modelled estimates, Nov. 2025. This is an adaptation of a copyrighted work of the International Labour Organization (ILO). This adaptation has not been prepared, reviewed or endorsed by the ILO and should not be considered an official ILO adaptation. The ILO disclaims all responsibility for its content and accuracy. Responsibility rests solely with the author or authors of the adaptation.",
+      "sha256": "a0888139e9b33cbe3b85f9bf0392c7180aed0e9d334984d895ebdabfd237064f",
+      "notes": [
+        "Counts in thousands, modelled not census observations.",
+        "OCU_ISCO08_96 is the published combined group 6 + 9, not ISCO unit group 96. Retain without statistical splitting."
+      ]
+    }
+  },
+  "indicators": {
+    "EMP_2EMP_SEX_OCU_NB": {
+      "sourceId": "iloest-china",
+      "label": "Employment by sex and occupation — ILO modelled estimates Nov. 2025",
+      "unit": "thousand_employed_persons",
+      "minimum": 0,
+      "maximum": null
+    }
+  },
+  "rowCount": 702,
+  "coverageCount": 1,
+  "qualityCounts": {
+    "VALID": 702,
+    "MISSING": 0,
+    "REJECTED": 0
+  },
+  "hashes": {
+    "observations.json.gz": "f4035083f339ef2584a89752d72f09182c0f45e0aa3313c799d56adfcafd09aa",
+    "coverage.json": "59c1c2bbbc9f06aead66c134f2a1d31b3e345b3d0e1f3aff8296fb096b37ae67"
+  }
+}

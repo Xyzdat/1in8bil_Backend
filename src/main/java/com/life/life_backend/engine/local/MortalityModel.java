@@ -31,6 +31,7 @@ public class MortalityModel {
         return -Math.expm1(-hazard*years*multiplier);
     }
     public boolean dies(LocalSimulation s,String iso,String sex,int birthMonth,int health,String personId){
+        if (health <= 0) return true;
         int age=Math.max(0,(s.month()-birthMonth)/12);
         int year=s.request().birthYear()+s.month()/12;
         // Explicit game modifier, not an epidemiological estimate. Neutral at health 70; aura never affects death risk.

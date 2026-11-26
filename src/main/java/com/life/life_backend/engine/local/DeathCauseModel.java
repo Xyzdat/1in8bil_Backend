@@ -39,6 +39,19 @@ public final class DeathCauseModel {
 
     record Candidate(Code code, double weight, String conditionId) { }
 
+    /** Critical health is a terminal gameplay condition, not another random mortality draw. */
+    public Details depletedHealth(int month, Context context) {
+        var condition = context.conditions().stream().filter(c -> c.active() && c.onsetMonth() <= month && c.severity() > 0)
+                .sorted(java.util.Comparator.comparingInt(Condition::severity).reversed().thenComparing(Condition::id)).findFirst();
+        if (condition.isPresent()) {
+            var c = condition.get();
+            var code = c.kind().equals("INJURY") ? Code.INJURY_COMPLICATIONS
+                    : c.chronic() ? Code.CHRONIC_DISEASE_COMPLICATIONS : Code.ACUTE_DISEASE_COMPLICATIONS;
+            return new Details(code, code.label(), VERSION, "GAME_ASSUMPTION", c.id());
+        }
+        return new Details(Code.ACUTE_DISEASE_COMPLICATIONS, "Критическое ухудшение здоровья", VERSION, "GAME_ASSUMPTION", null);
+    }
+
     public Details determine(long seed, String personId, int deathMonth, int ageMonths, int health, Context context) {
         var candidates = candidates(deathMonth, ageMonths, health, context);
         // An independent stable stream: attributing a cause cannot change death time or future events.

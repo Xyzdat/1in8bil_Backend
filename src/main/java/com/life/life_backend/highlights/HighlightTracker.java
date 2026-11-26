@@ -55,14 +55,7 @@ public class HighlightTracker {
         // Store exactly the offered label (including a displayed price), not a label from a newer catalog version.
         String label=link.offeredOptions().stream().filter(o->o.id().equals(link.optionId())).map(LifeState.Option::label).findFirst().orElse(link.optionLabel());
         return new Decision(link.decisionId(),link.month(),link.month()/12,title,prompt,link.optionId(),label,link.offeredOptions(),link.participantIds(),event.id(),event.text(),
-                deltas(before.state().stats(),after.state().stats()),event.consequences()==null?Map.of():event.consequences().closeness(),balance);
-    }
-    private Map<String,Integer> deltas(LifeState.Stats a,LifeState.Stats b) {
-        var result=new LinkedHashMap<String,Integer>();
-        result.put("health",b.health()-a.health());result.put("happiness",b.happiness()-a.happiness());
-        result.put("intelligence",b.intelligence()-a.intelligence());result.put("relationships",b.relationships()-a.relationships());
-        if(a.appearance()!=null&&b.appearance()!=null)result.put("appearance",b.appearance()-a.appearance());
-        if(a.aura()!=null&&b.aura()!=null)result.put("aura",b.aura()-a.aura());
-        result.values().removeIf(value->value==0);return result;
+                com.life.life_backend.engine.StatChanges.between(before.state().stats(),after.state().stats()),
+                event.consequences()==null?Map.of():event.consequences().closeness(),balance);
     }
 }

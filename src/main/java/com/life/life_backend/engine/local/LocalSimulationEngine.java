@@ -30,6 +30,7 @@ public class LocalSimulationEngine {
                                      DeathCauseModel.Context heroContext) {
         requireVersion(current);
         if (state.status() == LifeState.Status.COMPLETE) throw conflict("SESSION_COMPLETE", "This life has ended.");
+        if (state.stats().health() <= 0) return completeIfHealthDepleted(state, current, heroContext);
         if (state.pendingDecision() != null) throw conflict("DECISION_REQUIRED", "Answer the pending decision first.");
         String iso = current.birthFacts() == null ? current.request().countryIso3() : current.birthFacts().countryIso3();
         String sex = current.birthFacts() == null ? "MALE" : current.birthFacts().sex();
@@ -71,8 +72,9 @@ public class LocalSimulationEngine {
         }
         if (event == null) {
             var candidates = catalog.all().stream().filter(d -> !d.followUpOnly() && eligible(d, current, month)).toList();
-            // Two meaningful decisions per year after age three, if the life has eligible situations.
-            boolean choiceDue = month >= 38 && month - current.lastEvents().getOrDefault("#decision", 32) >= 6;
+            boolean choiceDue = month >= 38 && DecisionPacing.allowed(state, current, month)
+                    && new SplittableRandom(current.seed() ^ (0xD1342543DE82EF95L * month)).nextDouble()
+                        < DecisionPacing.childhoodProbability(state, current);
             var choices = candidates.stream().filter(d -> d.options() != null).toList();
             if (choiceDue && !choices.isEmpty()) candidates = choices;
             else candidates = candidates.stream().filter(d -> d.options() == null).toList();
@@ -97,6 +99,7 @@ public class LocalSimulationEngine {
         if (event.variants() != null && !event.variants().isEmpty() && occurrenceCount > 0)
             text = event.variants().get((occurrenceCount - 1) % event.variants().size());
         if (event.options() != null) {
+            simulation = DecisionPacing.recordOffer(state, simulation, month);
             history.add(new LifeState.HistoryEvent(occurrence, eventAge, event.title(), render(text, simulation, event.participantRole()), null,
                     childLink(event, simulation, occurrence, "OFFER", occurrence, null, null)));
             var decision = new LifeState.Decision(occurrence, event.title(), event.options().stream()
@@ -107,12 +110,13 @@ public class LocalSimulationEngine {
         history.add(new LifeState.HistoryEvent(occurrence, eventAge, event.title(), render(text, simulation, event.participantRole()),
                 consequences(state.stats(), simulation, applied), sourceDecisionId == null ? null
                         : childLink(event, simulation, sourceDecisionId, "OUTCOME", null, null, null)));
-        return new Transition(new LifeState(month / 12, state.status(), applied.stats(), null, history), applied.simulation());
+        return completeIfHealthDepleted(new LifeState(month / 12, state.status(), applied.stats(), null, history), applied.simulation(), DeathCauseModel.Context.EMPTY);
     }
 
     public Transition answer(LifeState state, LocalSimulation current, String decisionId, String optionId) {
         requireVersion(current);
         if (state.status() == LifeState.Status.COMPLETE) throw conflict("SESSION_COMPLETE", "This life has ended.");
+        if (state.stats().health() <= 0) return completeIfHealthDepleted(state, current, DeathCauseModel.Context.EMPTY);
         if (state.pendingDecision() == null || !state.pendingDecision().id().equals(decisionId))
             throw conflict("DECISION_CHANGED", "This decision is not pending.");
         var definition = catalog.get(current.pendingTemplate());
@@ -124,7 +128,7 @@ public class LocalSimulationEngine {
         history.add(new LifeState.HistoryEvent(decisionId + "-answer", (current.month() - 1) / 12, "Твоё решение",
                 render(option.text(), simulation, definition.participantRole()), consequences(state.stats(), simulation, applied),
                 childLink(definition, simulation, decisionId, "DECISION", decisionId, option, state.pendingDecision())));
-        return new Transition(new LifeState(state.age(), state.status(), applied.stats(), null, history), applied.simulation());
+        return completeIfHealthDepleted(new LifeState(state.age(), state.status(), applied.stats(), null, history), applied.simulation(), DeathCauseModel.Context.EMPTY);
     }
     private boolean eligible(EventCatalog.Definition d, LocalSimulation s, int month) {
         Integer last = s.lastEvents().get(d.id());
@@ -164,17 +168,24 @@ public class LocalSimulationEngine {
         return new LifeState.Consequences((after.stats().aura() == null ? 0 : after.stats().aura()) - (before.aura() == null ? 0 : before.aura()), changes);
     }
     private LocalSimulation.Death death(LocalSimulation current, String personId, int birthMonth, int health, DeathCauseModel.Context context) {
-        int month = current.month() + 1;
+        int month = current.month() + (health <= 0 ? 0 : 1);
         int ageMonths = Math.max(0, month - birthMonth);
-        var details = deathCauses.determine(current.seed(), personId, month, ageMonths, health, context);
+        var details = health <= 0 ? deathCauses.depletedHealth(month, context)
+                : deathCauses.determine(current.seed(), personId, month, ageMonths, health, context);
         // Keep the legacy field compatible with existing strict frontend decoders; use causeDetails for the specific cause.
         return new LocalSimulation.Death(month, ageMonths / 12, "UNSPECIFIED", "UN_WPP_2024_QX",
-                "Смертность — по таблицам ООН. Конкретная причина выбрана игровой моделью, а не статистикой причин смерти.", details);
+                health <= 0 ? "Здоровье достигло нуля: жизнь завершена по игровому правилу, без случайной проверки смертности."
+                : "Смертность — по таблицам ООН. Конкретная причина выбрана игровой моделью, а не статистикой причин смерти.", details);
+    }
+
+    public Transition completeIfHealthDepleted(LifeState state, LocalSimulation current, DeathCauseModel.Context context) {
+        if (state.status() == LifeState.Status.COMPLETE || state.stats().health() > 0) return new Transition(state, current);
+        return endLife(state, current, context);
     }
 
     private Transition endLife(LifeState state, LocalSimulation current, DeathCauseModel.Context context) {
-        int month = current.month() + 1;
         var death = death(current, "character", 0, state.stats().health(), context);
+        int month = death.elapsedMonths();
         var history = new ArrayList<>(state.history());
         history.add(new LifeState.HistoryEvent("death-character", month / 12, "Жизнь завершилась",
                 "Причина смерти: " + death.causeDetails().label() + ". В летописи сохраняются прожитые события и принятые решения."));

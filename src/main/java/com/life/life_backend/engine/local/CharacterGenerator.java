@@ -12,8 +12,11 @@ public class CharacterGenerator {
     private final CountryCatalog catalog;
     private final CountryReference reference;
     private final BirthContextFactory context;
-    public CharacterGenerator(CountryCatalog catalog, CountryReference reference, BirthContextFactory context) {
-        this.catalog = catalog; this.reference = reference; this.context = context;
+    private final FamilyHousingModel households;
+    private final LabourCalibrationFactory labour;
+    private final BirthEconomyModel birthEconomy;
+    public CharacterGenerator(CountryCatalog catalog, CountryReference reference, BirthContextFactory context, FamilyHousingModel households, LabourCalibrationFactory labour, BirthEconomyModel birthEconomy) {
+        this.catalog = catalog; this.reference = reference; this.context = context; this.households = households; this.labour = labour; this.birthEconomy = birthEconomy;
     }
 
     public Birth generate(long seed, LocalSimulation.BirthRequest request) {
@@ -34,14 +37,17 @@ public class CharacterGenerator {
         var country = catalog.get(iso);
         boolean male = random.nextDouble() < profile.maleFemaleRatio() / (1 + profile.maleFemaleRatio());
         boolean urban = random.nextDouble() < profile.urbanShare();
-        // Explicit game assumptions, not observed joint household distributions.
+        // Population quintiles have equal mass. Birth weighting and parent ages remain assumptions.
         int quintile = random.nextInt(1, 6);
         int motherAge = random.nextInt(22, 36), fatherAge = motherAge + random.nextInt(0, 6);
+        var household = households.sample(iso, request.birthYear(), motherAge, fatherAge, seed);
+        var economy = birthEconomy.sample(iso, request.birthYear(), quintile, household.motherPresent(), household.fatherPresent(), seed);
         var family = new ArrayList<LocalSimulation.Person>();
-        String motherJob = occupation(random, quintile, urban), fatherJob = occupation(random, quintile, urban);
-        family.add(new LocalSimulation.Person("mother", "mother", name(iso, false, random), -motherAge * 12, true, random.nextInt(50, 81), 65, "FEMALE", motherJob));
-        family.add(new LocalSimulation.Person("father", "father", name(iso, true, random), -fatherAge * 12, true, random.nextInt(50, 81), 65, "MALE", fatherJob));
-        int siblingCount = random.nextInt(0, Math.min(4, (motherAge - 18) / 2 + 1));
+        String motherJob = economy.mother() == null ? null : economy.mother().label();
+        String fatherJob = economy.father() == null ? null : economy.father().label();
+        if (household.motherPresent()) family.add(new LocalSimulation.Person("mother", "mother", name(iso, false, random), -motherAge * 12, true, random.nextInt(50, 81), 65, "FEMALE", motherJob));
+        if (household.fatherPresent()) family.add(new LocalSimulation.Person("father", "father", name(iso, true, random), -fatherAge * 12, true, random.nextInt(50, 81), 65, "MALE", fatherJob));
+        int siblingCount = household.siblings();
         var siblings = new ArrayList<BirthDetails.Sibling>();
         for (int i = 0; i < siblingCount; i++) {
             int age = 2 + i * 2; boolean boy = random.nextBoolean();
@@ -49,8 +55,8 @@ public class CharacterGenerator {
             family.add(new LocalSimulation.Person("sibling-" + i, boy ? "brother" : "sister", name(iso, boy, random), -age * 12, true, random.nextInt(45, 81), 60, boy ? "MALE" : "FEMALE", "Ребёнок"));
         }
         int bonds = (int) family.stream().mapToInt(LocalSimulation.Person::closeness).average().orElseThrow();
-        String wealth = List.of("Низкий достаток", "Ниже среднего", "Средний достаток", "Выше среднего", "Высокий достаток").get(quintile - 1);
-        String housing = urban ? "Квартира" : "Дом в сельской местности";
+        String wealth = FamilyResourcesModel.label(economy.resources());
+        String housing = households.housing(urban ? "Квартира" : "Сельский дом", household);
         String relationships = bonds >= 65 ? "Тёплые отношения" : "Сдержанные отношения";
         var religion = weighted(profile.religions(), CountryReference.Religion::percent, random);
         var language = weighted(profile.languages(), CountryReference.Language::percent, random);
@@ -59,38 +65,48 @@ public class CharacterGenerator {
             case "Buddhists" -> "Буддизм"; case "Jews" -> "Иудаизм"; case "Unaffiliated" -> "Без религиозной принадлежности";
             default -> "Другие религии";
         };
-        var background = new CharacterProfile.Background("Мать и отец", Integer.toString(siblingCount), null,
-                housing, relationships, family.get(1).name() + ", " + fatherJob, family.getFirst().name() + ", " + motherJob,
+        // Keep the original given-name draw and all demographic/stat draws in the same order.
+        String givenName = name(iso, male, random);
+        var naming = com.life.life_backend.engine.names.PersonalNames.birth(catalog.names(), iso, givenName,
+                male ? "MALE" : "FEMALE", family, seed);
+        family.replaceAll(person -> new LocalSimulation.Person(person.id(), person.role(), naming.people().get(person.id()).display(),
+                person.birthMonth(), person.alive(), person.closeness(), person.trust(), person.sex(), person.occupation(), person.diedMonth(), person.death()));
+        String familyLabel = household.motherPresent() && household.fatherPresent() ? "Мать и отец" : household.motherPresent() ? "Мать" : "Отец";
+        var background = new CharacterProfile.Background(familyLabel, Integer.toString(siblingCount), null,
+                housing, relationships, parentLabel(family, "father"), parentLabel(family, "mother"),
                 wealth, faith, language.code());
-        var character = new CharacterProfile(name(iso, male, random), male ? "Мужчина" : "Женщина", request.birthYear(),
+        var character = new CharacterProfile(naming.people().get("character").display(), male ? "Мужчина" : "Женщина", request.birthYear(),
                 new CharacterProfile.Birthplace(country.iso2(), country.name(), null, null), background);
         var details = new BirthDetails(urban ? BirthDetails.PlaceType.URBAN : BirthDetails.PlaceType.RURAL,
-                BirthDetails.FamilyType.MOTHER_AND_FATHER, siblingCount, quintile, true,
-                new BirthDetails.Parent(motherAge, new BirthDetails.Occupation("local", motherJob), true, true),
-                new BirthDetails.Parent(fatherAge, new BirthDetails.Occupation("local", fatherJob), true, true), siblings,
-                new BirthDetails.Household(3 + siblingCount, true, true, false, false, false, siblingCount, 0, 0),
-                null, null, religion.code(), null, null, List.of());
+                household.motherPresent() && household.fatherPresent() ? BirthDetails.FamilyType.MOTHER_AND_FATHER : null,
+                siblingCount, quintile, household.fatherPresent(),
+                household.motherPresent() ? new BirthDetails.Parent(motherAge, new BirthDetails.Occupation(economy.mother().code(), motherJob), true, true) : null,
+                household.fatherPresent() ? new BirthDetails.Parent(fatherAge, new BirthDetails.Occupation(economy.father().code(), fatherJob), true, true) : null, siblings,
+                new BirthDetails.Household(household.householdSize(), household.motherPresent(), household.fatherPresent(), false, false, false, siblingCount, 0, 0),
+                null, household.electricity(), religion.code(), null, null, List.of());
         var facts = context.create(iso, male ? "MALE" : "FEMALE", request.countryIso3() != null,
                 wealth, housing, relationships, faith, language.code());
+        facts = context.withHousehold(facts, household);
+        facts = context.withEconomy(facts, economy);
+        var calibration = new SocioeconomicCalibration(SocioeconomicCalibration.VERSION, SocioeconomicBundle.FAMILY,
+                SocioeconomicBundle.WORK, household, labour.snapshot(request.birthYear()), economy);
         var simulation = new LocalSimulation(seed, LocalSimulation.VERSION, CountryExpansionImporter.RELEASE, request, 0,
-                family, Map.of(), Set.of(urban ? "urban" : "rural"), Map.of(), List.of(), null, facts, null);
+                family, Map.of(), Set.of(urban ? "urban" : "rural"), Map.of(), List.of(), null, facts, null, calibration, naming);
         var state = new LifeState(0, LifeState.Status.ACTIVE,
                 new LifeState.Stats(random.nextInt(65, 91), 70, 50, bonds, random.nextInt(35, 76), 0), null,
                 List.of(new LifeState.HistoryEvent("birth", 0, "Рождение", "Ты родился в стране «" + country.name()
-                        + "». Рядом мама и папа." + (siblingCount == 0 ? "" : " В семье есть старшие дети: " + siblingCount + "."))));
+                        + "». Семья: " + familyLabel + "." + (siblingCount == 0 ? "" : " В семье есть старшие дети: " + siblingCount + "."))));
         return new Birth(character, details, state, simulation);
+    }
+
+    private String parentLabel(List<LocalSimulation.Person> family, String role) {
+        return family.stream().filter(p -> p.role().equals(role)).map(p -> p.name() + ", " + p.occupation()).findFirst().orElse(null);
     }
 
     private static <T> T weighted(List<T> rows, java.util.function.ToDoubleFunction<T> weight, SplittableRandom random) {
         double draw = random.nextDouble(rows.stream().mapToDouble(weight).sum());
         for (var row : rows) { draw -= weight.applyAsDouble(row); if (draw < 0) return row; }
         return rows.getLast();
-    }
-    private static String occupation(SplittableRandom random, int quintile, boolean urban) {
-        String[] jobs = quintile >= 4 ? new String[]{"Инженер", "Врач", "Руководитель"}
-                : urban ? new String[]{"Продавец", "Водитель", "Учитель", "Работник производства"}
-                : new String[]{"Работник сельского хозяйства", "Учитель", "Ремонтник"};
-        return jobs[random.nextInt(jobs.length)];
     }
     private String name(String iso, boolean male, SplittableRandom random) {
         var country = catalog.get(iso);

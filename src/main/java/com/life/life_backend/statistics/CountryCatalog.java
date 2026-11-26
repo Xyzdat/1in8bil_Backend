@@ -9,6 +9,7 @@ import java.util.*;
 @Component
 public class CountryCatalog {
     private final Map<String, Country> countries;
+    private final com.life.life_backend.engine.names.NameCatalog names;
 
     public CountryCatalog(ObjectMapper json) throws Exception {
         var loaded = new TreeMap<String, Country>();
@@ -20,7 +21,9 @@ public class CountryCatalog {
             }
         }
         countries = Collections.unmodifiableMap(loaded);
+        names = new com.life.life_backend.engine.names.NameCatalog(json, countries.keySet());
     }
+    public com.life.life_backend.engine.names.NameCatalog names() { return names; }
     public Set<String> codes() { return countries.keySet(); }
     public Country get(String iso) { return Objects.requireNonNull(countries.get(iso), "Unsupported country: " + iso); }
     public String iso3(String iso2) {

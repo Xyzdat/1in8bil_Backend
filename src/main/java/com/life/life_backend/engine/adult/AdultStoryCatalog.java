@@ -13,6 +13,7 @@ public class AdultStoryCatalog {
         var ids=new HashSet<String>(); var actions=new HashSet<>(Set.of("pass","wait"));
         actions.addAll(CareerSystem.ACTIONS); actions.addAll(FamilySystem.ACTIONS);actions.addAll(HealthSystem.ACTIONS);actions.addAll(AdultEconomy.ACTIONS);
         actions.addAll(ContactSystem.ACTIONS);
+        actions.addAll(LaterLifeSystem.ACTIONS);
         for(var d:definitions) {
             if(!ids.add(d.id())||d.weight()<1||d.cooldownMonths()<2||!AdultConditions.KEYS.contains(d.condition())||d.reviewMonths()<2||d.choices().size()<2)
                 throw new IllegalStateException("Invalid adult story: "+d.id());

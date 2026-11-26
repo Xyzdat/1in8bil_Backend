@@ -20,11 +20,22 @@ public record LifeState(int age, Status status, Stats stats, Decision pendingDec
 		}
 	}
 
-	public record Option(String id, String label) {
+	public record Option(String id, String label, OptionEffects effects) {
+		public Option(String id, String label) { this(id, label, null); }
+	}
+
+	/** Immediate changes for this saved state, after clamping; null effects mean unknown, not zero. */
+	public record OptionEffects(String scope, java.util.Map<String, Integer> stats, java.util.Map<String, Integer> closeness) {
+		public OptionEffects {
+			stats = java.util.Map.copyOf(stats);
+			closeness = java.util.Map.copyOf(closeness);
+		}
 	}
 
 	public record HistoryEvent(String id, int age, String title, String text, Consequences consequences,
-			com.life.life_backend.highlights.EventLink link) {
+			com.life.life_backend.highlights.EventLink link, Integer importance, String importanceSource) {
+		public HistoryEvent(String id, int age, String title, String text, Consequences consequences,
+				com.life.life_backend.highlights.EventLink link) { this(id, age, title, text, consequences, link, null, null); }
 		public HistoryEvent(String id, int age, String title, String text, Consequences consequences) { this(id, age, title, text, consequences, null); }
 		public HistoryEvent(String id, int age, String title, String text) { this(id, age, title, text, null); }
 	}

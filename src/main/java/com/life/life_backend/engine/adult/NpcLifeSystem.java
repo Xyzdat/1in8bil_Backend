@@ -13,7 +13,7 @@ final class NpcLifeSystem {
             int age=(w.month()-person.birthMonth())/12;
             var milestones=new HashSet<>(n.milestones());
             String education=n.education(), occupation=n.occupation(); long income=n.monthlyIncome();
-            if(age>=18&&age<65&&income==0&&!education.equals("STUDYING")&&w.chance(.25)) {occupation="Работа по найму";income=w.cost(10+w.random.nextInt(13));}
+            if(age>=18&&age<65&&income==0&&!education.equals("STUDYING")&&w.chance(.25)) {occupation="Работа по найму";income=CalibratedWages.monthly(w.cost(10+w.random.nextInt(13)),w.sim.calibration(),n.countryIso2(),occupation);}
             if(age>=65&&milestones.add("npc-retired")) {occupation="Пенсионер";income=w.cost(5);}
             long estate=n.estate()+Math.max(0,income/5)*(w.month()-previousMonth);
             boolean descendant=Set.of("child","grandchild","great-grandchild").contains(person.role());

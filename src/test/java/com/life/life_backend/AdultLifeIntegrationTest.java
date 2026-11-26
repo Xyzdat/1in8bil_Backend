@@ -75,6 +75,9 @@ class AdultLifeIntegrationTest {
                 }
             }
             assertThat(state.status()).as("life %s",i).isEqualTo(LifeState.Status.COMPLETE);
+            var offersByYear=state.history().stream().filter(e->e.link()!=null&&e.link().phase().equals("OFFER"))
+                    .collect(java.util.stream.Collectors.groupingBy(LifeState.HistoryEvent::age,java.util.stream.Collectors.counting()));
+            assertThat(offersByYear.values()).allMatch(count->count<=2);
             if(i<36) {
                 assertThat(highlights.status()).isEqualTo("FINAL");
                 assertThat(highlights.partialHistory()).isFalse();
@@ -115,6 +118,7 @@ class AdultLifeIntegrationTest {
                 if(adult.partnership()==null)single++;
                 assertThat(adult.pending()).isNull();assertThat(adult.stories()).noneMatch(s->s.status().equals("ACTIVE"));
                 assertThat(adult.career().history()).noneMatch(e->e.endedMonth()==null);
+                assertThat(adult.career().history()).allMatch(e->e.beganMonth()<65*12);
                 for(var job:adult.career().history()) {careers.merge(job.occupation(),1,Integer::sum);if("Сокращение".equals(job.endReason()))layoffs++;}
                 for(var s:adult.stories()) {templates.merge(s.template(),1,Integer::sum);if(s.visitedStages().contains("REVIEW"))reviewed.merge(s.template(),1,Integer::sum);if(s.status().equals("COMPLETED"))completed.merge(s.template(),1,Integer::sum);if(s.endedMonth()!=null){storyMonths+=s.endedMonth()-s.beganMonth();storyEnds++;}}
                 var byId=new HashMap<String,LocalSimulation.Person>();sim.family().forEach(p->byId.put(p.id(),p));

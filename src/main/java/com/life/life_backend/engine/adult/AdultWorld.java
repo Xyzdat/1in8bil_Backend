@@ -54,6 +54,7 @@ final class AdultWorld {
         stories = new ArrayList<>(saved == null ? List.of() : saved.stories());
         memories = new ArrayList<>(saved == null ? List.of() : saved.memories());
         flags = new HashSet<>(saved == null ? Set.of() : saved.flags());
+        if (sim.calibration() != null) flags.add("wages:" + sim.calibration().modelVersion());
         pending = saved == null ? null : saved.pending();
         housing = saved == null ? "FAMILY_HOME" : saved.housing();
         for (var p : sim.family()) if (!npcs.containsKey(p.id())) {
@@ -73,6 +74,9 @@ final class AdultWorld {
     String id(String prefix) { return prefix + "-" + (++serial); }
     Traits traits() { return new Traits(random.nextInt(20, 91), random.nextInt(20, 91), random.nextInt(20, 91), random.nextInt(20, 91)); }
     long cost(int units) { return Math.round(units * 100_000d * priceIndex); }
+    long salary(long gameAmount, String occupation) {
+        return CalibratedWages.monthly(gameAmount, sim.calibration(), location.countryCode(), occupation);
+    }
     boolean chance(double p) { return random.nextDouble() < Math.clamp(p, .01, .99); }
     LocalSimulation.Person person(String id) { return sim.family().stream().filter(p -> p.id().equals(id)).findFirst().orElse(null); }
     LocalSimulation.Person actor(Story story) { return story.participants().isEmpty() ? null : person(story.participants().getFirst()); }
@@ -110,6 +114,12 @@ final class AdultWorld {
                 .orElse(sim.birthFacts()==null?sim.request().countryIso3():sim.birthFacts().countryIso3());
         var c = countries.get(iso); var names = "FEMALE".equals(sex) ? c.femaleNames() : c.maleNames();
         String id = id("npc"); String name = names.get(random.nextInt(names.size()));
+        if (sim.naming() != null) {
+            var generated = com.life.life_backend.engine.names.PersonalNames.newPerson(countries.names(), sim.naming(), iso, name, sex,
+                    parents, sim.seed(), month(), id);
+            sim = sim.withNaming(sim.naming().with(id, generated));
+            name = generated.display();
+        }
         replacePerson(new LocalSimulation.Person(id,role,name,birthMonth,true,50,50,sex,null,null));
         npcs.put(id, new Npc(id,traits(),"NONE",null,0,random.nextInt(60,91),"SINGLE",null,location.countryCode(),parents,0,Set.of()));
         contacts.put(id, ContactState.start(month(), true));

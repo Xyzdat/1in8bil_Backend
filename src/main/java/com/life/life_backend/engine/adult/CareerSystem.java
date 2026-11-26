@@ -9,7 +9,7 @@ final class CareerSystem {
     static final Set<String> ACTIONS=Set.of("study","scholarship","study_review","graduate","apply_job","job_referral",
             "probation","promotion","promotion_review","work_talk","work_review","quit","layoff","retrain","qualify",
             "business","business_review","business_growth","restructure","bankrupt","business_recovery","rest","burnout_review",
-            "retire","retirement_review","work_harder");
+            "retire","retirement_review","work_harder","apply_part_time");
     StoryProgress.Result act(String action, AdultWorld w, StoryProgress p) {
         var c=w.career;
         return switch(action) {
@@ -30,7 +30,8 @@ final class CareerSystem {
                 w.education=new Education("HIGHER",w.education.field(),w.education.startedMonth(),w.month(),"COMPLETED");
                 qualify(w,2); w.stats(0,5,6,0); yield end("Ты завершаешь программу и получаешь квалификацию. Теперь доступны более сложные вакансии, но трудоустройство ещё предстоит.");
             }
-            case "apply_job", "job_referral" -> {
+            case "apply_job", "job_referral", "apply_part_time" -> {
+                if (!RetirementPolicy.canWork(w)) yield end("Рабочий этап завершён. На пенсии доступны другие занятия и время с близкими.");
                 if(w.employed()) yield end("Ты уже работаешь. Это обращение к работодателю больше не актуально.");
                 double probability=.25+w.traits.diligence()/400d+w.state.stats().health()/500d+c.qualification()*.06;
                 if(action.equals("job_referral")) probability+=.18;
@@ -39,11 +40,17 @@ final class CareerSystem {
                         ? new String[]{"Инженер","Аналитик","Координатор проектов"}:new String[]{"Мастер ремонта","Оператор склада","Помощник повара","Специалист поддержки"};
                 String job=jobs[w.random.nextInt(jobs.length)];
                 String employer="Компания «"+List.of("Мастерская","Горизонт","Практика","Соседи","Линия").get(w.random.nextInt(5))+"»";
-                long pay=w.cost(14+4*c.qualification()+w.random.nextInt(9));
+                long pay=w.salary(w.cost(14+4*c.qualification()+w.random.nextInt(9)),job);
+                if(w.sim.calibration()!=null) {
+                    p.put("wageModel",w.sim.calibration().modelVersion()); p.put("wageCountry",w.location.countryCode());
+                    p.put("wageFactor",String.valueOf(CalibratedWages.factor(w.sim.calibration(),w.location.countryCode(),job)));
+                }
+                boolean partTime=action.equals("apply_part_time");
+                if(partTime) pay=pay*60/100;
                 var history=new ArrayList<>(c.history()); String id=w.id("employment");
                 history.add(new Employment(id,job,employer,w.month(),null,null)); p.put("employment",id);
-                w.career=new Career("PROBATION",job,"Услуги и производство",employer,"Начальная позиция",pay,w.month(),c.experienceMonths(),c.qualification(),60,45,20,c.monthlyPension(),history);
-                yield next("Тебя принимают на испытательный срок: "+job+". Зарплата начнёт поступать за следующие прожитые месяцы.");
+                w.career=new Career("PROBATION",job,"Услуги и производство",employer,partTime?"Неполный день":"Начальная позиция",pay,w.month(),c.experienceMonths(),c.qualification(),partTime?70:60,45,partTime?10:20,c.monthlyPension(),history);
+                yield next("Тебя принимают на испытательный срок: "+job+(partTime?" (неполный день, 60% оплаты полной ставки)":"")+". Зарплата начнёт поступать за следующие прожитые месяцы.");
             }
             case "probation" -> {
                 if(!sameJob(w,p)) yield end("К этому моменту эта работа уже закончилась; испытательный срок закрыт.");
@@ -70,6 +77,7 @@ final class CareerSystem {
             case "retrain" -> { p.put("education","training"); yield next("Ты начинаешь практическое обучение новой специальности. Результат потребует нескольких месяцев занятий."); }
             case "qualify" -> { qualify(w,1); w.stats(0,3,3,0); yield end("Практический курс завершён. Квалификация повышена; новые навыки учитываются при найме и продвижении."); }
             case "business" -> {
+                if (!RetirementPolicy.canWork(w)) yield end("Рабочий этап завершён. Новое дело на пенсии не открывается.");
                 if(w.employed()) leave(w,"Открытие своего дела");
                 c=w.career; var history=new ArrayList<>(c.history()); String id=w.id("employment"); p.put("employment",id);
                 history.add(new Employment(id,"Предприниматель","Своя мастерская",w.month(),null,null));
@@ -94,10 +102,8 @@ final class CareerSystem {
             case "work_harder" -> { w.stats(-5,-3,1,0); if(w.employed()) update(w,c.status(),c.monthlyPay()*105/100,c.satisfaction()-5,c.stability(),c.qualification()); yield next("Ты берёшь больше задач. Доход немного вырос, но усталость уже сказывается на здоровье."); }
             case "burnout_review" -> { w.stats(3,3,0,0); yield end("Ты пересматриваешь привычный ритм. Этот период оставил опыт того, сколько нагрузки удаётся выдерживать."); }
             case "retire" -> {
-                long pension=w.cost(5)+Math.min(w.cost(15),c.experienceMonths()*w.cost(1)/120);
-                leave(w,"Выход на пенсию"); c=w.career;
-                w.career=new Career("RETIRED",null,null,null,null,0,w.month(),c.experienceMonths(),c.qualification(),60,100,0,pension,c.history());
-                yield next("Ты прекращаешь текущую работу и переходишь на игровую пенсионную выплату. При желании поиск новой работы остаётся возможным.");
+                RetirementPolicy.retire(w);
+                yield next("Ты прекращаешь текущую работу и переходишь на игровую пенсионную выплату. Появляется время для семьи, отдыха и новых занятий.");
             }
             case "retirement_review" -> { w.stats(2,5,1,1); yield end("Появилось время на занятия, которые раньше откладывались. Ты находишь новый ритм вне работы."); }
             default -> throw new IllegalArgumentException(action);

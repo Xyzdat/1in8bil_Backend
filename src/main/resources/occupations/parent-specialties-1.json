@@ -1,0 +1,207 @@
+{
+  "modelVersion": "parent-specialties-1",
+  "basis": "GAME_ASSUMPTION",
+  "note": "Authored occupations within compatible ISCO major groups, uniformly sampled. No country/sex specialty frequency, educational qualification or salary is inferred. Group 96 is uniformly sampled from the union of groups 6 and 9 as an explicit game assumption.",
+  "groups": {
+    "0": [
+      {
+        "code": "soldier",
+        "label": "Военнослужащий по контракту"
+      },
+      {
+        "code": "naval",
+        "label": "Военный моряк"
+      },
+      {
+        "code": "signals",
+        "label": "Военный связист"
+      }
+    ],
+    "1": [
+      {
+        "code": "shop_manager",
+        "label": "Управляющий магазином"
+      },
+      {
+        "code": "production_manager",
+        "label": "Руководитель производства"
+      },
+      {
+        "code": "hotel_manager",
+        "label": "Управляющий гостиницей"
+      },
+      {
+        "code": "logistics_manager",
+        "label": "Руководитель отдела логистики"
+      }
+    ],
+    "2": [
+      {
+        "code": "teacher",
+        "label": "Школьный учитель"
+      },
+      {
+        "code": "doctor",
+        "label": "Врач общей практики"
+      },
+      {
+        "code": "engineer",
+        "label": "Инженер"
+      },
+      {
+        "code": "accountant",
+        "label": "Бухгалтер"
+      },
+      {
+        "code": "software_developer",
+        "label": "Разработчик программного обеспечения"
+      },
+      {
+        "code": "lawyer",
+        "label": "Юрист"
+      }
+    ],
+    "3": [
+      {
+        "code": "lab_technician",
+        "label": "Лаборант"
+      },
+      {
+        "code": "engineering_technician",
+        "label": "Техник производства"
+      },
+      {
+        "code": "computer_technician",
+        "label": "Техник по обслуживанию компьютеров"
+      },
+      {
+        "code": "pharmacy_technician",
+        "label": "Фармацевтический техник"
+      }
+    ],
+    "4": [
+      {
+        "code": "office_clerk",
+        "label": "Делопроизводитель"
+      },
+      {
+        "code": "receptionist",
+        "label": "Регистратор"
+      },
+      {
+        "code": "data_entry",
+        "label": "Оператор ввода данных"
+      },
+      {
+        "code": "warehouse_clerk",
+        "label": "Складской учётчик"
+      }
+    ],
+    "5": [
+      {
+        "code": "salesperson",
+        "label": "Продавец"
+      },
+      {
+        "code": "cook",
+        "label": "Повар"
+      },
+      {
+        "code": "hairdresser",
+        "label": "Парикмахер"
+      },
+      {
+        "code": "waiter",
+        "label": "Официант"
+      },
+      {
+        "code": "security_guard",
+        "label": "Охранник"
+      }
+    ],
+    "6": [
+      {
+        "code": "vegetable_grower",
+        "label": "Овощевод"
+      },
+      {
+        "code": "orchard_grower",
+        "label": "Садовод"
+      },
+      {
+        "code": "livestock_farmer",
+        "label": "Животновод"
+      },
+      {
+        "code": "poultry_farmer",
+        "label": "Птицевод"
+      },
+      {
+        "code": "fish_farmer",
+        "label": "Рыбовод"
+      }
+    ],
+    "7": [
+      {
+        "code": "electrician",
+        "label": "Электрик"
+      },
+      {
+        "code": "carpenter",
+        "label": "Столяр"
+      },
+      {
+        "code": "welder",
+        "label": "Сварщик"
+      },
+      {
+        "code": "plumber",
+        "label": "Сантехник"
+      },
+      {
+        "code": "bricklayer",
+        "label": "Каменщик"
+      }
+    ],
+    "8": [
+      {
+        "code": "truck_driver",
+        "label": "Водитель грузовика"
+      },
+      {
+        "code": "bus_driver",
+        "label": "Водитель автобуса"
+      },
+      {
+        "code": "machine_operator",
+        "label": "Оператор производственного станка"
+      },
+      {
+        "code": "assembly_operator",
+        "label": "Сборщик на производственной линии"
+      }
+    ],
+    "9": [
+      {
+        "code": "cleaner",
+        "label": "Уборщик помещений"
+      },
+      {
+        "code": "loader",
+        "label": "Грузчик"
+      },
+      {
+        "code": "kitchen_helper",
+        "label": "Кухонный рабочий"
+      },
+      {
+        "code": "agricultural_laborer",
+        "label": "Подсобный рабочий в сельском хозяйстве"
+      },
+      {
+        "code": "street_cleaner",
+        "label": "Рабочий по уборке территории"
+      }
+    ]
+  }
+}

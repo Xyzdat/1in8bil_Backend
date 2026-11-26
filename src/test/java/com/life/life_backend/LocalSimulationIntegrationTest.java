@@ -35,9 +35,14 @@ class LocalSimulationIntegrationTest {
             String key = UUID.randomUUID().toString();
             String body = "{\"countryIso3\":\"" + country + "\"}";
             var snapshot = send(guest, "/api/v1/sessions/generated/local", key, body, 201);
+            assertThat(snapshot.path("character").path("name").asString()).contains(" ");
+            for (var person : snapshot.path("simulation").path("family")) assertThat(person.path("name").asString()).contains(" ");
             assertThat(snapshot.path("character").path("birthFacts").path("countryIso3").asString()).isEqualTo(country);
             assertThat(snapshot.path("character").path("birthFacts").path("gdpPerCapita").path("unit").asString()).isEqualTo("USD_CURRENT");
-            assertThat(snapshot.path("character").path("birthDetails").path("mother").path("occupation").path("label").asString()).isNotBlank();
+            var details = snapshot.path("character").path("birthDetails");
+            assertThat(details.path("mother").isObject() || details.path("father").isObject()).isTrue();
+            for (String parent : new String[]{"mother", "father"}) if (details.path(parent).isObject())
+                assertThat(details.path(parent).path("occupation").path("label").asString()).isNotBlank();
             String path = "/api/v1/sessions/" + snapshot.path("id").asString();
             assertThat(send(guest, "/api/v1/sessions/generated/local", key, body, 200)).isEqualTo(snapshot);
             mvc.perform(get(path)).andExpect(status().isUnauthorized());
@@ -65,7 +70,7 @@ class LocalSimulationIntegrationTest {
                 continue;
             }
             assertThat(snapshot.path("simulation").path("elapsedMonths").asInt()).isEqualTo(84);
-            assertThat(snapshot.path("simulation").path("family").size()).isBetween(2, 5);
+            assertThat(snapshot.path("simulation").path("family").size()).isBetween(1, 7);
             String purchase = "{\"expectedVersion\":" + snapshot.path("version").asLong()
                     + ",\"categoryId\":\"pets\",\"itemId\":\"hamster\",\"petName\":\"Пушок\"}";
             key = UUID.randomUUID().toString();

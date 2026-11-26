@@ -18,9 +18,13 @@ public record AdultView(String modelVersion,String ageStage,String currency,Adul
                 a.partnership(),people,a.diseases(),a.debts().stream().map(d->new Debt(d.id(),d.kind(),money(d.principal()),d.annualBasisPoints(),money(d.monthlyPayment()),d.missedPayments())).toList(),
                 a.assets().stream().map(x->new Asset(x.id(),x.kind(),x.title(),money(x.value()),x.ownershipPercent(),x.purchaseId())).toList(),
                 a.stories().stream().map(s->new Story(s.id(),s.template(),s.stage(),s.status(),s.beganMonth(),s.endedMonth(),s.participants())).toList(),a.memories(),a.housing(),
-                List.of("Wages, costs, hiring, family formation, education, diagnoses, inheritance shares and pension rules are gameplay assumptions, not national statistics or law.",
+                List.of(a.flags().contains("wages:socioeconomic-1")
+                            ? "Wage offers use frozen ILO occupation/total or median/mean ratios where compatible data exist; otherwise legacy scale. RUB amounts remain a game scale, not national wage amounts or an FX conversion."
+                            : "Wages use legacy gameplay assumptions, not national statistics.",
+                        "Costs, hiring, family formation, education, diagnoses, inheritance shares and pensions remain gameplay assumptions, not national statistics or law.",
                         "WDI GDP only scales a bounded gameplay index; RUB amounts are not a conversion of USD or PPP.",
-                        "UN WPP all-cause mortality remains authoritative. Disease affects the existing health modifier, not a second death draw.",
+                        "Retirement at 65 and a basic pension plus experience bonus are game rules for all countries; ordinary employment does not resume after retirement.",
+                        "At positive health, UN WPP all-cause mortality uses one draw. Health zero ends life immediately as a separate terminal game condition.",
                         "NPC lives are simplified. Genealogy is limited to 120 tracked people; no runtime language model is used."));
     }
     public static FinanceView.Summary finances(AdultState a,LocalBudget budget) {

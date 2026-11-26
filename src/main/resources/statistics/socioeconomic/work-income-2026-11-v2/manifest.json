@@ -1,0 +1,1905 @@
+{
+  "schemaVersion": 1,
+  "id": "work-income-2026-11-v2",
+  "stage": "work-income",
+  "retrievedOn": "2026-11-26",
+  "minYear": 2000,
+  "maxYear": 2025,
+  "countries": [
+    "ARG",
+    "AUS",
+    "BGD",
+    "BRA",
+    "CAN",
+    "CHL",
+    "CHN",
+    "COD",
+    "COL",
+    "EGY",
+    "ETH",
+    "GHA",
+    "IDN",
+    "IND",
+    "IRN",
+    "JPN",
+    "KAZ",
+    "KEN",
+    "KOR",
+    "MAR",
+    "MEX",
+    "MYS",
+    "NGA",
+    "NZL",
+    "PAK",
+    "PER",
+    "PHL",
+    "RUS",
+    "SAU",
+    "THA",
+    "TZA",
+    "UGA",
+    "USA",
+    "UZB",
+    "VNM",
+    "ZAF"
+  ],
+  "sources": {
+    "ilo-unemployment": {
+      "stage": "work-income",
+      "license": "CC-BY-4.0",
+      "licenseEvidence": "https://www.ilo.org/rights-and-permissions",
+      "attribution": "International Labour Organization, ILOSTAT. Published aggregates and metadata, November 2026 release. Adapted country/year subset; not prepared, reviewed or endorsed by the ILO.",
+      "id": "ilo-unemployment",
+      "file": "unemployment.csv.gz",
+      "format": "ilo",
+      "indicator": "UNE_DEAP_SEX_AGE_RT",
+      "label": "Unemployment rate by sex and age (%)",
+      "unit": "percent_labour_force",
+      "min": 0,
+      "max": 100,
+      "url": "https://rplumber.ilo.org/data/indicator?format=.csv.gz&id=UNE_DEAP_SEX_AGE_RT_A",
+      "sourceUpdated": "24/11/2026 07:34:33",
+      "catalogMetadata": {
+        "id": "UNE_DEAP_SEX_AGE_RT_A",
+        "indicator": "UNE_DEAP_SEX_AGE_RT",
+        "indicator.label": "Unemployment rate by sex and age (%)",
+        "freq": "A",
+        "freq.label": "Annual",
+        "rep_var": "UNE_DEAP_RT",
+        "rep_var.label": "Unemployment rate (previous ILO definition - ICLS13)",
+        "classification": "SEX_AGE",
+        "classif.labels": "sex, age",
+        "unit_measure": "PT",
+        "unit_measure.label": "%",
+        "unit_mult": "0",
+        "unit_mult.label": "units",
+        "data.start": "1947",
+        "data.end": "2027",
+        "last.update": "24/11/2026 07:34:33",
+        "n.records": "317355",
+        "n.records.all": "358116",
+        "n.ref_area": "306",
+        "with.region": "Y",
+        "subject": "LUU",
+        "subject.label": "Unemployment and labour underutilization",
+        "database": "LFS",
+        "database.label": "Labour Force Statistics (LFS)"
+      },
+      "sha256": "91c45ca1e05401393bd3f91ac025cd84c332e2a092685cbef41e84854c713310"
+    },
+    "ilo-participation": {
+      "stage": "work-income",
+      "license": "CC-BY-4.0",
+      "licenseEvidence": "https://www.ilo.org/rights-and-permissions",
+      "attribution": "International Labour Organization, ILOSTAT. Published aggregates and metadata, November 2026 release. Adapted country/year subset; not prepared, reviewed or endorsed by the ILO.",
+      "id": "ilo-participation",
+      "file": "participation.csv.gz",
+      "format": "ilo",
+      "indicator": "EAP_DWAP_SEX_AGE_RT",
+      "label": "Labour force participation rate by sex and age (%)",
+      "unit": "percent_population_in_age_group",
+      "min": 0,
+      "max": 100,
+      "url": "https://rplumber.ilo.org/data/indicator?format=.csv.gz&id=EAP_DWAP_SEX_AGE_RT_A",
+      "sourceUpdated": "24/11/2026 07:29:41",
+      "catalogMetadata": {
+        "id": "EAP_DWAP_SEX_AGE_RT_A",
+        "indicator": "EAP_DWAP_SEX_AGE_RT",
+        "indicator.label": "Labour force participation rate by sex and age (%)",
+        "freq": "A",
+        "freq.label": "Annual",
+        "rep_var": "EAP_DWAP_RT",
+        "rep_var.label": "Labour force participation rate (previous ILO definition - ICLS13)",
+        "classification": "SEX_AGE",
+        "classif.labels": "sex, age",
+        "unit_measure": "PT",
+        "unit_measure.label": "%",
+        "unit_mult": "0",
+        "unit_mult.label": "units",
+        "data.start": "1946",
+        "data.end": "2027",
+        "last.update": "24/11/2026 07:29:41",
+        "n.records": "410178",
+        "n.records.all": "455640",
+        "n.ref_area": "315",
+        "with.region": "Y",
+        "subject": "EAP",
+        "subject.label": "Labour force",
+        "database": "LFS",
+        "database.label": "Labour Force Statistics (LFS)"
+      },
+      "sha256": "378a2a07e9e1a621c45f6a4394ef795f5aa6282ca4582196a011fafa9cffd109"
+    },
+    "ilo-occupations": {
+      "stage": "work-income",
+      "license": "CC-BY-4.0",
+      "licenseEvidence": "https://www.ilo.org/rights-and-permissions",
+      "attribution": "International Labour Organization, ILOSTAT. Published aggregates and metadata, November 2026 release. Adapted country/year subset; not prepared, reviewed or endorsed by the ILO.",
+      "id": "ilo-occupations",
+      "file": "occupations.csv.gz",
+      "format": "ilo",
+      "indicator": "EMP_TEMP_SEX_OCU_NB",
+      "label": "Employment by sex and occupation (thousands)",
+      "unit": "thousand_employed_persons",
+      "min": 0,
+      "max": null,
+      "url": "https://rplumber.ilo.org/data/indicator?format=.csv.gz&id=EMP_TEMP_SEX_OCU_NB_A",
+      "sourceUpdated": "24/11/2026 07:34:33",
+      "catalogMetadata": {
+        "id": "EMP_TEMP_SEX_OCU_NB_A",
+        "indicator": "EMP_TEMP_SEX_OCU_NB",
+        "indicator.label": "Employment by sex and occupation (thousands)",
+        "freq": "A",
+        "freq.label": "Annual",
+        "rep_var": "EMP_TEMP_NB",
+        "rep_var.label": "Employment (previous ILO definition - ICLS13)",
+        "classification": "SEX_OCU",
+        "classif.labels": "sex, occupation",
+        "unit_measure": "PS",
+        "unit_measure.label": "persons",
+        "unit_mult": "3",
+        "unit_mult.label": "thousands",
+        "data.start": "1969",
+        "data.end": "2025",
+        "last.update": "24/11/2026 07:34:33",
+        "n.records": "227083",
+        "n.records.all": "272204",
+        "n.ref_area": "295",
+        "with.region": "Y",
+        "subject": "EMP",
+        "subject.label": "Employment",
+        "database": "LFS",
+        "database.label": "Labour Force Statistics (LFS)"
+      },
+      "sha256": "f4ff5994e511275961d44429c1b6fbfb78dbbfd128c694a197eca880ebe90d2f"
+    },
+    "ilo-earnings-mean": {
+      "stage": "work-income",
+      "license": "CC-BY-4.0",
+      "licenseEvidence": "https://www.ilo.org/rights-and-permissions",
+      "attribution": "International Labour Organization, ILOSTAT. Published aggregates and metadata, November 2026 release. Adapted country/year subset; not prepared, reviewed or endorsed by the ILO.",
+      "id": "ilo-earnings-mean",
+      "file": "earnings-mean.csv.gz",
+      "format": "ilo",
+      "indicator": "EAR_EMTA_SEX_CUR_NB",
+      "label": "Average monthly earnings of employees by sex and currency",
+      "unit": "local_currency_per_employee_month",
+      "min": 0,
+      "max": null,
+      "url": "https://rplumber.ilo.org/data/indicator?format=.csv.gz&id=EAR_EMTA_SEX_CUR_NB_A",
+      "sourceUpdated": "25/11/2026 07:01:12",
+      "catalogMetadata": {
+        "id": "EAR_EMTA_SEX_CUR_NB_A",
+        "indicator": "EAR_EMTA_SEX_CUR_NB",
+        "indicator.label": "Average monthly earnings of employees by sex and currency",
+        "freq": "A",
+        "freq.label": "Annual",
+        "rep_var": "EAR_EMTA_NB",
+        "rep_var.label": "Average monthly earnings of employees",
+        "classification": "SEX_CUR",
+        "classif.labels": "sex, currency",
+        "unit_measure": "CR",
+        "unit_measure.label": "currency",
+        "unit_mult": "0",
+        "unit_mult.label": "units",
+        "data.start": "1969",
+        "data.end": "2025",
+        "last.update": "25/11/2026 07:01:12",
+        "n.records": "24022",
+        "n.records.all": "30542",
+        "n.ref_area": "194",
+        "with.region": "",
+        "subject": "EAR",
+        "subject.label": "Earnings and income",
+        "database": "COND",
+        "database.label": "Wages and Working Time Statistics (COND)"
+      },
+      "sha256": "6102ae92e10b5b0fa022d446b5cdfd3334caa104625bb7298afc101c7a28fe44"
+    },
+    "ilo-earnings-median": {
+      "stage": "work-income",
+      "license": "CC-BY-4.0",
+      "licenseEvidence": "https://www.ilo.org/rights-and-permissions",
+      "attribution": "International Labour Organization, ILOSTAT. Published aggregates and metadata, November 2026 release. Adapted country/year subset; not prepared, reviewed or endorsed by the ILO.",
+      "id": "ilo-earnings-median",
+      "file": "earnings-median.csv.gz",
+      "format": "ilo",
+      "indicator": "EAR_EMTM_SEX_CUR_NB",
+      "label": "Median monthly earnings of employees by sex and currency",
+      "unit": "local_currency_per_employee_month",
+      "min": 0,
+      "max": null,
+      "url": "https://rplumber.ilo.org/data/indicator?format=.csv.gz&id=EAR_EMTM_SEX_CUR_NB_A",
+      "sourceUpdated": "25/11/2026 07:01:12",
+      "catalogMetadata": {
+        "id": "EAR_EMTM_SEX_CUR_NB_A",
+        "indicator": "EAR_EMTM_SEX_CUR_NB",
+        "indicator.label": "Median monthly earnings of employees by sex and currency",
+        "freq": "A",
+        "freq.label": "Annual",
+        "rep_var": "EAR_EMTM_NB",
+        "rep_var.label": "Median monthly earnings of employees",
+        "classification": "SEX_CUR",
+        "classif.labels": "sex, currency",
+        "unit_measure": "CR",
+        "unit_measure.label": "currency",
+        "unit_mult": "0",
+        "unit_mult.label": "units",
+        "data.start": "1989",
+        "data.end": "2025",
+        "last.update": "25/11/2026 07:01:12",
+        "n.records": "15117",
+        "n.records.all": "16821",
+        "n.ref_area": "150",
+        "with.region": "",
+        "subject": "EAR",
+        "subject.label": "Earnings and income",
+        "database": "COND",
+        "database.label": "Wages and Working Time Statistics (COND)"
+      },
+      "sha256": "4af240dd86e86f14783e91e8ba8170b59562494c1cbf17c528a9b8bb04857014"
+    },
+    "ilo-earnings-occupation": {
+      "stage": "work-income",
+      "license": "CC-BY-4.0",
+      "licenseEvidence": "https://www.ilo.org/rights-and-permissions",
+      "attribution": "International Labour Organization, ILOSTAT. Published aggregates and metadata, November 2026 release. Adapted country/year subset; not prepared, reviewed or endorsed by the ILO.",
+      "id": "ilo-earnings-occupation",
+      "file": "earnings-occupation.csv.gz",
+      "format": "ilo",
+      "indicator": "EAR_EMTA_SEX_OCU_CUR_NB",
+      "label": "Average monthly earnings of employees by sex, occupation and currency",
+      "unit": "local_currency_per_employee_month",
+      "min": 0,
+      "max": null,
+      "url": "https://rplumber.ilo.org/data/indicator?format=.csv.gz&id=EAR_EMTA_SEX_OCU_CUR_NB_A",
+      "sourceUpdated": "25/11/2026 07:01:12",
+      "catalogMetadata": {
+        "id": "EAR_EMTA_SEX_OCU_CUR_NB_A",
+        "indicator": "EAR_EMTA_SEX_OCU_CUR_NB",
+        "indicator.label": "Average monthly earnings of employees by sex, occupation and currency",
+        "freq": "A",
+        "freq.label": "Annual",
+        "rep_var": "EAR_EMTA_NB",
+        "rep_var.label": "Average monthly earnings of employees",
+        "classification": "SEX_OCU_CUR",
+        "classif.labels": "sex, occupation, currency",
+        "unit_measure": "CR",
+        "unit_measure.label": "currency",
+        "unit_mult": "0",
+        "unit_mult.label": "units",
+        "data.start": "1989",
+        "data.end": "2025",
+        "last.update": "25/11/2026 07:01:12",
+        "n.records": "237916",
+        "n.records.all": "292708",
+        "n.ref_area": "162",
+        "with.region": "",
+        "subject": "EAR",
+        "subject.label": "Earnings and income",
+        "database": "COND",
+        "database.label": "Wages and Working Time Statistics (COND)"
+      },
+      "sha256": "13f79e64713c87e0bd4caa0f57d379b5bc4ae246d942e63aee48690ad5651aa3"
+    },
+    "ilo-dictionary-source": {
+      "stage": "work-income",
+      "license": "CC-BY-4.0",
+      "licenseEvidence": "https://www.ilo.org/rights-and-permissions",
+      "attribution": "International Labour Organization, ILOSTAT. Published aggregates and metadata, November 2026 release. Adapted country/year subset; not prepared, reviewed or endorsed by the ILO.",
+      "id": "ilo-dictionary-source",
+      "file": "ilo-source.csv",
+      "format": "ilo-dictionary",
+      "dimension": "source",
+      "url": "https://rplumber.ilo.org/metadata/dic?format=.csv&lang=en&var=source",
+      "sha256": "41a6944d69698fe634ec70d6d85acb043ff85756549f3963ed7e67ef270a3299",
+      "entries": [
+        {
+          "source": "BA:150",
+          "source.label": "LFS - Permanent Household Survey, Urban",
+          "ref_area": "ARG"
+        },
+        {
+          "source": "FX:3502",
+          "source.label": "ADM - Integrated Provisional System of Argentina",
+          "ref_area": "ARG"
+        },
+        {
+          "source": "BA:518",
+          "source.label": "LFS - Labour Force Survey",
+          "ref_area": "AUS"
+        },
+        {
+          "source": "BB:15747",
+          "source.label": "HIES - Household, Income and Labour Dynamics Survey",
+          "ref_area": "AUS"
+        },
+        {
+          "source": "BA:673",
+          "source.label": "LFS - Labour Force Survey",
+          "ref_area": "BGD"
+        },
+        {
+          "source": "AA:909",
+          "source.label": "PC - Population Census",
+          "ref_area": "BGD"
+        },
+        {
+          "source": "BX:6355",
+          "source.label": "HS - Continuous National Household Sample Survey",
+          "ref_area": "BRA"
+        },
+        {
+          "source": "BX:356",
+          "source.label": "HS - National Household Sample Survey",
+          "ref_area": "BRA"
+        },
+        {
+          "source": "FX:952",
+          "source.label": "ADM - Other Administrative records and related sources",
+          "ref_area": "BRA"
+        },
+        {
+          "source": "BA:147",
+          "source.label": "LFS - Labour Force Survey",
+          "ref_area": "CAN"
+        },
+        {
+          "source": "BA:460",
+          "source.label": "LFS - National Employment Survey",
+          "ref_area": "CHL"
+        },
+        {
+          "source": "BX:138",
+          "source.label": "HS - National Survey on Socio-Economic Conditions",
+          "ref_area": "CHL"
+        },
+        {
+          "source": "AA:987",
+          "source.label": "PC - Population and Housing Census",
+          "ref_area": "CHL"
+        },
+        {
+          "source": "BB:16207",
+          "source.label": "HIES - Supplemental Income Survey",
+          "ref_area": "CHL"
+        },
+        {
+          "source": "DA:134",
+          "source.label": "ES - Index for Remuneration and Labour Cost",
+          "ref_area": "CHL"
+        },
+        {
+          "source": "BA:16044",
+          "source.label": "LFS - National Labour Survey",
+          "ref_area": "CHN"
+        },
+        {
+          "source": "AA:992",
+          "source.label": "PC - Population Census",
+          "ref_area": "CHN"
+        },
+        {
+          "source": "DA:994",
+          "source.label": "ES - Employment and wages statistics based on enterprises' reports",
+          "ref_area": "CHN"
+        },
+        {
+          "source": "FX:216",
+          "source.label": "ADM - Labour and Social Security Records",
+          "ref_area": "CHN"
+        },
+        {
+          "source": "BA:3051",
+          "source.label": "LFS - Survey on Employment and household's living conditions",
+          "ref_area": "COD"
+        },
+        {
+          "source": "BB:7091",
+          "source.label": "HIES - Indicator Cluster Survey",
+          "ref_area": "COD"
+        },
+        {
+          "source": "BX:16939",
+          "source.label": "HS - Core Welfare Indicators Questionnaire",
+          "ref_area": "COD"
+        },
+        {
+          "source": "BA:358",
+          "source.label": "LFS - Integrated Household Survey",
+          "ref_area": "COL"
+        },
+        {
+          "source": "BX:2226",
+          "source.label": "HS - Continuous Household Survey",
+          "ref_area": "COL"
+        },
+        {
+          "source": "BA:582",
+          "source.label": "LFS - Labour Force Sample Survey",
+          "ref_area": "EGY"
+        },
+        {
+          "source": "CA:1102",
+          "source.label": "EC - Employment, wages and hours of Work Survey",
+          "ref_area": "EGY"
+        },
+        {
+          "source": "BA:1126",
+          "source.label": "LFS - Labor Force Survey",
+          "ref_area": "ETH"
+        },
+        {
+          "source": "BA:1163",
+          "source.label": "LFS - Labour Force Survey",
+          "ref_area": "GHA"
+        },
+        {
+          "source": "BB:16203",
+          "source.label": "HIES - Household Income and Expenditure Survey",
+          "ref_area": "GHA"
+        },
+        {
+          "source": "BB:3078",
+          "source.label": "HIES - Living Standards Survey",
+          "ref_area": "GHA"
+        },
+        {
+          "source": "AA:1162",
+          "source.label": "PC - Population Census",
+          "ref_area": "GHA"
+        },
+        {
+          "source": "BA:510",
+          "source.label": "LFS - National Labour Force Survey",
+          "ref_area": "IDN"
+        },
+        {
+          "source": "BA:14121",
+          "source.label": "LFS - Periodic Labour Force Survey",
+          "ref_area": "IND"
+        },
+        {
+          "source": "BX:2228",
+          "source.label": "HS - National Sample Survey",
+          "ref_area": "IND"
+        },
+        {
+          "source": "AA:1253",
+          "source.label": "PC - Population Census",
+          "ref_area": "IND"
+        },
+        {
+          "source": "BA:675",
+          "source.label": "LFS - Labour Force Survey",
+          "ref_area": "IRN"
+        },
+        {
+          "source": "AA:1267",
+          "source.label": "PC - Population Census",
+          "ref_area": "IRN"
+        },
+        {
+          "source": "BA:259",
+          "source.label": "LFS - Labour Force Survey",
+          "ref_area": "JPN"
+        },
+        {
+          "source": "DA:260",
+          "source.label": "ES - Wage Structure Survey",
+          "ref_area": "JPN"
+        },
+        {
+          "source": "BA:632",
+          "source.label": "LFS - Sample Survey of Employment",
+          "ref_area": "KAZ"
+        },
+        {
+          "source": "DA:1306",
+          "source.label": "ES - Labour Reports on the number of Workers and remuneration",
+          "ref_area": "KAZ"
+        },
+        {
+          "source": "FK:613",
+          "source.label": "ADM-EBR - Businesses and Organizations register",
+          "ref_area": "KAZ"
+        },
+        {
+          "source": "BX:3465",
+          "source.label": "HS - Continuous household survey",
+          "ref_area": "KEN"
+        },
+        {
+          "source": "BB:7021",
+          "source.label": "HIES - Household Budget Survey",
+          "ref_area": "KEN"
+        },
+        {
+          "source": "AA:1311",
+          "source.label": "PC - Population Census",
+          "ref_area": "KEN"
+        },
+        {
+          "source": "BA:222",
+          "source.label": "LFS - Economically Active Population Survey",
+          "ref_area": "KOR"
+        },
+        {
+          "source": "DA:224",
+          "source.label": "ES - Survey on labor conditions by employment type",
+          "ref_area": "KOR"
+        },
+        {
+          "source": "BA:615",
+          "source.label": "LFS - National Employment Survey",
+          "ref_area": "MAR"
+        },
+        {
+          "source": "AA:1383",
+          "source.label": "PC - Population Census",
+          "ref_area": "MAR"
+        },
+        {
+          "source": "BA:463",
+          "source.label": "LFS - National Occupation and Employment Survey",
+          "ref_area": "MEX"
+        },
+        {
+          "source": "BA:544",
+          "source.label": "LFS - Labour Force Survey",
+          "ref_area": "MYS"
+        },
+        {
+          "source": "DA:7341",
+          "source.label": "ES - Salaries and Wages Survey",
+          "ref_area": "MYS"
+        },
+        {
+          "source": "BA:8313",
+          "source.label": "LFS - Unemployment, Under-employment Watch",
+          "ref_area": "NGA"
+        },
+        {
+          "source": "BB:16750",
+          "source.label": "HIES - Living Standards Survey",
+          "ref_area": "NGA"
+        },
+        {
+          "source": "BX:7338",
+          "source.label": "HS - General Household Survey",
+          "ref_area": "NGA"
+        },
+        {
+          "source": "BA:117",
+          "source.label": "LFS - Household Labour Force Survey",
+          "ref_area": "NZL"
+        },
+        {
+          "source": "FX:118",
+          "source.label": "ADM - Linked employer-employee data",
+          "ref_area": "NZL"
+        },
+        {
+          "source": "BA:538",
+          "source.label": "LFS - Labour Force Survey",
+          "ref_area": "PAK"
+        },
+        {
+          "source": "BB:16125",
+          "source.label": "HIES - Household Income and Expenditure Survey",
+          "ref_area": "PAK"
+        },
+        {
+          "source": "BA:16208",
+          "source.label": "LFS - Permanent Employment Survey, National",
+          "ref_area": "PER"
+        },
+        {
+          "source": "BX:375",
+          "source.label": "HS - National Household Survey",
+          "ref_area": "PER"
+        },
+        {
+          "source": "BA:629",
+          "source.label": "LFS - Labour Force Survey",
+          "ref_area": "PHL"
+        },
+        {
+          "source": "BA:120",
+          "source.label": "LFS - Labour Force Survey",
+          "ref_area": "RUS"
+        },
+        {
+          "source": "DA:122",
+          "source.label": "ES - Establishments sample Survey on employees' wages by Occupation",
+          "ref_area": "RUS"
+        },
+        {
+          "source": "BA:627",
+          "source.label": "LFS - Labour Force Survey",
+          "ref_area": "SAU"
+        },
+        {
+          "source": "BA:741",
+          "source.label": "LFS - Labour Force Survey",
+          "ref_area": "THA"
+        },
+        {
+          "source": "BB:15893",
+          "source.label": "HIES - Household Socio-Economic Survey",
+          "ref_area": "THA"
+        },
+        {
+          "source": "BA:1743",
+          "source.label": "LFS - Labour Force Survey",
+          "ref_area": "TZA"
+        },
+        {
+          "source": "BB:2542",
+          "source.label": "HIES - National Panel Survey",
+          "ref_area": "TZA"
+        },
+        {
+          "source": "AA:1742",
+          "source.label": "PC - Population Census",
+          "ref_area": "TZA"
+        },
+        {
+          "source": "DA:2543",
+          "source.label": "ES - Employment and Earnings Survey",
+          "ref_area": "TZA"
+        },
+        {
+          "source": "BA:13047",
+          "source.label": "LFS - National Labour Force Survey",
+          "ref_area": "UGA"
+        },
+        {
+          "source": "BB:268",
+          "source.label": "HIES - National Household Survey",
+          "ref_area": "UGA"
+        },
+        {
+          "source": "AA:1745",
+          "source.label": "PC - Population Census",
+          "ref_area": "UGA"
+        },
+        {
+          "source": "BA:453",
+          "source.label": "LFS - Current Population Survey",
+          "ref_area": "USA"
+        },
+        {
+          "source": "BA:15965",
+          "source.label": "LFS - Labour Force Survey",
+          "ref_area": "UZB"
+        },
+        {
+          "source": "BX:13423",
+          "source.label": "HS - General Household Survey",
+          "ref_area": "UZB"
+        },
+        {
+          "source": "EA:1769",
+          "source.label": "OE - Official Estimates",
+          "ref_area": "UZB"
+        },
+        {
+          "source": "BA:1788",
+          "source.label": "LFS - Labour Force Survey",
+          "ref_area": "VNM"
+        },
+        {
+          "source": "BA:595",
+          "source.label": "LFS - Quarterly Labour Force Survey",
+          "ref_area": "ZAF"
+        },
+        {
+          "source": "BB:16198",
+          "source.label": "HIES - National Income Dynamic Survey",
+          "ref_area": "ZAF"
+        },
+        {
+          "source": "DA:1811",
+          "source.label": "ES - Monthly Survey of Employment, Salaries and Wages",
+          "ref_area": "ZAF"
+        }
+      ]
+    },
+    "ilo-dictionary-sex": {
+      "stage": "work-income",
+      "license": "CC-BY-4.0",
+      "licenseEvidence": "https://www.ilo.org/rights-and-permissions",
+      "attribution": "International Labour Organization, ILOSTAT. Published aggregates and metadata, November 2026 release. Adapted country/year subset; not prepared, reviewed or endorsed by the ILO.",
+      "id": "ilo-dictionary-sex",
+      "file": "ilo-sex.csv",
+      "format": "ilo-dictionary",
+      "dimension": "sex",
+      "url": "https://rplumber.ilo.org/metadata/dic?format=.csv&lang=en&var=sex",
+      "sha256": "2b1c192131997b97da5948af1c777a4561b4abf3f448112921cc693063360b45",
+      "entries": [
+        {
+          "sex": "SEX_T",
+          "sex.label": "Total"
+        },
+        {
+          "sex": "SEX_M",
+          "sex.label": "Male"
+        },
+        {
+          "sex": "SEX_F",
+          "sex.label": "Female"
+        },
+        {
+          "sex": "SEX_O",
+          "sex.label": "Other"
+        }
+      ]
+    },
+    "ilo-dictionary-classif1": {
+      "stage": "work-income",
+      "license": "CC-BY-4.0",
+      "licenseEvidence": "https://www.ilo.org/rights-and-permissions",
+      "attribution": "International Labour Organization, ILOSTAT. Published aggregates and metadata, November 2026 release. Adapted country/year subset; not prepared, reviewed or endorsed by the ILO.",
+      "id": "ilo-dictionary-classif1",
+      "file": "ilo-classif1.csv",
+      "format": "ilo-dictionary",
+      "dimension": "classif1",
+      "url": "https://rplumber.ilo.org/metadata/dic?format=.csv&lang=en&var=classif1",
+      "sha256": "96c35bce59b46dfa88df360b90df9e008fcc0c8ff09e5e05beb9d396860fe91d",
+      "entries": [
+        {
+          "classif1": "AGE_YTHADULT_YGE15",
+          "classif1.label": "Age (Youth, adults): 15+"
+        },
+        {
+          "classif1": "AGE_YTHADULT_Y15-64",
+          "classif1.label": "Age (Youth, adults): 15-64"
+        },
+        {
+          "classif1": "AGE_YTHADULT_Y15-24",
+          "classif1.label": "Age (Youth, adults): 15-24"
+        },
+        {
+          "classif1": "AGE_YTHADULT_YGE25",
+          "classif1.label": "Age (Youth, adults): 25+"
+        },
+        {
+          "classif1": "AGE_AGGREGATE_YGE15",
+          "classif1.label": "Age (Aggregate bands): 15+"
+        },
+        {
+          "classif1": "AGE_AGGREGATE_Y15-24",
+          "classif1.label": "Age (Aggregate bands): 15-24"
+        },
+        {
+          "classif1": "AGE_AGGREGATE_Y25-54",
+          "classif1.label": "Age (Aggregate bands): 25-54"
+        },
+        {
+          "classif1": "AGE_AGGREGATE_Y55-64",
+          "classif1.label": "Age (Aggregate bands): 55-64"
+        },
+        {
+          "classif1": "AGE_AGGREGATE_YGE65",
+          "classif1.label": "Age (Aggregate bands): 65+"
+        },
+        {
+          "classif1": "AGE_10YRBANDS_YGE15",
+          "classif1.label": "Age (10-year bands): 15+"
+        },
+        {
+          "classif1": "AGE_10YRBANDS_Y15-24",
+          "classif1.label": "Age (10-year bands): 15-24"
+        },
+        {
+          "classif1": "AGE_10YRBANDS_Y25-34",
+          "classif1.label": "Age (10-year bands): 25-34"
+        },
+        {
+          "classif1": "AGE_10YRBANDS_Y35-44",
+          "classif1.label": "Age (10-year bands): 35-44"
+        },
+        {
+          "classif1": "AGE_10YRBANDS_Y45-54",
+          "classif1.label": "Age (10-year bands): 45-54"
+        },
+        {
+          "classif1": "AGE_10YRBANDS_Y55-64",
+          "classif1.label": "Age (10-year bands): 55-64"
+        },
+        {
+          "classif1": "AGE_10YRBANDS_YGE65",
+          "classif1.label": "Age (10-year bands): 65+"
+        },
+        {
+          "classif1": "AGE_5YRBANDS_YGE15",
+          "classif1.label": "Age (5-year bands): 15+"
+        },
+        {
+          "classif1": "AGE_5YRBANDS_Y15-19",
+          "classif1.label": "Age (5-year bands): 15-19"
+        },
+        {
+          "classif1": "AGE_5YRBANDS_Y20-24",
+          "classif1.label": "Age (5-year bands): 20-24"
+        },
+        {
+          "classif1": "AGE_5YRBANDS_Y25-29",
+          "classif1.label": "Age (5-year bands): 25-29"
+        },
+        {
+          "classif1": "AGE_5YRBANDS_Y30-34",
+          "classif1.label": "Age (5-year bands): 30-34"
+        },
+        {
+          "classif1": "AGE_5YRBANDS_Y35-39",
+          "classif1.label": "Age (5-year bands): 35-39"
+        },
+        {
+          "classif1": "AGE_5YRBANDS_Y40-44",
+          "classif1.label": "Age (5-year bands): 40-44"
+        },
+        {
+          "classif1": "AGE_5YRBANDS_Y45-49",
+          "classif1.label": "Age (5-year bands): 45-49"
+        },
+        {
+          "classif1": "AGE_5YRBANDS_Y50-54",
+          "classif1.label": "Age (5-year bands): 50-54"
+        },
+        {
+          "classif1": "AGE_5YRBANDS_Y55-59",
+          "classif1.label": "Age (5-year bands): 55-59"
+        },
+        {
+          "classif1": "AGE_5YRBANDS_Y60-64",
+          "classif1.label": "Age (5-year bands): 60-64"
+        },
+        {
+          "classif1": "AGE_5YRBANDS_YGE65",
+          "classif1.label": "Age (5-year bands): 65+"
+        },
+        {
+          "classif1": "OCU_SKILL_TOTAL",
+          "classif1.label": "Occupation (Skill level): Total"
+        },
+        {
+          "classif1": "OCU_SKILL_L3-4",
+          "classif1.label": "Occupation (Skill level): Skill levels 3 and 4 ~ high"
+        },
+        {
+          "classif1": "OCU_SKILL_L2",
+          "classif1.label": "Occupation (Skill level): Skill level 2 ~ medium"
+        },
+        {
+          "classif1": "OCU_SKILL_L1",
+          "classif1.label": "Occupation (Skill level): Skill level 1 ~ low"
+        },
+        {
+          "classif1": "OCU_SKILL_X",
+          "classif1.label": "Occupation (Skill level): X - Not elsewhere classified"
+        },
+        {
+          "classif1": "OCU_ISCO08_TOTAL",
+          "classif1.label": "Occupation (ISCO-08): Total"
+        },
+        {
+          "classif1": "OCU_ISCO08_1",
+          "classif1.label": "Occupation (ISCO-08): 1. Managers"
+        },
+        {
+          "classif1": "OCU_ISCO08_2",
+          "classif1.label": "Occupation (ISCO-08): 2. Professionals"
+        },
+        {
+          "classif1": "OCU_ISCO08_3",
+          "classif1.label": "Occupation (ISCO-08): 3. Technicians and associate professionals"
+        },
+        {
+          "classif1": "OCU_ISCO08_4",
+          "classif1.label": "Occupation (ISCO-08): 4. Clerical support workers"
+        },
+        {
+          "classif1": "OCU_ISCO08_5",
+          "classif1.label": "Occupation (ISCO-08): 5. Service and sales workers"
+        },
+        {
+          "classif1": "OCU_ISCO08_6",
+          "classif1.label": "Occupation (ISCO-08): 6. Skilled agricultural, forestry and fishery workers"
+        },
+        {
+          "classif1": "OCU_ISCO08_7",
+          "classif1.label": "Occupation (ISCO-08): 7. Craft and related trades workers"
+        },
+        {
+          "classif1": "OCU_ISCO08_8",
+          "classif1.label": "Occupation (ISCO-08): 8. Plant and machine operators, and assemblers"
+        },
+        {
+          "classif1": "OCU_ISCO08_9",
+          "classif1.label": "Occupation (ISCO-08): 9. Elementary occupations"
+        },
+        {
+          "classif1": "OCU_ISCO08_0",
+          "classif1.label": "Occupation (ISCO-08): 0. Armed forces occupations"
+        },
+        {
+          "classif1": "OCU_ISCO08_X",
+          "classif1.label": "Occupation (ISCO-08): X. Not elsewhere classified"
+        },
+        {
+          "classif1": "OCU_ISCO88_TOTAL",
+          "classif1.label": "Occupation (ISCO-88): Total"
+        },
+        {
+          "classif1": "OCU_ISCO88_1",
+          "classif1.label": "Occupation (ISCO-88): 1. Legislators, senior officials and managers"
+        },
+        {
+          "classif1": "OCU_ISCO88_2",
+          "classif1.label": "Occupation (ISCO-88): 2. Professionals"
+        },
+        {
+          "classif1": "OCU_ISCO88_3",
+          "classif1.label": "Occupation (ISCO-88): 3. Technicians and associate professionals"
+        },
+        {
+          "classif1": "OCU_ISCO88_4",
+          "classif1.label": "Occupation (ISCO-88): 4. Clerks"
+        },
+        {
+          "classif1": "OCU_ISCO88_5",
+          "classif1.label": "Occupation (ISCO-88): 5. Service workers and shop and market sales workers"
+        },
+        {
+          "classif1": "OCU_ISCO88_6",
+          "classif1.label": "Occupation (ISCO-88): 6. Skilled agricultural and fishery workers"
+        },
+        {
+          "classif1": "OCU_ISCO88_7",
+          "classif1.label": "Occupation (ISCO-88): 7. Craft and related trades workers"
+        },
+        {
+          "classif1": "OCU_ISCO88_8",
+          "classif1.label": "Occupation (ISCO-88): 8. Plant and machine operators and assemblers"
+        },
+        {
+          "classif1": "OCU_ISCO88_9",
+          "classif1.label": "Occupation (ISCO-88): 9. Elementary occupations"
+        },
+        {
+          "classif1": "OCU_ISCO88_0",
+          "classif1.label": "Occupation (ISCO-88): 0. Armed forces"
+        },
+        {
+          "classif1": "OCU_ISCO88_X",
+          "classif1.label": "Occupation (ISCO-88): X. Not elsewhere classified"
+        },
+        {
+          "classif1": "OCU_ISCO68_TOTAL",
+          "classif1.label": "Occupation (ISCO-68): Total"
+        },
+        {
+          "classif1": "OCU_ISCO68_0-1",
+          "classif1.label": "Occupation (ISCO-68): 0/1. Professional, technical and related workers"
+        },
+        {
+          "classif1": "OCU_ISCO68_2",
+          "classif1.label": "Occupation (ISCO-68): 2. Administrative and managerial workers"
+        },
+        {
+          "classif1": "OCU_ISCO68_3",
+          "classif1.label": "Occupation (ISCO-68): 3. Clerical and related workers"
+        },
+        {
+          "classif1": "OCU_ISCO68_4",
+          "classif1.label": "Occupation (ISCO-68): 4. Sales workers"
+        },
+        {
+          "classif1": "OCU_ISCO68_5",
+          "classif1.label": "Occupation (ISCO-68): 5. Service workers"
+        },
+        {
+          "classif1": "OCU_ISCO68_6",
+          "classif1.label": "Occupation (ISCO-68): 6. Agriculture, animal husbandry and forestry workers, fishermen and hunters"
+        },
+        {
+          "classif1": "OCU_ISCO68_7-9",
+          "classif1.label": "Occupation (ISCO-68): 7,8,9. Production and related workers, transport equipment operators and labourers"
+        },
+        {
+          "classif1": "OCU_ISCO68_X",
+          "classif1.label": "Occupation (ISCO-68): X. Not elsewhere classified"
+        },
+        {
+          "classif1": "CUR_TYPE_LCU",
+          "classif1.label": "Currency: Local currency"
+        }
+      ]
+    },
+    "ilo-dictionary-classif2": {
+      "stage": "work-income",
+      "license": "CC-BY-4.0",
+      "licenseEvidence": "https://www.ilo.org/rights-and-permissions",
+      "attribution": "International Labour Organization, ILOSTAT. Published aggregates and metadata, November 2026 release. Adapted country/year subset; not prepared, reviewed or endorsed by the ILO.",
+      "id": "ilo-dictionary-classif2",
+      "file": "ilo-classif2.csv",
+      "format": "ilo-dictionary",
+      "dimension": "classif2",
+      "url": "https://rplumber.ilo.org/metadata/dic?format=.csv&lang=en&var=classif2",
+      "sha256": "ce8c9a231251cb202ba4660dfcfd93c7ab5b6c6e657ee823a5d6928fd2e7ee1a",
+      "entries": [
+        {
+          "classif2": "CUR_TYPE_LCU",
+          "classif2.label": "Currency: Local currency"
+        }
+      ]
+    },
+    "ilo-dictionary-obs_status": {
+      "stage": "work-income",
+      "license": "CC-BY-4.0",
+      "licenseEvidence": "https://www.ilo.org/rights-and-permissions",
+      "attribution": "International Labour Organization, ILOSTAT. Published aggregates and metadata, November 2026 release. Adapted country/year subset; not prepared, reviewed or endorsed by the ILO.",
+      "id": "ilo-dictionary-obs_status",
+      "file": "ilo-obs_status.csv",
+      "format": "ilo-dictionary",
+      "dimension": "obs_status",
+      "url": "https://rplumber.ilo.org/metadata/dic?format=.csv&lang=en&var=obs_status",
+      "sha256": "4f78a0a382c92e52fca71e94ef8f544fafb8bb3f877d1fcc5cb0de838eb9424a",
+      "entries": [
+        {
+          "obs_status": "B",
+          "obs_status.label": "Break in series"
+        },
+        {
+          "obs_status": "U",
+          "obs_status.label": "Unreliable"
+        }
+      ]
+    },
+    "ilo-dictionary-note_source": {
+      "stage": "work-income",
+      "license": "CC-BY-4.0",
+      "licenseEvidence": "https://www.ilo.org/rights-and-permissions",
+      "attribution": "International Labour Organization, ILOSTAT. Published aggregates and metadata, November 2026 release. Adapted country/year subset; not prepared, reviewed or endorsed by the ILO.",
+      "id": "ilo-dictionary-note_source",
+      "file": "ilo-note_source.csv",
+      "format": "ilo-dictionary",
+      "dimension": "note_source",
+      "url": "https://rplumber.ilo.org/metadata/dic?format=.csv&lang=en&var=note_source",
+      "sha256": "4c92542b790ad219b61637f9c15a01dd9aee4166da198a5dd7ed85f93ce13103",
+      "entries": [
+        {
+          "note_source": "R1:2382",
+          "note_source.label": "Repository: OECD"
+        },
+        {
+          "note_source": "R1:3513",
+          "note_source.label": "Repository: ILO-STATISTICS - Micro data processing"
+        },
+        {
+          "note_source": "R1:2803",
+          "note_source.label": "Repository: Annual estimates for 2025 are 11-month averages that exclude October. Data for October 2025 were not collected due to the federal government shutdown"
+        },
+        {
+          "note_source": "S9:3478",
+          "note_source.label": "Reference group coverage: Total employment"
+        },
+        {
+          "note_source": "S9:66",
+          "note_source.label": "Reference group coverage: Employees"
+        },
+        {
+          "note_source": "S9:67",
+          "note_source.label": "Reference group coverage: Wage earners / blue collar / production workers"
+        },
+        {
+          "note_source": "S9:2958",
+          "note_source.label": "Reference group coverage: Including seasonal workers who were currently not employed nor seeking work"
+        },
+        {
+          "note_source": "S6:47",
+          "note_source.label": "Establishment size coverage: All establishments with at least 5 employees"
+        },
+        {
+          "note_source": "S6:48",
+          "note_source.label": "Establishment size coverage: All establishments with at least 10 employees"
+        },
+        {
+          "note_source": "S6:2683",
+          "note_source.label": "Establishment size coverage: All establishments with at least 50 employees and a sample of those with less than 50 employees"
+        },
+        {
+          "note_source": "T2:79",
+          "note_source.label": "Age coverage - minimum age: Less than or equal to 9 years old"
+        },
+        {
+          "note_source": "T2:239",
+          "note_source.label": "Age coverage - minimum age: 10 years old"
+        },
+        {
+          "note_source": "T2:81",
+          "note_source.label": "Age coverage - minimum age: 12 years old"
+        },
+        {
+          "note_source": "T2:82",
+          "note_source.label": "Age coverage - minimum age: 13 years old"
+        },
+        {
+          "note_source": "T2:83",
+          "note_source.label": "Age coverage - minimum age: 14 years old"
+        },
+        {
+          "note_source": "T2:85",
+          "note_source.label": "Age coverage - minimum age: 16 years old"
+        },
+        {
+          "note_source": "T3:3919",
+          "note_source.label": "Age coverage - maximum age: 60 for men and 55 for women"
+        },
+        {
+          "note_source": "T3:94",
+          "note_source.label": "Age coverage - maximum age: 64 years old"
+        },
+        {
+          "note_source": "T3:3328",
+          "note_source.label": "Age coverage - maximum age: 59 for men and 54 for women"
+        },
+        {
+          "note_source": "T3:100",
+          "note_source.label": "Age coverage - maximum age: 70 years old"
+        },
+        {
+          "note_source": "T3:102",
+          "note_source.label": "Age coverage - maximum age: 72 years old"
+        },
+        {
+          "note_source": "T3:240",
+          "note_source.label": "Age coverage - maximum age: 75 years old"
+        },
+        {
+          "note_source": "T3:105",
+          "note_source.label": "Age coverage - maximum age: 76 years or older, but bounded"
+        },
+        {
+          "note_source": "S3:7",
+          "note_source.label": "Data reference period: Second semester"
+        },
+        {
+          "note_source": "S3:9",
+          "note_source.label": "Data reference period: Second quarter"
+        },
+        {
+          "note_source": "S3:10",
+          "note_source.label": "Data reference period: Third quarter"
+        },
+        {
+          "note_source": "S3:11",
+          "note_source.label": "Data reference period: Fourth quarter"
+        },
+        {
+          "note_source": "S3:12",
+          "note_source.label": "Data reference period: January"
+        },
+        {
+          "note_source": "S3:15",
+          "note_source.label": "Data reference period: April"
+        },
+        {
+          "note_source": "S3:17",
+          "note_source.label": "Data reference period: June"
+        },
+        {
+          "note_source": "S3:18",
+          "note_source.label": "Data reference period: July"
+        },
+        {
+          "note_source": "S3:20",
+          "note_source.label": "Data reference period: September"
+        },
+        {
+          "note_source": "S3:21",
+          "note_source.label": "Data reference period: October"
+        },
+        {
+          "note_source": "S3:23",
+          "note_source.label": "Data reference period: December"
+        },
+        {
+          "note_source": "S3:24",
+          "note_source.label": "Data reference period: End of the year"
+        },
+        {
+          "note_source": "S3:2841",
+          "note_source.label": "Data reference period: Average of 3 quarterly points"
+        },
+        {
+          "note_source": "S3:25",
+          "note_source.label": "Data reference period: Incomplete year"
+        },
+        {
+          "note_source": "S3:26",
+          "note_source.label": "Data reference period: Noncalendar year"
+        },
+        {
+          "note_source": "S4:30",
+          "note_source.label": "Geographical coverage: Total national, excluding overseas territories"
+        },
+        {
+          "note_source": "S4:34",
+          "note_source.label": "Geographical coverage: Total national, excluding some areas"
+        },
+        {
+          "note_source": "S4:31",
+          "note_source.label": "Geographical coverage: Urban areas only"
+        },
+        {
+          "note_source": "S4:33",
+          "note_source.label": "Geographical coverage: Main cities or metropolitan areas"
+        },
+        {
+          "note_source": "S5:4138",
+          "note_source.label": "Population coverage: Excluding institutional population and persons in collective living quarters"
+        },
+        {
+          "note_source": "S5:38",
+          "note_source.label": "Population coverage: Excluding both institutional population and armed forces and/or conscripts"
+        },
+        {
+          "note_source": "S5:40",
+          "note_source.label": "Population coverage: Excluding institutional population"
+        },
+        {
+          "note_source": "S5:41",
+          "note_source.label": "Population coverage: Excluding armed forces and/or conscripts"
+        },
+        {
+          "note_source": "S5:42",
+          "note_source.label": "Population coverage: Excluding indigenous population"
+        },
+        {
+          "note_source": "S5:352",
+          "note_source.label": "Population coverage: Including armed forces and/or conscripts"
+        },
+        {
+          "note_source": "S5:44",
+          "note_source.label": "Population coverage: Nonstandard population coverage"
+        },
+        {
+          "note_source": "S7:56",
+          "note_source.label": "Institutional sector coverage: Public sector only"
+        },
+        {
+          "note_source": "S7:57",
+          "note_source.label": "Institutional sector coverage: Private sector only"
+        },
+        {
+          "note_source": "S7:58",
+          "note_source.label": "Institutional sector coverage: Nonstandard institutional sector coverage"
+        },
+        {
+          "note_source": "S8:1640",
+          "note_source.label": "Economic activity coverage: Excluding public administration"
+        },
+        {
+          "note_source": "S8:3907",
+          "note_source.label": "Economic activity coverage: Excluding agriculture, hunting, forestry and fishing"
+        }
+      ]
+    },
+    "ilo-dictionary-note_indicator": {
+      "stage": "work-income",
+      "license": "CC-BY-4.0",
+      "licenseEvidence": "https://www.ilo.org/rights-and-permissions",
+      "attribution": "International Labour Organization, ILOSTAT. Published aggregates and metadata, November 2026 release. Adapted country/year subset; not prepared, reviewed or endorsed by the ILO.",
+      "id": "ilo-dictionary-note_indicator",
+      "file": "ilo-note_indicator.csv",
+      "format": "ilo-dictionary",
+      "dimension": "note_indicator",
+      "url": "https://rplumber.ilo.org/metadata/dic?format=.csv&lang=en&var=note_indicator",
+      "sha256": "2dd61aaa17d3a9adea341a5c9769c8315db7afe649dd880ecaf672770f11841f",
+      "entries": [
+        {
+          "note_indicator": "I20:4077",
+          "note_indicator.label": "Employment definition: Excluding own-use production workers"
+        },
+        {
+          "note_indicator": "I20:3359",
+          "note_indicator.label": "Employment definition: Including subsistence workers"
+        },
+        {
+          "note_indicator": "I20:4147",
+          "note_indicator.label": "Employment definition: Other nonstandard definition"
+        },
+        {
+          "note_indicator": "T5:115",
+          "note_indicator.label": "Unemployment definition: Two criteria (not in employment and currently available)"
+        },
+        {
+          "note_indicator": "T5:1429",
+          "note_indicator.label": "Unemployment definition: Two criteria (not in employment and seeking)"
+        },
+        {
+          "note_indicator": "T5:3662",
+          "note_indicator.label": "Unemployment definition: Two criteria (not in employment and seeking or currently available)"
+        },
+        {
+          "note_indicator": "T5:4118",
+          "note_indicator.label": "Unemployment definition: Self-declared labour status"
+        },
+        {
+          "note_indicator": "T8:127",
+          "note_indicator.label": "Central tendency measure: Mean"
+        },
+        {
+          "note_indicator": "T8:128",
+          "note_indicator.label": "Central tendency measure: Median"
+        },
+        {
+          "note_indicator": "T8:252",
+          "note_indicator.label": "Central tendency measure: Weighted mean"
+        },
+        {
+          "note_indicator": "T9:133",
+          "note_indicator.label": "Value type: Nominal values"
+        },
+        {
+          "note_indicator": "T9:131",
+          "note_indicator.label": "Value type: Real values"
+        },
+        {
+          "note_indicator": "T10:138",
+          "note_indicator.label": "Accounting concept: Gross"
+        },
+        {
+          "note_indicator": "T10:139",
+          "note_indicator.label": "Accounting concept: Net"
+        },
+        {
+          "note_indicator": "T11:142",
+          "note_indicator.label": "Job coverage: Main job currently held"
+        },
+        {
+          "note_indicator": "T12:145",
+          "note_indicator.label": "Working time arrangement coverage: Full-time and part time workers"
+        },
+        {
+          "note_indicator": "T12:146",
+          "note_indicator.label": "Working time arrangement coverage: Full-time workers"
+        },
+        {
+          "note_indicator": "T12:1516",
+          "note_indicator.label": "Working time arrangement coverage: Full-time equivalents"
+        },
+        {
+          "note_indicator": "T33:396",
+          "note_indicator.label": "Working time concept: Hours actually worked"
+        },
+        {
+          "note_indicator": "T30:61",
+          "note_indicator.label": "Currency: ARG - Argentine peso (ARS)"
+        },
+        {
+          "note_indicator": "T30:212",
+          "note_indicator.label": "Currency: AUS - Australian dollar (AUD)"
+        },
+        {
+          "note_indicator": "T30:114",
+          "note_indicator.label": "Currency: BGD - Taka (BDT)"
+        },
+        {
+          "note_indicator": "T30:68",
+          "note_indicator.label": "Currency: BRA - Real (BRL)"
+        },
+        {
+          "note_indicator": "T30:69",
+          "note_indicator.label": "Currency: CAN - Canadian Dollar (CAD)"
+        },
+        {
+          "note_indicator": "T30:74",
+          "note_indicator.label": "Currency: CHL - Chilean peso (CLP)"
+        },
+        {
+          "note_indicator": "T30:118",
+          "note_indicator.label": "Currency: CHN - Yuan (CNY)"
+        },
+        {
+          "note_indicator": "T30:12",
+          "note_indicator.label": "Currency: COD - Congolese franc (CDF)"
+        },
+        {
+          "note_indicator": "T30:71",
+          "note_indicator.label": "Currency: COL - Colombian peso (COP)"
+        },
+        {
+          "note_indicator": "T30:15",
+          "note_indicator.label": "Currency: EGY - Egyptian pound (EGP)"
+        },
+        {
+          "note_indicator": "T30:17",
+          "note_indicator.label": "Currency: ETH - Birr (ETB)"
+        },
+        {
+          "note_indicator": "T30:20",
+          "note_indicator.label": "Currency: GHA - Cedi (GHS)"
+        },
+        {
+          "note_indicator": "T30:291",
+          "note_indicator.label": "Currency: GHA - Cedi (GHP)"
+        },
+        {
+          "note_indicator": "T30:122",
+          "note_indicator.label": "Currency: IDN - Indonesian rupiah (IDR)"
+        },
+        {
+          "note_indicator": "T30:121",
+          "note_indicator.label": "Currency: IND - Indian rupee (INR)"
+        },
+        {
+          "note_indicator": "T30:126",
+          "note_indicator.label": "Currency: JPN - Yen (JPY)"
+        },
+        {
+          "note_indicator": "T30:128",
+          "note_indicator.label": "Currency: KAZ - Tenge (KZT)"
+        },
+        {
+          "note_indicator": "T30:24",
+          "note_indicator.label": "Currency: KEN - Kenyan shilling (KES)"
+        },
+        {
+          "note_indicator": "T30:130",
+          "note_indicator.label": "Currency: KOR - South Korean won (KRW)"
+        },
+        {
+          "note_indicator": "T30:90",
+          "note_indicator.label": "Currency: MEX - New Peso (MXN)"
+        },
+        {
+          "note_indicator": "T30:136",
+          "note_indicator.label": "Currency: MYS - Ringgit (MYR)"
+        },
+        {
+          "note_indicator": "T30:37",
+          "note_indicator.label": "Currency: NGA - Naira (NGN)"
+        },
+        {
+          "note_indicator": "T30:220",
+          "note_indicator.label": "Currency: NZL - New Zealand dollar (NZD)"
+        },
+        {
+          "note_indicator": "T30:142",
+          "note_indicator.label": "Currency: PAK - Pakistani rupee (PKR)"
+        },
+        {
+          "note_indicator": "T30:96",
+          "note_indicator.label": "Currency: PER - Nuevo sol (PEN)"
+        },
+        {
+          "note_indicator": "T30:143",
+          "note_indicator.label": "Currency: PHL - Philippine peso (PHP)"
+        },
+        {
+          "note_indicator": "T30:201",
+          "note_indicator.label": "Currency: RUS - Russian ruble (RUB)"
+        },
+        {
+          "note_indicator": "T30:145",
+          "note_indicator.label": "Currency: SAU - Saudi riyal (SAR)"
+        },
+        {
+          "note_indicator": "T30:151",
+          "note_indicator.label": "Currency: THA - Baht (THB)"
+        },
+        {
+          "note_indicator": "T30:50",
+          "note_indicator.label": "Currency: TZA - Tanzanian shilling (TZS)"
+        },
+        {
+          "note_indicator": "T30:56",
+          "note_indicator.label": "Currency: UGA - Ugandan shilling (UGX)"
+        },
+        {
+          "note_indicator": "T30:105",
+          "note_indicator.label": "Currency: USA - United States dollar (USD)"
+        },
+        {
+          "note_indicator": "T30:155",
+          "note_indicator.label": "Currency: UZB - Uzbekistani som (UZS)"
+        },
+        {
+          "note_indicator": "T30:156",
+          "note_indicator.label": "Currency: VNM - Dông (VND)"
+        },
+        {
+          "note_indicator": "T30:46",
+          "note_indicator.label": "Currency: ZAF - Rand (ZAR)"
+        },
+        {
+          "note_indicator": "I11:264",
+          "note_indicator.label": "Break in series: Methodology revised"
+        },
+        {
+          "note_indicator": "I11:269",
+          "note_indicator.label": "Break in series: Change in definition or concept"
+        },
+        {
+          "note_indicator": "I11:266",
+          "note_indicator.label": "Break in series: Other or unspecified type of break"
+        },
+        {
+          "note_indicator": "I13:3888",
+          "note_indicator.label": "Remarks: Warning on the use of statistical series: Statistical series published after January 2007 and before December 2015 should be used with caution. The INDEC, based on what is stated in decrees 181/15 and 55/16, is undertaking the investigations required to ensure the regularity of data collection, processing and dissemination procedures."
+        }
+      ]
+    },
+    "ilo-dictionary-note_classif": {
+      "stage": "work-income",
+      "license": "CC-BY-4.0",
+      "licenseEvidence": "https://www.ilo.org/rights-and-permissions",
+      "attribution": "International Labour Organization, ILOSTAT. Published aggregates and metadata, November 2026 release. Adapted country/year subset; not prepared, reviewed or endorsed by the ILO.",
+      "id": "ilo-dictionary-note_classif",
+      "file": "ilo-note_classif.csv",
+      "format": "ilo-dictionary",
+      "dimension": "note_classif",
+      "url": "https://rplumber.ilo.org/metadata/dic?format=.csv&lang=en&var=note_classif",
+      "sha256": "e510e848254433136c5ccbf42bef97e9b08ea346a65941bd9aea4d0b87e7e87b",
+      "entries": [
+        {
+          "note_classif": "C4:1002",
+          "note_classif.label": "Nonstandard occupation: Including 3"
+        },
+        {
+          "note_classif": "C4:2162",
+          "note_classif.label": "Nonstandard occupation: Including 8-9"
+        },
+        {
+          "note_classif": "C6:1059",
+          "note_classif.label": "Nonstandard age group: Including age 14"
+        },
+        {
+          "note_classif": "C6:1629",
+          "note_classif.label": "Nonstandard age group: Including ages 35-39"
+        },
+        {
+          "note_classif": "C6:2313",
+          "note_classif.label": "Nonstandard age group: Including ages 40+"
+        },
+        {
+          "note_classif": "C6:1630",
+          "note_classif.label": "Nonstandard age group: Including ages 45-49"
+        },
+        {
+          "note_classif": "C6:2282",
+          "note_classif.label": "Nonstandard age group: Including ages 45-59"
+        },
+        {
+          "note_classif": "C6:2319",
+          "note_classif.label": "Nonstandard age group: Including ages 45+"
+        },
+        {
+          "note_classif": "C6:1631",
+          "note_classif.label": "Nonstandard age group: Including ages 55-59"
+        },
+        {
+          "note_classif": "C6:1504",
+          "note_classif.label": "Nonstandard age group: Including ages 60-64"
+        },
+        {
+          "note_classif": "C6:1632",
+          "note_classif.label": "Nonstandard age group: Including ages 65-69"
+        },
+        {
+          "note_classif": "C6:2343",
+          "note_classif.label": "Nonstandard age group: Including ages 65+"
+        },
+        {
+          "note_classif": "C6:2362",
+          "note_classif.label": "Nonstandard age group: Excluding ages 0-15"
+        },
+        {
+          "note_classif": "C6:1058",
+          "note_classif.label": "Nonstandard age group: Excluding age 15"
+        },
+        {
+          "note_classif": "C6:2351",
+          "note_classif.label": "Nonstandard age group: Excluding ages 65+"
+        },
+        {
+          "note_classif": "C6:2262",
+          "note_classif.label": "Nonstandard age group: Excluding ages 70+"
+        },
+        {
+          "note_classif": "C5:2067",
+          "note_classif.label": "Nonstandard economic activity: Excluding agriculture"
+        }
+      ]
+    },
+    "wdi-gini": {
+      "id": "wdi-gini",
+      "stage": "work-income",
+      "file": "gini.zip",
+      "format": "wdi",
+      "indicator": "SI.POV.GINI",
+      "label": "Gini index",
+      "unit": "index_0_100",
+      "min": 0,
+      "max": 100,
+      "url": "https://api.worldbank.org/v2/en/indicator/SI.POV.GINI?downloadformat=csv",
+      "license": "CC-BY-4.0",
+      "licenseEvidence": "https://data.worldbank.org/indicator/SI.POV.GINI",
+      "attribution": "World Bank, World Development Indicators; Poverty and Inequality Platform. Published aggregate household income/consumption surveys.",
+      "sha256": "3af553ed7d6a4f73d69ed070e53a5a00b81e5e294355b638daf898bed6e90c83",
+      "indicatorMetadata": [
+        {
+          "INDICATOR_CODE": "SI.POV.GINI",
+          "INDICATOR_NAME": "Gini index",
+          "SOURCE_NOTE": "Gini index measures the extent to which the distribution of income (or, in some cases, consumption expenditure) among individuals or households within an economy deviates from a perfectly equal distribution. A Lorenz curve plots the cumulative percentages of total income received against the cumulative number of recipients, starting with the poorest individual or household. The Gini index measures the area between the Lorenz curve and a hypothetical line of absolute equality, expressed as a percentage of the maximum area under the line. Thus a Gini index of 0 represents perfect equality, while an index of 100 implies perfect inequality.",
+          "SOURCE_ORGANIZATION": "World Bank, Poverty and Inequality Platform. Data are based on primary household survey data obtained from government statistical agencies and World Bank country departments. Data for high-income economies are mostly from the Luxembourg Income Study database. For more information and methodology, please see http://pip.worldbank.org., World Bank (WB), uri: http://pip.worldbank.org, note: Data are based on primary household survey data obtained from government statistical agencies and World Bank country departments. Data for high-income economies are mostly from the Luxembourg Income Study database.",
+          "": ""
+        }
+      ],
+      "sourceUpdated": "2026-11-11"
+    },
+    "wdi-income-q1": {
+      "id": "wdi-income-q1",
+      "stage": "work-income",
+      "file": "income-q1.zip",
+      "format": "wdi",
+      "indicator": "SI.DST.FRST.20",
+      "label": "Income or consumption share held by lowest 20%",
+      "unit": "percent_income_or_consumption",
+      "min": 0,
+      "max": 100,
+      "url": "https://api.worldbank.org/v2/en/indicator/SI.DST.FRST.20?downloadformat=csv",
+      "license": "CC-BY-4.0",
+      "licenseEvidence": "https://data.worldbank.org/indicator/SI.DST.FRST.20",
+      "attribution": "World Bank, World Development Indicators; Poverty and Inequality Platform. Published aggregate household income/consumption surveys.",
+      "sha256": "b45bbe201f92e1fc826fc858ad0493ea2dcafdcf1d40d29df74f8144a51ef116",
+      "indicatorMetadata": [
+        {
+          "INDICATOR_CODE": "SI.DST.FRST.20",
+          "INDICATOR_NAME": "Income share held by lowest 20%",
+          "SOURCE_NOTE": "Percentage share of income or consumption is the share that accrues to subgroups of population indicated by deciles or quintiles. Percentage shares by quintile may not sum to 100 because of rounding.",
+          "SOURCE_ORGANIZATION": "World Bank, Poverty and Inequality Platform. Data are based on primary household survey data obtained from government statistical agencies and World Bank country departments. Data for high-income economies are mostly from the Luxembourg Income Study database. For more information and methodology, please see http://pip.worldbank.org., World Bank (WB), uri: http://pip.worldbank.org, note: Data are based on primary household survey data obtained from government statistical agencies and World Bank country departments. Data for high-income economies are mostly from the Luxembourg Income Study database.",
+          "": ""
+        }
+      ],
+      "sourceUpdated": "2026-11-11"
+    },
+    "wdi-income-q2": {
+      "id": "wdi-income-q2",
+      "stage": "work-income",
+      "file": "income-q2.zip",
+      "format": "wdi",
+      "indicator": "SI.DST.02ND.20",
+      "label": "Income or consumption share held by second 20%",
+      "unit": "percent_income_or_consumption",
+      "min": 0,
+      "max": 100,
+      "url": "https://api.worldbank.org/v2/en/indicator/SI.DST.02ND.20?downloadformat=csv",
+      "license": "CC-BY-4.0",
+      "licenseEvidence": "https://data.worldbank.org/indicator/SI.DST.02ND.20",
+      "attribution": "World Bank, World Development Indicators; Poverty and Inequality Platform. Published aggregate household income/consumption surveys.",
+      "sha256": "1b105f9e72b5aedf66bc5bdaf7e05f002ac6ed0d6760e44ccc2a5043049435f0",
+      "indicatorMetadata": [
+        {
+          "INDICATOR_CODE": "SI.DST.02ND.20",
+          "INDICATOR_NAME": "Income share held by second 20%",
+          "SOURCE_NOTE": "Percentage share of income or consumption is the share that accrues to subgroups of population indicated by deciles or quintiles. Percentage shares by quintile may not sum to 100 because of rounding.",
+          "SOURCE_ORGANIZATION": "World Bank, Poverty and Inequality Platform. Data are based on primary household survey data obtained from government statistical agencies and World Bank country departments. Data for high-income economies are mostly from the Luxembourg Income Study database. For more information and methodology, please see http://pip.worldbank.org., World Bank (WB), uri: http://pip.worldbank.org, note: Data are based on primary household survey data obtained from government statistical agencies and World Bank country departments. Data for high-income economies are mostly from the Luxembourg Income Study database.",
+          "": ""
+        }
+      ],
+      "sourceUpdated": "2026-11-11"
+    },
+    "wdi-income-q3": {
+      "id": "wdi-income-q3",
+      "stage": "work-income",
+      "file": "income-q3.zip",
+      "format": "wdi",
+      "indicator": "SI.DST.03RD.20",
+      "label": "Income or consumption share held by third 20%",
+      "unit": "percent_income_or_consumption",
+      "min": 0,
+      "max": 100,
+      "url": "https://api.worldbank.org/v2/en/indicator/SI.DST.03RD.20?downloadformat=csv",
+      "license": "CC-BY-4.0",
+      "licenseEvidence": "https://data.worldbank.org/indicator/SI.DST.03RD.20",
+      "attribution": "World Bank, World Development Indicators; Poverty and Inequality Platform. Published aggregate household income/consumption surveys.",
+      "sha256": "3c4d5104485a5daa0e48d4b88c367f16802727b27bb32968b9475c49fae0dd59",
+      "indicatorMetadata": [
+        {
+          "INDICATOR_CODE": "SI.DST.03RD.20",
+          "INDICATOR_NAME": "Income share held by third 20%",
+          "SOURCE_NOTE": "Percentage share of income or consumption is the share that accrues to subgroups of population indicated by deciles or quintiles. Percentage shares by quintile may not sum to 100 because of rounding.",
+          "SOURCE_ORGANIZATION": "World Bank, Poverty and Inequality Platform. Data are based on primary household survey data obtained from government statistical agencies and World Bank country departments. Data for high-income economies are mostly from the Luxembourg Income Study database. For more information and methodology, please see http://pip.worldbank.org., World Bank (WB), uri: http://pip.worldbank.org, note: Data are based on primary household survey data obtained from government statistical agencies and World Bank country departments. Data for high-income economies are mostly from the Luxembourg Income Study database.",
+          "": ""
+        }
+      ],
+      "sourceUpdated": "2026-11-11"
+    },
+    "wdi-income-q4": {
+      "id": "wdi-income-q4",
+      "stage": "work-income",
+      "file": "income-q4.zip",
+      "format": "wdi",
+      "indicator": "SI.DST.04TH.20",
+      "label": "Income or consumption share held by fourth 20%",
+      "unit": "percent_income_or_consumption",
+      "min": 0,
+      "max": 100,
+      "url": "https://api.worldbank.org/v2/en/indicator/SI.DST.04TH.20?downloadformat=csv",
+      "license": "CC-BY-4.0",
+      "licenseEvidence": "https://data.worldbank.org/indicator/SI.DST.04TH.20",
+      "attribution": "World Bank, World Development Indicators; Poverty and Inequality Platform. Published aggregate household income/consumption surveys.",
+      "sha256": "a44161bd50ac4978c775b5a30e42cc23db75fe6e1ebfd990a8b361fec1515d69",
+      "indicatorMetadata": [
+        {
+          "INDICATOR_CODE": "SI.DST.04TH.20",
+          "INDICATOR_NAME": "Income share held by fourth 20%",
+          "SOURCE_NOTE": "Percentage share of income or consumption is the share that accrues to subgroups of population indicated by deciles or quintiles. Percentage shares by quintile may not sum to 100 because of rounding.",
+          "SOURCE_ORGANIZATION": "World Bank, Poverty and Inequality Platform. Data are based on primary household survey data obtained from government statistical agencies and World Bank country departments. Data for high-income economies are mostly from the Luxembourg Income Study database. For more information and methodology, please see http://pip.worldbank.org., World Bank (WB), uri: http://pip.worldbank.org, note: Data are based on primary household survey data obtained from government statistical agencies and World Bank country departments. Data for high-income economies are mostly from the Luxembourg Income Study database.",
+          "": ""
+        }
+      ],
+      "sourceUpdated": "2026-11-11"
+    },
+    "wdi-income-q5": {
+      "id": "wdi-income-q5",
+      "stage": "work-income",
+      "file": "income-q5.zip",
+      "format": "wdi",
+      "indicator": "SI.DST.05TH.20",
+      "label": "Income or consumption share held by highest 20%",
+      "unit": "percent_income_or_consumption",
+      "min": 0,
+      "max": 100,
+      "url": "https://api.worldbank.org/v2/en/indicator/SI.DST.05TH.20?downloadformat=csv",
+      "license": "CC-BY-4.0",
+      "licenseEvidence": "https://data.worldbank.org/indicator/SI.DST.05TH.20",
+      "attribution": "World Bank, World Development Indicators; Poverty and Inequality Platform. Published aggregate household income/consumption surveys.",
+      "sha256": "60b9c07738ad03240add0ce291af26278a4618694f8d73817241498d4806290c",
+      "indicatorMetadata": [
+        {
+          "INDICATOR_CODE": "SI.DST.05TH.20",
+          "INDICATOR_NAME": "Income share held by highest 20%",
+          "SOURCE_NOTE": "Percentage share of income or consumption is the share that accrues to subgroups of population indicated by deciles or quintiles. Percentage shares by quintile may not sum to 100 because of rounding.",
+          "SOURCE_ORGANIZATION": "World Bank, Poverty and Inequality Platform. Data are based on primary household survey data obtained from government statistical agencies and World Bank country departments. Data for high-income economies are mostly from the Luxembourg Income Study database. For more information and methodology, please see http://pip.worldbank.org., World Bank (WB), uri: http://pip.worldbank.org, note: Data are based on primary household survey data obtained from government statistical agencies and World Bank country departments. Data for high-income economies are mostly from the Luxembourg Income Study database.",
+          "": ""
+        }
+      ],
+      "sourceUpdated": "2026-11-11"
+    }
+  },
+  "indicators": {
+    "UNE_DEAP_SEX_AGE_RT": {
+      "sourceId": "ilo-unemployment",
+      "label": "Unemployment rate by sex and age (%)",
+      "unit": "percent_labour_force",
+      "minimum": 0,
+      "maximum": 100,
+      "definition": "Unemployment rate (previous ILO definition - ICLS13)",
+      "usage": "Preserve source, sex, classification and notes. No pooling across definitions."
+    },
+    "EAP_DWAP_SEX_AGE_RT": {
+      "sourceId": "ilo-participation",
+      "label": "Labour force participation rate by sex and age (%)",
+      "unit": "percent_population_in_age_group",
+      "minimum": 0,
+      "maximum": 100,
+      "definition": "Labour force participation rate (previous ILO definition - ICLS13)",
+      "usage": "Preserve source, sex, classification and notes. No pooling across definitions."
+    },
+    "EMP_TEMP_SEX_OCU_NB": {
+      "sourceId": "ilo-occupations",
+      "label": "Employment by sex and occupation (thousands)",
+      "unit": "thousand_employed_persons",
+      "minimum": 0,
+      "maximum": null,
+      "definition": "Employment (previous ILO definition - ICLS13)",
+      "usage": "Preserve source, sex, classification and notes. No pooling across definitions."
+    },
+    "EAR_EMTA_SEX_CUR_NB": {
+      "sourceId": "ilo-earnings-mean",
+      "label": "Average monthly earnings of employees by sex and currency",
+      "unit": "local_currency_per_employee_month",
+      "minimum": 0,
+      "maximum": null,
+      "definition": "Average monthly earnings of employees",
+      "usage": "Preserve source, sex, classification and notes. No pooling across definitions."
+    },
+    "EAR_EMTM_SEX_CUR_NB": {
+      "sourceId": "ilo-earnings-median",
+      "label": "Median monthly earnings of employees by sex and currency",
+      "unit": "local_currency_per_employee_month",
+      "minimum": 0,
+      "maximum": null,
+      "definition": "Median monthly earnings of employees",
+      "usage": "Preserve source, sex, classification and notes. No pooling across definitions."
+    },
+    "EAR_EMTA_SEX_OCU_CUR_NB": {
+      "sourceId": "ilo-earnings-occupation",
+      "label": "Average monthly earnings of employees by sex, occupation and currency",
+      "unit": "local_currency_per_employee_month",
+      "minimum": 0,
+      "maximum": null,
+      "definition": "Average monthly earnings of employees",
+      "usage": "Preserve source, sex, classification and notes. No pooling across definitions."
+    },
+    "SI.POV.GINI": {
+      "sourceId": "wdi-gini",
+      "label": "Gini index",
+      "unit": "index_0_100",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "SI.DST.FRST.20": {
+      "sourceId": "wdi-income-q1",
+      "label": "Income or consumption share held by lowest 20%",
+      "unit": "percent_income_or_consumption",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "SI.DST.02ND.20": {
+      "sourceId": "wdi-income-q2",
+      "label": "Income or consumption share held by second 20%",
+      "unit": "percent_income_or_consumption",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "SI.DST.03RD.20": {
+      "sourceId": "wdi-income-q3",
+      "label": "Income or consumption share held by third 20%",
+      "unit": "percent_income_or_consumption",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "SI.DST.04TH.20": {
+      "sourceId": "wdi-income-q4",
+      "label": "Income or consumption share held by fourth 20%",
+      "unit": "percent_income_or_consumption",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "SI.DST.05TH.20": {
+      "sourceId": "wdi-income-q5",
+      "label": "Income or consumption share held by highest 20%",
+      "unit": "percent_income_or_consumption",
+      "minimum": 0,
+      "maximum": 100
+    }
+  },
+  "rowCount": 156402,
+  "coverageCount": 432,
+  "qualityCounts": {
+    "VALID": 150322,
+    "MISSING": 4281,
+    "REJECTED": 1799
+  },
+  "hashes": {
+    "observations.json.gz": "f66a9f8c13a89f872fc7e51fff6bbdd3596a080b13a7b1ab0ad2dc9916dbc4ec",
+    "coverage.json": "fbaa60c3259681e36c547eea981aca1e9b765a02f390e84328f827cadc7d8555"
+  }
+}

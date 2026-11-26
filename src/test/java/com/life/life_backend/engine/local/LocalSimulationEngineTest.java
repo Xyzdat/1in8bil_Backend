@@ -14,6 +14,8 @@ class LocalSimulationEngineTest {
 
     @Test
     void childhoodIsDeterministicAndHasNoEarlyChoicesOrSevenYearCutoff() {
+        var decisionCounts=new HashSet<Long>();
+        boolean sawYearWithoutChoice=false;
         for (long seed = 0; seed < 100; seed++) {
             var first = run(seed, "draw");
             assertThat(first).isEqualTo(run(seed, "draw"));
@@ -27,15 +29,26 @@ class LocalSimulationEngineTest {
                 assertThat(first.state().history().stream().filter(e -> e.age() == year && !e.id().endsWith("-answer")).count()).isEqualTo(6);
                 assertThat(first.state().history().stream().filter(e -> e.age() == year && !e.id().endsWith("-answer"))
                         .map(LifeState.HistoryEvent::title)).doesNotHaveDuplicates();
+                long questions=first.state().history().stream().filter(e->e.age()==year&&e.link()!=null&&e.link().phase().equals("OFFER")).count();
+                assertThat(questions).isLessThanOrEqualTo(2);
+                if(year>=3&&questions==0)sawYearWithoutChoice=true;
             }
-            assertThat(first.state().history().stream().filter(e -> e.id().endsWith("-answer")).count()).isGreaterThanOrEqualTo(8);
+            decisionCounts.add(first.state().history().stream().filter(e -> e.id().endsWith("-answer")).count());
         }
+        assertThat(sawYearWithoutChoice).isTrue();assertThat(decisionCounts.size()).isGreaterThan(1);
     }
 
     @Test
     void choicesChangeSkillsAndLaterEvents() {
-        var drawing = run(5, "draw");
-        var building = run(5, "blocks");
+        // A persisted offered question isolates consequences from probabilistic scheduling.
+        var sim=new LocalSimulation(5,LocalSimulation.VERSION,LocalSimulation.STATISTICS,new LocalSimulation.BirthRequest("RUS",2026),38,
+                List.of(new LocalSimulation.Person("mother","mother","Мама",-300,true,65,65)),Map.of(),Set.of(),Map.of(),List.of(),"drawing_choice");
+        var state=new LifeState(3,LifeState.Status.ACTIVE,new LifeState.Stats(70,70,50,65,50,0),
+                new LifeState.Decision("local-38-drawing_choice","Рисовать?",List.of(new LifeState.Option("draw","Рисовать"),new LifeState.Option("blocks","Конструктор"))),List.of());
+        var draw=engine.answer(state,sim,state.pendingDecision().id(),"draw");
+        var build=engine.answer(state,sim,state.pendingDecision().id(),"blocks");
+        var drawing=engine.step(draw.state(),draw.simulation());
+        var building=engine.step(build.state(),build.simulation());
         assertThat(drawing.simulation().skills()).containsKey("drawing");
         assertThat(building.simulation().skills()).doesNotContainKey("drawing");
         assertThat(drawing.state().history()).anyMatch(e -> e.id().contains("drawing_return"));

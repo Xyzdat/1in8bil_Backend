@@ -24,36 +24,37 @@ public class AdultLifeEngine {
     private final NpcLifeSystem npcs=new NpcLifeSystem();
     private final AdultDailyEvents daily=new AdultDailyEvents();
     private final ContactSystem contacts=new ContactSystem();
+    private final LaterLifeSystem laterLife=new LaterLifeSystem();
     public AdultLifeEngine(AdultStoryCatalog catalog,LocalSimulationEngine mortality,CountryReference references,CountryCatalog countries,SpendingService spending) {
         this.catalog=catalog;this.mortality=mortality;this.references=references;this.countries=countries;this.spending=spending;economy=new AdultEconomy(spending);
     }
     public Transition step(LifeState state,LocalSimulation sim,AdultState adult,LocalBudget budget,FinanceView.Location location) {
         var w=world(state,sim,adult,budget,location);
-        if(state.pendingDecision()!=null)throw conflict("DECISION_REQUIRED","Answer the pending decision first.");
+        if (state.stats().health() <= 0) return transition(w);
+        RetirementPolicy.apply(w,catalog);
+        if(w.state.pendingDecision()!=null)throw conflict("DECISION_REQUIRED","Answer the pending decision first.");
         Map<String,Integer> healthById=new HashMap<>();w.npcs.forEach((id,n) -> healthById.put(id,n.health()));
-        var causeContext = new DeathCauseModel.Context(w.diseases.stream().map(d -> new DeathCauseModel.Condition(
-                d.id(), d.kind(), d.onsetMonth(), d.severity(), d.endedMonth() == null && !d.stage().equals("RECOVERED"),
-                d.chronic(), d.treatment().equals("SUPERVISED"))).toList(),
-                w.career.status().equals("EMPLOYED") ? w.career.risk() : 0);
-        var checked=mortality.checkMortality(state,sim,healthById,causeContext);
+        var checked=mortality.checkMortality(w.state,w.sim,healthById,causeContext(w));
         int target=checked.state().status()==LifeState.Status.COMPLETE?checked.simulation().month():sim.month()+2;
         // Earn/spend only for the elapsed interval; an event at its end affects future payments.
         economy.settle(w,target);
         w.state=checked.state();w.sim=checked.simulation();w.time(target);
         if(w.state.status()==LifeState.Status.COMPLETE) {
-            w.stories.replaceAll(s -> s.status().equals("ACTIVE")?finish(s,"CANCELLED",w.month(),s.variables()):s);
-            w.pending=null;w.flags.remove("pregnancy");CareerSystem.leave(w,"Жизнь завершена");
             return transition(w);
         }
         npcs.step(w,sim.month());HealthSystem.interval(w);
+        if (w.state.stats().health() <= 0) return transition(w);
+        RetirementPolicy.apply(w,catalog);
         ContactSystem.step(w);
         cancelInvalid(w);
+        deferQuestions(w);
         var due=w.stories.stream().filter(s -> s.status().equals("ACTIVE")&&s.dueMonth()<=w.month())
                 .sorted(Comparator.comparingInt(Story::dueMonth).thenComparing(Story::id)).findFirst();
         if(due.isPresent())review(w,due.get());
         else {
             var eligible=catalog.all().stream().filter(d -> eligible(d,w)).toList();
-            if(!eligible.isEmpty()&&w.stories.stream().filter(s -> s.status().equals("ACTIVE")).count()<4&&w.chance(.68)) {
+            if(!eligible.isEmpty()&&w.stories.stream().filter(s -> s.status().equals("ACTIVE")).count()<4
+                    &&DecisionPacing.allowed(w.state,w.sim,w.month())&&w.chance(AdultDecisionPacing.probability(w))) {
                 int draw=w.random.nextInt(eligible.stream().mapToInt(d -> weight(d,w)).sum());
                 for(var d:eligible) { draw-=weight(d,w);if(draw<0){start(w,d);break;} }
             } else daily.next(w);
@@ -62,12 +63,16 @@ public class AdultLifeEngine {
     }
     public Transition answer(LifeState state,LocalSimulation sim,AdultState adult,LocalBudget budget,FinanceView.Location location,String decisionId,String optionId) {
         var w=world(state,sim,adult,budget,location);
+        if (state.stats().health() <= 0) return transition(w);
         if(w.pending==null||state.pendingDecision()==null||!state.pendingDecision().id().equals(decisionId))throw conflict("DECISION_CHANGED","This decision is not pending.");
         var story=w.stories.stream().filter(s -> s.id().equals(w.pending.storyId())&&s.status().equals("ACTIVE")).findFirst().orElseThrow();
         var d=catalog.get(story.template());
         AdultStoryCatalog.Choice choice=choices(d,story).stream().filter(c -> c.id().equals(optionId)).findFirst()
                 .orElseThrow(() -> new ApiFailure(HttpStatus.BAD_REQUEST,"INVALID_OPTION","Unknown option."));
         if(!w.pending.options().contains(choice.id()))throw conflict("DECISION_CHANGED","This option was not offered.");
+        RetirementPolicy.apply(w,catalog);
+        // An old save may contain an obsolete employment offer after pension age. Close it without charging/answering it.
+        if(w.pending==null) return transition(w);
         long cost=Long.parseLong(story.variables().getOrDefault("cost:"+choice.id(),"0"));
         if(w.budget.available()<cost)throw conflict("SPENDING_INSUFFICIENT_FUNDS","Недостаточно средств для этого решения.");
         validatePurchaseChoice(w,choice.action());
@@ -86,6 +91,7 @@ public class AdultLifeEngine {
         replace(w,next);w.event("Твоё решение: "+state.pendingDecision().title(),result.text(),before,old,
                 link(w,next,d,"DECISION",choice.action(),state.pendingDecision(),choice));
         cancelInvalid(w);
+        RetirementPolicy.apply(w,catalog);
         return transition(w);
     }
     private AdultWorld world(LifeState state,LocalSimulation sim,AdultState adult,LocalBudget budget,FinanceView.Location location) {
@@ -100,6 +106,7 @@ public class AdultLifeEngine {
         for(var offer:spending.shop(new SpendingService.LocalContext(0,state,budget,location),"property").offers())
             prices.put(offer.id(),offer.price().movePointRight(2).longValueExact());
         world.propertyPrices=Map.copyOf(prices);
+        AdultDecisionPacing.restoreCounts(world);
         return world;
     }
     private boolean eligible(AdultStoryCatalog.Definition d,AdultWorld w) {
@@ -113,7 +120,9 @@ public class AdultLifeEngine {
         int value=d.weight();
         if(d.domain().equals("HEALTH")&&w.age()>=50)value*=2;
         if(d.domain().equals("EDUCATION")&&w.age()<30)value*=2;
-        if(d.id().equals("employment")&&w.budget.balance()<0)value*=3;
+        if(d.id().equals("employment")&&!w.employed()&&RetirementPolicy.canWork(w))value*=4;
+        if(d.domain().equals("HEALTH")&&w.state.stats().health()<50)value*=3;
+        if(d.condition().equals("debt")&&w.budget.balance()<0)value*=3;
         if(d.domain().equals("RELATIONSHIPS")&&w.traits.sociability()>65)value+=3;
         if(w.stories.stream().noneMatch(s -> s.template().equals(d.id())))value*=2;
         return value;
@@ -131,12 +140,18 @@ public class AdultLifeEngine {
                 participant==null?List.of():List.of(participant.id()),Map.of(),List.of("CHOICE"));
         var p=new StoryProgress(story);var before=w.state.stats();var old=w.sim;
         if(d.trigger()!=null)act(d.trigger(),w,p);
+        if(w.state.stats().health()<=0) {
+            replace(w,finish(story,"CANCELLED",w.month(),p.variables));
+            w.event(d.title(),render(d.text(),participant==null?"":participant.name()),before,old);
+            return;
+        }
         if(d.id().equals("bereavement")&&participant!=null)w.flags.add("grieved:"+participant.id());
         offer(w,story,d.choices(),p.variables,d.title());
         w.event(d.title(),render(d.text(),participant==null?"":participant.name()),before,old,
                 link(w,story,d,"OFFER",d.trigger(),w.state.pendingDecision(),null));
     }
     private void offer(AdultWorld w,Story story,List<AdultStoryCatalog.Choice> choices,Map<String,String> vars,String title) {
+        w.sim=DecisionPacing.recordOffer(w.state,w.sim,w.month());
         var options=new ArrayList<LifeState.Option>();
         for(var choice:choices) {
             long cost=w.cost(choice.costUnits()); vars.put("cost:"+choice.id(),String.valueOf(cost));
@@ -163,6 +178,16 @@ public class AdultLifeEngine {
         replace(w,updated);w.event(first&&story.variables().containsKey("reviewAction")?"Результат подготовки":first?d.reviewTitle():d.laterTitle(),result.text(),before,old,
                 link(w,updated,d,"OUTCOME",action,null,null));
     }
+    private void deferQuestions(AdultWorld w) {
+        if(DecisionPacing.allowed(w.state,w.sim,w.month()))return;
+        for(var s:List.copyOf(w.stories)) {
+            if(!s.status().equals("ACTIVE")||s.dueMonth()>w.month())continue;
+            var d=catalog.get(s.template());
+            String action=s.stage().equals("REVIEW")?s.variables().getOrDefault("reviewAction",d.reviewAction()):d.laterAction();
+            if("cohabit".equals(action)) replace(w,new Story(s.id(),s.template(),s.stage(),s.status(),s.beganMonth(),w.month()+2,
+                    s.endedMonth(),s.participants(),s.variables(),s.visitedStages()));
+        }
+    }
     private List<AdultStoryCatalog.Choice> choices(AdultStoryCatalog.Definition d,Story s) {
         return s.stage().equals("COHABIT_CHOICE")?List.of(new AdultStoryCatalog.Choice("move","Начать совместный быт","cohabit",0),
                 new AdultStoryCatalog.Choice("stay","Пока жить отдельно","pass",0)):d.choices();
@@ -177,6 +202,7 @@ public class AdultLifeEngine {
             w.flags.removeIf(f->f.startsWith("job-referral-source:"));
         }
         if(ContactSystem.ACTIONS.contains(action))return contacts.act(action,w,p);
+        if(LaterLifeSystem.ACTIONS.contains(action))return laterLife.act(action,w,p);
         if(CareerSystem.ACTIONS.contains(action))return career.act(action,w,p);
         if(FamilySystem.ACTIONS.contains(action))return family.act(action,w,p);
         if(HealthSystem.ACTIONS.contains(action))return health.act(action,w,p);
@@ -212,7 +238,23 @@ public class AdultLifeEngine {
     private static Story finish(Story s,String status,int month,Map<String,String> vars){return new Story(s.id(),s.template(),s.stage(),status,s.beganMonth(),s.dueMonth(),month,s.participants(),vars,s.visitedStages());}
     private static void replace(AdultWorld w,Story s){w.stories.removeIf(old -> old.id().equals(s.id()));w.stories.add(s);}
     private static String render(String text,String name){return text.replace("{person}",name);}
-    private static Transition transition(AdultWorld w){return new Transition(w.state,w.sim,w.snapshot(),w.budget);}
+    public Transition completeIfHealthDepleted(LifeState state,LocalSimulation sim,AdultState adult,LocalBudget budget,FinanceView.Location location) {
+        return transition(world(state,sim,adult,budget,location));
+    }
+    private DeathCauseModel.Context causeContext(AdultWorld w) {
+        return new DeathCauseModel.Context(w.diseases.stream().map(d -> new DeathCauseModel.Condition(
+                d.id(),d.kind(),d.onsetMonth(),d.severity(),d.endedMonth()==null&&!d.stage().equals("RECOVERED"),d.chronic(),d.treatment().equals("SUPERVISED"))).toList(),
+                w.employed()?w.career.risk():0);
+    }
+    private Transition transition(AdultWorld w){
+        var checked=mortality.completeIfHealthDepleted(w.state,w.sim,causeContext(w));
+        w.state=checked.state();w.sim=checked.simulation();
+        if(w.state.status()==LifeState.Status.COMPLETE) {
+            w.stories.replaceAll(s -> s.status().equals("ACTIVE")?finish(s,"CANCELLED",w.month(),s.variables()):s);
+            w.pending=null;w.flags.remove("pregnancy");CareerSystem.leave(w,"Жизнь завершена");
+        }
+        return new Transition(w.state,w.sim,w.snapshot(),w.budget);
+    }
     private static ApiFailure conflict(String code,String text){return new ApiFailure(HttpStatus.CONFLICT,code,text);}
     public record Transition(LifeState state,LocalSimulation simulation,AdultState adult,LocalBudget budget){}
 }

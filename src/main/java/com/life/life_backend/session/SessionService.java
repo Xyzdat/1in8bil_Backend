@@ -34,12 +34,15 @@ class SessionService {
 	private final com.life.life_backend.engine.local.BirthContextFactory birthContext;
 	private final com.life.life_backend.engine.adult.AdultLifeEngine adultEngine;
 	private final com.life.life_backend.highlights.HighlightTracker highlights;
+    private final BirthCustomizationService customization;
+    private final SessionPresentation presentation;
 
 	SessionService(LifeSessionRepository sessions, SessionActionRepository actions, GuestIdentity identity,
 			LocalLifeEngine localEngine, OneInEightBillionEngine externalEngine, SpendingService spending,
 			CharacterGenerator generator, LocalSimulationEngine simulationEngine,
 			com.life.life_backend.engine.local.BirthContextFactory birthContext,
-            com.life.life_backend.engine.adult.AdultLifeEngine adultEngine,com.life.life_backend.highlights.HighlightTracker highlights) {
+            com.life.life_backend.engine.adult.AdultLifeEngine adultEngine,com.life.life_backend.highlights.HighlightTracker highlights,
+            BirthCustomizationService customization, SessionPresentation presentation) {
 		this.sessions = sessions;
 		this.actions = actions;
 		this.identity = identity;
@@ -51,6 +54,8 @@ class SessionService {
 		this.birthContext = birthContext;
 		this.adultEngine = adultEngine;
 		this.highlights = highlights;
+        this.customization = customization;
+        this.presentation = presentation;
 	}
 
 	@Transactional
@@ -59,8 +64,8 @@ class SessionService {
 		var existing = sessions.findByOwnerIdAndCreationKey(ownerId, requestKey);
 		if (existing.isPresent()) {
 			var session = existing.get();
-			if (session.simulation() == null || !session.simulation().request().equals(request)) throw idempotencyConflict();
-			return new Creation(session.view(), false);
+			if (session.simulation() == null || !session.originalBirthRequest().equals(request)) throw idempotencyConflict();
+			return new Creation(presentation.view(session), false);
 		}
 		long seed = UUID.nameUUIDFromBytes((ownerId + ":" + requestKey).getBytes(StandardCharsets.UTF_8)).getMostSignificantBits();
 		var birth = generator.generate(seed, request);
@@ -68,7 +73,7 @@ class SessionService {
 				"local", new LifeEngine.Checkpoint(birth.state(), null));
 		session.initializeSimulation(birth.simulation());
 		sessions.save(session);
-		return new Creation(session.view(), true);
+		return new Creation(presentation.view(session), true);
 	}
 
 	@Transactional
@@ -81,12 +86,12 @@ class SessionService {
 			if (!localEngine.id().equals(session.engineId()) || !session.matchesSetup(request)) {
 				throw idempotencyConflict();
 			}
-			return new Creation(session.view(), false);
+			return new Creation(presentation.view(session), false);
 		}
 		var checkpoint = localEngine.start(request.character(), request.startingStats());
 		var setup = new LifeSession.Setup(request.character(), request.startingStats(), null);
 		var session = sessions.save(new LifeSession(ownerId, requestKey, setup, localEngine.id(), checkpoint));
-		return new Creation(session.view(), true);
+		return new Creation(presentation.view(session), true);
 	}
 
 	@Transactional
@@ -98,17 +103,17 @@ class SessionService {
 			if (!externalEngine.id().equals(session.engineId())) {
 				throw idempotencyConflict();
 			}
-			return new Creation(session.view(), false);
+			return new Creation(presentation.view(session), false);
 		}
 		var life = externalEngine.generate(ownerId, requestKey);
 		var setup = new LifeSession.Setup(life.character(), null, life.birthDetails());
 		var session = sessions.save(new LifeSession(ownerId, requestKey, setup, externalEngine.id(), life.checkpoint()));
-		return new Creation(session.view(), true);
+		return new Creation(presentation.view(session), true);
 	}
 
 	@Transactional(readOnly = true)
 	SessionView get(UUID ownerId, UUID sessionId) {
-		return findSession(ownerId, sessionId).view();
+		return presentation.view(findSession(ownerId, sessionId));
 	}
 
 	@Transactional(readOnly = true)
@@ -142,22 +147,35 @@ class SessionService {
 			if (!previous.get().matches(command)) {
 				throw idempotencyConflict();
 			}
-			return session.view();
+			return presentation.view(session);
 		}
 		if (command.expectedVersion() != session.revision()) {
 			throw conflict("VERSION_CONFLICT", "Refresh the session before sending another action.");
 		}
 		var beforeHighlights=session.highlightFrame();
-		if (command.changes() != null) {
+		if (completeDepletedHealth(session,true)) {
+			// Legacy zero-health saves end before any healing purchase/edit can resurrect them.
+		} else if (command.changes() != null) {
 			editCharacter(session, command.changes());
 		} else if (command.purchase() != null) {
 			purchase(session, requestKey, command.purchase());
 		} else {
 			advanceLife(session, command);
 		}
+		completeDepletedHealth(session,false);
 		session.updateHighlights(highlights,beforeHighlights);
 		actions.save(new SessionAction(sessionId, requestKey, command));
-		return session.view();
+		return presentation.view(session);
+	}
+
+	private boolean completeDepletedHealth(LifeSession session, boolean incrementVersion) {
+		var state=session.checkpoint().state();
+		if(session.simulation()==null||state.status()==LifeState.Status.COMPLETE||state.stats().health()>0)return false;
+		if(session.adultState()!=null||session.simulation().month()>=216) {
+			var context=session.localEconomy();
+			session.applyAdult(adultEngine.completeIfHealthDepleted(state,session.simulation(),session.adultState(),context.budget(),context.location()),incrementVersion);
+		} else session.applySimulation(simulationEngine.completeIfHealthDepleted(state,session.simulation(),com.life.life_backend.engine.local.DeathCauseModel.Context.EMPTY),incrementVersion);
+		return true;
 	}
 
 	private void editCharacter(LifeSession session, CharacterChanges changes) {
@@ -165,9 +183,14 @@ class SessionService {
 			throw new ApiFailure(HttpStatus.BAD_REQUEST, "INVALID_REQUEST", "Supply at least one character change.");
 		}
 		boolean local = isLocal(session);
-		if (!local && changes.stats() != null && changes.stats().editsEngineStats()) {
-			throw conflict("CHARACTER_FIELDS_READ_ONLY", "This engine controls health and intelligence.");
+		if (!local && (changes.changesBirth() || changes.stats() != null && changes.stats().editsEngineStats())) {
+			throw conflict("CHARACTER_FIELDS_READ_ONLY", "This engine controls birth, family and simulation stats.");
 		}
+        if(changes.changesBirth()) {
+            if(session.simulation()==null) throw conflict("BIRTH_CUSTOMIZATION_UNSUPPORTED","Birth and family editing requires a generated local life.");
+            session.customizeBirth(customization.edit(session.characterProfile(),session.birthDetails(),session.checkpoint().state(),
+                    session.simulation(),session.originalBirthRequest(),changes));
+        }
 		session.editCharacter(changes, local);
 	}
 

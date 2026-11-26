@@ -14,8 +14,9 @@ public class StatisticsImporter {
     private final ObjectMapper json;
     private final ExpandedStatisticsImporter expanded;
     private final CountryExpansionImporter countries;
-    public StatisticsImporter(JdbcTemplate jdbc, ObjectMapper json, ExpandedStatisticsImporter expanded, CountryExpansionImporter countries) {
-        this.jdbc = jdbc; this.json = json; this.expanded = expanded; this.countries = countries;
+    private final SocioeconomicImporter socioeconomic;
+    public StatisticsImporter(JdbcTemplate jdbc, ObjectMapper json, ExpandedStatisticsImporter expanded, CountryExpansionImporter countries, SocioeconomicImporter socioeconomic) {
+        this.jdbc = jdbc; this.json = json; this.expanded = expanded; this.countries = countries; this.socioeconomic = socioeconomic;
     }
 
     @Transactional
@@ -59,6 +60,11 @@ public class StatisticsImporter {
         if (count == null || count != 12) throw new IllegalStateException("Statistics import verification failed");
         expanded.importBundled();
         countries.importBundled();
+        // Explicit setup command/test fixture only. Gameplay never downloads or imports statistics.
+        for (String release : List.of(SocioeconomicBundle.FAMILY, SocioeconomicBundle.WORK, SocioeconomicBundle.CHINA_OCCUPATIONS)) {
+            if (!Boolean.TRUE.equals(jdbc.queryForObject("select exists(select 1 from socioeconomic_release where id=?)", Boolean.class, release)))
+                socioeconomic.importBundled(release);
+        }
         return manifest.id();
     }
     public record Manifest(String id, String sourceUrl, String license, String sourceUpdated, String retrievedAt, String sha256) { }

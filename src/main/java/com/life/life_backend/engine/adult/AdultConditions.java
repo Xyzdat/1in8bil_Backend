@@ -6,21 +6,21 @@ import com.life.life_backend.engine.local.LocalSimulation;
 final class AdultConditions {
     static final Set<String> KEYS=Set.of("study","job","promotion","work","layoff","training","business","business_crisis","burnout",
             "romance","marriage","couple","family","adoption","child_education","teen","health","injury","debt","home","vehicle",
-            "investment","friend","parent","retirement","inheritance","bereavement","contact");
+            "investment","friend","parent","retirement","inheritance","bereavement","contact","later_life");
     static boolean test(String key,AdultWorld w) {
         return switch(key) {
             case "study" -> !w.education.level().equals("HIGHER")&&!w.education.status().equals("IN_PROGRESS");
-            case "job" -> !w.employed();
+            case "job" -> !w.employed() && RetirementPolicy.canWork(w);
             case "promotion" -> w.career.status().equals("EMPLOYED")&&w.month()-w.career.beganMonth()>=12&&w.career.qualification()<10;
             case "work" -> w.employed();
-            case "layoff" -> w.career.status().equals("EMPLOYED")&&w.career.stability()<85;
+            case "layoff" -> w.career.status().equals("EMPLOYED")&&w.career.stability()<55;
             case "training" -> w.career.qualification()<10;
-            case "business" -> !w.career.status().equals("BUSINESS")&&w.budget.available()>=w.cost(20);
+            case "business" -> RetirementPolicy.canWork(w)&&!w.career.status().equals("BUSINESS")&&w.budget.available()>=w.cost(20);
             case "business_crisis" -> w.career.status().equals("BUSINESS")&&(w.career.stability()<55||w.budget.balance()<0);
             case "burnout" -> w.employed()&&(w.career.satisfaction()<60||w.state.stats().health()<60);
             case "romance" -> !w.coupled()&&w.sim.family().size()<120;
             case "marriage" -> w.coupled()&&!w.partnership.status().equals("MARRIED")&&w.month()-w.partnership.beganMonth()>=6;
-            case "couple" -> w.coupled()&&(w.partnership.conflict()>15||w.budget.balance()<0||w.month()-w.partnership.beganMonth()>24);
+            case "couple" -> w.coupled()&&(w.partnership.conflict()>15||w.budget.balance()<0||w.partnership.satisfaction()<45);
             case "family" -> w.coupled()&&FamilySystem.canConceive(w,w.person(w.partnership.partnerId()))&&w.children().stream().allMatch(p -> w.month()-p.birthMonth()>=18);
             case "adoption" -> w.state.stats().health()>=40&&w.budget.balance()>w.cost(5)&&w.children().size()<5&&w.sim.family().size()<120;
             case "child_education" -> participant("student",w)!=null;
@@ -34,6 +34,7 @@ final class AdultConditions {
             case "friend" -> w.sim.family().size()<120||participant("friend",w)!=null;
             case "parent" -> participant("parent",w)!=null;
             case "retirement" -> w.age()>=60&&w.career.monthlyPension()==0&&w.career.experienceMonths()>0;
+            case "later_life" -> w.career.status().equals("RETIRED");
             case "inheritance" -> participant("inheritance",w)!=null;
             case "bereavement" -> participant("deceased",w)!=null;
             case "contact" -> participant("distant",w)!=null;

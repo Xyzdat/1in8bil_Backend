@@ -51,7 +51,9 @@ class CountryExpansionIntegrationTest {
             assertThat(born.simulation().birthFacts().selectionProbability().value()).isEqualTo(1);
             assertThat(born.simulation().birthFacts().worldBirthProbability().value()).isCloseTo(country.births()/country.worldBirths(), within(1e-12));
             var names = born.character().gender().equals("Мужчина") ? catalog.get(country.iso3()).maleNames() : catalog.get(country.iso3()).femaleNames();
-            assertThat(names).contains(born.character().name());
+            var generatedName = born.simulation().naming().people().get("character");
+            assertThat(names).contains(generatedName.given());
+            assertThat(born.character().name()).isEqualTo(generatedName.display());
             assertThat(engine.step(born.state(), born.simulation()).simulation().month()).isBetween(1, 2);
             selectionTotal += country.births()/reference.all().stream().mapToDouble(CountryReference.Profile::births).sum();
         }

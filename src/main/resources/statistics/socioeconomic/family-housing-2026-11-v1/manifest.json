@@ -1,0 +1,767 @@
+{
+  "schemaVersion": 1,
+  "id": "family-housing-2026-11-v1",
+  "stage": "family-housing",
+  "retrievedOn": "2026-11-26",
+  "minYear": 2000,
+  "maxYear": 2025,
+  "countries": [
+    "ARG",
+    "AUS",
+    "BGD",
+    "BRA",
+    "CAN",
+    "CHL",
+    "CHN",
+    "COD",
+    "COL",
+    "EGY",
+    "ETH",
+    "GHA",
+    "IDN",
+    "IND",
+    "IRN",
+    "JPN",
+    "KAZ",
+    "KEN",
+    "KOR",
+    "MAR",
+    "MEX",
+    "MYS",
+    "NGA",
+    "NZL",
+    "PAK",
+    "PER",
+    "PHL",
+    "RUS",
+    "SAU",
+    "THA",
+    "TZA",
+    "UGA",
+    "USA",
+    "UZB",
+    "VNM",
+    "ZAF"
+  ],
+  "sources": {
+    "un-households-2026": {
+      "id": "un-households-2026",
+      "stage": "family-housing",
+      "file": "households-2026.xlsx",
+      "format": "un-households",
+      "url": "https://population.un.org/Household/assets/UNDESA_PD_2026_hh-size-composition.xlsx",
+      "license": "CC-BY-3.0-IGO",
+      "licenseEvidence": "Important Note!A3 and HH size and composition 2026!A3 in the source workbook",
+      "attribution": "United Nations (2026). Database on the Households Size and Composition 2026. UN DESA/POP/2026/DC/NO.15.",
+      "sha256": "fde0eedd2d3e7f32ad5d8bd8f9ba694dae7f4046190e9adb12175adcce0fb63c",
+      "licenseText": "Database on the Households Size and Composition 2026\n\nINFORMATION NOTE\n\nCopyright © 2026 by United Nations, made available under a Creative Commons license (CC BY 3.0 IGO) http://creativecommons.org/licenses/by/3.0/igo.",
+      "definitions": [
+        [
+          "Column fields",
+          "Description"
+        ],
+        [
+          "Country and area",
+          "Country and area name"
+        ],
+        [
+          "Location ID",
+          "Country and area ID"
+        ],
+        [
+          "ISO3 Code",
+          "3-letter unique code assigned to each country, territory or area by the International Organization for Standardization (ISO). "
+        ],
+        [
+          "ISO2 Code",
+          "2-letter unique code assigned to each country, territory or area by the International Organization for Standardization (ISO). "
+        ],
+        [
+          "SDG region ID",
+          "SDG region ID"
+        ],
+        [
+          "SDG region name",
+          "SDG region name"
+        ],
+        [
+          "Data source category",
+          "DHS: Demographic and Health Survey; DYB: UN Demographic Yearbook; IPUMS: Integrated Public Use Microdata Series - International; LFS: European Union Labour Force Survey; Others from desk research"
+        ],
+        [
+          "Data source catalog ID",
+          "Data source catalog ID"
+        ],
+        [
+          "Reference year",
+          "Reference year of data"
+        ],
+        [
+          "Data source detailed name",
+          "Name of the data source in detail"
+        ],
+        [
+          "Average household size (number of members)",
+          "The average number of usual residents (household members) in older persons' households"
+        ],
+        [
+          "Households by size",
+          null
+        ],
+        [
+          "1 member",
+          "Percentage of households with exactly 1 member"
+        ],
+        [
+          "2-3 members",
+          "Percentage of households with 2 or 3 members"
+        ],
+        [
+          "4-5 members",
+          "Percentage of households with 4 or 5 members"
+        ],
+        [
+          "6 or more members",
+          "Percentage of households with 6 or more members"
+        ],
+        [
+          "Female head of household",
+          "Percentage of older persons living in a household with a female head"
+        ],
+        [
+          "Households by age of the head of household",
+          null
+        ],
+        [
+          "Under 20 years (aged 0-19)",
+          "Percentage of households with a with a household head under age 20 years (aged 0-19 years)"
+        ],
+        [
+          "Aged 20-64 years",
+          "Percentage of households with a household head aged 20-64 years (the\"working ages\", as commonly defined)"
+        ],
+        [
+          "Aged 60 years or over",
+          "Percentage of households with a household head aged 60 years or over"
+        ],
+        [
+          "Aged 65 years or over",
+          "Percentage of households with a household head aged 65 years or over"
+        ],
+        [
+          "Households with at least one member aged",
+          null
+        ],
+        [
+          "Under 15 years (aged 0-14)",
+          "Percentage of households with at least one member under age 15 years (aged 0-14)"
+        ],
+        [
+          "Under 18 years (aged 0-17)",
+          "Percentage of households with at least one member under age 18 years (aged 0-17)"
+        ],
+        [
+          "Under 20 years (aged 0-19)",
+          "Percentage of households with at least one member under age 20 years (aged 0-19)"
+        ],
+        [
+          "Aged 60 years or over",
+          "Percentage of households with at least one member aged 60 years or over"
+        ],
+        [
+          "Aged 65 years or over",
+          "Percentage of households with at least one member aged 65 years or over"
+        ],
+        [
+          "Households with members in age ranges",
+          null
+        ],
+        [
+          "Under 15 years AND 60 years or over",
+          "Percentage of households with at least one member under age 15 years (aged 0-14) AND at least one member aged 60 years or over"
+        ],
+        [
+          "Under 15 years AND 65 years or over",
+          "Percentage of households with at least one member under age 15 years (aged 0-14) AND at least one member aged 65 years or over"
+        ],
+        [
+          "Under 18 years AND 60 years or over",
+          "Percentage of households with at least one member under age 18 years (aged 0-17) AND at least one member aged 60 years or over"
+        ],
+        [
+          "Under 18 years AND 65 years or over",
+          "Percentage of households with at least one member under age 18 years (aged 0-17) AND at least one member aged 65 years or over"
+        ],
+        [
+          "Under 20 years AND 60 years or over",
+          "Percentage of households with at least one member under age 20 years (aged 0-19) AND at least one member aged 60 years or over"
+        ],
+        [
+          "Under 20 years AND 65 years or over",
+          "Percentage of households with at least one member under age 20 years (aged 0-19) AND at least one member aged 65 years or over"
+        ],
+        [
+          "Average number of household members of selected ages",
+          null
+        ],
+        [
+          "Under age 15 years among all households",
+          "The average number of members under age 15 years (aged 0-14) per household, among all households"
+        ],
+        [
+          "Under age 15 years among households with at least one member under age 15 years",
+          "The average number of members under age 15 years (aged 0-14) per household, among households that have at least one member under age 15 years (aged 0-14)"
+        ],
+        [
+          "Under age 20 years among all households",
+          "The average number of members under age 20 years (aged 0-19) per household, among all households"
+        ],
+        [
+          "Under age 20 years among households with at least one member under age 20 years",
+          "The average number of members under age 20 years (aged 0-19) per household, among households that have at least one member under age 20 years (aged 0-19)"
+        ],
+        [
+          "Ages 20-64 years among all households",
+          "The average number of members aged 20-64 (the \"working ages\", as commonly defined) per household, among all households"
+        ],
+        [
+          "Basic household types",
+          null
+        ],
+        [
+          "One-person",
+          "Percentage of households with exactly one member"
+        ],
+        [
+          "Couple only",
+          "Percentage of households comprised of a married or in-partnership couple and no one else"
+        ],
+        [
+          "Couple with children",
+          "Percentage of households comprised of a married or in-partnership couple and their children (biological, step, and adopted/foster children), irrespective of children’s ages, and no one else"
+        ],
+        [
+          "Single parent with children",
+          "Percentage of households comprised of a single parent and his or her children (biological, step, and adopted/foster children), irrespective of children’s ages, and no one else"
+        ],
+        [
+          "Single mother with children",
+          "Percentage of households comprised of a single mother and her children (biological, step, and adopted/foster children), irrespective of children’s ages, and no one else"
+        ],
+        [
+          "Single father with children",
+          "Percentage of households comprised of a single father and his children (biological, step, and adopted/foster children), irrespective of children’s ages, and no one else"
+        ],
+        [
+          "Extended family",
+          "Percentage of households that are not couple only, couple with children or single parent with children households and in which all household members are related to each other"
+        ],
+        [
+          "Non-relatives",
+          "Percentage of households that include two or more members that are not related to each other"
+        ],
+        [
+          "Unknown",
+          "Percentage of households that include one or more members whose relationship to the head of household is unknown or not reported"
+        ],
+        [
+          "Intergenerational household types",
+          null
+        ],
+        [
+          "Nuclear",
+          "Sum of the percentages of couple only households, couple with children households, and single parent with children households"
+        ],
+        [
+          "Multi-generation",
+          "Percentage of households that include two or more generations of related members aged 20 years or over"
+        ],
+        [
+          "Three generation",
+          "Percentage of households that include three or more generations of related members, irrespective of age"
+        ],
+        [
+          "Skip generation",
+          "Percentage of households that consist of grandparents and their grandchildren, but none of the parents of the grandchildren"
+        ],
+        [
+          "Two dots (..) indicate that the estimates are not reported or not available.",
+          null
+        ]
+      ],
+      "sourceNotes": [
+        [
+          "Data source category",
+          "Data source name",
+          "Description"
+        ],
+        [
+          "DHS",
+          "Demographic and Health Surveys (DHS) (https://dhsprogram.com/) \nICF. 1990-2024. Demographic and Health Surveys (various) [Datasets]. Funded by USAID. Rockville, Maryland: ICF [Distributor].",
+          "Household indicators are estimated from 315 DHS household rosters, representing 74 countries and areas and with reference years ranging from 1990 to 2024. Household members are restricted to usual residents of the household, excluding visitors. "
+        ],
+        [
+          "DYB",
+          "Demographic Yearbook (DYB) of the United Nations \n(https://unstats.un.org/unsd/demographic-social/products/dyb/#censusdatasets) ",
+          "Tabulations describing households by size, sex and age of the head, and basic household type have been reported to the DYB by national statistical offices. Because the data compiled in the DYB are tabulations, as opposed to household microdata as for DHS and IPUMS-I, it is not possible to obtain estimates of extended family or non-relative households or the intergenerational household types from this source.  Estimates based on 218 DYB records for 113 countries and areas are included in the database with reference years ranging from 1971 to 2024."
+        ],
+        [
+          "IPUMS",
+          "Steven Ruggles, Lara Cleveland, Rodrigo Lovaton, Sula Sarkar, Matthew Sobek, Derek Burk, Dan Ehrlich, Jane Lee, and Nate Merrill. Integrated Public Use Microdata Series, International: Version 7.6 [dataset]. Minneapolis, MN: IPUMS, 2025. https://doi.org/10.18128/D020.V7.7",
+          "Household indicators are estimated from 343 IPUMS-I household rosters, representing 95 countries and areas and with reference years ranging from 1959 to 2020. As with the DHS, household members identified in IPUMS-I samples are restricted to usual residents of the household, excluding visitors. Group quarters or other non-household arrangements and their residents are not considered."
+        ],
+        [
+          "LFS",
+          "Labour Force Surveys (LFS) of the European Union, Eurostat \n(http://ec.europa.eu/eurostat/web/microdata/european-union-labour-force-survey) ",
+          "The microdata from the collection of European Union Labour Force Surveys (LFS), were processed during the assembly of the first release of the United Nations Database on Household Size and Composition in 2017, which included fewer indicators than this extended 2018 release.  The subset of household size indicators from the LFS that were published in the 2017 database are reproduced here as well, but no additional processing has yet been completed to produce estimates for the extended set of indicators.  The database includes estimates from 27 LFS, representing 15 countries and areas with reference years 2001 and 2011."
+        ],
+        [
+          "MICS",
+          "Multiple Indicator Cluster Surveys (MICS) (https://mics.unicef.org/surveys) \n",
+          "Indicators are estimated from 221 MICS, representing 97 countries and areas  with reference years ranging from 1999 to 2025. As with the DHS, household members identified in MICS samples are restricted to usual residents of the household, excluding visitors. "
+        ],
+        [
+          "Other data sources",
+          "1. Census of Population and Housing: Selected Social and Housing Characteristics, Australia, 2001;\n2. China Population Census Yearbook 2010;\n3. China Population Census Yearbook 2020;\n4. Egypt - General Census for Population, Housing and Establishments 2017;\n5. Papua New Guinea 2011 Census;\n6. Recensement Général de la Population et de l’Habitat 2024 (Morocco);\n7. Russian Federation 2021 Census;\n8. Türkiye Population and Housing Census 2011.",
+          "Eight additional data sources identified through desk research were incorporated to improve regional coverage over time. Indicators, including average household size, households by size, and basic household types, were calculated where data were available. "
+        ],
+        [
+          "Estimates are based on data processed as of 30 June 2026.",
+          null,
+          null
+        ]
+      ],
+      "footnotes": [
+        "* For some IPUMS I-extracts and DHS samples/extracts, the age of the household head was not available to identify the full set of  types of headship by age.",
+        "** For some IPUMS samples, the detail of the household relationship codes is insufficient to identify the full set of household types.",
+        "*** As with the basic household types described above, for some IPUMS-I extracts, the detail of the household relationship codes is insufficient to identify the several types of intergenerational households. For example, some IPUMS-I samples do not specifically identify grandchildren of the head of household, instead grouping these in the “other relative” category. Some other IPUMS-I samples group parents and grandparents of the head into a single category. In these instances, it is not possible to identify all the potential multi-generation, three-generation and skip-generation households and thus those indicators are not estimated from those samples.                                                                                                                                                                                                                                                                                                                                                    The data compiled in the DYB are tabulations reported by countries’ national statistical offices. It is not possible to obtain estimates of extended family, non-relative households or the intergenerational household types from this source.  For more details, please see United Nations, Department of Economic and Social Affairs, Population Division (2019). Patterns and trends in household size and composition: Evidence from a United Nations dataset. (ST/ESA/SER.A/433).",
+        "**** For some MICS samples, the detail of the household relationship codes is insufficient to identify the full set of household types.",
+        "***** The sample weights were not provided in datasets for the following MICS surveys: Azerbaijan 2000 MICS2, Bosnia and Herzegovina 2000 MICS2, Burundi 2000 MICS2, Lesotho 2000 MICS2, South Sudan 1999 MICS2, Tajikistan 2000 MICS2, Trinidad and Tobago 2000 MICS2, Uzbekistan 2000 MICS2."
+      ]
+    },
+    "wdi-electricity": {
+      "id": "wdi-electricity",
+      "stage": "family-housing",
+      "file": "electricity.zip",
+      "format": "wdi",
+      "indicator": "EG.ELC.ACCS.ZS",
+      "label": "Access to electricity (% of population)",
+      "unit": "percent_population",
+      "min": 0,
+      "max": 100,
+      "url": "https://api.worldbank.org/v2/en/indicator/EG.ELC.ACCS.ZS?downloadformat=csv",
+      "license": "CC-BY-4.0",
+      "licenseEvidence": "https://data.worldbank.org/indicator/EG.ELC.ACCS.ZS",
+      "attribution": "World Bank, World Development Indicators; ESMAP, Tracking SDG7.",
+      "sha256": "e4448e5ff44ea0b2c146fb0cee78c0cb4fa3d93b5f358f322209d9b537ec8e93",
+      "indicatorMetadata": [
+        {
+          "INDICATOR_CODE": "EG.ELC.ACCS.ZS",
+          "INDICATOR_NAME": "Access to electricity (% of population)",
+          "SOURCE_NOTE": "Access to electricity is the percentage of population with access to electricity. Electrification data are collected from industry, national surveys and international sources.",
+          "SOURCE_ORGANIZATION": "SDG 7.1.1 Electrification Dataset, World Bank (WB), uri: https://trackingsdg7.esmap.org/downloads, note: Data is downloaded from ESMAP website. Data is released when a new Tracking SDG7 report is released., publisher: World Bank (WB), date accessed: 2024-05-16, date published: 2023",
+          "": ""
+        }
+      ],
+      "sourceUpdated": "2026-11-11"
+    },
+    "wdi-water": {
+      "id": "wdi-water",
+      "stage": "family-housing",
+      "file": "water.zip",
+      "format": "wdi",
+      "indicator": "SH.H2O.BASW.ZS",
+      "label": "People using at least basic drinking water services (% of population)",
+      "unit": "percent_population",
+      "min": 0,
+      "max": 100,
+      "url": "https://api.worldbank.org/v2/en/indicator/SH.H2O.BASW.ZS?downloadformat=csv",
+      "license": "CC-BY-4.0",
+      "licenseEvidence": "https://data.worldbank.org/indicator/SH.H2O.BASW.ZS",
+      "attribution": "World Bank, World Development Indicators; WHO/UNICEF Joint Monitoring Programme for Water Supply, Sanitation and Hygiene.",
+      "sha256": "93209a8a9ae87653c8337efa00f0d5e98080d66b2eb1b13c68ef3657e468510c",
+      "indicatorMetadata": [
+        {
+          "INDICATOR_CODE": "SH.H2O.BASW.ZS",
+          "INDICATOR_NAME": "People using at least basic drinking water services (% of population)",
+          "SOURCE_NOTE": "The percentage of people using at least basic water services.  This indicator encompasses both people using basic water services as well as those using safely managed water services.  Basic drinking water services is defined as drinking water from an improved source, provided collection time is not more than 30 minutes for a round trip.  Improved water sources include piped water, boreholes or tubewells, protected dug wells, protected springs, and packaged or delivered water.",
+          "SOURCE_ORGANIZATION": "WHO/UNICEF Joint Monitoring Programme (JMP) for Water Supply, Sanitation and Hygiene, World Health Organization (WHO), uri: washdata.org, publisher: WHO/UNICEF Joint Monitoring Programme (JMP) for Water Supply, Sanitation and Hygiene (washdata.org), date accessed: 2025-09-30, date published: 2025-08-25;\nUN Children's Fund (UNICEF), uri: washdata.org, note: WHO/UNICEF Joint Monitoring Programme (JMP) for Water Supply, Sanitation and Hygiene",
+          "": ""
+        }
+      ],
+      "sourceUpdated": "2026-11-11"
+    },
+    "wdi-sanitation": {
+      "id": "wdi-sanitation",
+      "stage": "family-housing",
+      "file": "sanitation.zip",
+      "format": "wdi",
+      "indicator": "SH.STA.BASS.ZS",
+      "label": "People using at least basic sanitation services (% of population)",
+      "unit": "percent_population",
+      "min": 0,
+      "max": 100,
+      "url": "https://api.worldbank.org/v2/en/indicator/SH.STA.BASS.ZS?downloadformat=csv",
+      "license": "CC-BY-4.0",
+      "licenseEvidence": "https://data.worldbank.org/indicator/SH.STA.BASS.ZS",
+      "attribution": "World Bank, World Development Indicators; WHO/UNICEF Joint Monitoring Programme for Water Supply, Sanitation and Hygiene.",
+      "sha256": "e78dcb44c62e882672e79b3982ce13df5ea165ca7c1e21315f39be96a04140fc",
+      "indicatorMetadata": [
+        {
+          "INDICATOR_CODE": "SH.STA.BASS.ZS",
+          "INDICATOR_NAME": "People using at least basic sanitation services (% of population)",
+          "SOURCE_NOTE": "The percentage of people using at least basic sanitation services, that is, improved sanitation facilities that are not shared with other households.  This indicator encompasses both people using basic sanitation services as well as those using safely managed sanitation services.   Improved sanitation facilities include flush/pour flush to piped sewer systems, septic tanks or pit latrines; ventilated improved pit latrines, composting toilets or pit latrines with slabs.",
+          "SOURCE_ORGANIZATION": "WHO/UNICEF Joint Monitoring Programme (JMP) for Water Supply, Sanitation and Hygiene, World Health Organization (WHO), uri: washdata.org, publisher: WHO/UNICEF Joint Monitoring Programme (JMP) for Water Supply, Sanitation and Hygiene (washdata.org), date accessed: 2025-09-30, date published: 2025-08-25;\nUN Children's Fund (UNICEF), uri: washdata.org, note: WHO/UNICEF Joint Monitoring Programme (JMP) for Water Supply, Sanitation and Hygiene",
+          "": ""
+        }
+      ],
+      "sourceUpdated": "2026-11-11"
+    }
+  },
+  "indicators": {
+    "UN.HH.SIZE_MEAN": {
+      "sourceId": "un-households-2026",
+      "label": "Average household size (number of members)",
+      "unit": "persons_per_household",
+      "minimum": 1,
+      "maximum": null,
+      "sourceColumn": "K"
+    },
+    "UN.HH.SIZE_1": {
+      "sourceId": "un-households-2026",
+      "label": "1 member",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "L"
+    },
+    "UN.HH.SIZE_2_3": {
+      "sourceId": "un-households-2026",
+      "label": "2-3 members",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "M"
+    },
+    "UN.HH.SIZE_4_5": {
+      "sourceId": "un-households-2026",
+      "label": "4-5 members",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "N"
+    },
+    "UN.HH.SIZE_6_PLUS": {
+      "sourceId": "un-households-2026",
+      "label": "6 or more members",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "O"
+    },
+    "UN.HH.FEMALE_HEAD": {
+      "sourceId": "un-households-2026",
+      "label": "Female head of household (percentage of households)",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "P"
+    },
+    "UN.HH.HEAD_UNDER20": {
+      "sourceId": "un-households-2026",
+      "label": "Under 20 years (aged 0-19)",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "Q"
+    },
+    "UN.HH.HEAD_20_64": {
+      "sourceId": "un-households-2026",
+      "label": "Aged 20-64 years",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "R"
+    },
+    "UN.HH.HEAD_60_PLUS": {
+      "sourceId": "un-households-2026",
+      "label": "Aged 60 years or over",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "S"
+    },
+    "UN.HH.HEAD_65_PLUS": {
+      "sourceId": "un-households-2026",
+      "label": "Aged 65 years or over",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "T"
+    },
+    "UN.HH.HAS_UNDER15": {
+      "sourceId": "un-households-2026",
+      "label": "Under 15 years (aged 0-14)",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "U"
+    },
+    "UN.HH.HAS_UNDER18": {
+      "sourceId": "un-households-2026",
+      "label": "Under 18 years (aged 0-17)",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "V"
+    },
+    "UN.HH.HAS_UNDER20": {
+      "sourceId": "un-households-2026",
+      "label": "Under 20 years (aged 0-19)",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "W"
+    },
+    "UN.HH.HAS_60_PLUS": {
+      "sourceId": "un-households-2026",
+      "label": "Aged 60 years or over",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "X"
+    },
+    "UN.HH.HAS_65_PLUS": {
+      "sourceId": "un-households-2026",
+      "label": "Aged 65 years or over",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "Y"
+    },
+    "UN.HH.HAS_UNDER15_AND_60_PLUS": {
+      "sourceId": "un-households-2026",
+      "label": "Under 15 years AND 60 years or over",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "Z"
+    },
+    "UN.HH.HAS_UNDER15_AND_65_PLUS": {
+      "sourceId": "un-households-2026",
+      "label": "Under 15 years AND 65 years or over",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "AA"
+    },
+    "UN.HH.HAS_UNDER18_AND_60_PLUS": {
+      "sourceId": "un-households-2026",
+      "label": "Under 18 years AND 60 years or over",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "AB"
+    },
+    "UN.HH.HAS_UNDER18_AND_65_PLUS": {
+      "sourceId": "un-households-2026",
+      "label": "Under 18 years AND 65 years or over",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "AC"
+    },
+    "UN.HH.HAS_UNDER20_AND_60_PLUS": {
+      "sourceId": "un-households-2026",
+      "label": "Under 20 years AND 60 years or over",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "AD"
+    },
+    "UN.HH.HAS_UNDER20_AND_65_PLUS": {
+      "sourceId": "un-households-2026",
+      "label": "Under 20 years AND 65 years or over",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "AE"
+    },
+    "UN.HH.MEMBERS_UNDER15_MEAN": {
+      "sourceId": "un-households-2026",
+      "label": "Under age 15 years among all households",
+      "unit": "persons_per_household",
+      "minimum": 0,
+      "maximum": null,
+      "sourceColumn": "AF"
+    },
+    "UN.HH.MEMBERS_UNDER15_CONDITIONAL_MEAN": {
+      "sourceId": "un-households-2026",
+      "label": "Under age 15 years among households with at least one member under age 15 years",
+      "unit": "persons_per_household",
+      "minimum": 0,
+      "maximum": null,
+      "sourceColumn": "AG"
+    },
+    "UN.HH.MEMBERS_UNDER20_MEAN": {
+      "sourceId": "un-households-2026",
+      "label": "Under age 20 years among all households",
+      "unit": "persons_per_household",
+      "minimum": 0,
+      "maximum": null,
+      "sourceColumn": "AH"
+    },
+    "UN.HH.MEMBERS_UNDER20_CONDITIONAL_MEAN": {
+      "sourceId": "un-households-2026",
+      "label": "Under age 20 years among households with at least one member under age 20 years",
+      "unit": "persons_per_household",
+      "minimum": 0,
+      "maximum": null,
+      "sourceColumn": "AI"
+    },
+    "UN.HH.MEMBERS_20_64_MEAN": {
+      "sourceId": "un-households-2026",
+      "label": "Ages 20-64 years among all households",
+      "unit": "persons_per_household",
+      "minimum": 0,
+      "maximum": null,
+      "sourceColumn": "AJ"
+    },
+    "UN.HH.TYPE_SINGLE": {
+      "sourceId": "un-households-2026",
+      "label": "One-person",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "AK"
+    },
+    "UN.HH.TYPE_COUPLE": {
+      "sourceId": "un-households-2026",
+      "label": "Couple only",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "AL"
+    },
+    "UN.HH.TYPE_COUPLE_CHILDREN": {
+      "sourceId": "un-households-2026",
+      "label": "Couple with children",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "AM"
+    },
+    "UN.HH.TYPE_SINGLE_PARENT": {
+      "sourceId": "un-households-2026",
+      "label": "Single parent with children",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "AN"
+    },
+    "UN.HH.TYPE_SINGLE_MOTHER": {
+      "sourceId": "un-households-2026",
+      "label": "Single mother with children",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "AO"
+    },
+    "UN.HH.TYPE_SINGLE_FATHER": {
+      "sourceId": "un-households-2026",
+      "label": "Single father with children",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "AP"
+    },
+    "UN.HH.TYPE_EXTENDED": {
+      "sourceId": "un-households-2026",
+      "label": "Extended family",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "AQ"
+    },
+    "UN.HH.TYPE_NON_RELATIVES": {
+      "sourceId": "un-households-2026",
+      "label": "Non-relatives",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "AR"
+    },
+    "UN.HH.TYPE_UNKNOWN": {
+      "sourceId": "un-households-2026",
+      "label": "Unknown",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "AS"
+    },
+    "UN.HH.TYPE_NUCLEAR": {
+      "sourceId": "un-households-2026",
+      "label": "Nuclear",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "AT"
+    },
+    "UN.HH.MULTI_GENERATION": {
+      "sourceId": "un-households-2026",
+      "label": "Multi-generation",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "AU"
+    },
+    "UN.HH.THREE_GENERATION": {
+      "sourceId": "un-households-2026",
+      "label": "Three generation",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "AV"
+    },
+    "UN.HH.SKIP_GENERATION": {
+      "sourceId": "un-households-2026",
+      "label": "Skip generation",
+      "unit": "percent_households",
+      "minimum": 0,
+      "maximum": 100,
+      "sourceColumn": "AW"
+    },
+    "EG.ELC.ACCS.ZS": {
+      "sourceId": "wdi-electricity",
+      "label": "Access to electricity (% of population)",
+      "unit": "percent_population",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "SH.H2O.BASW.ZS": {
+      "sourceId": "wdi-water",
+      "label": "People using at least basic drinking water services (% of population)",
+      "unit": "percent_population",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "SH.STA.BASS.ZS": {
+      "sourceId": "wdi-sanitation",
+      "label": "People using at least basic sanitation services (% of population)",
+      "unit": "percent_population",
+      "minimum": 0,
+      "maximum": 100
+    }
+  },
+  "rowCount": 11427,
+  "coverageCount": 1512,
+  "qualityCounts": {
+    "VALID": 9993,
+    "MISSING": 1433,
+    "REJECTED": 1
+  },
+  "hashes": {
+    "observations.json.gz": "c7f8d2bdce66fec5e989c9e64da37cf36dfc2827612b4cf6336abdccbb734b3a",
+    "coverage.json": "8ad0bfe7d9ecc76eb58921a9921a8a895434cb723374a208acd374f3afc18ccd"
+  }
+}

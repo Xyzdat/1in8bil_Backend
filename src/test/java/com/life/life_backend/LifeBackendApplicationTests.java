@@ -282,7 +282,7 @@ class LifeBackendApplicationTests {
 		editCharacter(other, session, editKey, edit).andExpect(status().isNotFound());
 		editCharacter(owner, session, editKey, edit.replace("\"health\":0", "\"health\":101"))
 				.andExpect(status().isBadRequest());
-		editCharacter(owner, session, editKey, edit.replace("\"health\"", "\"aura\""))
+		editCharacter(owner, session, editKey, edit.replace("\"health\"", "\"unknownStat\""))
 				.andExpect(status().isBadRequest());
 		editCharacter(owner, session, editKey, edit).andExpect(status().isOk())
 				.andExpect(jsonPath("$.character.name").value("Лина"))

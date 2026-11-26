@@ -1,8 +1,8 @@
 openapi: 3.1.0
 info:
   title: Life Backend API
-  version: 0.8.3
-  description: Локальные сохранения и жизни, сгенерированные 1in8b Engine.
+  version: 0.9.1
+  description: Локальные сохранения и жизни, сгенерированные 1in8b Engine. Добавлены текущая важность событий и предпросмотр непосредственных изменений при выборе; docs/event-presentation.md. Новые локальные рождения используют birth-economy-1 для достатка и профессиональных групп родителей; docs/birth-economy.md.
 servers:
   - url: /
 security:
@@ -11,7 +11,7 @@ paths:
   /api/v1/sessions/generated/local:
     post:
       operationId: generateLocalSession
-      description: Собственный движок childhood-2. Статистика предварительно импортируется в PostgreSQL. Без внешних HTTP-вызовов. Пустой объект выбирает страну взвешенно среди 36 стран SupportedCountry и год 2026. Новые жизни используют релиз birth-context-2026-v2; сохранённые жизни сохраняют свой релиз.
+      description: Собственный движок childhood-2. Статистика предварительно импортируется в PostgreSQL. Без внешних HTTP-вызовов. Пустой объект выбирает страну взвешенно среди 36 стран SupportedCountry и год 2026. Новые жизни используют birth-context-2026-v2 и закреплённую серверную калибровку socioeconomic-1 семьи, жилищных удобств и зарплатных соотношений; прежние сохранения не переводятся на новые правила. Формат ответа сохранён. Единственный родитель отражается nullable mother/father и familyType, электричество — electricityAtHome, вода и санитария — в описании housing. Суммы зарплат остаются игровой шкалой RUB, не конверсией исходных валют ILO. Подробности в docs/socioeconomic-engine.md.
       parameters:
         - $ref: '#/components/parameters/IdempotencyKey'
       requestBody:
@@ -42,7 +42,7 @@ paths:
       - $ref: '#/components/parameters/SessionId'
     post:
       operationId: stepLocalSimulation
-      description: Продвигает локальную жизнь на два игровых месяца, до смерти. С 18 лет подключается adult-1. Шесть основных шагов на год; ответы и семейные вехи могут добавлять записи. STEP_UNSUPPORTED для старых сессий и 1in8b; DECISION_REQUIRED при ожидающем решении. Ответ на решение не продвигает время. STEP_REQUIRED при /advance для новой жизни. Выбор с оплатой может вернуть 409 SPENDING_INSUFFICIENT_FUNDS, если после появления решения деньги потрачены в магазине.
+      description: Продвигает локальную жизнь на два игровых месяца, до смерти. С 18 лет подключается adult-1. Шесть основных шагов на год; ответы и семейные вехи могут добавлять записи. Не более двух предложенных вопросов на год летописи, включая продолжения сюжетов; интервал между вопросами не менее четырёх месяцев. Появление вероятностное и зависит от состояния жизни, обязательного минимума нет. При здоровье 0 жизнь завершается немедленно без продвижения времени, даже при ожидающем решении. С 65 лет автоматически применяется игровая пенсия. STEP_UNSUPPORTED для старых сессий и 1in8b; DECISION_REQUIRED при ожидающем актуальном решении. Ответ на решение не продвигает время. STEP_REQUIRED при /advance для новой жизни. Выбор с оплатой может вернуть 409 SPENDING_INSUFFICIENT_FUNDS, если после появления решения деньги потрачены в магазине. Устаревшее рабочее решение пенсионера закрывается без оплаты и выполнения выбора; ответ содержит актуальную сессию.
       parameters:
         - $ref: '#/components/parameters/IdempotencyKey'
       requestBody:
@@ -163,7 +163,7 @@ paths:
       - $ref: '#/components/parameters/SessionId'
     patch:
       operationId: editCharacter
-      description: Меняет указанные поля в существующем сохранении. Для local доступны имя, здоровье, интеллект и внешность. Для 1in8b доступны отображаемое имя и внешность приложения.
+      description: Меняет указанные поля в существующем сохранении с проверкой владельца, Idempotency-Key и expectedVersion. Для local доступны имя, здоровье, счастье, интеллект, отношения, внешность и аура. Для сгенерированной локальной жизни только до первого шага (simulation.elapsedMonths=0, ACTIVE) доступны sex, birthYear, birthplace и family. После первого шага эти поля дают 409 BIRTH_CONFIGURATION_LOCKED, даже если state.age ещё равен 0. family.members заменяет весь список родственников при рождении; пропущенный members оставляет список прежним. Статистика страны обновляется из PostgreSQL. Исходный запрос создания сохраняется для безопасного повтора; новый персонаж не создаётся. Для 1in8b остаются только отображаемое имя и внешность приложения, остальные поля дают CHARACTER_FIELDS_READ_ONLY. Здоровье 0 завершает пошаговую жизнь в том же ответе.
       parameters:
         - $ref: '#/components/parameters/IdempotencyKey'
       requestBody:
@@ -383,7 +383,7 @@ components:
               closeness: { type: integer, minimum: 0, maximum: 100 }
               trust: { type: integer, minimum: 0, maximum: 100 }
               sex: { type: [string, 'null'], enum: [MALE, FEMALE, null] }
-              occupation: { type: [string, 'null'], description: Известная профессия родственника. Дополнительные текущие данные взрослой модели в adult.npcs по тому же id. }
+              occupation: { type: [string, 'null'], description: Известная профессия родственника. Новые родители birth-economy-2 получают конкретное занятие с пометкой «игровая специализация»; это не статистика узкой профессии. Старые занятия сохраняются. Дополнительные текущие данные взрослой модели в adult.npcs по тому же id. }
               death:
                 description: Смерть близкого. age — возраст этого человека; elapsedMonths — время от рождения героя. null у живых и в старых сохранениях без подробностей.
                 anyOf:
@@ -490,6 +490,7 @@ components:
         assumptions: { type: array, items: { type: string } }
     AdultCareer:
       type: object
+      description: В собственном движке в 65 лет включается RETIRED, зарплата прекращается, начинается игровая пенсия; обычный найм и новый бизнес после пенсии недоступны. Возраст и размер пенсии — игровые допущения, одинаковые для всех стран. История старых сохранений не переписывается; исправление применяется при следующем шаге или ответе.
       required: [status, occupation, industry, employer, position, monthlyPay, beganMonth, experienceMonths, qualification, satisfaction, stability, risk, monthlyPension, history]
       properties:
         status: { type: string, enum: [UNEMPLOYED, PROBATION, EMPLOYED, BUSINESS, RETIRED] }
@@ -587,10 +588,10 @@ components:
           const: UNSPECIFIED
           deprecated: true
           description: Прежний маркер общей смертности, сохранён для совместимости строгих декодеров. Конкретную причину читать из causeDetails, не из этого поля.
-        model: { type: string, const: UN_WPP_2024_QX }
+        model: { type: string, const: UN_WPP_2024_QX, description: Сохранённый идентификатор модели для совместимости. При здоровье 0 срабатывает терминальное игровое правило без броска ООН; это указано в note. }
         note: { type: string }
         causeDetails:
-          description: Игровая атрибуция причины после единственного расчёта общей смертности. Не является статистикой причин по стране. optional/nullable для старых жизней; не пересчитывается при GET или повторе запроса.
+          description: Игровая атрибуция после смерти по общей смертности или достижения здоровья 0. При нуле учитывается наиболее тяжёлый активный эпизод; без известного эпизода label содержит «Критическое ухудшение здоровья», code остаётся ACUTE_DISEASE_COMPLICATIONS, conditionId равен null. Не является диагнозом или статистикой причин по стране. optional/nullable для старых жизней; не пересчитывается при GET или повторе запроса.
           anyOf:
             - { $ref: '#/components/schemas/DeathCauseDetails' }
             - { type: 'null' }
@@ -638,7 +639,7 @@ components:
         lifeExpectancy: { $ref: '#/components/schemas/BirthMeasure' }
         underFiveMortality: { $ref: '#/components/schemas/BirthMeasure' }
         currency: { type: string, pattern: '^[A-Z]{3}$', description: Код валюты страны ISO 4217, не баланс и не конверсия. Игровой кошелёк использует finances.currency. }
-        wealth: { $ref: '#/components/schemas/BirthDescription' }
+        wealth: { $ref: '#/components/schemas/BirthDescription', description: Для новых локальных жизней — группа достатка и относительный индекс дохода/потребления по WDI. Не денежный баланс и не вероятность рождения в группе. При отсутствии статистики — явная игровая оценка. }
         housing: { $ref: '#/components/schemas/BirthDescription' }
         familyRelationships: { $ref: '#/components/schemas/BirthDescription' }
         familyFaith: { $ref: '#/components/schemas/BirthDescription' }
@@ -852,7 +853,7 @@ components:
       type: object
       required: [name, gender, birthYear, birthplace]
       properties:
-        name: { type: string, minLength: 1, maxLength: 100 }
+        name: { type: string, minLength: 1, maxLength: 100, description: Полная сохранённая строка имени; не обрезать по пробелу. Новые локальные жизни используют country-names-1 с фамилиями или соответствующими семейными компонентами для 36 стран. Порядок частей зависит от страны. Старые и пользовательские имена сохраняются без изменений; правила в docs/country-names.md. }
         gender: { type: string, minLength: 1, maxLength: 50 }
         birthYear: { type: integer, minimum: 1, maximum: 9999 }
         birthplace:
@@ -958,7 +959,7 @@ components:
             code: { type: string }
             label:
               type: [string, 'null']
-              description: Название по-русски, если оно доступно. Код остаётся доступен при отсутствии названия.
+              description: Название по-русски. Для новых локальных рождений — конкретное занятие с пометкой «игровая специализация»; code остаётся статистической группой ISCO. Для Китая birth-economy-2 использует ILOEST до 2025 года; группа 96 означает объединение групп 6 и 9. Подробности в docs/parent-occupations.md. Старые жизни и 1in8b не пересчитываются.
         alive: { type: [boolean, 'null'] }
         livesWithChild: { type: [boolean, 'null'] }
     BirthCategory:
@@ -1026,12 +1027,38 @@ components:
         title: { type: string }
         options:
           type: array
-          items:
-            type: object
-            required: [id, label]
-            properties:
-              id: { type: string, maxLength: 80 }
-              label: { type: string }
+          items: { $ref: '#/components/schemas/DecisionOption' }
+    DecisionOption:
+      type: object
+      required: [id, label]
+      properties:
+        id: { type: string, maxLength: 80 }
+        label: { type: string }
+        effects:
+          description: Непосредственные изменения для текущей версии сессии после ограничений шкал. Только предпросмотр; не прибавлять на frontend. null/отсутствие — неизвестно или выбор уже недоступен; для 1in8b всегда null. Пустые карты означают отсутствие непосредственных изменений этих показателей, но не отсутствие будущих последствий. После покупки/редактирования использовать новый ответ сервера.
+          anyOf:
+            - { $ref: '#/components/schemas/OptionEffects' }
+            - { type: 'null' }
+    OptionEffects:
+      type: object
+      required: [scope, stats, closeness]
+      properties:
+        scope: { type: string, enum: [IMMEDIATE], description: Только результат ответа сейчас. Не включает последующие шаги и скрытые исходы сюжетов. }
+        stats:
+          type: object
+          description: Только ненулевые разности новых и текущих значений. Отсутствующее неизвестное nullable значение нельзя считать нулём.
+          additionalProperties: false
+          properties:
+            health: { type: integer, minimum: -100, maximum: 100 }
+            happiness: { type: integer, minimum: -100, maximum: 100 }
+            intelligence: { type: integer, minimum: -100, maximum: 100 }
+            relationships: { type: integer, minimum: -100, maximum: 100 }
+            appearance: { type: integer, minimum: -100, maximum: 100 }
+            aura: { type: integer, minimum: -200, maximum: 200 }
+        closeness:
+          type: object
+          description: Только ненулевые изменения близости с уже существующими людьми. Ключ — simulation.family[].id; общий показатель relationships передаётся отдельно в stats.
+          additionalProperties: { type: integer, minimum: -100, maximum: 100 }
     HistoryEvent:
       type: object
       required: [id, age, title, text]
@@ -1040,6 +1067,12 @@ components:
         age: { type: integer, minimum: 0 }
         title: { type: string }
         text: { type: string }
+        importance:
+          type: [integer, 'null']
+          minimum: 0
+          maximum: 100
+          description: Текущая игровая значимость. У связанных событий берётся оценка всей истории из highlights, включая не вошедшие в слайд-шоу; может меняться при последствиях. У остальных — базовое правило event-importance-1. Не моральная оценка и не вероятность. null/отсутствие — оценка неизвестна (1in8b и старый демонстрационный провайдер без simulation).
+        importanceSource: { type: [string, 'null'], enum: [LIFE_STORY, EVENT_RULE, null], description: LIFE_STORY — сохранённая пересматриваемая оценка сюжета; EVENT_RULE — базовое правило события. Финальность оценок сюжетов определяется highlights.status. }
         link:
           description: Явная связь с выбором/сюжетом. null для старых и несвязанных событий; близость тем или времени не означает причинную связь.
           anyOf:
@@ -1230,6 +1263,13 @@ components:
               description: Передайте хотя бы одно новое значение. Пропущенные поля сохраняются.
               properties:
                 name: { type: string, minLength: 1, maxLength: 100 }
+                sex:
+                  type: string
+                  enum: [FEMALE, MALE]
+                  description: Только до первого шага. В ответе character.gender содержит русское название, birthFacts.sex — этот код.
+                birthYear: { type: integer, minimum: 2023, maximum: 2026, description: Только до первого шага. Статистические показатели сохраняют собственные годы источников. }
+                birthplace: { $ref: '#/components/schemas/BirthplaceChanges' }
+                family: { $ref: '#/components/schemas/BirthFamilyChanges' }
                 stats:
                   type: object
                   additionalProperties: false
@@ -1237,6 +1277,45 @@ components:
                     health: { $ref: '#/components/schemas/Score' }
                     intelligence: { $ref: '#/components/schemas/Score' }
                     appearance: { $ref: '#/components/schemas/Score' }
+                    happiness: { $ref: '#/components/schemas/Score' }
+                    relationships: { $ref: '#/components/schemas/Score', description: Общий показатель; индивидуальная близость родственников не изменяется автоматически. }
+                    aura: { type: integer, minimum: -100, maximum: 100 }
+    BirthplaceChanges:
+      type: object
+      additionalProperties: false
+      description: Только для новой локальной жизни до первого шага. Пропуск или null оставляет поле прежним. Пустые region/city очищают поле. Смена страны очищает прежние регион/город, если новые не переданы. Название страны берётся из каталога сервера.
+      properties:
+        countryCode: { type: string, pattern: '^[A-Z]{2}$', description: ISO 3166-1 alpha-2 одной из 36 поддерживаемых стран. Пример JP; это не countryIso3 из запроса генерации. }
+        region: { type: string, maxLength: 100 }
+        city: { type: string, maxLength: 100 }
+        placeType: { type: string, enum: [URBAN, RURAL] }
+    BirthFamilyChanges:
+      type: object
+      additionalProperties: false
+      description: Только до первого шага. Пользовательские значения помечаются source=user-customization и basis=GAME_ASSUMPTION, не выдаются за статистику. Достаток не начисляет деньги и не меняет цены/доход автоматически.
+      properties:
+        incomeQuintile: { type: integer, minimum: 1, maximum: 5 }
+        housing: { type: string, minLength: 1, maxLength: 120 }
+        relationships: { type: string, minLength: 1, maxLength: 120, description: Описание атмосферы семьи, отдельно от числовой близости. }
+        religion: { type: string, minLength: 1, maxLength: 120 }
+        language: { type: string, minLength: 1, maxLength: 120 }
+        members:
+          type: array
+          maxItems: 12
+          description: Полный список известных живых родителей/братьев/сестёр при рождении; максимум 2 родителя и 10 братьев/сестёр. Пустой массив убирает всех; пропуск оставляет прежних. Для сохранения ID передать id из simulation.family. Новому родственнику id не передавать. Отсутствующие в массиве прежние родственники удаляются только из ещё не начатой жизни. При замене списка общий relationships становится средней близостью, если stats.relationships не задан явно.
+          items: { $ref: '#/components/schemas/BirthFamilyMemberInput' }
+    BirthFamilyMemberInput:
+      type: object
+      additionalProperties: false
+      required: [role, name, ageAtBirth]
+      properties:
+        id: { type: string, minLength: 1, maxLength: 80, description: Только существующий ID этой семьи; повторения запрещены. Без id сервер создаёт новый устойчивый ID. }
+        role: { type: string, enum: [mother, father, brother, sister] }
+        name: { type: string, minLength: 1, maxLength: 100 }
+        ageAtBirth: { type: integer, minimum: 0, maximum: 80, description: Возраст родственника в момент рождения героя. Родители от 18 лет и минимум на 16 лет старше старшего брата/сестры — ограничения игровой модели. }
+        occupation: { type: string, maxLength: 100, description: Пропуск сохраняет профессию существующего родственника; пустая строка очищает. Для нового без этого поля — null. }
+        closeness: { $ref: '#/components/schemas/Score', description: При пропуске сохраняется прежняя близость, для нового родственника 65. }
+        trust: { $ref: '#/components/schemas/Score', description: При пропуске сохраняется прежнее доверие, для нового родственника 60. }
     AnswerDecision:
       allOf:
         - { $ref: '#/components/schemas/VersionedAction' }

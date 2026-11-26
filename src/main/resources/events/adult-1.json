@@ -54,6 +54,12 @@
         "costUnits": 0
       },
       {
+        "id": "part_time",
+        "label": "Искать работу на неполный день",
+        "action": "apply_part_time",
+        "costUnits": 0
+      },
+      {
         "id": "prepare",
         "label": "Сначала подготовиться к новой специальности",
         "action": "retrain",
@@ -1025,5 +1031,28 @@
     "laterMonths": 4,
     "laterTitle": "Снова на связи",
     "laterAction": "contact_followup"
+  },
+  {
+    "id": "later-life",
+    "domain": "RELATIONSHIPS",
+    "weight": 9,
+    "cooldownMonths": 24,
+    "condition": "later_life",
+    "participant": null,
+    "trigger": null,
+    "title": "Чему посвятить время на пенсии?",
+    "text": "Работа осталась позади. Ты выбираешь занятия по силам и то, чему хочется уделить больше внимания.",
+    "choices": [
+      { "id": "mentor", "label": "Делиться опытом с начинающими", "action": "mentor", "costUnits": 0 },
+      { "id": "volunteer", "label": "Помогать местным волонтёрам", "action": "volunteer", "costUnits": 0 },
+      { "id": "family_time", "label": "Проводить больше времени с близкими", "action": "family_time", "costUnits": 0 },
+      { "id": "quiet_retirement", "label": "Выбрать отдых и спокойные прогулки", "action": "quiet_retirement", "costUnits": 0 }
+    ],
+    "reviewMonths": 6,
+    "reviewTitle": "Новый ритм жизни",
+    "reviewAction": "later_life_review",
+    "laterMonths": 0,
+    "laterTitle": null,
+    "laterAction": null
   }
 ]

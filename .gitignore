@@ -1,5 +1,6 @@
 HELP.md
 target/
+/scripts/__pycache__/
 /data/statistics/expanded/
 /.env
 /.env.*

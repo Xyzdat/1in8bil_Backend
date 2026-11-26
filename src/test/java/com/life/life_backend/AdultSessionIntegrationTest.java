@@ -32,6 +32,34 @@ class AdultSessionIntegrationTest {
     @Autowired ObjectMapper json;
     @Autowired StatisticsImporter importer;
     @Autowired MortalityModel mortality;
+    @Test void zeroHealthEditFinalizesOnceAndLegacyZeroCannotBeHealed() throws Exception {
+        importer.importBundled();var owner=guest();
+        var born=send(owner,"/api/v1/sessions/generated/local",UUID.randomUUID().toString(),"{\"countryIso3\":\"JPN\"}",201);
+        String path="/api/v1/sessions/"+born.path("id").asString();String key=UUID.randomUUID().toString();
+        long version=born.path("version").asLong();
+        String body="{\"expectedVersion\":"+version+",\"changes\":{\"stats\":{\"health\":0}}}";
+        var ended=json.readTree(mvc.perform(patch(path+"/character").cookie(owner).header("Idempotency-Key",key)
+                .contentType(MediaType.APPLICATION_JSON).content(body)).andExpect(status().isOk()).andReturn().getResponse().getContentAsString());
+        assertThat(ended.path("version").asLong()).isEqualTo(version+1);
+        assertThat(ended.path("state").path("status").asString()).isEqualTo("COMPLETE");
+        assertThat(ended.path("state").path("age").asInt()).isZero();
+        assertThat(ended.path("highlights").path("status").asString()).isEqualTo("FINAL");
+        var retry=json.readTree(mvc.perform(patch(path+"/character").cookie(owner).header("Idempotency-Key",key)
+                .contentType(MediaType.APPLICATION_JSON).content(body)).andExpect(status().isOk()).andReturn().getResponse().getContentAsString());
+        assertThat(retry).isEqualTo(ended);assertThat(load(owner,path)).isEqualTo(ended);
+        mvc.perform(patch(path+"/character").cookie(guest()).header("Idempotency-Key",UUID.randomUUID().toString())
+                .contentType(MediaType.APPLICATION_JSON).content(body)).andExpect(status().isNotFound());
+
+        var legacy=send(owner,"/api/v1/sessions/generated/local",UUID.randomUUID().toString(),"{\"countryIso3\":\"JPN\"}",201);
+        UUID id=UUID.fromString(legacy.path("id").asString());path="/api/v1/sessions/"+id;
+        jdbc.update("update life_session set state=jsonb_set(state,'{stats,health}','0') where id=?",id);
+        body="{\"expectedVersion\":"+legacy.path("version").asLong()+",\"changes\":{\"stats\":{\"health\":100}}}";
+        var blocked=json.readTree(mvc.perform(patch(path+"/character").cookie(owner).header("Idempotency-Key",UUID.randomUUID().toString())
+                .contentType(MediaType.APPLICATION_JSON).content(body)).andExpect(status().isOk()).andReturn().getResponse().getContentAsString());
+        assertThat(blocked.path("state").path("status").asString()).isEqualTo("COMPLETE");
+        assertThat(blocked.path("state").path("stats").path("health").asInt()).isZero();
+        assertThat(blocked.path("version").asLong()).isEqualTo(legacy.path("version").asLong()+1);
+    }
     @Test void keyDecisionsAreOwnedIdempotentPersistedAndFinalizedWithTheLife() throws Exception {
         importer.importBundled();var owner=guest();
         var current=send(owner,"/api/v1/sessions/generated/local",UUID.randomUUID().toString(),"{\"countryIso3\":\"JPN\"}",201);
@@ -43,7 +71,7 @@ class AdultSessionIntegrationTest {
             boolean survives=true;
             for(int month=0;month<96;month+=2) {
                 var candidate=new LocalSimulation(seed,sim.engineVersion(),sim.statisticsRelease(),sim.request(),month,sim.family(),sim.skills(),sim.flags(),sim.lastEvents(),List.of(),null,sim.birthFacts(),null);
-                if(mortality.dies(candidate,"JPN",sim.birthFacts().sex(),0,0,"character")){survives=false;break;}
+                if(mortality.dies(candidate,"JPN",sim.birthFacts().sex(),0,1,"character")){survives=false;break;}
             }
             if(survives)safeSeed=seed;
         }
@@ -64,6 +92,15 @@ class AdultSessionIntegrationTest {
         send(owner,path+"/step",UUID.randomUUID().toString(),"{\"expectedVersion\":1}",409);
         assertThat(load(owner,path)).isEqualTo(current);
         mvc.perform(get(path).cookie(guest())).andExpect(status().isNotFound());
+        // Random childhood choices can all fall below the final slideshow threshold.
+        // Add an explicit meaningful choice so the non-empty final selection is a valid fixture expectation.
+        String purchaseKey=UUID.randomUUID().toString();
+        String purchase="{\"expectedVersion\":"+current.path("version").asLong()
+                +",\"categoryId\":\"pets\",\"itemId\":\"hamster\",\"petName\":\"Пушок\"}";
+        current=send(owner,path+"/purchases",purchaseKey,purchase,200);
+        assertThat(send(owner,path+"/purchases",purchaseKey,purchase,200)).isEqualTo(current);
+        assertThat(load(owner,path)).isEqualTo(current);
+        assertThat(current.path("highlights").path("slides").toString()).contains("Пушок");
         // Jump only this isolated fixture forward to verify finalization in the same transaction as death.
         sim=json.readValue(jdbc.queryForObject("select simulation::text from life_session where id=?",String.class,id),LocalSimulation.class);
         LocalSimulation terminal=null;

@@ -44,8 +44,30 @@ public class BirthContextFactory {
                 reference.all().stream().filter(p -> Set.of("IND", "JPN", "RUS").contains(p.iso3())).toList()));
     }
 
+    public BirthFacts withHousehold(BirthFacts f, com.life.life_backend.statistics.SocioeconomicCalibration.Family household) {
+        var sources = new HashMap<>(f.sources());
+        sources.put("households", "https://population.un.org/Household/index.html");
+        sources.put("housingUtilities", "https://data.worldbank.org/indicator/EG.ELC.ACCS.ZS");
+        String years = household.evidence().stream().map(e -> e.indicator() + "=" + e.year()).collect(java.util.stream.Collectors.joining(", "));
+        var housing = new BirthFacts.Description(f.housing().value(), "SAMPLED_PROXY", "World Bank WDI; family-housing-2026-11-v1",
+                "Удобства выбраны по долям населения; совместное распределение неизвестно. Тип жилья — игровое допущение, собственность неизвестна. Источники: " + years);
+        return new BirthFacts(f.countryIso3(), f.sex(), f.worldBirthProbability(), f.selectionProbability(), f.gdpPerCapita(), f.lifeExpectancy(), f.underFiveMortality(),
+                f.currency(), f.countryReligions(), f.countryLanguages(), f.wealth(), housing, f.familyRelationships(), f.familyFaith(), f.familyLanguage(), sources);
+    }
+
+    public BirthFacts withEconomy(BirthFacts facts, com.life.life_backend.statistics.BirthEconomy economy) {
+        var sources = new HashMap<>(facts.sources());
+        if (!economy.resources().evidence().isEmpty()) sources.put("familyResources", "https://data.worldbank.org/indicator/SI.DST.FRST.20");
+        sources.put("parentOccupations", "https://ilostat.ilo.org/data/bulk/");
+        var resources = economy.resources();
+        var wealth = new BirthFacts.Description(facts.wealth().value(), resources.basis(),
+                resources.evidence().isEmpty() ? "birth-economy-1: missing income distribution" : "World Bank WDI; work-income-2026-11-v2", resources.note());
+        return new BirthFacts(facts.countryIso3(), facts.sex(), facts.worldBirthProbability(), facts.selectionProbability(), facts.gdpPerCapita(), facts.lifeExpectancy(), facts.underFiveMortality(),
+                facts.currency(), facts.countryReligions(), facts.countryLanguages(), wealth, facts.housing(), facts.familyRelationships(), facts.familyFaith(), facts.familyLanguage(), sources);
+    }
+
     private BirthFacts.Description model(String value) {
         return new BirthFacts.Description(value, "GAME_ASSUMPTION", "family-model-2",
-                "Игровая модель; распределение доходов, состава семьи, возраста и профессий родителей, жилья и близости не является импортированной статистикой.");
+                "Игровая модель этого свойства; значение не является статистическим наблюдением о конкретной семье.");
     }
 }

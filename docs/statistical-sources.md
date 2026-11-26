@@ -1,5 +1,7 @@
 # Источники расширенной карточки рождения и смертности
 
+Дополнение от 26.11.2026: [семья, условия жилья, работа и доходы для 36 стран](socioeconomic-statistics.md). Наборы хранятся в отдельных справочных таблицах. [Подключение к новым жизням](socioeconomic-engine.md) сохраняет прежние правила для старых сохранений.
+
 Текущий релиз `birth-context-2026-v2` от 24.11.2026: 36 страновых профилей и 559 944 строки смертности. Покрытие — [country-expansion.md](country-expansion.md). Ресурсы в `statistics/expanded-v2/`: manifest с SHA-256, countries.json, mortality/*.json.gz. Прежний v1 (3 страны и 46 662 строки в statistics/expanded/) и 12 наблюдений WDI 2023 сохранены для совместимости.
 
 ## ООН, World Population Prospects 2024

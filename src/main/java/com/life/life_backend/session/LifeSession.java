@@ -84,6 +84,19 @@ class LifeSession {
 	@Column(columnDefinition = "jsonb")
 	private com.life.life_backend.highlights.LifeHighlights lifeHighlights;
 
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "jsonb")
+    private CharacterCustomization characterCustomization;
+
+    CharacterProfile characterProfile() { return characterCustomization == null ? setup.character() : characterCustomization.character(); }
+    BirthDetails birthDetails() { return characterCustomization == null ? setup.birthDetails() : characterCustomization.birthDetails(); }
+    LocalSimulation.BirthRequest originalBirthRequest() {
+        return characterCustomization == null ? simulation.request() : characterCustomization.originalBirthRequest();
+    }
+    void customizeBirth(BirthCustomizationService.Result result) {
+        characterCustomization = result.customization(); simulation = result.simulation(); state = result.state();
+    }
+
 	com.life.life_backend.highlights.HighlightFrame highlightFrame() {
 		return simulation==null?null:new com.life.life_backend.highlights.HighlightFrame(state,simulation,adultState,localBudget);
 	}
@@ -93,9 +106,12 @@ class LifeSession {
 
 	com.life.life_backend.engine.adult.AdultState adultState() { return adultState; }
 	void applyAdult(com.life.life_backend.engine.adult.AdultLifeEngine.Transition transition) {
+		applyAdult(transition,true);
+	}
+	void applyAdult(com.life.life_backend.engine.adult.AdultLifeEngine.Transition transition, boolean incrementVersion) {
 		int previousMonth=simulation.month();
 		state=transition.state();simulation=transition.simulation();adultState=transition.adult();localBudget=transition.budget();
-		completeTraining(previousMonth);markSaved();
+		completeTraining(previousMonth);if(incrementVersion)markSaved();
 	}
 
 	LocalSimulation simulation() { return simulation; }
@@ -105,16 +121,19 @@ class LifeSession {
 		lifeHighlights=com.life.life_backend.highlights.LifeHighlights.start(value.month(),state.history().size());
 	}
 	void enrichBirthContext(com.life.life_backend.engine.local.BirthContextFactory factory) {
-		simulation = factory.enrichLegacy(simulation, setup.character().birthplace().countryCode(), setup.character().gender());
+		simulation = factory.enrichLegacy(simulation, characterProfile().birthplace().countryCode(), characterProfile().gender());
 	}
 
 	void applySimulation(LocalSimulationEngine.Transition transition) {
+		applySimulation(transition,true);
+	}
+	void applySimulation(LocalSimulationEngine.Transition transition, boolean incrementVersion) {
 		int previousMonth = simulation.month();
 		simulation = transition.simulation();
 		state = transition.state();
 		localBudget = LocalBudget.atMonth(localBudget, simulation.month());
 		completeTraining(previousMonth);
-		markSaved();
+		if(incrementVersion)markSaved();
 	}
 
 	protected LifeSession() {
@@ -164,7 +183,7 @@ class LifeSession {
 	SpendingService.LocalContext localEconomy() {
 		var budget = simulation == null ? LocalBudget.atAge(localBudget, state.age())
 				: LocalBudget.atMonth(localBudget, simulation.month());
-		var birthplace = setup.character().birthplace();
+		var birthplace = characterProfile().birthplace();
 		var location = budget.purchases().reversed().stream().map(LocalBudget.Purchase::location)
 				.filter(Objects::nonNull).findFirst()
 				.orElseGet(() -> new FinanceView.Location(birthplace.countryCode(), birthplace.country(), birthplace.city()));
@@ -211,6 +230,8 @@ class LifeSession {
 	void editCharacter(CharacterChanges changes, boolean local) {
 		if (changes.name() != null) {
 			displayName = changes.name();
+			if (simulation != null && simulation.naming() != null)
+				simulation = simulation.withNaming(simulation.naming().keepMatchingName("character", displayName));
 		}
 		var editedStats = changes.stats();
 		if (editedStats != null) {
@@ -218,11 +239,11 @@ class LifeSession {
 				var current = state.stats();
 				var updated = new LifeState.Stats(
 						editedStats.health() != null ? editedStats.health() : current.health(),
-						current.happiness(),
+						editedStats.happiness() != null ? editedStats.happiness() : current.happiness(),
 						editedStats.intelligence() != null ? editedStats.intelligence() : current.intelligence(),
-						current.relationships(),
+						editedStats.relationships() != null ? editedStats.relationships() : current.relationships(),
 						editedStats.appearance() != null ? editedStats.appearance() : current.appearance(),
-						current.aura());
+						editedStats.aura() != null ? editedStats.aura() : current.aura());
 				state = withStats(updated);
 			} else if (editedStats.appearance() != null) {
 				customAppearance = editedStats.appearance();
@@ -254,10 +275,13 @@ class LifeSession {
 	}
 
 	SessionView view() {
-		var original = setup.character();
+		var original = characterProfile();
 		var character = new SessionView.Character(displayName == null ? original.name() : displayName, original.gender(),
-				original.birthYear(), original.birthplace(), original.background(), setup.birthDetails(),simulation==null?null:simulation.birthFacts());
-		return new SessionView(id, character, revision, savedAt, visibleState(), engineId,
+				original.birthYear(), original.birthplace(), original.background(), birthDetails(),simulation==null?null:simulation.birthFacts());
+		var visible = visibleState();
+		if (simulation != null) visible = new LifeState(visible.age(), visible.status(), visible.stats(), visible.pendingDecision(),
+				com.life.life_backend.highlights.HistoryImportance.present(visible.history(), lifeHighlights));
+		return new SessionView(id, character, revision, savedAt, visible, engineId,
 				simulation == null ? null : simulation.view(adultState),lifeHighlights==null?null:lifeHighlights.view());
 	}
 
