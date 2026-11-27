@@ -14,9 +14,21 @@ final class AdultEconomy {
     void settle(AdultWorld w,int target) {
         for(int m=w.budget.month()+1;m<=target;m++) {
             final int settledMonth=m;
-            w.budget=w.budget.adultMonth(m); var c=w.career;
+            w.budget=w.budget.adultMonth(m,BudgetCatalog.effectiveRate(w)); var c=w.career;
             long pay=w.employed()?c.monthlyPay()*HealthSystem.capacity(w)/100:0;
-            if(pay>0) post(w,"salary-"+m,c.status().equals("BUSINESS")?"Доход собственного дела":"Зарплата: "+c.occupation(),pay,0,false);
+            if(c.status().equals("BUSINESS")&&w.management.business!=null){
+                long costs=w.management.business.monthlyCost();
+                long revenue=(c.monthlyPay()+costs)*HealthSystem.capacity(w)/100;
+                w.budget=w.budget.postTagged("business-revenue-"+m,"Выручка бизнеса",revenue,0,false,"BUSINESS_REVENUE","OTHER",CareerSystem.currentJob(c));
+                w.budget=w.budget.postTagged("business-cost-"+m,"Расходы бизнеса",0,costs,false,"BUSINESS_COST","OTHER",CareerSystem.currentJob(c));
+            }else if(pay>0)w.budget=w.budget.postTagged("salary-"+m,c.status().equals("BUSINESS")?"Доход собственного дела":"Зарплата: "+c.occupation(),pay,0,false,c.status().equals("BUSINESS")?"BUSINESS_NET":"SALARY","OTHER",CareerSystem.currentJob(c));
+            var secondary=w.management.secondary;
+            if(secondary!=null){
+                long sidePay=secondary.basePay()*HealthSystem.capacity(w)/100;
+                w.budget=w.budget.postTagged("secondary-"+secondary.id()+"-"+m,"Подработка: "+secondary.title(),sidePay,0,false,"SECONDARY_SALARY","OTHER",secondary.id());
+                w.management.secondary=new BudgetState.SideJob(secondary.id(),secondary.offerId(),secondary.title(),secondary.basePay(),secondary.hours(),secondary.beganMonth(),secondary.experienceMonths()+1,null);
+                if(m%12==0&&(w.employed()&&w.management.mainHours!=null?w.management.mainHours:0)+secondary.hours()>48)w.stats(-2,-2,0,0);
+            }
             if(c.monthlyPension()>0)post(w,"pension-"+m,"Пенсионная выплата",c.monthlyPension(),0,false);
             long contribution=0;
             if(w.coupled()&&w.partnership.cohabiting())contribution=w.npcs.get(w.partnership.partnerId()).monthlyIncome()/2;
@@ -24,7 +36,8 @@ final class AdultEconomy {
             long living=w.cost(w.housing.equals("FAMILY_HOME")?5:8);
             if(w.coupled()&&w.partnership.cohabiting())living+=w.cost(3);
             if(w.flags.contains("frugal"))living=living*80/100;
-            post(w,"living-"+m,"Питание, жильё и повседневные расходы",0,living,false);
+            post(w,"living-housing-"+m,"Жильё и коммунальные услуги",0,living*40/100,false);
+            post(w,"living-food-"+m,"Питание и повседневные покупки",0,living-living*40/100,false);
             long children=w.children().stream().filter(p -> settledMonth-p.birthMonth()<216).count();
             if(children>0)post(w,"children-"+m,"Содержание и поддержка детей",0,children*w.cost(2),false);
             long medical=w.diseases.stream().filter(d -> d.endedMonth()==null&&d.treatment().equals("SUPERVISED")).count()*w.cost(1);
@@ -64,7 +77,10 @@ final class AdultEconomy {
                     borrow(w,price*4/5,"MORTGAGE","house");
                 }
                 if(w.budget.available()<price)yield end("На выбранное жильё сейчас не хватает накоплений.");
-                buy(w,p,"house"); w.housing="OWN_HOME"; yield next("Ты приобретаешь жильё. Покупка и содержание отражены в едином бюджете, а объект — в имуществе.");
+                buy(w,p,"house"); w.housing="OWN_HOME";
+                String collateral=w.assets.stream().filter(a->a.purchaseId()!=null&&w.budget.purchases().stream().anyMatch(purchase->purchase.itemId().equals("house")&&purchase.id().toString().equals(a.purchaseId())&&purchase.soldMonth()==null)).map(Asset::id).findFirst().orElseThrow();
+                w.debts.replaceAll(d->"house".equals(d.collateralId())&&d.beganMonth()==w.month()?new Debt(d.id(),d.kind(),d.principal(),d.annualBasisPoints(),d.monthlyPayment(),d.beganMonth(),d.missedPayments(),collateral):d);
+                yield next("Ты приобретаешь жильё. Покупка и содержание отражены в едином бюджете, а объект — в имуществе.");
             }
             case "home_review" -> { w.stats(0,4,0,0); yield end("Ты обустраиваешь дом и привыкаешь к расходам на его содержание. Право собственности остаётся частью состояния семьи."); }
             case "buy_vehicle" -> { if(w.owns("motorcycle"))yield end("Транспорт уже приобретён."); buy(w,p,"motorcycle"); yield next("Ты покупаешь мотоцикл. В бюджете учтены стоимость и дальнейшее содержание."); }
@@ -83,15 +99,8 @@ final class AdultEconomy {
                 yield next(percent>=100?"Оценка инвестиции выросла. До продажи это ещё не доступные деньги.":"Рыночная оценка снизилась. Убыток пока выражен в стоимости актива.");
             }
             case "investment_sell" -> {
-                int i=asset(w,p.get("asset")); if(i<0)yield end("Инвестиция уже закрыта."); var a=w.assets.remove(i);
-                long returned=a.value()*a.ownershipPercent()/100, principal=a.purchasePrice()*a.ownershipPercent()/100;
-                post(w,p.story.id()+"-principal","Возврат вложенного капитала",Math.min(principal,returned),0,true);
-                if(returned>principal)post(w,p.story.id()+"-profit","Прибыль инвестиции",returned-principal,0,false);
-                if(returned<principal) {
-                    // Record the realized loss without moving cash a second time.
-                    post(w,p.story.id()+"-loss-offset","Учёт реализованного убытка",principal-returned,0,true);
-                    post(w,p.story.id()+"-loss","Убыток инвестиции",0,principal-returned,false);
-                }
+                int i=asset(w,p.get("asset")); if(i<0)yield end("Инвестиция уже закрыта.");
+                AssetSales.execute(w,p.get("asset"));
                 yield end("Инвестиция закрыта по текущей оценке. Полученные деньги снова доступны, прибыль или убыток учтены отдельно от возврата капитала.");
             }
             case "inherit" -> {

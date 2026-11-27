@@ -32,7 +32,7 @@ public record LocalBudget(int month, long balance, List<Entry> entries, List<Pur
 				balance += entry.income() - entry.expense();
 			}
 			for (var purchase : budget.purchases) {
-				if (purchase.yearlyCost() > 0 && month > purchase.month()) {
+				if (purchase.activeAt(month) && purchase.yearlyCost() > 0 && month > purchase.month()) {
 					long expense = installment(purchase.yearlyCost(), month - purchase.month());
 					ledger.add(new Entry("upkeep-" + purchase.id() + "-" + month, month, "UPKEEP", purchase.title(), 0, expense));
 					balance -= expense;
@@ -65,7 +65,7 @@ public record LocalBudget(int month, long balance, List<Entry> entries, List<Pur
 					balance += entry.income() - entry.expense();
 				}
 				for (var purchase : budget.purchases) {
-					if (purchase.yearlyCost() > 0 && month > purchase.month()) {
+					if (purchase.activeAt(month) && purchase.yearlyCost() > 0 && month > purchase.month()) {
 						long expense = installment(purchase.yearlyCost(), month - purchase.month());
 						ledger.add(new Entry("upkeep-" + purchase.id() + "-" + month, month, "UPKEEP",
 								"Содержание: " + purchase.title(), 0, expense));
@@ -86,7 +86,8 @@ public record LocalBudget(int month, long balance, List<Entry> entries, List<Pur
 		var updatedPurchases = new ArrayList<>(purchases);
 		updatedPurchases.add(purchase);
 		var ledger = new ArrayList<>(entries);
-		ledger.add(new Entry(purchase.id().toString(), month, "PURCHASE", purchase.title(), 0, purchase.price()));
+		var tags=CashTags.forPurchase(purchase,false);
+		ledger.add(new Entry(purchase.id().toString(), month, "PURCHASE", purchase.title(), 0, purchase.price(),"OPERATING",tags.sourceId(),tags.categoryId(),tags.relatedId()));
 		return new LocalBudget(month, balance - purchase.price(), List.copyOf(ledger), List.copyOf(updatedPurchases));
 	}
 
@@ -128,6 +129,15 @@ public record LocalBudget(int month, long balance, List<Entry> entries, List<Pur
 	public LocalBudget post(String id, String title, long income, long expense, boolean financing) {
 		return post(id,"BUDGET",title,income,expense,financing);
 	}
+	public LocalBudget postTagged(String id,String title,long income,long expense,boolean financing,String source,String category,String related) {
+		if(income<0||expense<0)throw new IllegalArgumentException("Negative cash flow");
+		if(entries.stream().anyMatch(entry->entry.id().equals(id)))return this;
+		var ledger=new ArrayList<>(entries);ledger.add(new Entry(id,month,"BUDGET",title,income,expense,financing?"FINANCING":"OPERATING",source,category,related));
+		return new LocalBudget(month,Math.addExact(balance,income-expense),List.copyOf(ledger),purchases);
+	}
+	public LocalBudget sold(UUID id,int atMonth){
+		return new LocalBudget(month,balance,entries,purchases.stream().map(p->p.id().equals(id)?new Purchase(p.id(),p.month(),p.categoryId(),p.itemId(),p.title(),p.icon(),p.price(),p.yearlyCost(),p.durationMonths(),p.petName(),p.location(),atMonth):p).toList());
+	}
 	private LocalBudget post(String id,String kind,String title,long income,long expense,boolean financing) {
 		if (income < 0 || expense < 0) throw new IllegalArgumentException("Negative cash flow");
 		if (entries.stream().anyMatch(e -> e.id().equals(id))) return this;
@@ -138,32 +148,39 @@ public record LocalBudget(int month, long balance, List<Entry> entries, List<Pur
 
 	/** Existing interest and purchased-item upkeep, without the legacy age-based allowance. */
 	public LocalBudget adultMonth(int target) {
+		return adultMonth(target,RATE_BASIS_POINTS);
+	}
+	public LocalBudget adultMonth(int target,int rateBasisPoints) {
 		if (target != month + 1) throw new IllegalArgumentException("Settle exactly one month");
 		var next = new LocalBudget(target, balance, entries, purchases);
-		for (var p : purchases) if (p.yearlyCost() > 0 && target > p.month())
+		for (var p : purchases) if (p.activeAt(target) && p.yearlyCost() > 0 && target > p.month())
 			next = next.post("upkeep-" + p.id() + "-" + target, "UPKEEP", "Содержание: " + p.title(), 0, installment(p.yearlyCost(), target - p.month()), false);
-		long interest = Math.max(0, balance) * RATE_BASIS_POINTS / 120000;
+		long interest = Math.max(0, balance) * rateBasisPoints / 120000;
 		if (interest > 0) next = next.post("interest-" + target, "INTEREST", "Проценты на накопления", interest, 0, false);
 		return next;
 	}
 
-	public record Entry(String id, int month, String kind, String title, long income, long expense, String flow) {
+	public record Entry(String id, int month, String kind, String title, long income, long expense, String flow,String sourceId,String categoryId,String relatedId) {
+		public Entry(String id,int month,String kind,String title,long income,long expense,String flow){this(id,month,kind,title,income,expense,flow,null,null,null);}
 		public Entry(String id, int month, String kind, String title, long income, long expense) {
 			this(id, month, kind, title, income, expense, null);
 		}
 		FinanceView.Transaction view() {
 			return new FinanceView.Transaction(id, month, kind, title, money(income), money(expense),flow);
 		}
+		FinanceView.Transaction view(List<Purchase> purchases){var tags=CashTags.resolve(this,purchases);return new FinanceView.Transaction(id,month,kind,title,money(income),money(expense),flow,tags.sourceId(),tags.categoryId(),tags.relatedId());}
 	}
 
 	public record Purchase(UUID id, int month, String categoryId, String itemId, String title, String icon,
-			long price, long yearlyCost, Integer durationMonths, String petName, FinanceView.Location location) {
+			long price, long yearlyCost, Integer durationMonths, String petName, FinanceView.Location location,Integer soldMonth) {
+		public Purchase(UUID id,int month,String categoryId,String itemId,String title,String icon,long price,long yearlyCost,Integer durationMonths,String petName,FinanceView.Location location){this(id,month,categoryId,itemId,title,icon,price,yearlyCost,durationMonths,petName,location,null);}
+		public boolean activeAt(int time){return soldMonth==null||time<=soldMonth;}
 		public Integer completionMonth() {
 			return durationMonths == null ? null : month + durationMonths;
 		}
 
 		FinanceView.PurchasedItem view(int currentMonth) {
-			String status = completionMonth() == null ? "PURCHASED"
+			String status = soldMonth!=null ? "SOLD" : completionMonth() == null ? "PURCHASED"
 					: currentMonth >= completionMonth() ? "COMPLETED" : "IN_PROGRESS";
 			return new FinanceView.PurchasedItem(id, month, categoryId, itemId, title, icon, money(price),
 					yearlyCost == 0 ? null : BigDecimal.valueOf(yearlyCost), durationMonths, petName, status, location);

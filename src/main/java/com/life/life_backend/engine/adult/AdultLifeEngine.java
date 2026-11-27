@@ -37,8 +37,10 @@ public class AdultLifeEngine {
         var checked=mortality.checkMortality(w.state,w.sim,healthById,causeContext(w));
         int target=checked.state().status()==LifeState.Status.COMPLETE?checked.simulation().month():sim.month()+2;
         // Earn/spend only for the elapsed interval; an event at its end affects future payments.
+        w.state=checked.state();
         economy.settle(w,target);
-        w.state=checked.state();w.sim=checked.simulation();
+        w.sim=checked.simulation();
+        if(w.state.stats().health()<=0){w.time(target);return transition(w);}
         var focused=com.life.life_backend.engine.focus.FocusEffects.settle(w.state,w.sim,w.snapshot(),target);
         w.state=focused.state();w.sim=focused.simulation();w.time(target);
         if(w.state.status()==LifeState.Status.COMPLETE) {
@@ -102,6 +104,9 @@ public class AdultLifeEngine {
     private AdultWorld world(LifeState state,LocalSimulation sim,AdultState adult,LocalBudget budget,FinanceView.Location location) {
         if(state.status()==LifeState.Status.COMPLETE)throw conflict("SESSION_COMPLETE","This life has ended.");
         if(sim.month()<216)throw conflict("ADULT_AGE_REQUIRED","Adult simulation begins at eighteen.");
+        return context(state,sim,adult,budget,location);
+    }
+    private AdultWorld context(LifeState state,LocalSimulation sim,AdultState adult,LocalBudget budget,FinanceView.Location location) {
         if(adult!=null&&!AdultState.VERSION.equals(adult.modelVersion()))throw conflict("ENGINE_VERSION_UNAVAILABLE","Unsupported adult engine version.");
         var profile=references.all().stream().filter(c -> c.iso2().equals(location.countryCode())).findFirst();
         // A documented game purchasing-power index, NOT USD→RUB conversion or a wage statistic.
@@ -114,6 +119,22 @@ public class AdultLifeEngine {
         AdultDecisionPacing.restoreCounts(world);
         return world;
     }
+    public BudgetViews.Page budgetView(LifeState state,LocalSimulation sim,AdultState adult,LocalBudget budget,FinanceView.Location location,long version,String section,String assetId){
+        return BudgetViews.view(context(state,sim,adult,budget,location),version,section,spending,assetId);
+    }
+    public ManagementResult manage(LifeState state,LocalSimulation sim,AdultState adult,LocalBudget budget,FinanceView.Location location,String action,String option){
+        var w=world(state,sim,adult,budget,location);
+        var outcome=BudgetCommands.apply(w,action,option);
+        if(outcome.status().equals("DECLINED"))return new ManagementResult(outcome,null);
+        String source=action.equals("OPEN_BUSINESS")?w.stories.getLast().id():w.id("budget-action");
+        String template=action.equals("OPEN_BUSINESS")?"business-start":"budget:"+action;
+        String narrativeAction=switch(action){case "OPEN_BUSINESS"->"business";case "APPLY_JOB"->"apply_job";case "QUIT_JOB"->"quit";case "REQUEST_RAISE"->"promotion_review";default->action;};
+        w.event("Управление бюджетом",outcome.message(),state.stats(),sim,
+                new com.life.life_backend.highlights.EventLink(source,template,action.equals("OPEN_BUSINESS")?"BUSINESS":Set.of("SET_STRATEGY","SELL_ASSET").contains(action)?"FINANCE":"CAREER","DECISION",w.month(),source+":command",option,outcome.message(),narrativeAction,
+                        List.of(new LifeState.Option(option,outcome.message())),List.of(),List.of()));
+        return new ManagementResult(outcome,transition(w));
+    }
+    public record ManagementResult(BudgetOutcome outcome,Transition transition) { }
     private boolean eligible(AdultStoryCatalog.Definition d,AdultWorld w) {
         if(!AdultConditions.test(d.condition(),w))return false;
         if(d.participant()!=null&&!Set.of("new-partner","friend").contains(d.participant())&&AdultConditions.participant(d.participant(),w)==null)return false;
@@ -227,6 +248,7 @@ public class AdultLifeEngine {
         }
     }
     private void validatePurchaseChoice(AdultWorld w,String action) {
+        if(action.equals("business")&&w.management.secondary!=null)throw conflict("BUDGET_ACTION_UNAVAILABLE","Сначала завершите подработку перед открытием бизнеса.");
         long amount=requiredCash(w,action);
         if(w.budget.available()<amount)throw conflict("SPENDING_INSUFFICIENT_FUNDS","Недостаточно средств для этого решения.");
     }
@@ -257,6 +279,7 @@ public class AdultLifeEngine {
         if(w.state.status()==LifeState.Status.COMPLETE) {
             w.stories.replaceAll(s -> s.status().equals("ACTIVE")?finish(s,"CANCELLED",w.month(),s.variables()):s);
             w.pending=null;w.flags.remove("pregnancy");CareerSystem.leave(w,"Жизнь завершена");
+            BudgetCommands.closeSecondary(w);
         }
         return new Transition(w.state,w.sim,w.snapshot(),w.budget);
     }

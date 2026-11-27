@@ -6,8 +6,13 @@ import java.util.*;
 public record AdultState(String modelVersion, int activatedMonth, int serial, Traits traits,
         Education education, Career career, Partnership partnership, Map<String, Npc> npcs,
         List<Disease> diseases, List<Debt> debts, List<Asset> assets, List<Story> stories,
-        List<Memory> memories, Pending pending, String housing, Set<String> flags, Map<String, ContactState> contacts) {
+        List<Memory> memories, Pending pending, String housing, Set<String> flags, Map<String, ContactState> contacts,BudgetState budgetManagement) {
     public static final String VERSION = "adult-1";
+    public AdultState(String modelVersion,int activatedMonth,int serial,Traits traits,Education education,Career career,Partnership partnership,
+            Map<String,Npc> npcs,List<Disease> diseases,List<Debt> debts,List<Asset> assets,List<Story> stories,List<Memory> memories,Pending pending,
+            String housing,Set<String> flags,Map<String,ContactState> contacts){
+        this(modelVersion,activatedMonth,serial,traits,education,career,partnership,npcs,diseases,debts,assets,stories,memories,pending,housing,flags,contacts,null);
+    }
     public AdultState {
         npcs = Map.copyOf(npcs); diseases = List.copyOf(diseases); debts = List.copyOf(debts);
         assets = List.copyOf(assets); stories = List.copyOf(stories); memories = List.copyOf(memories);
@@ -19,7 +24,7 @@ public record AdultState(String modelVersion, int activatedMonth, int serial, Tr
         if(!purchase.categoryId().equals("property")||assets.stream().anyMatch(a->purchase.id().toString().equals(a.purchaseId())))return this;
         var updated=new ArrayList<>(assets);
         updated.add(new Asset("asset-"+(serial+1),"PROPERTY",purchase.title(),purchase.price(),purchase.price(),purchase.month(),100,purchase.id().toString()));
-        return new AdultState(modelVersion,activatedMonth,serial+1,traits,education,career,partnership,npcs,diseases,debts,updated,stories,memories,pending,housing,flags,contacts);
+        return new AdultState(modelVersion,activatedMonth,serial+1,traits,education,career,partnership,npcs,diseases,debts,updated,stories,memories,pending,housing,flags,contacts,budgetManagement);
     }
     public record Traits(int diligence, int sociability, int openness, int resilience) { }
     public record Education(String level, String field, Integer startedMonth, Integer completesMonth, String status) { }

@@ -1,13 +1,122 @@
 openapi: 3.1.0
 info:
   title: Life Backend API
-  version: 0.10.0
+  version: 0.11.0
   description: Локальные сохранения и жизни, сгенерированные 1in8b Engine. Новые локальные жизни поддерживают сохраняемый фокус года с влиянием на вероятности и постепенными эффектами; docs/year-focus.md. Важность событий и предпросмотр выбора описаны в docs/event-presentation.md.
 servers:
   - url: /
 security:
   - guestCookie: []
 paths:
+  "/api/v1/sessions/{sessionId}/budget/income":
+    get:
+      operationId: "getBudgetIncomePage"
+      description: "Чтение без продвижения времени, записи в БД или обращения к 1in8b. Правила и примеры — docs/budget-management.md."
+      parameters: [{"$ref":"#/components/parameters/SessionId"}]
+      responses:
+        '200':
+          description: "Версия состояния, доступность и данные раздела"
+          content: {"application/json":{"schema":{"$ref":"#/components/schemas/BudgetIncomePage"}}}
+        '401': {"$ref":"#/components/responses/Unauthorized"}
+        '404': {"$ref":"#/components/responses/NotFound"}
+  "/api/v1/sessions/{sessionId}/budget/expenses":
+    get:
+      operationId: "getBudgetExpensesPage"
+      description: "Чтение без продвижения времени, записи в БД или обращения к 1in8b. Правила и примеры — docs/budget-management.md."
+      parameters: [{"$ref":"#/components/parameters/SessionId"}]
+      responses:
+        '200':
+          description: "Версия состояния, доступность и данные раздела"
+          content: {"application/json":{"schema":{"$ref":"#/components/schemas/BudgetExpensesPage"}}}
+        '401': {"$ref":"#/components/responses/Unauthorized"}
+        '404': {"$ref":"#/components/responses/NotFound"}
+  "/api/v1/sessions/{sessionId}/budget/jobs":
+    get:
+      operationId: "getBudgetJobsPage"
+      description: "Чтение без продвижения времени, записи в БД или обращения к 1in8b. Правила и примеры — docs/budget-management.md."
+      parameters: [{"$ref":"#/components/parameters/SessionId"}]
+      responses:
+        '200':
+          description: "Версия состояния, доступность и данные раздела"
+          content: {"application/json":{"schema":{"$ref":"#/components/schemas/BudgetJobsPage"}}}
+        '401': {"$ref":"#/components/responses/Unauthorized"}
+        '404': {"$ref":"#/components/responses/NotFound"}
+  "/api/v1/sessions/{sessionId}/budget/side-jobs":
+    get:
+      operationId: "getBudgetSideJobsPage"
+      description: "Чтение без продвижения времени, записи в БД или обращения к 1in8b. Правила и примеры — docs/budget-management.md."
+      parameters: [{"$ref":"#/components/parameters/SessionId"}]
+      responses:
+        '200':
+          description: "Версия состояния, доступность и данные раздела"
+          content: {"application/json":{"schema":{"$ref":"#/components/schemas/BudgetSideJobsPage"}}}
+        '401': {"$ref":"#/components/responses/Unauthorized"}
+        '404': {"$ref":"#/components/responses/NotFound"}
+  "/api/v1/sessions/{sessionId}/budget/businesses":
+    get:
+      operationId: "getBudgetBusinessesPage"
+      description: "Чтение без продвижения времени, записи в БД или обращения к 1in8b. Правила и примеры — docs/budget-management.md."
+      parameters: [{"$ref":"#/components/parameters/SessionId"}]
+      responses:
+        '200':
+          description: "Версия состояния, доступность и данные раздела"
+          content: {"application/json":{"schema":{"$ref":"#/components/schemas/BudgetBusinessesPage"}}}
+        '401': {"$ref":"#/components/responses/Unauthorized"}
+        '404': {"$ref":"#/components/responses/NotFound"}
+  "/api/v1/sessions/{sessionId}/budget/strategies":
+    get:
+      operationId: "getBudgetStrategiesPage"
+      description: "Чтение без продвижения времени, записи в БД или обращения к 1in8b. Правила и примеры — docs/budget-management.md."
+      parameters: [{"$ref":"#/components/parameters/SessionId"}]
+      responses:
+        '200':
+          description: "Версия состояния, доступность и данные раздела"
+          content: {"application/json":{"schema":{"$ref":"#/components/schemas/BudgetStrategiesPage"}}}
+        '401': {"$ref":"#/components/responses/Unauthorized"}
+        '404': {"$ref":"#/components/responses/NotFound"}
+  "/api/v1/sessions/{sessionId}/budget/assets":
+    get:
+      operationId: "getBudgetAssetsPage"
+      description: "Чтение без продвижения времени, записи в БД или обращения к 1in8b. Правила и примеры — docs/budget-management.md."
+      parameters: [{"$ref":"#/components/parameters/SessionId"}]
+      responses:
+        '200':
+          description: "Версия состояния, доступность и данные раздела"
+          content: {"application/json":{"schema":{"$ref":"#/components/schemas/BudgetAssetsPage"}}}
+        '401': {"$ref":"#/components/responses/Unauthorized"}
+        '404': {"$ref":"#/components/responses/NotFound"}
+  "/api/v1/sessions/{sessionId}/budget/assets/{assetId}/sale-preview":
+    get:
+      operationId: "getBudgetSalePreviewPage"
+      description: "Чтение без продвижения времени, записи в БД или обращения к 1in8b. Правила и примеры — docs/budget-management.md."
+      parameters:
+        -
+          $ref: "#/components/parameters/SessionId"
+        -
+          name: "assetId"
+          in: "path"
+          required: true
+          schema: {"type":"string"}
+      responses:
+        '200':
+          description: "Версия состояния, доступность и данные раздела"
+          content: {"application/json":{"schema":{"$ref":"#/components/schemas/BudgetSalePreviewPage"}}}
+        '401': {"$ref":"#/components/responses/Unauthorized"}
+        '404': {"$ref":"#/components/responses/NotFound"}
+        '409': {"$ref":"#/components/responses/Conflict"}
+  "/api/v1/sessions/{sessionId}/budget/actions":
+    post:
+      operationId: "manageBudget"
+      description: "Все суммы и исходы определяет сервер. Для сгенерированной local с 18 лет; блокируется при COMPLETE, здоровье 0 и pendingDecision. APPLIED возвращает полную Session с увеличенной версией и budgetAction. Вероятностный DECLINED возвращает HTTP 200, прежнюю версию и записанный исход без изменения жизни. Повтор ключа/тела не повторяет действие; разные ключи не меняют исход того же отклика в том же месяце при тех же условиях. Подробнее — docs/budget-management.md."
+      parameters: [{"$ref":"#/components/parameters/SessionId"},{"$ref":"#/components/parameters/IdempotencyKey"}]
+      requestBody: {"required":true,"content":{"application/json":{"schema":{"$ref":"#/components/schemas/BudgetActionRequest"}}}}
+      responses:
+        '200': {"$ref":"#/components/responses/Session"}
+        '400': {"$ref":"#/components/responses/BadRequest"}
+        '401': {"$ref":"#/components/responses/Unauthorized"}
+        '404': {"$ref":"#/components/responses/NotFound"}
+        '409': {"$ref":"#/components/responses/Conflict"}
+
   /api/v1/sessions/{sessionId}/focus:
     patch:
       operationId: changeYearFocus
@@ -762,6 +871,9 @@ components:
       required: [id, month, kind, title, income, expense]
       properties:
         id: { type: string }
+        sourceId: { type: [string, 'null'], description: Устойчивый источник операции; LEGACY_EARNINGS и LEGACY_UNCLASSIFIED обозначают неполную детализацию старого сохранения. }
+        categoryId: { type: [string, 'null'], description: Устойчивая категория затрат; назначение не определяется по title. }
+        relatedId: { type: [string, 'null'], description: ID занятости, покупки, актива или обязательства, если связь известна. }
         month:
           type: integer
           minimum: 0
@@ -785,7 +897,7 @@ components:
         yearlyCost: { type: [number, 'null'], minimum: 0 }
         durationMonths: { type: [integer, 'null'], minimum: 1 }
         petName: { type: [string, 'null'] }
-        status: { type: string, enum: [PURCHASED, IN_PROGRESS, COMPLETED] }
+        status: { type: string, enum: [PURCHASED, IN_PROGRESS, COMPLETED, SOLD] }
         location:
           anyOf:
             - { $ref: '#/components/schemas/SpendingLocation' }
@@ -1310,6 +1422,11 @@ components:
       type: object
       required: [id, character, version, savedAt, state, provider]
       properties:
+        budgetAction:
+          description: Результат команды /budget/actions. null при обычном GET и прежних командах; повтор команды возвращает сохранённый исход вместе с актуальной Session.
+          anyOf:
+            - { $ref: '#/components/schemas/BudgetOutcome' }
+            - { type: 'null' }
         id: { type: string, format: uuid }
         character: { $ref: '#/components/schemas/SessionCharacter' }
         version: { type: integer, format: int64, minimum: 1 }
@@ -1423,3 +1540,383 @@ components:
       properties:
         code: { type: string }
         message: { type: string }
+
+    BudgetActionRequest:
+      type: "object"
+      required: ["expectedVersion","action","optionId"]
+      properties:
+        expectedVersion: {"type":"integer","format":"int64","minimum":1}
+        action:
+          type: "string"
+          enum:
+            - "APPLY_JOB"
+            - "REQUEST_RAISE"
+            - "QUIT_JOB"
+            - "TAKE_SIDE_JOB"
+            - "QUIT_SIDE_JOB"
+            - "OPEN_BUSINESS"
+            - "SET_STRATEGY"
+            - "SELL_ASSET"
+        optionId: {"type":"string","minLength":1,"maxLength":100}
+    BudgetOutcome:
+      type: "object"
+      description: "Результат именно команды; хранится с ключом запроса. DECLINED не меняет Session/version/savedAt. Повтор возвращает прежний исход и актуальную Session."
+      required: ["status","code","message","month","currency","periodMonths","amounts"]
+      properties:
+        status: {"type":"string","enum":["APPLIED","DECLINED"]}
+        code: {"type":"string"}
+        message: {"type":"string"}
+        month: {"type":"integer"}
+        currency: {"const":"RUB"}
+        periodMonths: {"type":["integer","null"]}
+        amounts: {"type":"object","additionalProperties":{"type":"number"}}
+    BudgetLine:
+      type: "object"
+      required: ["id","title","amount"]
+      properties: {"id":{"type":"string"},"title":{"type":"string"},"amount":{"type":"number"}}
+    BudgetEmployment:
+      type: "object"
+      description: "basePay — договорная месячная ставка; expectedPay — прогноз с текущей работоспособностью, actualIncome — проведённые поступления этой занятости за 12 месяцев. null при недостоверной детализации старых записей или BUSINESS; бизнес показан отдельно. Неизвестные часы старой работы — null."
+      required:
+        - "id"
+        - "title"
+        - "status"
+        - "basePay"
+        - "periodMonths"
+        - "hoursPerWeek"
+        - "schedule"
+        - "currentTenureMonths"
+        - "totalExperienceMonths"
+        - "workCapacityPercent"
+        - "expectedPay"
+        - "actualIncome"
+        - "actualPeriodMonths"
+      properties:
+        id: {"type":"string"}
+        title: {"type":"string"}
+        status: {"type":"string"}
+        basePay: {"type":"number"}
+        periodMonths: {"const":1}
+        hoursPerWeek: {"type":["integer","null"]}
+        schedule: {"type":["string","null"]}
+        currentTenureMonths: {"type":"integer"}
+        totalExperienceMonths: {"type":"integer"}
+        workCapacityPercent: {"type":"integer"}
+        expectedPay: {"type":["number","null"]}
+        actualIncome: {"type":["number","null"]}
+        actualPeriodMonths: {"const":12}
+    BudgetBusinessResult:
+      type: "object"
+      description: "Фактический результат текущего дела за 12 месяцев. Старый чистый доход не раскладывается на выручку и расходы."
+      required: ["id","title","revenue","costs","net","grossBreakdownKnown"]
+      properties:
+        id: {"type":"string"}
+        title: {"type":"string"}
+        revenue: {"type":["number","null"]}
+        costs: {"type":["number","null"]}
+        net: {"type":["number","null"]}
+        grossBreakdownKnown: {"type":"boolean"}
+    BudgetStorage:
+      type: "object"
+      description: "amount — положительная часть единого денежного остатка. actualReturn — фактические проценты за 12 месяцев; выбор стратегии не перемещает деньги."
+      required: ["selectedId","amount","actualReturn","basis"]
+      properties:
+        selectedId: {"type":"string"}
+        amount: {"type":"number"}
+        actualReturn: {"type":"number"}
+        basis: {"type":"string"}
+    BudgetIncome:
+      type: "object"
+      required: ["total","monthlyAverage","sources","primary","secondary","business","storage"]
+      properties:
+        total: {"type":"number"}
+        monthlyAverage: {"type":"number"}
+        sources: {"type":"array","items":{"$ref":"#/components/schemas/BudgetLine"}}
+        primary: {"anyOf":[{"$ref":"#/components/schemas/BudgetEmployment"},{"type":"null"}]}
+        secondary: {"anyOf":[{"$ref":"#/components/schemas/BudgetEmployment"},{"type":"null"}]}
+        business: {"anyOf":[{"$ref":"#/components/schemas/BudgetBusinessResult"},{"type":"null"}]}
+        storage: {"$ref":"#/components/schemas/BudgetStorage"}
+    BudgetForecast:
+      type: "object"
+      description: "Прогноз без изменения сохранения. requiredPayments включает плановый основной долг, в том числе непокрытую часть. projectedBalance = balance + expectedIncome − requiredPayments; deficit = max(0, -projectedBalance)."
+      required: ["months","balance","available","expectedIncome","requiredPayments","projectedBalance","deficit","assumption"]
+      properties:
+        months: {"const":2}
+        balance: {"type":"number"}
+        available: {"type":"number"}
+        expectedIncome: {"type":"number"}
+        requiredPayments: {"type":"number"}
+        projectedBalance: {"type":"number"}
+        deficit: {"type":"number"}
+        assumption: {"type":"string"}
+    BudgetObligation:
+      type: "object"
+      description: "Срок null: погашение зависит от средств. assetId — устойчивый ID обеспечения, null если связь неизвестна."
+      required:
+        - "id"
+        - "title"
+        - "type"
+        - "principal"
+        - "annualBasisPoints"
+        - "nextMonthlyInterest"
+        - "plannedPrincipalPayment"
+        - "scheduledMonthsRemaining"
+        - "assetId"
+      properties:
+        id: {"type":"string"}
+        title: {"type":"string"}
+        type: {"type":"string"}
+        principal: {"type":"number"}
+        annualBasisPoints: {"type":"integer"}
+        nextMonthlyInterest: {"type":"number"}
+        plannedPrincipalPayment: {"type":"number"}
+        scheduledMonthsRemaining: {"type":["integer","null"]}
+        assetId: {"type":["string","null"]}
+    BudgetExpenses:
+      type: "object"
+      required: ["total","monthlyAverage","categories","obligations","forecast"]
+      properties:
+        total: {"type":"number"}
+        monthlyAverage: {"type":"number"}
+        categories: {"type":"array","items":{"$ref":"#/components/schemas/BudgetLine"}}
+        obligations: {"type":"array","items":{"$ref":"#/components/schemas/BudgetObligation"}}
+        forecast: {"$ref":"#/components/schemas/BudgetForecast"}
+    BudgetJobOffer:
+      type: "object"
+      required:
+        - "id"
+        - "title"
+        - "basePay"
+        - "periodMonths"
+        - "hoursPerWeek"
+        - "schedule"
+        - "education"
+        - "minQualification"
+        - "minExperienceMonths"
+        - "noExperience"
+        - "experienceMatch"
+        - "available"
+        - "reason"
+      properties:
+        id: {"type":"string"}
+        title: {"type":"string"}
+        basePay: {"type":"number"}
+        periodMonths: {"const":1}
+        hoursPerWeek: {"type":"integer"}
+        schedule: {"type":"string"}
+        education: {"type":"string"}
+        minQualification: {"type":"integer"}
+        minExperienceMonths: {"type":"integer"}
+        noExperience: {"type":"boolean"}
+        experienceMatch: {"type":"boolean"}
+        available: {"type":"boolean"}
+        reason: {"type":["string","null"]}
+    BudgetRaiseOffer:
+      type: "object"
+      required: ["id","currentPay","proposedPay","extraHours","guaranteed","available","reason"]
+      properties:
+        id: {"type":"string","enum":["results","tenure","responsibility"]}
+        currentPay: {"type":"number"}
+        proposedPay: {"type":"number"}
+        extraHours: {"type":"integer"}
+        guaranteed: {"const":false}
+        available: {"type":"boolean"}
+        reason: {"type":["string","null"]}
+    BudgetJobs:
+      type: "object"
+      description: "Основные вакансии или подработки. experienceMatch — фильтр опыта, available дополнительно учитывает образование, здоровье, возраст, нагрузку и pendingDecision."
+      required: ["offers","raiseGrounds","current","canQuit","quitReason"]
+      properties:
+        offers: {"type":"array","items":{"$ref":"#/components/schemas/BudgetJobOffer"}}
+        raiseGrounds: {"type":"array","items":{"$ref":"#/components/schemas/BudgetRaiseOffer"}}
+        current: {"anyOf":[{"$ref":"#/components/schemas/BudgetEmployment"},{"type":"null"}]}
+        canQuit: {"type":"boolean"}
+        quitReason: {"type":["string","null"]}
+    BudgetBusinessOffer:
+      type: "object"
+      description: "risk — игровой индекс, не процент вероятности банкротства. currentNetTarget — стартовая цель чистого месячного результата при полной работоспособности."
+      required: ["id","title","investment","currentNetTarget","periodMonths","risk","expectation","available","reason"]
+      properties:
+        id: {"type":"string"}
+        title: {"type":"string"}
+        investment: {"type":"number"}
+        currentNetTarget: {"type":"number"}
+        periodMonths: {"const":1}
+        risk: {"type":"integer","minimum":0,"maximum":100}
+        expectation: {"type":"string"}
+        available: {"type":"boolean"}
+        reason: {"type":["string","null"]}
+    BudgetBusinesses:
+      type: "object"
+      required: ["offers","current","compatibility"]
+      properties:
+        offers: {"type":"array","items":{"$ref":"#/components/schemas/BudgetBusinessOffer"}}
+        current: {"anyOf":[{"$ref":"#/components/schemas/BudgetBusinessResult"},{"type":"null"}]}
+        compatibility: {"type":"string"}
+    BudgetStrategyOffer:
+      type: "object"
+      required: ["id","title","description","risk","available","reason","annualBasisPoints"]
+      properties:
+        id: {"type":"string","enum":["cash","deposit","bonds","balanced-fund","equity-fund","world-index","trading"]}
+        title: {"type":"string"}
+        description: {"type":"string"}
+        risk: {"type":"string"}
+        available: {"type":"boolean"}
+        reason: {"type":["string","null"]}
+        annualBasisPoints: {"type":["integer","null"]}
+    BudgetStrategies:
+      type: "object"
+      required: ["selectedId","options","current"]
+      properties:
+        selectedId: {"type":"string"}
+        options: {"type":"array","items":{"$ref":"#/components/schemas/BudgetStrategyOffer"}}
+        current: {"$ref":"#/components/schemas/BudgetStorage"}
+    BudgetAsset:
+      type: "object"
+      required: ["id","title","kind","ownershipPercent","salePrice","debtIds","available","reason"]
+      properties:
+        id: {"type":"string"}
+        title: {"type":"string"}
+        kind: {"type":"string"}
+        ownershipPercent: {"type":"integer"}
+        salePrice: {"type":"number"}
+        debtIds: {"type":"array","items":{"type":"string"}}
+        available: {"type":"boolean"}
+        reason: {"type":["string","null"]}
+    BudgetSaleRecord:
+      type: "object"
+      required: ["assetId","title","month","proceeds","debtRepaid","net"]
+      properties:
+        assetId: {"type":"string"}
+        title: {"type":"string"}
+        month: {"type":"integer"}
+        proceeds: {"type":"number"}
+        debtRepaid: {"type":"number"}
+        net: {"type":"number"}
+    BudgetAssets:
+      type: "object"
+      required: ["assets","sales"]
+      properties:
+        assets: {"type":"array","items":{"$ref":"#/components/schemas/BudgetAsset"}}
+        sales: {"type":"array","items":{"$ref":"#/components/schemas/BudgetSaleRecord"}}
+    BudgetSalePreview:
+      type: "object"
+      description: "Использовать version обёртки как expectedVersion продажи. net = salePrice − debtPayoff, может быть отрицательным при доплате. Аренда пока не моделируется: rentalModelled=false и rentalIncomeStopped=null."
+      required:
+        - "assetId"
+        - "title"
+        - "salePrice"
+        - "debtPayoff"
+        - "net"
+        - "balanceAfterSale"
+        - "obligationIds"
+        - "yearlyUpkeepStopped"
+        - "rentalIncomeStopped"
+        - "rentalModelled"
+        - "forecast"
+        - "available"
+        - "reason"
+        - "priceRule"
+      properties:
+        assetId: {"type":"string"}
+        title: {"type":"string"}
+        salePrice: {"type":"number"}
+        debtPayoff: {"type":"number"}
+        net: {"type":"number"}
+        balanceAfterSale: {"type":"number"}
+        obligationIds: {"type":"array","items":{"type":"string"}}
+        yearlyUpkeepStopped: {"type":"number"}
+        rentalIncomeStopped: {"type":["number","null"]}
+        rentalModelled: {"type":"boolean"}
+        forecast: {"anyOf":[{"$ref":"#/components/schemas/BudgetForecast"},{"type":"null"}]}
+        available: {"type":"boolean"}
+        reason: {"type":["string","null"]}
+        priceRule: {"type":"string"}
+    BudgetIncomePage:
+      type: "object"
+      description: "Денежные суммы — основные единицы игровых RUB. Период фактических итогов — 12 месяцев, месячные ставки явно имеют periodMonths=1. Для 1in8b и старого демо available=false, data/currency/periodMonths=null."
+      required: ["version","currency","periodMonths","available","reason","data"]
+      properties:
+        version: {"type":"integer","format":"int64"}
+        currency: {"type":["string","null"],"enum":["RUB",null]}
+        periodMonths: {"type":["integer","null"],"enum":[12,null]}
+        available: {"type":"boolean"}
+        reason: {"type":["string","null"]}
+        data: {"anyOf":[{"$ref":"#/components/schemas/BudgetIncome"},{"type":"null"}]}
+    BudgetExpensesPage:
+      type: "object"
+      description: "Денежные суммы — основные единицы игровых RUB. Период фактических итогов — 12 месяцев, месячные ставки явно имеют periodMonths=1. Для 1in8b и старого демо available=false, data/currency/periodMonths=null."
+      required: ["version","currency","periodMonths","available","reason","data"]
+      properties:
+        version: {"type":"integer","format":"int64"}
+        currency: {"type":["string","null"],"enum":["RUB",null]}
+        periodMonths: {"type":["integer","null"],"enum":[12,null]}
+        available: {"type":"boolean"}
+        reason: {"type":["string","null"]}
+        data: {"anyOf":[{"$ref":"#/components/schemas/BudgetExpenses"},{"type":"null"}]}
+    BudgetJobsPage:
+      type: "object"
+      description: "Денежные суммы — основные единицы игровых RUB. Период фактических итогов — 12 месяцев, месячные ставки явно имеют periodMonths=1. Для 1in8b и старого демо available=false, data/currency/periodMonths=null."
+      required: ["version","currency","periodMonths","available","reason","data"]
+      properties:
+        version: {"type":"integer","format":"int64"}
+        currency: {"type":["string","null"],"enum":["RUB",null]}
+        periodMonths: {"type":["integer","null"],"enum":[12,null]}
+        available: {"type":"boolean"}
+        reason: {"type":["string","null"]}
+        data: {"anyOf":[{"$ref":"#/components/schemas/BudgetJobs"},{"type":"null"}]}
+    BudgetSideJobsPage:
+      type: "object"
+      description: "Денежные суммы — основные единицы игровых RUB. Период фактических итогов — 12 месяцев, месячные ставки явно имеют periodMonths=1. Для 1in8b и старого демо available=false, data/currency/periodMonths=null."
+      required: ["version","currency","periodMonths","available","reason","data"]
+      properties:
+        version: {"type":"integer","format":"int64"}
+        currency: {"type":["string","null"],"enum":["RUB",null]}
+        periodMonths: {"type":["integer","null"],"enum":[12,null]}
+        available: {"type":"boolean"}
+        reason: {"type":["string","null"]}
+        data: {"anyOf":[{"$ref":"#/components/schemas/BudgetJobs"},{"type":"null"}]}
+    BudgetBusinessesPage:
+      type: "object"
+      description: "Денежные суммы — основные единицы игровых RUB. Период фактических итогов — 12 месяцев, месячные ставки явно имеют periodMonths=1. Для 1in8b и старого демо available=false, data/currency/periodMonths=null."
+      required: ["version","currency","periodMonths","available","reason","data"]
+      properties:
+        version: {"type":"integer","format":"int64"}
+        currency: {"type":["string","null"],"enum":["RUB",null]}
+        periodMonths: {"type":["integer","null"],"enum":[12,null]}
+        available: {"type":"boolean"}
+        reason: {"type":["string","null"]}
+        data: {"anyOf":[{"$ref":"#/components/schemas/BudgetBusinesses"},{"type":"null"}]}
+    BudgetStrategiesPage:
+      type: "object"
+      description: "Денежные суммы — основные единицы игровых RUB. Период фактических итогов — 12 месяцев, месячные ставки явно имеют periodMonths=1. Для 1in8b и старого демо available=false, data/currency/periodMonths=null."
+      required: ["version","currency","periodMonths","available","reason","data"]
+      properties:
+        version: {"type":"integer","format":"int64"}
+        currency: {"type":["string","null"],"enum":["RUB",null]}
+        periodMonths: {"type":["integer","null"],"enum":[12,null]}
+        available: {"type":"boolean"}
+        reason: {"type":["string","null"]}
+        data: {"anyOf":[{"$ref":"#/components/schemas/BudgetStrategies"},{"type":"null"}]}
+    BudgetAssetsPage:
+      type: "object"
+      description: "Денежные суммы — основные единицы игровых RUB. Период фактических итогов — 12 месяцев, месячные ставки явно имеют periodMonths=1. Для 1in8b и старого демо available=false, data/currency/periodMonths=null."
+      required: ["version","currency","periodMonths","available","reason","data"]
+      properties:
+        version: {"type":"integer","format":"int64"}
+        currency: {"type":["string","null"],"enum":["RUB",null]}
+        periodMonths: {"type":["integer","null"],"enum":[12,null]}
+        available: {"type":"boolean"}
+        reason: {"type":["string","null"]}
+        data: {"anyOf":[{"$ref":"#/components/schemas/BudgetAssets"},{"type":"null"}]}
+    BudgetSalePreviewPage:
+      type: "object"
+      description: "Денежные суммы — основные единицы игровых RUB. Период фактических итогов — 12 месяцев, месячные ставки явно имеют periodMonths=1. Для 1in8b и старого демо available=false, data/currency/periodMonths=null."
+      required: ["version","currency","periodMonths","available","reason","data"]
+      properties:
+        version: {"type":"integer","format":"int64"}
+        currency: {"type":["string","null"],"enum":["RUB",null]}
+        periodMonths: {"type":["integer","null"],"enum":[12,null]}
+        available: {"type":"boolean"}
+        reason: {"type":["string","null"]}
+        data: {"anyOf":[{"$ref":"#/components/schemas/BudgetSalePreview"},{"type":"null"}]}

@@ -32,10 +32,10 @@ public record AdultView(String modelVersion,String ageStage,String currency,Adul
         long loans=a.debts().stream().mapToLong(AdultState.Debt::principal).sum();
         long assets=a.assets().stream().mapToLong(x->x.value()*x.ownershipPercent()/100).sum();
         // A normal shop purchase can precede the next simulation step.
-        assets+=budget.purchases().stream().filter(p->p.categoryId().equals("property")&&a.assets().stream().noneMatch(x->p.id().toString().equals(x.purchaseId()))).mapToLong(LocalBudget.Purchase::price).sum();
+        assets+=budget.purchases().stream().filter(p->p.soldMonth()==null&&p.categoryId().equals("property")&&a.assets().stream().noneMatch(x->p.id().toString().equals(x.purchaseId()))).mapToLong(LocalBudget.Purchase::price).sum();
         String occupation=a.career().occupation()==null?(a.career().monthlyPension()>0?"Пенсионер":"Поиск работы"):a.career().occupation();
         return new FinanceView.Summary(base.income(),base.expenses(),base.periodMonths(),base.savings(),money(loans+Math.max(0,-budget.balance())),base.availableBalance(),
-                money(budget.balance()+assets-loans),occupation,base.depositRateBasisPoints(),base.asOfAge());
+                money(budget.balance()+assets-loans),occupation,a.budgetManagement()!=null&&"cash".equals(a.budgetManagement().strategy())?0:base.depositRateBasisPoints(),base.asOfAge());
     }
     public record Career(String status,String occupation,String industry,String employer,String position,BigDecimal monthlyPay,int beganMonth,
             int experienceMonths,int qualification,int satisfaction,int stability,int risk,BigDecimal monthlyPension,List<AdultState.Employment> history){}

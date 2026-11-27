@@ -20,6 +20,8 @@ class OpenApiContractTest {
         assertThat(paths.containsKey("/api/v1/sessions/generated/local")).isTrue();
         assertThat(paths.containsKey("/api/v1/sessions/{sessionId}/step")).isTrue();
         assertThat(paths.containsKey("/api/v1/sessions/{sessionId}/focus")).isTrue();
+        for(String section:List.of("income","expenses","jobs","side-jobs","businesses","strategies","assets","actions","assets/{assetId}/sale-preview"))
+            assertThat(paths.containsKey("/api/v1/sessions/{sessionId}/budget/"+section)).as(section).isTrue();
         var schemas = (Map<?, ?>) ((Map<?, ?>) document.get("components")).get("schemas");
         var countries = (List<String>) ((Map<?, ?>) schemas.get("SupportedCountry")).get("enum");
         var catalog = new com.life.life_backend.statistics.CountryCatalog(new tools.jackson.databind.ObjectMapper());

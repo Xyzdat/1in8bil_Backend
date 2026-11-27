@@ -25,7 +25,7 @@ public class SpendingService {
 		var categories = catalog.sections().stream().map(section -> category(section, context)).toList();
         return new FinanceView(context.version(), context.state().age(), FinanceView.Currency.RUB,
                 com.life.life_backend.engine.adult.AdultView.finances(context.adult(),budget),
-				budget.entries().reversed().stream().map(LocalBudget.Entry::view).toList(),
+				budget.entries().reversed().stream().map(entry->entry.view(budget.purchases())).toList(),
 				budget.purchases().reversed().stream().map(purchase -> purchase.view(budget.month())).toList(),
 				categories, context.location());
 	}
@@ -116,7 +116,7 @@ public class SpendingService {
 		}
 		if (List.of("property", "education", "hobby").contains(section.id())
 				&& context.budget().purchases().stream().anyMatch(purchase -> purchase.categoryId().equals(section.id())
-						&& purchase.itemId().equals(item.id()))) {
+						&& purchase.soldMonth()==null && purchase.itemId().equals(item.id()))) {
 			return new Restriction("SPENDING_ALREADY_OWNED", "Уже приобретено.");
 		}
 		if (item.location() != null && context.location().countryCode().equals(item.location().countryCode())

@@ -24,16 +24,24 @@ class SessionAction {
 	@JdbcTypeCode(SqlTypes.JSON)
 	@Column(nullable = false, columnDefinition = "jsonb")
 	private SessionCommand command;
+	@JdbcTypeCode(SqlTypes.JSON)
+	@Column(columnDefinition = "jsonb")
+	private com.life.life_backend.engine.adult.BudgetOutcome budgetResult;
 
 	protected SessionAction() {
 	}
 
 	SessionAction(UUID sessionId, UUID requestKey, SessionCommand command) {
+		this(sessionId,requestKey,command,null);
+	}
+	SessionAction(UUID sessionId, UUID requestKey, SessionCommand command,com.life.life_backend.engine.adult.BudgetOutcome budgetResult) {
 		this.id = UUID.randomUUID();
 		this.sessionId = sessionId;
 		this.requestKey = requestKey;
 		this.command = command;
+		this.budgetResult=budgetResult;
 	}
+	com.life.life_backend.engine.adult.BudgetOutcome budgetResult() { return budgetResult; }
 
 	boolean matches(SessionCommand request) {
 		return command.equals(request);

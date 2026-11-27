@@ -15,7 +15,9 @@ public record FinanceView(long version, int age, Currency currency, Summary summ
 			Integer depositRateBasisPoints, Integer asOfAge) {
 	}
 
-	public record Transaction(String id, int month, String kind, String title, BigDecimal income, BigDecimal expense, String flow) {
+	public record Transaction(String id, int month, String kind, String title, BigDecimal income, BigDecimal expense, String flow,
+                              String sourceId,String categoryId,String relatedId) {
+		public Transaction(String id,int month,String kind,String title,BigDecimal income,BigDecimal expense,String flow){this(id,month,kind,title,income,expense,flow,null,null,null);}
 		public Transaction(String id,int month,String kind,String title,BigDecimal income,BigDecimal expense) {this(id,month,kind,title,income,expense,null);}
 	}
 

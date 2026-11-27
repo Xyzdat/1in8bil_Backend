@@ -133,6 +133,13 @@ class SessionService {
 	private LifeSession findSession(UUID ownerId, UUID sessionId) {
 		return sessions.findByIdAndOwnerId(sessionId, ownerId).orElseThrow(this::notFound);
 	}
+	@Transactional(readOnly = true)
+	com.life.life_backend.engine.adult.BudgetViews.Page budget(UUID ownerId,UUID sessionId,String section,String assetId) {
+		var session=findSession(ownerId,sessionId);
+		if(!isLocal(session)||session.simulation()==null)return new com.life.life_backend.engine.adult.BudgetViews.Page(session.revision(),null,null,false,"Управление бюджетом доступно для сгенерированных жизней собственного движка",null);
+		var context=session.localEconomy();
+		return adultEngine.budgetView(session.checkpoint().state(),session.simulation(),session.adultState(),context.budget(),context.location(),session.revision(),section,assetId);
+	}
 
 	@Transactional(readOnly = true)
 	List<SessionView.Summary> list(UUID ownerId) {
@@ -147,10 +154,18 @@ class SessionService {
 			if (!previous.get().matches(command)) {
 				throw idempotencyConflict();
 			}
-			return presentation.view(session);
+			return presentation.view(session).withBudgetAction(previous.get().budgetResult());
 		}
 		if (command.expectedVersion() != session.revision()) {
 			throw conflict("VERSION_CONFLICT", "Refresh the session before sending another action.");
+		}
+		if(command.budgetAction()!=null) {
+			if(!isLocal(session)||session.simulation()==null)throw conflict("BUDGET_UNSUPPORTED","Управление бюджетом недоступно для этой жизни");
+			var before=session.highlightFrame();var context=session.localEconomy();var action=command.budgetAction();
+			var result=adultEngine.manage(session.checkpoint().state(),session.simulation(),session.adultState(),context.budget(),context.location(),action.action(),action.optionId());
+			if(result.transition()!=null){session.applyAdult(result.transition());session.updateHighlights(highlights,before);}
+			actions.save(new SessionAction(sessionId,requestKey,command,result.outcome()));
+			return presentation.view(session).withBudgetAction(result.outcome());
 		}
 		var beforeHighlights=session.highlightFrame();
 		if (completeDepletedHealth(session,true)) {

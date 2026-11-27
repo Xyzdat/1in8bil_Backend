@@ -13,6 +13,7 @@ final class RetirementPolicy {
         long pension = w.career.monthlyPension() > 0 ? w.career.monthlyPension()
                 : w.cost(5) + Math.min(w.cost(15), w.career.experienceMonths() * w.cost(1) / 120);
         CareerSystem.leave(w, "Выход на пенсию");
+        BudgetCommands.closeSecondary(w);
         var c = w.career;
         w.career = new Career("RETIRED", null, null, null, null, 0, w.month(), c.experienceMonths(),
                 c.qualification(), 60, 100, 0, pension, c.history());

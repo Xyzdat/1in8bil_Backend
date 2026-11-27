@@ -46,10 +46,12 @@ final class CareerSystem {
                     p.put("wageFactor",String.valueOf(CalibratedWages.factor(w.sim.calibration(),w.location.countryCode(),job)));
                 }
                 boolean partTime=action.equals("apply_part_time");
+                if(w.management.secondary!=null&&(partTime?24:40)+w.management.secondary.hours()>60)yield end("Эта работа несовместима с нагрузкой подработки.");
                 if(partTime) pay=pay*60/100;
                 var history=new ArrayList<>(c.history()); String id=w.id("employment");
                 history.add(new Employment(id,job,employer,w.month(),null,null)); p.put("employment",id);
                 w.career=new Career("PROBATION",job,"Услуги и производство",employer,partTime?"Неполный день":"Начальная позиция",pay,w.month(),c.experienceMonths(),c.qualification(),partTime?70:60,45,partTime?10:20,c.monthlyPension(),history);
+                w.management.enabled=true;w.management.mainHours=partTime?24:40;
                 yield next("Тебя принимают на испытательный срок: "+job+(partTime?" (неполный день, 60% оплаты полной ставки)":"")+". Зарплата начнёт поступать за следующие прожитые месяцы.");
             }
             case "probation" -> {
@@ -78,10 +80,12 @@ final class CareerSystem {
             case "qualify" -> { qualify(w,1); w.stats(0,3,3,0); yield end("Практический курс завершён. Квалификация повышена; новые навыки учитываются при найме и продвижении."); }
             case "business" -> {
                 if (!RetirementPolicy.canWork(w)) yield end("Рабочий этап завершён. Новое дело на пенсии не открывается.");
+                if(w.management.secondary!=null)yield end("Сначала нужно завершить подработку: она несовместима с собственным делом.");
                 if(w.employed()) leave(w,"Открытие своего дела");
                 c=w.career; var history=new ArrayList<>(c.history()); String id=w.id("employment"); p.put("employment",id);
                 history.add(new Employment(id,"Предприниматель","Своя мастерская",w.month(),null,null));
                 w.career=new Career("BUSINESS","Предприниматель","Малый бизнес","Своя мастерская","Владелец",w.cost(12),w.month(),c.experienceMonths(),c.qualification(),65,40,50,c.monthlyPension(),history);
+                w.management.enabled=true;w.management.mainHours=45;
                 yield next("Ты открываешь небольшое дело. Первые месяцы покажут, удастся ли найти постоянных клиентов.");
             }
             case "business_review", "business_growth" -> {
@@ -115,6 +119,7 @@ final class CareerSystem {
                 pay,c.beganMonth(),c.experienceMonths(),qualification,AdultWorld.clamp(satisfaction),AdultWorld.clamp(stability),c.risk(),c.monthlyPension(),c.history());
     }
     static void leave(AdultWorld w,String reason) {
+        w.management.mainHours=null;w.management.business=null;w.management.lastRaise=null;
         var c=w.career; var history=c.history().stream().map(e -> e.endedMonth()==null?new Employment(e.id(),e.occupation(),e.employer(),e.beganMonth(),w.month(),reason):e).toList();
         w.career=new Career("UNEMPLOYED",null,null,null,null,0,w.month(),c.experienceMonths(),c.qualification(),45,0,0,c.monthlyPension(),history);
     }

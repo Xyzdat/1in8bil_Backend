@@ -33,11 +33,13 @@ final class AdultWorld {
     String housing;
     final Set<String> flags;
     final SplittableRandom random;
+    final BudgetState.Work management;
 
     AdultWorld(LifeState state, LocalSimulation sim, LocalBudget budget, AdultState saved,
             FinanceView.Location location, CountryCatalog countries, double priceIndex) {
         this.state = state; this.sim = sim; this.budget = budget; this.location = location;
         this.countries = countries; this.priceIndex = priceIndex;
+        management=new BudgetState.Work(saved==null?null:saved.budgetManagement());
         random = new SplittableRandom(sim.seed() ^ ((long)sim.month() * 0x9E3779B97F4A7C15L) ^ (saved == null ? 0 : saved.serial()));
         activatedMonth = saved == null ? sim.month() : saved.activatedMonth();
         serial = saved == null ? 0 : saved.serial();
@@ -68,7 +70,7 @@ final class AdultWorld {
     }
 
     AdultState snapshot() { return new AdultState(VERSION, activatedMonth, serial, traits, education, career,
-            partnership, npcs, diseases, debts, assets, stories, memories, pending, housing, flags, contacts); }
+            partnership, npcs, diseases, debts, assets, stories, memories, pending, housing, flags, contacts,management.freeze()); }
     int month() { return sim.month(); }
     int age() { return month() / 12; }
     String id(String prefix) { return prefix + "-" + (++serial); }
@@ -84,7 +86,7 @@ final class AdultWorld {
     boolean employed() { return Set.of("EMPLOYED", "PROBATION", "BUSINESS").contains(career.status()); }
     boolean coupled() { return partnership != null && !Set.of("SEPARATED", "DIVORCED", "WIDOWED").contains(partnership.status())
             && person(partnership.partnerId()) != null && person(partnership.partnerId()).alive(); }
-    boolean owns(String item) { return budget.purchases().stream().anyMatch(p -> p.itemId().equals(item)); }
+    boolean owns(String item) { return budget.purchases().stream().anyMatch(p -> p.soldMonth()==null&&p.itemId().equals(item)); }
     long propertyPrice(String item) { return propertyPrices.getOrDefault(item,Long.MAX_VALUE); }
     void time(int month) {
         sim = sim.evolve(month, sim.family(), sim.skills(), sim.flags(), sim.lastEvents(), List.of(), null, sim.death());
@@ -139,7 +141,7 @@ final class AdultWorld {
     }
     void event(String title,String text) { event(title,text,state.stats(),sim); }
     void synchronizeAssets() {
-        for (var p : budget.purchases()) if (p.categoryId().equals("property") && assets.stream().noneMatch(a -> p.id().toString().equals(a.purchaseId())))
+        for (var p : budget.purchases()) if (p.soldMonth()==null&&p.categoryId().equals("property") && assets.stream().noneMatch(a -> p.id().toString().equals(a.purchaseId())))
             assets.add(new Asset(id("asset"),"PROPERTY",p.title(),p.price(),p.price(),p.month(),100,p.id().toString()));
     }
     static int clamp(int n) { return Math.clamp(n,0,100); }
