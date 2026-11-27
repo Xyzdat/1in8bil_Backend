@@ -8,7 +8,8 @@ public record LocalSimulation(long seed, String engineVersion, String statistics
         Set<String> flags, Map<String, Integer> lastEvents, List<Scheduled> scheduled,
         String pendingTemplate, BirthFacts birthFacts, Death death,
         com.life.life_backend.statistics.SocioeconomicCalibration calibration,
-        com.life.life_backend.engine.names.NamingState naming) {
+        com.life.life_backend.engine.names.NamingState naming,
+        com.life.life_backend.engine.focus.FocusState focus) {
     public static final String VERSION = "childhood-2";
     public static final String STATISTICS = "wdi-2023-20261111";
     public LocalSimulation {
@@ -35,13 +36,23 @@ public record LocalSimulation(long seed, String engineVersion, String statistics
     }
     public LocalSimulation evolve(int time,List<Person> people,Map<String,Integer> newSkills,Set<String> newFlags,
             Map<String,Integer> events,List<Scheduled> queue,String pending,Death ended){
-        return new LocalSimulation(seed,VERSION,statisticsRelease,request,time,people,newSkills,newFlags,events,queue,pending,birthFacts,ended,calibration,naming);
+        return new LocalSimulation(seed,VERSION,statisticsRelease,request,time,people,newSkills,newFlags,events,queue,pending,birthFacts,ended,calibration,naming,focus);
     }
     public LocalSimulation withBirthFacts(BirthFacts facts){
-        return new LocalSimulation(seed,engineVersion,statisticsRelease,request,month,family,skills,flags,lastEvents,scheduled,pendingTemplate,facts,death,calibration,naming);
+        return new LocalSimulation(seed,engineVersion,statisticsRelease,request,month,family,skills,flags,lastEvents,scheduled,pendingTemplate,facts,death,calibration,naming,focus);
     }
     public LocalSimulation withNaming(com.life.life_backend.engine.names.NamingState names) {
-        return new LocalSimulation(seed,engineVersion,statisticsRelease,request,month,family,skills,flags,lastEvents,scheduled,pendingTemplate,birthFacts,death,calibration,names);
+        return new LocalSimulation(seed,engineVersion,statisticsRelease,request,month,family,skills,flags,lastEvents,scheduled,pendingTemplate,birthFacts,death,calibration,names,focus);
+    }
+    /** No automatic opt-in for an existing save missing focus. */
+    public LocalSimulation(long seed,String version,String statisticsRelease,BirthRequest request,int month,
+            List<Person> family,Map<String,Integer> skills,Set<String> flags,Map<String,Integer> lastEvents,
+            List<Scheduled> scheduled,String pendingTemplate,BirthFacts birthFacts,Death death,
+            com.life.life_backend.statistics.SocioeconomicCalibration calibration,com.life.life_backend.engine.names.NamingState naming) {
+        this(seed,version,statisticsRelease,request,month,family,skills,flags,lastEvents,scheduled,pendingTemplate,birthFacts,death,calibration,naming,null);
+    }
+    public LocalSimulation withFocus(com.life.life_backend.engine.focus.FocusState value) {
+        return new LocalSimulation(seed,engineVersion,statisticsRelease,request,month,family,skills,flags,lastEvents,scheduled,pendingTemplate,birthFacts,death,calibration,naming,value);
     }
     public record Death(int elapsedMonths,int age,String cause,String model,String note,DeathCauseModel.Details causeDetails){
         public Death(int elapsedMonths,int age,String cause,String model,String note){
@@ -87,12 +98,12 @@ public record LocalSimulation(long seed, String engineVersion, String statistics
                             : "Birth resources use WDI quintile income/consumption shares relative to the country mean; quintiles have equal population mass. Parent occupational groups use ILO employed-population shares, independently of wealth. New birth-economy-2 lives add explicitly authored specialties; China uses pinned ILOEST Nov. 2025 modelled groups including combined 6+9. Missing occupations remain unspecified; see parent-occupations.md and birth-economy.md.",
                         "Mortality uses UN WPP 2024 projections; beyond 2100 the 2100 schedule is held constant. Health modifiers are game assumptions.",
                         "Specific death causes use death-causes-1 game rules, not country cause-of-death statistics. They do not add another mortality draw."), death,
-                        com.life.life_backend.engine.adult.AdultView.from(adult,month));
+                        com.life.life_backend.engine.adult.AdultView.from(adult,month),com.life.life_backend.engine.focus.YearFocus.view(this,adult));
     }
     public record Relative(String id, String role, String name, int age, boolean alive, int closeness, int trust,String sex,String occupation,
                            com.life.life_backend.engine.adult.ContactState contact,Death death) { }
     public record View(String engineVersion, String statisticsRelease, int statisticsYear,
                        int elapsedMonths, int monthOfYear, int stepMonths,
                        List<Relative> family, Map<String, Integer> skills, List<String> assumptions,Death death,
-                       com.life.life_backend.engine.adult.AdultView adult) { }
+                       com.life.life_backend.engine.adult.AdultView adult,com.life.life_backend.engine.focus.YearFocus.View yearlyFocus) { }
 }

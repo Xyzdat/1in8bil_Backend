@@ -26,11 +26,26 @@ final class AdultDailyEvents {
         options.add(new Moment("exercise","Посильная нагрузка","Ты выбираешь движение, которое подходит сегодняшнему самочувствию. Регулярность оказывается важнее рекордов.",1,0,0,null));
         int oldest=options.stream().mapToInt(o -> w.sim.lastEvents().getOrDefault("adult-daily:"+o.id(),-10000)).min().orElseThrow();
         var candidates=options.stream().filter(o -> w.sim.lastEvents().getOrDefault("adult-daily:"+o.id(),-10000)==oldest).toList();
-        var chosen=candidates.get(w.random.nextInt(candidates.size())); var before=w.state.stats();var old=w.sim;
+        var focused=com.life.life_backend.engine.focus.YearFocus.active(w.sim);
+        Moment chosen;
+        if(focused!=null&&!focused.id().equals("balanced")) {
+            var fresh=options.stream().filter(o->w.month()-w.sim.lastEvents().getOrDefault("adult-daily:"+o.id(),-10000)>=12).toList();
+            if(!fresh.isEmpty())candidates=fresh;
+            int draw=w.random.nextInt(candidates.stream().mapToInt(o->focusWeight(w,o)).sum());
+            chosen=candidates.getLast();
+            for(var option:candidates){draw-=focusWeight(w,option);if(draw<0){chosen=option;break;}}
+        } else chosen=candidates.get(w.random.nextInt(candidates.size()));
+        var before=w.state.stats();var old=w.sim;
         w.stats(chosen.health(),chosen.happiness(),chosen.intelligence(),0);
         if(chosen.participant()!=null)w.relationship(chosen.participant(),1,1);
         var last=new HashMap<>(w.sim.lastEvents());last.put("adult-daily:"+chosen.id(),w.month());
         w.sim=w.sim.evolve(w.month(),w.sim.family(),w.sim.skills(),w.sim.flags(),last,w.sim.scheduled(),null,w.sim.death());
         w.event(chosen.title(),chosen.text(),before,old);
+    }
+    private int focusWeight(AdultWorld w,Moment moment) {
+        var selected=com.life.life_backend.engine.focus.YearFocus.active(w.sim);
+        if(moment.participant()!=null&&selected.roles().contains(w.person(moment.participant()).role()))
+            return com.life.life_backend.engine.focus.FocusCatalog.multiplier();
+        return com.life.life_backend.engine.focus.YearFocus.dailyWeight(w.sim,moment.id());
     }
 }

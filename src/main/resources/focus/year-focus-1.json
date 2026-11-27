@@ -1,0 +1,243 @@
+{
+  "modelVersion": "year-focus-1",
+  "weightMultiplier": 3,
+  "options": [
+    {
+      "id": "balanced",
+      "title": "Баланс",
+      "description": "Обычный ритм жизни.",
+      "minAge": 0,
+      "maxAge": 999,
+      "stats": {},
+      "skills": {},
+      "closeness": 0,
+      "roles": [],
+      "domains": [],
+      "events": [],
+      "daily": []
+    },
+    {
+      "id": "learning",
+      "title": "Учёба",
+      "description": "Больше знаний и занятий; меньше свободного отдыха.",
+      "minAge": 3,
+      "maxAge": 999,
+      "stats": {
+        "intelligence": 3,
+        "happiness": -1
+      },
+      "skills": {
+        "learning": 3
+      },
+      "closeness": 0,
+      "roles": [],
+      "domains": [
+        "EDUCATION"
+      ],
+      "events": [
+        "puzzle",
+        "letters",
+        "learning",
+        "child_count",
+        "child_memory",
+        "child_question",
+        "child_sequence",
+        "school_read",
+        "school_task",
+        "school_note",
+        "school_project",
+        "school_search",
+        "school_attention",
+        "school_explain",
+        "school_compare",
+        "life_read",
+        "life_method"
+      ],
+      "daily": [
+        "study-practice",
+        "reading"
+      ]
+    },
+    {
+      "id": "friends",
+      "title": "Друзья и игры",
+      "description": "Общение, совместные игры и поддержка друзей.",
+      "minAge": 3,
+      "maxAge": 999,
+      "stats": {
+        "relationships": 3,
+        "happiness": 1
+      },
+      "skills": {},
+      "closeness": 2,
+      "roles": [
+        "friend"
+      ],
+      "domains": [
+        "SOCIAL"
+      ],
+      "events": [
+        "shared_game",
+        "apology",
+        "found_item",
+        "child_rules",
+        "queue_choice",
+        "credit_choice"
+      ],
+      "daily": [
+        "conversation"
+      ]
+    },
+    {
+      "id": "home",
+      "title": "Помощь по дому",
+      "description": "Больше внимания семье и общим делам; меньше времени на знания.",
+      "minAge": 3,
+      "maxAge": 999,
+      "stats": {
+        "relationships": 2,
+        "intelligence": -1
+      },
+      "skills": {
+        "responsibility": 2
+      },
+      "closeness": 2,
+      "roles": [
+        "mother",
+        "father",
+        "brother",
+        "sister",
+        "partner",
+        "child",
+        "grandchild",
+        "great-grandchild",
+        "in-law"
+      ],
+      "domains": [
+        "FAMILY"
+      ],
+      "events": [
+        "help_choice",
+        "listen_choice",
+        "care_choice",
+        "truth_choice",
+        "brother_share",
+        "sister_share",
+        "family_contact_mother",
+        "family_contact_father",
+        "family_contact_brother",
+        "family_contact_sister",
+        "life_order"
+      ],
+      "daily": [
+        "home"
+      ]
+    },
+    {
+      "id": "health",
+      "title": "Физические упражнения",
+      "description": "Посильное движение поддерживает здоровье.",
+      "minAge": 3,
+      "maxAge": 999,
+      "stats": {
+        "health": 3
+      },
+      "skills": {},
+      "closeness": 0,
+      "roles": [],
+      "domains": [
+        "HEALTH"
+      ],
+      "events": [
+        "outdoor",
+        "movement",
+        "child_rhythm",
+        "child_knot",
+        "school_practice",
+        "life_skill"
+      ],
+      "daily": [
+        "work-boundary",
+        "exercise"
+      ]
+    },
+    {
+      "id": "creativity",
+      "title": "Увлечения",
+      "description": "Практика в увлечениях приносит радость и развивает навыки.",
+      "minAge": 3,
+      "maxAge": 999,
+      "stats": {
+        "happiness": 2
+      },
+      "skills": {
+        "creative_practice": 3
+      },
+      "closeness": 0,
+      "roles": [],
+      "domains": [],
+      "events": [
+        "drawing_choice",
+        "drawing_practice",
+        "share_drawing",
+        "construction_practice",
+        "child_clay",
+        "child_story",
+        "child_shadow"
+      ],
+      "daily": [
+        "hobby"
+      ]
+    },
+    {
+      "id": "rest",
+      "title": "Отдых",
+      "description": "Больше восстановления, меньше интеллектуальной нагрузки.",
+      "minAge": 3,
+      "maxAge": 999,
+      "stats": {
+        "health": 2,
+        "intelligence": -1
+      },
+      "skills": {},
+      "closeness": 0,
+      "roles": [],
+      "domains": [
+        "HEALTH"
+      ],
+      "events": [
+        "quiet_day",
+        "outdoor",
+        "life_time"
+      ],
+      "daily": [
+        "work-boundary",
+        "rest"
+      ]
+    },
+    {
+      "id": "work",
+      "title": "Работа",
+      "description": "Внимание карьерным возможностям и профессиональному развитию; меньше отдыха.",
+      "minAge": 18,
+      "maxAge": 64,
+      "stats": {
+        "intelligence": 1,
+        "happiness": -1
+      },
+      "skills": {
+        "professional_practice": 3
+      },
+      "closeness": 0,
+      "roles": [],
+      "domains": [
+        "CAREER",
+        "BUSINESS"
+      ],
+      "events": [],
+      "daily": [
+        "work-routine"
+      ]
+    }
+  ]
+}

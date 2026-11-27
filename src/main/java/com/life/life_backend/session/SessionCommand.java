@@ -1,7 +1,11 @@
 package com.life.life_backend.session;
 
 public record SessionCommand(long expectedVersion, String decisionId, String optionId, CharacterChanges changes,
-		Purchase purchase, Boolean step) {
+		Purchase purchase, Boolean step, String focusId) {
+	public SessionCommand(long expectedVersion,String decisionId,String optionId,CharacterChanges changes,Purchase purchase,Boolean step) {
+		this(expectedVersion,decisionId,optionId,changes,purchase,step,null);
+	}
+	static SessionCommand focus(long version,String id) { return new SessionCommand(version,null,null,null,null,null,id); }
 	static SessionCommand advance(long expectedVersion) {
 		return new SessionCommand(expectedVersion, null, null, null, null, null);
 	}

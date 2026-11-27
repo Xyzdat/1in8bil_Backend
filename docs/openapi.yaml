@@ -1,13 +1,44 @@
 openapi: 3.1.0
 info:
   title: Life Backend API
-  version: 0.9.1
-  description: Локальные сохранения и жизни, сгенерированные 1in8b Engine. Добавлены текущая важность событий и предпросмотр непосредственных изменений при выборе; docs/event-presentation.md. Новые локальные рождения используют birth-economy-1 для достатка и профессиональных групп родителей; docs/birth-economy.md.
+  version: 0.10.0
+  description: Локальные сохранения и жизни, сгенерированные 1in8b Engine. Новые локальные жизни поддерживают сохраняемый фокус года с влиянием на вероятности и постепенными эффектами; docs/year-focus.md. Важность событий и предпросмотр выбора описаны в docs/event-presentation.md.
 servers:
   - url: /
 security:
   - guestCookie: []
 paths:
+  /api/v1/sessions/{sessionId}/focus:
+    patch:
+      operationId: changeYearFocus
+      description: Меняет фокус новой локальной жизни в любой момент, включая паузу и ожидание решения. Не продвигает время, не начисляет бонус и не заменяет предложенный вопрос. Выбор сохраняется на следующие годы до смены; работа в 65 лет автоматически сменяется балансом. Нельзя включить фокус в старой жизни без сохранённой модели focus. Версия и ключ идемпотентности проверяются как у других действий. Повтор ключа возвращает актуальную сессию без повторного действия.
+      parameters:
+        - { $ref: '#/components/parameters/SessionId' }
+        - { $ref: '#/components/parameters/IdempotencyKey' }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [expectedVersion, focusId]
+              properties:
+                expectedVersion: { type: integer, format: int64, minimum: 1 }
+                focusId: { $ref: '#/components/schemas/FocusId' }
+      responses:
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '401': { $ref: '#/components/responses/Unauthorized' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '200':
+          description: Полная сессия с обновлённым simulation.yearlyFocus и новой version.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Session' }
+        '409':
+          description: VERSION_CONFLICT, IDEMPOTENCY_CONFLICT, FOCUS_UNSUPPORTED (старый/внешний/демонстрационный движок), FOCUS_UNAVAILABLE (возраст), SESSION_COMPLETE. При нулевом здоровье активная локальная жизнь завершается общим правилом и возвращает 200 с COMPLETE вместо применения фокуса.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
   /api/v1/sessions/generated/local:
     post:
       operationId: generateLocalSession
@@ -346,6 +377,11 @@ components:
       type: object
       required: [engineVersion, statisticsRelease, statisticsYear, elapsedMonths, monthOfYear, stepMonths, family, skills, assumptions]
       properties:
+        yearlyFocus:
+          description: Фокус новых локальных жизней. null/отсутствие в старых сохранениях означает прежние правила без автоматического перевода. Состояние и каталог возвращаются вместе с Session, дополнительные частые запросы не нужны.
+          anyOf:
+            - { $ref: '#/components/schemas/YearFocus' }
+            - { type: 'null' }
         engineVersion: { type: string, example: childhood-2 }
         adult:
           description: Взрослое состояние. null до первого взрослого шага; старое сохранение инициализируется при следующем действии без выдуманной прошлой карьеры. engineVersion остаётся childhood-2 для совместимости; версия взрослой модели хранится здесь.
@@ -998,6 +1034,64 @@ components:
         health: { $ref: '#/components/schemas/Score' }
         intelligence: { $ref: '#/components/schemas/Score' }
         appearance: { $ref: '#/components/schemas/Score' }
+    FocusId:
+      type: string
+      enum: [balanced, learning, friends, home, health, creativity, rest, work]
+    FocusDeltaMap:
+      type: object
+      description: Только ненулевые изменения. Названия характеристик соответствуют state.stats, навыков — simulation.skills, близости — ID людей из simulation.family.
+      additionalProperties: { type: integer }
+    FocusEffects:
+      type: object
+      required: [periodMonths, stats, skills, closeness]
+      properties:
+        periodMonths: { type: integer, const: 12 }
+        stats: { $ref: '#/components/schemas/FocusDeltaMap' }
+        skills: { $ref: '#/components/schemas/FocusDeltaMap' }
+        closeness: { $ref: '#/components/schemas/FocusDeltaMap' }
+      description: Игровые темпы за 12 месяцев. Начисляются пропорционально прожитому времени с сохранением дробных остатков, только при шагах. Не обещание итогового роста — события меняют состояние отдельно, шкалы ограничены, смерть/разрыв связи прекращают соответствующее влияние. Не прибавлять на frontend.
+    FocusOption:
+      type: object
+      required: [id, title, description, available, reason, effects, matchingEventWeightMultiplier]
+      properties:
+        id: { $ref: '#/components/schemas/FocusId' }
+        title: { type: string }
+        description: { type: string }
+        available: { type: boolean }
+        reason: { type: [string, 'null'] }
+        effects: { $ref: '#/components/schemas/FocusEffects' }
+        matchingEventWeightMultiplier:
+          type: integer
+          enum: [1, 3]
+          description: Множитель веса подходящих доступных событий, не множитель итоговой вероятности. Существующие очереди/сюжеты и ограничения сохраняются. Вес остальных событий остаётся ненулевым.
+    FocusApplied:
+      type: object
+      required: [focusId, month, stats, skills, closeness]
+      properties:
+        focusId: { $ref: '#/components/schemas/FocusId' }
+        month: { type: integer, minimum: 0 }
+        stats: { $ref: '#/components/schemas/FocusDeltaMap' }
+        skills: { $ref: '#/components/schemas/FocusDeltaMap' }
+        closeness: { $ref: '#/components/schemas/FocusDeltaMap' }
+      description: Только фактически применённая часть фокуса за последний обработанный интервал; карты могут быть пустыми из-за округления или пределов шкал. При смене фокуса последняя запись может относиться к прежнему focusId. Это не общий результат шага и не новые начисления на frontend.
+    YearFocus:
+      type: object
+      required: [modelVersion, year, selectedId, changedMonth, canChange, context, options, lastApplied]
+      properties:
+        modelVersion: { type: string, const: year-focus-1 }
+        year: { type: integer, minimum: 0, description: Текущий возрастной год, как state.age; не календарный год. }
+        selectedId: { $ref: '#/components/schemas/FocusId' }
+        changedMonth: { type: integer, minimum: 0 }
+        canChange: { type: boolean }
+        context: { type: string, description: Краткий контекст возраста/текущей учёбы/работы. Школьный возраст 6–17 — игровое обобщение, не национальная система образования или подтверждённый номер класса. }
+        options:
+          type: array
+          items: { $ref: '#/components/schemas/FocusOption' }
+        lastApplied:
+          anyOf:
+            - { $ref: '#/components/schemas/FocusApplied' }
+            - { type: 'null' }
+      description: По умолчанию balanced. Осознанные направления доступны с 3 лет, work — с 18 до 64. Смена возможна при pendingDecision. Выбор сохраняется через дни рождения; при недоступности направления по возрасту сбрасывается на balanced. У старых жизней поле null, PATCH даёт FOCUS_UNSUPPORTED.
     Stats:
       type: object
       required: [health, happiness, intelligence, relationships, appearance, aura]

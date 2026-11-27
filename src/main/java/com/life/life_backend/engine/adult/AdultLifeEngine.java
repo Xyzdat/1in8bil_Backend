@@ -38,10 +38,15 @@ public class AdultLifeEngine {
         int target=checked.state().status()==LifeState.Status.COMPLETE?checked.simulation().month():sim.month()+2;
         // Earn/spend only for the elapsed interval; an event at its end affects future payments.
         economy.settle(w,target);
-        w.state=checked.state();w.sim=checked.simulation();w.time(target);
+        w.state=checked.state();w.sim=checked.simulation();
+        var focused=com.life.life_backend.engine.focus.FocusEffects.settle(w.state,w.sim,w.snapshot(),target);
+        w.state=focused.state();w.sim=focused.simulation();w.time(target);
         if(w.state.status()==LifeState.Status.COMPLETE) {
             return transition(w);
         }
+        var focus=com.life.life_backend.engine.focus.YearFocus.active(w.sim);
+        if(focus!=null)for(var person:w.sim.family())if(focus.roles().contains(person.role())&&ContactSystem.canInteract(w,person.id()))
+            ContactSystem.interact(w,person.id());
         npcs.step(w,sim.month());HealthSystem.interval(w);
         if (w.state.stats().health() <= 0) return transition(w);
         RetirementPolicy.apply(w,catalog);
@@ -125,7 +130,7 @@ public class AdultLifeEngine {
         if(d.condition().equals("debt")&&w.budget.balance()<0)value*=3;
         if(d.domain().equals("RELATIONSHIPS")&&w.traits.sociability()>65)value+=3;
         if(w.stories.stream().noneMatch(s -> s.template().equals(d.id())))value*=2;
-        return value;
+        return com.life.life_backend.engine.focus.YearFocus.adultWeight(w.sim,d.id(),d.domain(),value);
     }
     private void start(AdultWorld w,AdultStoryCatalog.Definition d) {
         var participant=AdultConditions.participant(d.participant(),w);

@@ -155,6 +155,8 @@ class SessionService {
 		var beforeHighlights=session.highlightFrame();
 		if (completeDepletedHealth(session,true)) {
 			// Legacy zero-health saves end before any healing purchase/edit can resurrect them.
+		} else if (command.focusId() != null) {
+			changeFocus(session,command.focusId());
 		} else if (command.changes() != null) {
 			editCharacter(session, command.changes());
 		} else if (command.purchase() != null) {
@@ -176,6 +178,16 @@ class SessionService {
 			session.applyAdult(adultEngine.completeIfHealthDepleted(state,session.simulation(),session.adultState(),context.budget(),context.location()),incrementVersion);
 		} else session.applySimulation(simulationEngine.completeIfHealthDepleted(state,session.simulation(),com.life.life_backend.engine.local.DeathCauseModel.Context.EMPTY),incrementVersion);
 		return true;
+	}
+
+	private void changeFocus(LifeSession session,String id) {
+		if(!isLocal(session)||session.simulation()==null||session.simulation().focus()==null)
+			throw conflict("FOCUS_UNSUPPORTED","Фокус доступен для новых жизней собственного движка.");
+		if(session.checkpoint().state().status()==LifeState.Status.COMPLETE)throw conflict("SESSION_COMPLETE","Жизнь завершена.");
+		var option=com.life.life_backend.engine.focus.FocusCatalog.get(id);
+		if(option==null)throw new ApiFailure(HttpStatus.BAD_REQUEST,"INVALID_FOCUS","Неизвестный фокус.");
+		if(!option.allowed(session.simulation().month()/12))throw conflict("FOCUS_UNAVAILABLE","Фокус недоступен в этом возрасте.");
+		session.selectFocus(id);
 	}
 
 	private void editCharacter(LifeSession session, CharacterChanges changes) {

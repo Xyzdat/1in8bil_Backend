@@ -44,7 +44,7 @@ final class BirthCustomizationService {
                     calibration.family(), labour.snapshot(updatedProfile.birthYear()), calibration.birthEconomy());
         var updatedSim = new LocalSimulation(sim.seed(), sim.engineVersion(), CountryExpansionImporter.RELEASE, effectiveRequest, sim.month(),
                 members, sim.skills(), flags, sim.lastEvents(), sim.scheduled(), sim.pendingTemplate(), facts, sim.death(), calibration,
-                sim.naming() == null ? null : sim.naming().reconcile(profile.name(), sex, members));
+                sim.naming() == null ? null : sim.naming().reconcile(profile.name(), sex, members),sim.focus());
         var stats = state.stats();
         if (changes.family() != null && changes.family().members() != null && (changes.stats() == null || changes.stats().relationships() == null)) {
             int bonds = (int) members.stream().mapToInt(LocalSimulation.Person::closeness).average().orElse(0);

@@ -12,16 +12,20 @@ class OpenApiContractTest {
     void contractParsesAndAllLocalReferencesResolve() throws Exception {
         Map<String, Object> document;
         try (var reader = Files.newBufferedReader(Path.of("docs/openapi.yaml"))) {
-            document = new Yaml().load(reader);
+            var options=new org.yaml.snakeyaml.LoaderOptions();options.setAllowDuplicateKeys(false);
+            document = new Yaml(options).load(reader);
         }
         checkReferences(document, document);
         var paths = (Map<?, ?>) document.get("paths");
         assertThat(paths.containsKey("/api/v1/sessions/generated/local")).isTrue();
         assertThat(paths.containsKey("/api/v1/sessions/{sessionId}/step")).isTrue();
+        assertThat(paths.containsKey("/api/v1/sessions/{sessionId}/focus")).isTrue();
         var schemas = (Map<?, ?>) ((Map<?, ?>) document.get("components")).get("schemas");
         var countries = (List<String>) ((Map<?, ?>) schemas.get("SupportedCountry")).get("enum");
         var catalog = new com.life.life_backend.statistics.CountryCatalog(new tools.jackson.databind.ObjectMapper());
         assertThat(countries).containsExactlyInAnyOrderElementsOf(catalog.codes());
+        var focuses=(List<String>)((Map<?,?>)schemas.get("FocusId")).get("enum");
+        assertThat(focuses).containsExactlyInAnyOrderElementsOf(com.life.life_backend.engine.focus.FocusCatalog.all().stream().map(com.life.life_backend.engine.focus.FocusCatalog.Definition::id).toList());
     }
     private void checkReferences(Object value, Map<String, Object> root) {
         if (value instanceof Map<?, ?> map) {

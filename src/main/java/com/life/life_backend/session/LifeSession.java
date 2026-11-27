@@ -115,6 +115,10 @@ class LifeSession {
 	}
 
 	LocalSimulation simulation() { return simulation; }
+	void selectFocus(String id) {
+		simulation=simulation.withFocus(simulation.focus().select(id,simulation.month()));
+		markSaved();
+	}
 
 	void initializeSimulation(LocalSimulation value) {
 		simulation = value;

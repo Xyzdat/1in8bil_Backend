@@ -18,7 +18,8 @@ public class LocalSimulationEngine {
     public Transition step(LifeState state, LocalSimulation current) {
         var checked = checkMortality(state, current, Map.of());
         if (checked.state().status() == LifeState.Status.COMPLETE) return checked;
-        return nextEvent(checked.state(), checked.simulation());
+        var focused=com.life.life_backend.engine.focus.FocusEffects.settle(checked.state(),checked.simulation(),null,current.month()+2);
+        return nextEvent(focused.state(), focused.simulation());
     }
 
     /** One mortality draw per elapsed interval, shared by childhood and adult simulation. */
@@ -82,8 +83,8 @@ public class LocalSimulationEngine {
             if (!unseen.isEmpty()) candidates = unseen;
             if (candidates.isEmpty()) throw conflict("CONTENT_UNAVAILABLE", "No eligible event. The life has not ended.");
             var random = new SplittableRandom(current.seed() ^ (0x9E3779B97F4A7C15L * month));
-            int draw = random.nextInt(candidates.stream().mapToInt(EventCatalog.Definition::weight).sum());
-            for (var candidate : candidates) { draw -= candidate.weight(); if (draw < 0) { event = candidate; break; } }
+            int draw = random.nextInt(candidates.stream().mapToInt(d -> com.life.life_backend.engine.focus.YearFocus.childhoodWeight(current,d.id(),d.weight())).sum());
+            for (var candidate : candidates) { draw -= com.life.life_backend.engine.focus.YearFocus.childhoodWeight(current,candidate.id(),candidate.weight()); if (draw < 0) { event = candidate; break; } }
         }
         var lastEvents = new HashMap<>(current.lastEvents());
         lastEvents.put(event.id(), month);

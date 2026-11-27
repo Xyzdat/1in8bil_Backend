@@ -91,7 +91,8 @@ public class CharacterGenerator {
         var calibration = new SocioeconomicCalibration(SocioeconomicCalibration.VERSION, SocioeconomicBundle.FAMILY,
                 SocioeconomicBundle.WORK, household, labour.snapshot(request.birthYear()), economy);
         var simulation = new LocalSimulation(seed, LocalSimulation.VERSION, CountryExpansionImporter.RELEASE, request, 0,
-                family, Map.of(), Set.of(urban ? "urban" : "rural"), Map.of(), List.of(), null, facts, null, calibration, naming);
+                family, Map.of(), Set.of(urban ? "urban" : "rural"), Map.of(), List.of(), null, facts, null, calibration, naming)
+                .withFocus(com.life.life_backend.engine.focus.FocusState.start(0));
         var state = new LifeState(0, LifeState.Status.ACTIVE,
                 new LifeState.Stats(random.nextInt(65, 91), 70, 50, bonds, random.nextInt(35, 76), 0), null,
                 List.of(new LifeState.HistoryEvent("birth", 0, "Рождение", "Ты родился в стране «" + country.name()

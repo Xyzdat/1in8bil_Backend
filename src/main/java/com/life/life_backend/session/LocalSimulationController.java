@@ -32,5 +32,12 @@ class LocalSimulationController {
                 key, SessionCommand.step(request.expectedVersion())));
     }
     record GenerateRequest(@Pattern(regexp = "[A-Z]{3}") String countryIso3, @Min(2023) @Max(2026) Integer birthYear) { }
+    @PatchMapping(path = "/{id}/focus", consumes = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<SessionView> focus(@CookieValue(name=GuestIdentity.COOKIE_NAME,required=false) String token,
+            @PathVariable UUID id,@RequestHeader("Idempotency-Key") UUID key,@Valid @RequestBody FocusRequest request) {
+        return ResponseEntity.ok().cacheControl(CacheControl.noStore()).body(sessions.apply(identity.requireOwner(token),id,key,
+                SessionCommand.focus(request.expectedVersion(),request.focusId())));
+    }
+    record FocusRequest(@NotNull @Positive Long expectedVersion,@NotBlank @Size(max=40) String focusId) { }
     record StepRequest(@NotNull @Positive Long expectedVersion) { }
 }
